@@ -18,11 +18,11 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::prefix('user')->group(function () {
-    Route::get('jobs', 'JobsController@index')->name('jobs');
-    Route::get('job/{id}', 'JobsController@show')->name('job');
-    Route::get('job/create/form', 'JobsController@create')->name('job_create');
+    Route::get('tasks', 'TaskController@index')->name('tasks');
+    Route::get('task/{id}', 'TaskController@show')->name('task');
+    Route::get('task/create/form', 'TaskController@create')->name('task_create');
 
-    Route::post('job/store', 'JobsController@store')->name('job_store');
+    Route::post('task/store', 'TaskController@store')->name('task_store');
 
     Route::get('departments', 'DepartmentsController@index')->name('departments');
     Route::get('department/{id}', 'DepartmentsController@show')->name('department');
@@ -32,6 +32,7 @@ Route::prefix('user')->group(function () {
     Route::post('department/create/store', 'DepartmentsController@store')->name('department_store');
     Route::post('department/{id}/update', 'DepartmentsController@update')->name('department_update');
 
+    Route::get('processes', 'ProcessesController@index')->name('processes');
     Route::get('process/{id}', 'ProcessesController@show')->name('process');
     Route::get('process/create/form', 'ProcessesController@create')->name('process_create');
     Route::post('process/create/store', 'ProcessesController@store')->name('processes_store');

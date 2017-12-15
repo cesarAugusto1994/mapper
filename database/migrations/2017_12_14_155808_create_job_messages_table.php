@@ -13,13 +13,13 @@ class CreateJobMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_messages', function (Blueprint $table) {
+        Schema::create('task_messages', function (Blueprint $table) {
             $table->increments('id');
             $table->text('message');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('job_id')->unsigned();
-            $table->foreign('job_id')->references('id')->on('jobs');
+            $table->integer('task_id')->unsigned();
+            $table->foreign('task_id')->references('id')->on('tasks');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +32,6 @@ class CreateJobMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_messages');
+        Schema::dropIfExists('task_messages');
     }
 }

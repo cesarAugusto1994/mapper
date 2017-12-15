@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Department;
-use App\Job;
+use App\Task;
 use App\Process;
 use Illuminate\Http\Request;
 use Request as Req;
@@ -17,7 +17,7 @@ class ProcessesController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.processes.index')->with('processes', Process::all());
     }
 
     /**
@@ -53,7 +53,7 @@ class ProcessesController extends Controller
     {
         return view('admin.processes.details')
             ->with('process', Process::find($id))
-            ->with('jobs', Job::where('process_id', $id)->get());
+            ->with('jobs', Task::where('process_id', $id)->get());
     }
 
     /**

@@ -24,7 +24,7 @@
                         <h5>Nova Tarefa</h5>
                     </div>
                     <div class="ibox-content">
-                        <form method="post" class="form-horizontal" action="{{route('job_store')}}">
+                        <form method="post" class="form-horizontal" action="{{route('task_store')}}">
                             {{csrf_field()}}
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Descrição</label>

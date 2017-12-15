@@ -20,7 +20,7 @@
     </div>
     <div class="wrapper wrapper-content">
         <div class="row animated fadeInRight">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Perfil Detalhes</h5>
@@ -31,12 +31,16 @@
                         </div>
                         <div class="ibox-content profile-content">
                             <h4><strong>{{$user->name}}</strong></h4>
-                            <p><i class="fa fa-map-marker"></i> {{$user->departments->first()->name}}</p>
+                            @if($user->departments->first())
+                                <p><i class="fa fa-map-marker"></i> {{$user->departments->first()->name}} </p>
+                            @else
+
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Atividades</h5>

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Department;
-use App\Job;
-use App\JobMessages;
+use App\Task;
+use App\TaskMessages;
 use App\Process;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class JobsController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class JobsController extends Controller
      */
     public function index()
     {
-        return view('admin.jobs.index')->with('jobs', Job::all());
+        return view('admin.tasks.index')->with('tasks', Task::all());
     }
 
     /**
@@ -29,7 +29,7 @@ class JobsController extends Controller
      */
     public function create()
     {
-        return view('admin.jobs.create')
+        return view('admin.tasks.create')
             ->with('processes', Process::all())
             ->with('users', User::all())
             ->with('departments', Department::all());
@@ -69,11 +69,11 @@ class JobsController extends Controller
             'severity' => $data['severity'],
             'urgency' => $data['urgency'],
             'trend' => $data['trend'],
-            'status_id' => Job::STATUS_PENDENTE,
+            'status_id' => Task::STATUS_PENDENTE,
             'created_by' => Auth::user()->id,
         ];
 
-        Job::create($data);
+        Task::create($data);
 
         return redirect()->route('process', ['id' => $data['process_id']]);
     }
@@ -86,9 +86,9 @@ class JobsController extends Controller
      */
     public function show($id)
     {
-        return view('admin.jobs.details')
-            ->with('job', Job::find($id))
-            ->with('messages', JobMessages::where('job_id', $id)->get());
+        return view('admin.tasks.details')
+            ->with('task', Task::find($id))
+            ->with('messages', TaskMessages::where('task_id', $id)->get());
     }
 
     /**

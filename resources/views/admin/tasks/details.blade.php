@@ -24,11 +24,15 @@
                             <div class="col-lg-12">
                                 <div class="m-b-md">
                                     <a href="#" class="btn btn-white btn-xs pull-right">Editar Tarefa</a>
-                                    <h2>{{$job->description}}</h2>
+                                    <h2>{{$task->description}}</h2>
                                 </div>
                                 <dl class="dl-horizontal">
                                     <dt>Status:</dt>
-                                    <dd><span class="label label-primary">Active</span></dd>
+                                    @if($task->active)
+                                        <dd><span class="label label-primary">Ativo</span></dd>
+                                    @else
+                                        <dd><span class="label label-primary">Inativo</span></dd>
+                                    @endif
                                 </dl>
                             </div>
                         </div>
@@ -36,25 +40,25 @@
                             <div class="col-lg-5">
                                 <dl class="dl-horizontal">
                                     <dt>Created by:</dt>
-                                    <dd>{{$job->createdBy->name}}</dd>
+                                    <dd>{{$task->createdBy->name}}</dd>
                                     <dt>Messages:</dt>
                                     <dd> 162</dd>
                                     <dt>Client:</dt>
-                                    <dd><a href="{{route('department', ['id' => $job->client->id])}}"
-                                           class="text-navy"> {{$job->client->name}}</a></dd>
+                                    <dd><a href="{{route('department', ['id' => $task->client->id])}}"
+                                           class="text-navy"> {{$task->client->name}}</a></dd>
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal">
 
                                     <dt>Last Updated:</dt>
-                                    <dd>{{$job->updated_at->format('d/m/Y H:i:s')}}</dd>
+                                    <dd>{{$task->updated_at->format('d/m/Y H:i:s')}}</dd>
                                     <dt>Created:</dt>
-                                    <dd>    {{$job->updated_at->format('d/m/Y H:i:s')}} </dd>
+                                    <dd>    {{$task->updated_at->format('d/m/Y H:i:s')}} </dd>
                                     <dt>Participant:</dt>
                                     <dd class="project-people">
-                                        <a href="{{route('user', ['id' => $job->sponsor->id])}}"><img alt="image"
-                                                                                                      title="{{$job->sponsor->name}}"
+                                        <a href="{{route('user', ['id' => $task->sponsor->id])}}"><img alt="image"
+                                                                                                      title="{{$task->sponsor->name}}"
                                                                                                       class="img-circle"
                                                                                                       src="{{asset('admin/img/a3.jpg')}}"></a>
                                     </dd>
@@ -66,14 +70,14 @@
                                 <dl class="dl-horizontal">
                                     <dt>Completed:</dt>
                                     <dd>
-                                        @if($job->status_id == 4)
+                                        @if($task->status_id == 4)
                                             <label class="label label-danger">Cancelado</label>
                                         @else
                                             <div class="progress progress-striped active m-b-sm">
                                                 <div style="width:
-                                                @if ($job->status_id == 1) 0%
-                                                @elseif ($job->status_id == 2) 50%
-                                                @elseif ($job->status_id == 3) 100%
+                                                @if ($task->status_id == 1) 0%
+                                                @elseif ($task->status_id == 2) 50%
+                                                @elseif ($task->status_id == 3) 100%
                                                 @endif;" class="progress-bar"></div>
                                             </div>
                                         @endif

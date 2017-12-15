@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JobMessages extends Model
+class TaskMessages extends Model
 {
     public function user()
     {

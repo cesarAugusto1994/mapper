@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrateFieldsOnJobTable extends Migration
+class CrateFieldsOnTaskTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CrateFieldsOnJobTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_status', function (Blueprint $table) {
+        Schema::create('task_status', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::table('jobs', function(Blueprint $table) {
+        Schema::table('tasks', function(Blueprint $table) {
             $table->integer('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('job_status');
+            $table->foreign('status_id')->references('id')->on('task_status');
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');
             $table->boolean('active')->default(true);
@@ -35,7 +35,7 @@ class CrateFieldsOnJobTable extends Migration
      */
     public function down()
     {
-        Schema::table('status', function(Blueprint $table) {
+        Schema::table('tasks', function(Blueprint $table) {
             $table->dropForeign('status_id');
             $table->dropForeign('created_by');
             $table->dropColumn('status_id');
@@ -43,6 +43,6 @@ class CrateFieldsOnJobTable extends Migration
             $table->dropColumn('active');
         });
 
-        Schema::dropIfExists('job_status');
+        Schema::dropIfExists('task_status');
     }
 }

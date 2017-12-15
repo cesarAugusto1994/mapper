@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class JobMessagesController extends Controller
+class TaskMessagesController extends Controller
 {
     /**
      * Display a listing of the resource.
