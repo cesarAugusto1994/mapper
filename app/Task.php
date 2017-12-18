@@ -28,13 +28,13 @@ class Task extends Model
 
     public function status()
     {
-        return $this->belongsTo(jobStatus::class, 'status_id');
+        return $this->belongsTo(TaskStatus::class, 'status_id');
     }
 
     public function sponsor()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
+    
 
 }

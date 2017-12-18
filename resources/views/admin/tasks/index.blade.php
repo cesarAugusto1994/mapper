@@ -50,16 +50,25 @@
                                         <td class="project-title">
                                             <a href="project_detail.html">{{$task->description}}</a>
                                             <br/>
-                                            <small>Created 14.08.2014</small>
+                                            <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
                                         </td>
                                         <td class="project-completion">
-                                            <small>Completion with: 48%</small>
+                                            <small>Situação  <b>{{$task->status->name}}</b></small>
+                                        @if($task->status_id == 4)
+                                            <br/>
+                                            <label class="label label-danger">Cancelado</label>
+                                        @else
                                             <div class="progress progress-mini">
-                                                <div style="width: 48%;" class="progress-bar"></div>
+                                                <div style="width:
+                                                @if ($task->status_id == 1) 0%
+                                                @elseif ($task->status_id == 2) 50%
+                                                @elseif ($task->status_id == 3) 100%
+                                                @endif;" class="progress-bar"></div>
                                             </div>
+                                        @endif
                                         </td>
                                         <td class="project-people">
-                                            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
+                                            <a href="{{route('user', ['id' => $task->sponsor->id])}}"><img alt="image" class="img-circle" src="{{asset('admin/img/a3.jpg')}}"></a>
                                         </td>
                                         <td class="project-actions">
                                             <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
