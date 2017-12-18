@@ -11,7 +11,6 @@
     <link href="{{ asset("admin/css/bootstrap.min.css") }}" rel="stylesheet">
     <link href="{{ asset("css/font-awesome.css") }}" rel="stylesheet">
     <link href="{{ asset("admin/css/plugins/toastr/toastr.min.css") }}" rel="stylesheet">
-    <link href="{{ asset("admin/css/plugins/gritter/jquery.gritter.css") }}" rel="stylesheet">
     <link href="{{ asset("admin/css/animate.css") }}" rel="stylesheet">
     <link href="{{ asset("admin/css/style.css") }}" rel="stylesheet">
 
@@ -48,7 +47,7 @@
                         <li>
                             <div class="dropdown-messages-box">
                                 <a href="profile.html" class="pull-left">
-                                    <img alt="image" class="img-circle" src="img/a7.jpg">
+                                    <img alt="image" class="img-circle" src="{{asset('admin/img/a7.jpg')}}">
                                 </a>
                                 <div class="media-body">
                                     <small class="pull-right">46h ago</small>
@@ -61,7 +60,7 @@
                         <li>
                             <div class="dropdown-messages-box">
                                 <a href="profile.html" class="pull-left">
-                                    <img alt="image" class="img-circle" src="img/a4.jpg">
+                                    <img alt="image" class="img-circle" src="{{asset('admin/img/a4.jpg')}}">
                                 </a>
                                 <div class="media-body ">
                                     <small class="pull-right text-navy">5h ago</small>
@@ -74,7 +73,7 @@
                         <li>
                             <div class="dropdown-messages-box">
                                 <a href="profile.html" class="pull-left">
-                                    <img alt="image" class="img-circle" src="img/profile.jpg">
+                                    <img alt="image" class="img-circle" src="{{asset('admin/img/profile.jpg')}}">
                                 </a>
                                 <div class="media-body ">
                                     <small class="pull-right">23h ago</small>
@@ -156,45 +155,22 @@
 
     </div>
 
-    <!-- Mainly scripts -->
-    <script src="admin/js/jquery-2.1.1.js"></script>
-    <script src="admin/js/bootstrap.min.js"></script>
-    <script src="admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-    <!-- Flot -->
-    <script src="admin/js/plugins/flot/jquery.flot.js"></script>
-    <script src="admin/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="admin/js/plugins/flot/jquery.flot.spline.js"></script>
-    <script src="admin/js/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="admin/js/plugins/flot/jquery.flot.pie.js"></script>
-
-    <!-- Peity -->
-    <script src="admin/js/plugins/peity/jquery.peity.min.js"></script>
-    <script src="admin/js/demo/peity-demo.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="admin/js/inspinia.js"></script>
-    <script src="admin/js/plugins/pace/pace.min.js"></script>
-
-    <!-- jQuery UI -->
-    <script src="admin/js/plugins/jquery-ui/jquery-ui.min.js"></script>
-
-    <!-- GITTER -->
-    <script src="admin/js/plugins/gritter/jquery.gritter.min.js"></script>
-
-    <!-- Sparkline -->
-    <script src="admin/js/plugins/sparkline/jquery.sparkline.min.js"></script>
-
-    <!-- Sparkline demo data  -->
-    <script src="admin/js/demo/sparkline-demo.js"></script>
-
-    <!-- ChartJS-->
-    <script src="admin/js/plugins/chartJs/Chart.min.js"></script>
-
-    <!-- Toastr -->
-    <script src="admin/js/plugins/toastr/toastr.min.js"></script>
-
+    <script src="{{asset('admin/js/jquery-2.1.1.js')}}"></script>
+    <script src="{{asset('admin/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/flot/jquery.flot.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/flot/jquery.flot.tooltip.min.j')}}s"></script>
+    <script src="{{asset('admin/js/plugins/flot/jquery.flot.spline.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/flot/jquery.flot.resize.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/flot/jquery.flot.pie.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/peity/jquery.peity.min.js')}}"></script>
+    <script src="{{asset('admin/js/inspinia.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/pace/pace.min.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/chartJs/Chart.min.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/toastr/toastr.min.js')}}"></script>
 
     @yield('js')
 

@@ -64,6 +64,17 @@ class UsersController extends Controller
         //
     }
 
+        /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editAvatar($id)
+    {
+        return view('admin.users.avatar')->with('user', User::find($id));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -74,6 +85,32 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+        /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function uploadAvatar($id, $avatar)
+    {
+        $user = User::find($id);
+
+        $src = 'admin/avatars/'.$user->avatar;
+
+        if ($user->avatar) {
+            if (file_exists($src)) {
+                unlink($src);
+            }
+        }
+
+        $user->avatar = $avatar;
+
+        $user->save();
+
+        return redirect()->route('user', ['id' => $id]);
     }
 
     /**

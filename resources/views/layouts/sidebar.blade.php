@@ -3,17 +3,15 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="{{asset('admin/img/profile_small.jpg')}}" />
+                            <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="@if (Auth()->user()->avatar) {{asset('admin/avatars/'.Auth()->user()->avatar)}} @else {{asset('admin/avatars/profile.png')}} @endif" />
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth()->user()->name }}</strong>
                              </span> <span class="text-muted text-xs block">RH <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.html">Profile</a></li>
-                                <li><a href="contacts.html">Contacts</a></li>
-                                <li><a href="mailbox.html">Mailbox</a></li>
+                                <li><a href="{{route('user', ['id' => Auth()->user()->id])}}">Perfil</a></li>
                                 <li class="divider"></li>
-                                <li><a href="login.html">Logout</a></li>
+                                <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">

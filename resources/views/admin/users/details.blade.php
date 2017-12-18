@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@section('css')
+        <link href="{{asset('admin/css/custom.css')}}" rel="stylesheet">
+@endsection
+
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -27,7 +31,13 @@
                     </div>
                     <div>
                         <div class="ibox-content no-padding border-left-right">
-                            <img alt="image" class="img-responsive" src="{{asset('admin/img/profile_big.jpg')}}">
+
+                            <div class="avatar">
+                                <img class="img" src="@if ($user->avatar) {{asset('admin/avatars/'.$user->avatar)}} @else {{asset('admin/avatars/profile.png')}} @endif" alt="Avatar">                                <!--<p class="image-title">card title</p>-->
+                                <div class="overlay"></div>
+                                <div class="button"><a href="{{route('user_avatar', ['id' => $user->id])}}"> Editar Foto </a></div>
+                            </div>
+
                         </div>
                         <div class="ibox-content profile-content">
                             <h4><strong>{{$user->name}}</strong></h4>
@@ -55,3 +65,6 @@
     </div>
 
 @endsection
+
+
+

@@ -40,7 +40,10 @@ Route::prefix('user')->group(function () {
 
     Route::get('users', 'UsersController@index')->name('users');
     Route::get('user/{id}', 'UsersController@show')->name('user');
+    Route::get('user/{id}/avatar', 'UsersController@editAvatar')->name('user_avatar');
     Route::get('users/create/form', 'UsersController@create')->name('user_create');
+
+    Route::get('user/{id}/avatar/{avatar}/upload', 'UsersController@uploadAvatar')->name('user_upload_avatar');
 
     Route::post('users/create/store', 'UsersController@store')->name('user_store');
 });
