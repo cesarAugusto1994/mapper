@@ -86,8 +86,12 @@ class TaskController extends Controller
      */
     public function show($id)
     {
+
+        $task = Task::find($id);
+
         return view('admin.tasks.details')
-            ->with('task', Task::find($id))
+            ->with('task', $task)
+            ->with('processes', Process::all())
             ->with('messages', TaskMessages::where('task_id', $id)->get());
     }
 

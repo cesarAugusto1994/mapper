@@ -53,7 +53,7 @@ class ProcessesController extends Controller
     {
         return view('admin.processes.details')
             ->with('process', Process::find($id))
-            ->with('jobs', Task::where('process_id', $id)->get());
+            ->with('tasks', Task::where('process_id', $id)->get());
     }
 
     /**

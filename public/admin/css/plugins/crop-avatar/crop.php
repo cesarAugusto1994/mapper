@@ -45,6 +45,7 @@ class CropAvatar {
         $extension = image_type_to_extension($type);
         $this->filenameOriginal = date('YmdHis') . '.original';
         $src = '../../../avatars/' . $this->filenameOriginal . $extension;
+        $this -> setSrc($src);
 
         if ($type == IMAGETYPE_GIF || $type == IMAGETYPE_JPEG || $type == IMAGETYPE_PNG) {
 
@@ -210,6 +211,13 @@ class CropAvatar {
   public function getMsg() {
     return $this -> msg;
   }
+
+  public function removeOriginal()
+  {
+      if (file_exists($this->src)) {
+          unlink($this->src);
+      }
+  }
 }
 
 $crop = new CropAvatar(
@@ -217,6 +225,8 @@ $crop = new CropAvatar(
   isset($_POST['avatar_data']) ? $_POST['avatar_data'] : null,
   isset($_FILES['avatar_file']) ? $_FILES['avatar_file'] : null
 );
+
+$crop->removeOriginal();
 
 $response = array(
   'state'  => 200,

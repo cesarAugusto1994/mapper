@@ -7,7 +7,7 @@
             <h2>Tarefa Detalhes</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 <li class="active">
                     <strong>Tarefa Detalhes</strong>
@@ -16,14 +16,20 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <div class="wrapper wrapper-content animated fadeInUp">
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a href="#" class="btn btn-white btn-xs pull-right">Editar Tarefa</a>
+
+                                    <div class="btn-group pull-right">
+                                        <a href="#" class="btn btn-white btn-xs">Editar Tarefa</a>
+                                    <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-play"></i>  Iniciar Tarefa</a>
+                                    </div>
+                                    
+                                    
                                     <h2>{{$task->description}}</h2>
                                 </div>
                                 <dl class="dl-horizontal">
@@ -39,28 +45,31 @@
                         <div class="row">
                             <div class="col-lg-5">
                                 <dl class="dl-horizontal">
-                                    <dt>Created by:</dt>
+                                    <dt>Criado por:</dt>
                                     <dd>{{$task->createdBy->name}}</dd>
-                                    <dt>Messages:</dt>
-                                    <dd> 162</dd>
-                                    <dt>Client:</dt>
+                                    <dt>Mensagens:</dt>
+                                    <dd> 0</dd>
+                                    <dt>Cliente:</dt>
                                     <dd><a href="{{route('department', ['id' => $task->client->id])}}"
                                            class="text-navy"> {{$task->client->name}}</a></dd>
+
+                                    <dt>Tempo Previsto:</dt>
+                                    <dd>{{$task->time}} minutos</dd>
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Last Updated:</dt>
+                                    <dt>Ultima Atualização:</dt>
                                     <dd>{{$task->updated_at->format('d/m/Y H:i:s')}}</dd>
-                                    <dt>Created:</dt>
+                                    <dt>Criado Em:</dt>
                                     <dd>    {{$task->updated_at->format('d/m/Y H:i:s')}} </dd>
-                                    <dt>Participant:</dt>
+                                    <dt>Responsável:</dt>
                                     <dd class="project-people">
                                         <a href="{{route('user', ['id' => $task->sponsor->id])}}"><img alt="image"
                                                                                                       title="{{$task->sponsor->name}}"
                                                                                                       class="img-circle"
-                                                                                                      src="{{asset('admin/img/a3.jpg')}}"></a>
+                                                                                                      src="{{asset('admin/avatars/' . $task->sponsor->avatar)}}"></a>
                                     </dd>
                                 </dl>
                             </div>
@@ -84,6 +93,8 @@
                                     </dd>
                                 </dl>
                             </div>
+
+                            
                         </div>
                         <div class="row m-t-sm">
                             <div class="col-lg-12">
@@ -350,40 +361,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="wrapper wrapper-content project-manager">
-                <h4>Project description</h4>
-                <img src="img/zender_logo.png" class="img-responsive">
-                <p class="small">
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                    alteration in some form, by injected humour, or randomised words which don't look
-                    even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure
-                    there isn't anything embarrassing
-                </p>
-                <p class="small font-bold">
-                    <span><i class="fa fa-circle text-warning"></i> High priority</span>
-                </p>
-                <h5>Project tag</h5>
-                <ul class="tag-list" style="padding: 0">
-                    <li><a href=""><i class="fa fa-tag"></i> Zender</a></li>
-                    <li><a href=""><i class="fa fa-tag"></i> Lorem ipsum</a></li>
-                    <li><a href=""><i class="fa fa-tag"></i> Passages</a></li>
-                    <li><a href=""><i class="fa fa-tag"></i> Variations</a></li>
-                </ul>
-                <h5>Project files</h5>
-                <ul class="list-unstyled project-files">
-                    <li><a href=""><i class="fa fa-file"></i> Project_document.docx</a></li>
-                    <li><a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
-                    <li><a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
-                    <li><a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
-                </ul>
-                <div class="text-center m-t-md">
-                    <a href="#" class="btn btn-xs btn-primary">Add files</a>
-                    <a href="#" class="btn btn-xs btn-primary">Report contact</a>
-
                 </div>
             </div>
         </div>

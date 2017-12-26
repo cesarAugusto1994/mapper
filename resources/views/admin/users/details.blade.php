@@ -40,7 +40,7 @@
 
                         </div>
                         <div class="ibox-content profile-content">
-                            <h4><strong>{{$user->name}}</strong></h4>
+                            <h4><strong>{{$user->name}}</strong><button class="btn btn-default btn-xs pull-right">Editar</button></h4>
                             @if($user->departments->first())
                                 <p><i class="fa fa-map-marker"></i> {{$user->departments->first()->name}} </p>
                             @else

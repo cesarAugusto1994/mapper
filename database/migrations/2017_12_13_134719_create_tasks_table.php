@@ -22,6 +22,8 @@ class CreateTasksTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('frequency')->nullable();
             $table->integer('time');
+            $table->dateTime('begin')->nullable();
+            $table->dateTime('end')->nullable();
             $table->string('method');
             $table->string('indicator')->nullable();
             $table->integer('client_id')->unsigned();

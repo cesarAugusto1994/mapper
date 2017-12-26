@@ -22,7 +22,13 @@
                 <div class="col-lg-4">
                     <div class="contact-box">
                         <a href="{{route('user', ['id' => $user->id])}}">
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="text-center">
+                                    <img alt="image" style="max-width:96px;max-height:96px" class="img-circle m-t-xs img-responsive" src="{{asset('admin/avatars/'.$user->avatar)}}">
+                                    <div class="m-t-xs font-bold">{{$user->occupation}}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
                                 <h3><strong>{{$user->name}}</strong></h3>
                                 <p><i class="fa fa-at"></i> {{$user->email}}</p>
                             </div>

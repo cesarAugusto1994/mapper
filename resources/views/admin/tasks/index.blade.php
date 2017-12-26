@@ -48,7 +48,7 @@
                                             <span class="label label-primary">Active</span>
                                         </td>
                                         <td class="project-title">
-                                            <a href="project_detail.html">{{$task->description}}</a>
+                                            <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
                                             <br/>
                                             <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
                                         </td>
@@ -68,7 +68,8 @@
                                         @endif
                                         </td>
                                         <td class="project-people">
-                                            <a href="{{route('user', ['id' => $task->sponsor->id])}}"><img alt="image" class="img-circle" src="{{asset('admin/img/a3.jpg')}}"></a>
+                                            <a href="{{route('user', ['id' => $task->sponsor->id])}}">
+                                            <img alt="image" class="img-circle" src="@if ($task->sponsor->avatar) {{asset('admin/avatars/'.$task->sponsor->avatar)}} @else {{asset('admin/avatars/profile.png')}} @endif"></a>
                                         </td>
                                         <td class="project-actions">
                                             <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>

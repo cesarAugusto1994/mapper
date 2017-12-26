@@ -56,19 +56,18 @@
 
                             <table class="table table-hover">
                                 <tbody>
-                                @foreach($jobs as $job)
+                                @foreach($tasks as $task)
                                     <tr>
                                         <td class="project-status">
                                             <span class="label label-primary">Aguardando</span>
                                         </td>
                                         <td class="project-title">
-                                            <a href="{{route('task', ['id' => $job->id])}}">{{$job->description}}</a>
+                                            <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
                                             <br/>
-                                            <small>Criado em {{ $job->created_at->format('d/m/Y H:i:s')}}</small>
+                                            <small>Criado em {{ $task->created_at->format('d/m/Y H:i:s')}}</small>
                                         </td>
                                         <td class="project-actions">
-                                            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                                            <a href="{{route('process_edit', ['id' => $job->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                            <a href="{{route('task_edit', ['id' => $task->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
                                         </td>
                                     </tr>
                                 @endforeach
