@@ -69,7 +69,7 @@
                                         <a href="{{route('user', ['id' => $task->sponsor->id])}}"><img alt="image"
                                                                                                       title="{{$task->sponsor->name}}"
                                                                                                       class="img-circle"
-                                                                                                      src="{{asset('admin/avatars/' . $task->sponsor->avatar)}}"></a>
+                                                                                                      src="{{Gravatar::get(Auth::user()->email)}}"></a>
                                     </dd>
                                 </dl>
                             </div>
@@ -103,7 +103,7 @@
                                         <div class="panel-options">
                                             <ul class="nav nav-tabs">
                                                 <li class="active"><a href="#tab-1" data-toggle="tab">Mensagens</a></li>
-                                                <li class=""><a href="#tab-2" data-toggle="tab">Last activity</a></li>
+                                                <li class=""><a href="#tab-2" data-toggle="tab">Atividades</a></li>
                                             </ul>
                                         </div>
                                     </div>

@@ -24,7 +24,7 @@
                         <a href="{{route('user', ['id' => $user->id])}}">
                             <div class="col-sm-4">
                                 <div class="text-center">
-                                    <img alt="image" style="max-width:96px;max-height:96px" class="img-circle m-t-xs img-responsive" src="{{asset('admin/avatars/'.$user->avatar)}}">
+                                    <img alt="image" style="max-width:96px;max-height:96px" class="img-circle m-t-xs img-responsive" src="{{Gravatar::get($user->email)}}">
                                     <div class="m-t-xs font-bold">{{$user->occupation}}</div>
                                 </div>
                             </div>

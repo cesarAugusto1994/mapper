@@ -47,5 +47,6 @@ Route::prefix('user')->group(function () {
     Route::get('user/{id}/avatar/{avatar}/upload', 'UsersController@uploadAvatar')->name('user_upload_avatar');
 
     Route::post('users/create/store', 'UsersController@store')->name('user_store');
+    Route::post('user/{id}/update', 'UsersController@update')->name('user_update');
 });
 

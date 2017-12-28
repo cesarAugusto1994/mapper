@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Department;
 use Illuminate\Http\Request;
 use Request as Req;
 
@@ -25,8 +26,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
-
+        return view('admin.users.create')->with('departments', Department::all());
     }
 
     /**
@@ -37,7 +37,19 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        User::create(Req::all());
+
+        $data = Req::all();
+
+        $user = new User();
+
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->department_id = $data['department_id'];
+
+        $user->save();
+
+        //User::create(Req::all());
 
         return redirect()->action('UsersController@index');
     }
@@ -50,7 +62,9 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        return view('admin.users.details')->with('user', User::find($id));
+        return view('admin.users.details')
+        ->with('user', User::find($id))
+        ->with('departments', Department::all());
     }
 
     /**
@@ -84,7 +98,20 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        $user->name = $request->request->get('name');
+        $user->email = $request->request->get('email');
+        $user->department_id = $request->request->get('department_id');
+        $password = $request->request->get('password');
+
+        if (!empty($password)) {
+            $user->password = bcrypt($password);
+        }
+
+        $user->save();
+
+        return redirect()->route('user', ['id' => $id]);
     }
 
         /**

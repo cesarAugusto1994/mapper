@@ -3,11 +3,11 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element"> <span>
-                            <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="@if (Auth()->user()->avatar) {{asset('admin/avatars/'.Auth()->user()->avatar)}} @else {{asset('admin/avatars/profile.png')}} @endif" />
+                            <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="{{Gravatar::get(Auth::user()->email)}}" />
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth()->user()->name }}</strong>
-                             </span> <span class="text-muted text-xs block">RH <b class="caret"></b></span> </span> </a>
+                             </span> <span class="text-muted text-xs block">{{  Auth::user()->department->name ?? '' }} <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="{{route('user', ['id' => Auth()->user()->id])}}">Perfil</a></li>
                                 <li class="divider"></li>

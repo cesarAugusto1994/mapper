@@ -27,15 +27,28 @@
                         <form method="post" class="form-horizontal" action="{{route('user_store')}}">
                             {{csrf_field()}}
                             <div class="form-group"><label class="col-sm-2 control-label">Nome</label>
-                                <div class="col-sm-10"><input type="text" required name="name" placeholder="Emanuel Batista" class="form-control"></div>
+                                <div class="col-sm-10"><input type="text" required name="name" placeholder="Informe seu Nome" class="form-control"></div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">E-mail</label>
-                                <div class="col-sm-10"><input type="text" required name="email" placeholder="exemplo@exemplo.com.br" class="form-control"></div>
+                                <div class="col-sm-10"><input type="text" required name="email" placeholder="Informe seu E-mail" class="form-control"></div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">Senha</label>
-                                <div class="col-sm-10"><input type="text" required name="password" placeholder="123456" class="form-control"> <span class="help-block m-b-none">Informe a Senha que voce adicionou ao usuario.</span>
+                                <div class="col-sm-10"><input type="text" required name="password" placeholder="Informe a Senha" class="form-control"> <span class="help-block m-b-none">Informe a Senha que voce adicionou ao usuario.</span>
                                 </div>
                             </div>
+
+                              <div class="form-group"><label class="col-sm-2 control-label">Departamento</label> 
+                              <div class="col-sm-10">
+                            <select class="form-control" name="department_id">
+
+                                @foreach($departments as $department)
+                                    <option value="{{$department->id}}">{{$department->name}}</option>
+                                @endforeach
+
+                            </select>
+                            </div>
+                        </div>
+
                             <button class="btn btn-primary">Salvar</button>
                         </form>
                     </div>
