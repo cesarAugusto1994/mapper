@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     const STATUS_PENDENTE = 1;
-
+    const STATUS_EM_ANDAMENTO = 2;
+    
     protected $fillable = [
         'description', 'process_id', 'user_id',
         'frequency', 'time', 'method',

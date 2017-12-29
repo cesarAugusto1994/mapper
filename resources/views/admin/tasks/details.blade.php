@@ -26,9 +26,12 @@
 
                                     <div class="btn-group pull-right">
                                         <a href="#" class="btn btn-white btn-xs">Editar Tarefa</a>
-                                    <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-play"></i>  Iniciar Tarefa</a>
+                                    @if($task->status_id == 2)
+                                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-stop"></i>  Finalizar Tarefa</a>
+                                    @else
+                                        <a href="?status=2" class="btn btn-primary btn-xs"><i class="fa fa-play"></i>  Iniciar Tarefa</a>
+                                    @endif
                                     </div>
-                                    
                                     
                                     <h2>{{$task->description}}</h2>
                                 </div>
@@ -57,7 +60,7 @@
                                     <dd>{{$task->time}} minutos</dd>
                                 </dl>
                             </div>
-                            <div class="col-lg-7" id="cluster_info">
+                            <div class="col-lg-4" id="cluster_info">
                                 <dl class="dl-horizontal">
 
                                     <dt>Ultima Atualização:</dt>
@@ -71,6 +74,17 @@
                                                                                                       class="img-circle"
                                                                                                       src="{{Gravatar::get(Auth::user()->email)}}"></a>
                                     </dd>
+                                </dl>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <dl class="dl-horizontal">
+                                    <dt>Gravidade:</dt>
+                                    <dd><span class="label label-primary">{{$task->severity}}</span></dd>
+                                    <dt>Urgencia:</dt>
+                                    <dd><span class="label label-danger">{{$task->urgency}}</span></dd>
+                                    <dt>Tendencia:</dt>
+                                    <dd><span class="label label-warning">{{$task->trend}}</span></dd>
                                 </dl>
                             </div>
                         </div>
@@ -93,9 +107,14 @@
                                     </dd>
                                 </dl>
                             </div>
-
-                            
                         </div>
+
+                         <div class="row">
+                            <div class="col-lg-12">
+                                                                
+                            </div>
+                        </div>
+
                         <div class="row m-t-sm">
                             <div class="col-lg-12">
                                 <div class="panel blank-panel">

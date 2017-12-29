@@ -9,6 +9,7 @@ use App\Process;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Request as Req;
 
 class TaskController extends Controller
 {
@@ -97,13 +98,29 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-
         $task = Task::find($id);
+
+        if (Req::get('status') == Task::STATUS_EM_ANDAMENTO) {
+            $task->status_id = Task::STATUS_EM_ANDAMENTO;
+            $task->save();
+        } elseif (Req::get('status') == Task::STATUS_FINALIZADO) {
+            $task->status_id = Task::STATUS_FINALIZADO;
+            $task->save();
+        }
 
         return view('admin.tasks.details')
             ->with('task', $task)
             ->with('processes', Process::all())
             ->with('messages', TaskMessages::where('task_id', $id)->get());
+    }
+
+    public function startTask($id)
+    {
+        $task = Task::find($id);
+
+        $task->status = Task::STATUS_PENDENTE;
+
+        return $this->show($id);
     }
 
     /**

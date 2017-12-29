@@ -17,11 +17,22 @@ class TaskStatusTableSeeder extends Seeder
             ]
         );
 
-        DB::table('users')->insert([
-            'name' => str_random(10),
-            'email' => str_random(10).'@gmail.com',
-            'password' => bcrypt('secret'),
-        ]);
+        DB::table('task_status')->insert(
+            [
+                'name' => 'Em Andamento'
+            ]
+        );
 
+        DB::table('task_status')->insert(
+            [
+                'name' => 'Finalizado'
+            ]
+        );
+
+        DB::table('task_status')->insert(
+            [
+                'name' => 'Cancelado'
+            ]
+        );
     }
 }
