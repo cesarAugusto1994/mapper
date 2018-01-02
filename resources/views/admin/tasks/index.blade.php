@@ -69,11 +69,10 @@
                                         </td>
                                         <td class="project-people">
                                             <a href="{{route('user', ['id' => $task->sponsor->id])}}">
-                                            <img alt="image" class="img-circle" src="@if ($task->sponsor->avatar) {{asset('admin/avatars/'.$task->sponsor->avatar)}} @else {{asset('admin/avatars/profile.png')}} @endif"></a>
+                                            <img alt="image" class="img-circle" src="{{Gravatar::get($task->sponsor->email)}}"></a>
                                         </td>
                                         <td class="project-actions">
-                                            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                                            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                            <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
                                         </td>
                                     </tr>
                                     @empty

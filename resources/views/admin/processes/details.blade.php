@@ -59,7 +59,15 @@
                                 @foreach($tasks as $task)
                                     <tr>
                                         <td class="project-status">
-                                            <span class="label label-primary">Aguardando</span>
+                                          @if($task->status_id == 2)
+                                            <span class="label label-success">Em andamento</span>
+                                          @elseif($task->status_id == 3)
+                                            <span class="label label-primary">Finalizado</span>
+                                          @elseif($task->status_id == 4)
+                                            <span class="label label-danger">Cancelado</span>
+                                          @else
+                                            <span class="label label-warning">Aguardando</span>
+                                          @endif
                                         </td>
                                         <td class="project-title">
                                             <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
@@ -67,7 +75,7 @@
                                             <small>Criado em {{ $task->created_at->format('d/m/Y H:i:s')}}</small>
                                         </td>
                                         <td class="project-actions">
-                                            <a href="{{route('task_edit', ['id' => $task->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                            <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
                                         </td>
                                     </tr>
                                 @endforeach

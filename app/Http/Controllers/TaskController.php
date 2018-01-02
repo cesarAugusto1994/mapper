@@ -7,6 +7,7 @@ use App\Task;
 use App\TaskMessages;
 use App\Process;
 use App\User;
+use App\TaskLogs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Request as Req;
@@ -32,6 +33,11 @@ class TaskController extends Controller
     public function index()
     {
         return view('admin.tasks.index')->with('tasks', Task::all());
+    }
+
+    public function showBoard()
+    {
+        return view('admin.tasks.board')->with('tasks', Task::all());
     }
 
     /**
@@ -100,12 +106,44 @@ class TaskController extends Controller
     {
         $task = Task::find($id);
 
-        if (Req::get('status') == Task::STATUS_EM_ANDAMENTO) {
+        if (Req::get('status') == Task::STATUS_EM_ANDAMENTO && $task->status_id != Task::STATUS_EM_ANDAMENTO) {
             $task->status_id = Task::STATUS_EM_ANDAMENTO;
+            $task->begin = new \DateTime('now');
             $task->save();
-        } elseif (Req::get('status') == Task::STATUS_FINALIZADO) {
+
+            $log = new TaskLogs();
+            $log->task_id = $task->id;
+            $log->user_id = Auth::user()->id;
+            $log->message = 'Alterou o status da tarefa ' . $task->description . ' para Em Andamento.';
+            $log->save();
+
+            return redirect()->route('task', ['id' => $task->id]);
+        } elseif (Req::get('status') == Task::STATUS_FINALIZADO && $task->status_id != Task::STATUS_FINALIZADO) {
             $task->status_id = Task::STATUS_FINALIZADO;
+            $task->end = new \DateTime('now');
             $task->save();
+
+            $log = new TaskLogs();
+            $log->task_id = $task->id;
+            $log->user_id = Auth::user()->id;
+            $log->message = 'Alterou o status da tarefa ' . $task->description . ' para Finalizado.';
+            $log->save();
+
+            return redirect()->route('task', ['id' => $task->id]);
+        }
+
+        if (Req::get('cancel')) {
+            $task->status_id = Task::STATUS_CANCELADO;
+            $task->begin = $task->end = new \DateTime('now');
+            $task->save();
+
+            $log = new TaskLogs();
+            $log->task_id = $task->id;
+            $log->user_id = Auth::user()->id;
+            $log->message = 'Alterou o status da tarefa ' . $task->description . ' para Cancelado.';
+            $log->save();
+
+            return redirect()->route('task', ['id' => $task->id]);
         }
 
         return view('admin.tasks.details')

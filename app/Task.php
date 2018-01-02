@@ -8,7 +8,9 @@ class Task extends Model
 {
     const STATUS_PENDENTE = 1;
     const STATUS_EM_ANDAMENTO = 2;
-    
+    const STATUS_FINALIZADO = 3;
+    const STATUS_CANCELADO = 4;
+
     protected $fillable = [
         'description', 'process_id', 'user_id',
         'frequency', 'time', 'method',
@@ -36,6 +38,6 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+
 
 }

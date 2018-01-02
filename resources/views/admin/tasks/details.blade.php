@@ -25,14 +25,20 @@
                                 <div class="m-b-md">
 
                                     <div class="btn-group pull-right">
-                                        <a href="#" class="btn btn-white btn-xs">Editar Tarefa</a>
-                                    @if($task->status_id == 2)
-                                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-stop"></i>  Finalizar Tarefa</a>
-                                    @else
-                                        <a href="?status=2" class="btn btn-primary btn-xs"><i class="fa fa-play"></i>  Iniciar Tarefa</a>
-                                    @endif
+                                        @if($task->status_id != 3 && $task->status_id != 4)
+                                            <a href="#" class="btn btn-white btn-xs">Editar Tarefa</a>
+                                        @endif
+                                        @if($task->status_id == 2)
+                                            <a href="?status=3" class="btn btn-primary btn-xs"><i class="fa fa-stop"></i>  Finalizar Tarefa</a>
+                                        @elseif($task->status_id == 1)
+                                            <a href="?status=2" class="btn btn-primary btn-xs"><i class="fa fa-play"></i>  Iniciar Tarefa</a>
+                                        @endif
+
+                                        @if($task->status_id != 3 && $task->status_id != 4)
+                                            <a href="?cancel=1" class="btn btn-danger btn-xs"> Cancelar Tarefa</a>
+                                        @endif
                                     </div>
-                                    
+
                                     <h2>{{$task->description}}</h2>
                                 </div>
                                 <dl class="dl-horizontal">
@@ -108,12 +114,24 @@
                                 </dl>
                             </div>
                         </div>
-
-                         <div class="row">
-                            <div class="col-lg-12">
-                                                                
+                        @if($task->begin)
+                             <div class="row">
+                                <div class="col-lg-12">
+                                  <dl class="dl-horizontal">
+                                      <dt>Inicio:</dt>
+                                      <dd>{{ (new DateTime($task->begin))->format('d/m/Y H:i:s') }}</dd>
+                                      @if($task->end)
+                                          <dt>Fim:</dt>
+                                          <dd>{{ (new DateTime($task->end))->format('d/m/Y H:i:s') }}</dd>
+                                      @endif
+                                      @if(($task->status_id == 3 || $task->status_id == 4))
+                                          <dt>Tempo Gasto:</dt>
+                                          <dd>{{ (new DateTime($task->end))->diff((new DateTime($task->begin)))->format("%H:%I:%S") }}</dd>
+                                      @endif
+                                  </dl>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="row m-t-sm">
                             <div class="col-lg-12">

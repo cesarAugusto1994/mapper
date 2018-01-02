@@ -19,6 +19,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::prefix('user')->group(function () {
     Route::get('tasks', 'TaskController@index')->name('tasks');
+    Route::get('board', 'TaskController@showBoard')->name('board');
     Route::get('task/{id}', 'TaskController@show')->name('task');
     Route::get('task/create/form', 'TaskController@create')->name('task_create');
     Route::get('task/{id}/edit', 'TaskController@edit')->name('task_edit');
@@ -49,4 +50,3 @@ Route::prefix('user')->group(function () {
     Route::post('users/create/store', 'UsersController@store')->name('user_store');
     Route::post('user/{id}/update', 'UsersController@update')->name('user_update');
 });
-

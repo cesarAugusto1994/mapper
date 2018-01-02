@@ -46,9 +46,10 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Responsável</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control m-b" name="user_id">
+                                    <select class="form-control m-b" name="user_id" required>
+                                        <option>Selecione um Responsável</option>
                                         @foreach($users as $user)
-                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                            <option value="{{$user->id}}" {{ $user->id == Auth::user()->id ? 'selected' : '' }}>{{$user->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

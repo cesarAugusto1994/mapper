@@ -12,11 +12,13 @@
 	<link href="{{ asset("css/font-awesome.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/plugins/toastr/toastr.min.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/animate.css ") }}" rel="stylesheet">
-	<link href="{{ asset("admin/css/style.css ") }}" rel="stylesheet"> @yield('css')
+	<link href="{{ asset("admin/css/style.css ") }}" rel="stylesheet">
+
+	@stack('stylesheets')
 
 </head>
 
-<body class="pace-done skin-3">
+<body class="pace-done skin-1">
 	<div id="wrapper">
 
 		@include('layouts.sidebar')
@@ -28,9 +30,9 @@
 						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
 							<i class="fa fa-bars"></i>
 						</a>
-						<form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+						<form role="search" class="navbar-form-custom" method="get" action="#">
 							<div class="form-group">
-								<input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+								<input type="text" placeholder="Pesquse por algo..." class="form-control" name="top-search" id="top-search">
 							</div>
 						</form>
 					</div>
@@ -96,27 +98,31 @@
 
 		</div>
 
-
 	</div>
 
 	<script src="{{asset('admin/js/jquery-2.1.1.js')}}"></script>
 	<script src="{{asset('admin/js/bootstrap.min.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/flot/jquery.flot.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/flot/jquery.flot.tooltip.min.j')}}s"></script>
-	<script src="{{asset('admin/js/plugins/flot/jquery.flot.spline.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/flot/jquery.flot.resize.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/flot/jquery.flot.pie.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/peity/jquery.peity.min.js')}}"></script>
-	<script src="{{asset('admin/js/inspinia.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/pace/pace.min.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/chartJs/Chart.min.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/toastr/toastr.min.js')}}"></script>
+	<script async defer src="{{asset('admin/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
+	<script async defer src="{{asset('admin/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
 
-	@yield('js')
+	<script  src="{{asset('admin/js/plugins/flot/jquery.flot.js')}}"></script>
+	<script  src="{{asset('admin/js/plugins/flot/jquery.flot.tooltip.min.j')}}s"></script>
+	<script  src="{{asset('admin/js/plugins/flot/jquery.flot.spline.js')}}"></script>
+	<script  src="{{asset('admin/js/plugins/flot/jquery.flot.resize.js')}}"></script>
+	<script  src="{{asset('admin/js/plugins/flot/jquery.flot.pie.js')}}"></script>
+
+	<script src="{{asset('admin/js/plugins/peity/jquery.peity.min.js')}}"></script>
+	<script async defer src="{{asset('admin/js/inspinia.js')}}"></script>
+	<script src="{{asset('admin/js/plugins/pace/pace.min.js')}}"></script>
+
+	<script src="{{asset('admin/js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+	<script async defer src="{{asset('admin/js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
+	<script async defer src="{{asset('admin/js/plugins/chartJs/Chart.min.js')}}"></script>
+	<script async defer src="{{asset('admin/js/plugins/toastr/toastr.min.js')}}"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touch/1.1.0/jquery.touch.min.js"></script>
+
+	@yield('scripts')
 
 </body>
 
