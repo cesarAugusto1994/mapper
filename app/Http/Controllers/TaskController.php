@@ -32,7 +32,13 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('admin.tasks.index')->with('tasks', Task::all());
+        if (Req::has('filter')) {
+            $tasks = Task::where('description', 'like', '%' . Req::get('filter') . '%')->get();
+        } else {
+            $tasks = Task::all();
+        }
+
+        return view('admin.tasks.index')->with('tasks', $tasks);
     }
 
     public function showBoard()
@@ -91,7 +97,13 @@ class TaskController extends Controller
             'created_by' => Auth::user()->id,
         ];
 
-        Task::create($data);
+        $task = Task::create($data);
+
+        $log = new TaskLogs();
+        $log->task_id = $task->id;
+        $log->user_id = Auth::user()->id;
+        $log->message = 'Criou tarefa ' . $task->description;
+        $log->save();
 
         return redirect()->route('process', ['id' => $data['process_id']]);
     }
@@ -105,6 +117,19 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
+
+        $horaAtual = new \DateTime('now');
+        $horaCorte = new \DateTime($task->begin);
+
+        $data1  = $horaAtual->format('Y-m-d H:i:s');
+        $data2  = $horaCorte->format('Y-m-d H:i:s');
+
+        $diff = $horaAtual->diff($horaCorte);
+        $segundos = $diff->s + ($diff->i * 60) + ($diff->h * 60);
+
+        $remainTime = ($task->time*60) - $segundos;
+
+        $gut = ($task->severity * $task->urgency * $task->trend);
 
         if (Req::get('status') == Task::STATUS_EM_ANDAMENTO && $task->status_id != Task::STATUS_EM_ANDAMENTO) {
             $task->status_id = Task::STATUS_EM_ANDAMENTO;
@@ -126,7 +151,14 @@ class TaskController extends Controller
             $log = new TaskLogs();
             $log->task_id = $task->id;
             $log->user_id = Auth::user()->id;
-            $log->message = 'Alterou o status da tarefa ' . $task->description . ' para Finalizado.';
+
+            if (0 > $remainTime) {
+              $msg = 'Finalizou a tarefa ' . $task->description . ' com atraso.';
+            } else {
+              $msg = 'Alterou o status da tarefa ' . $task->description . ' para Finalizado.';
+            }
+
+            $log->message = $msg;
             $log->save();
 
             return redirect()->route('task', ['id' => $task->id]);
@@ -146,10 +178,65 @@ class TaskController extends Controller
             return redirect()->route('task', ['id' => $task->id]);
         }
 
+         if (Req::has('duplicate')) {
+
+            $data = [
+                'description' => $task->description,
+                'process_id' => $task->process_id,
+                'user_id' => $task->user_id,
+                'frequency' => $task->frequency,
+                'time' => $task->time,
+                'method' => $task->method,
+                'indicator' => $task->indicator,
+                'client_id' => $task->client_id,
+                'vendor_id' => $task->vendor_id,
+                'severity' => $task->severity,
+                'urgency' => $task->urgency,
+                'trend' => $task->trend,
+                'status_id' => Task::STATUS_PENDENTE,
+                'created_by' => Auth::user()->id,
+            ];
+
+            $newTask = Task::create($data);
+
+            $log = new TaskLogs();
+            $log->task_id = $newTask->id;
+            $log->user_id = Auth::user()->id;
+            $log->message = 'Criou tarefa ' . $newTask->description;
+            $log->save();
+
+            $log = new TaskLogs();
+            $log->task_id = $task->id;
+            $log->user_id = Auth::user()->id;
+            $log->message = 'Duplicou a tarefa ' . $task->description;
+            $log->save();
+
+            return redirect()->route('task', ['id' => $newTask->id]);
+        }
+
         return view('admin.tasks.details')
             ->with('task', $task)
+            ->with('gut', $gut)
+            ->with('remainTime', $remainTime)
             ->with('processes', Process::all())
+            ->with('logs', TaskLogs::where('task_id', $id)->orderBy('id', 'DESC')->get())
             ->with('messages', TaskMessages::where('task_id', $id)->get());
+    }
+
+    public static function getColorFromValue($value)
+    {
+          switch ($value) {
+            case 2:
+                return 'primary';
+            case 3:
+                return 'success';
+            case 4:
+                return 'warning';
+            case 5:
+                return 'danger';
+            default:
+                return 'default';
+          }
     }
 
     public function startTask($id)

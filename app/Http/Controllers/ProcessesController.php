@@ -27,7 +27,14 @@ class ProcessesController extends Controller
      */
     public function index()
     {
-        return view('admin.processes.index')->with('processes', Process::all());
+
+         if (Req::has('filter')) {
+            $process = Process::where('name', 'like', '%' . Req::get('filter') . '%')->get();
+        } else {
+            $process = Process::all();
+        }
+
+        return view('admin.processes.index')->with('processes', $process);
     }
 
     /**

@@ -5,77 +5,18 @@
 
     <div class="row border-bottom white-bg dashboard-header">
 
-        <div class="col-sm-3">
+        <div class="col-md-3">
             <h2>Bem Vindo(a) {{ Auth()->User()->name  }}</h2>
             @if( count($tasks) > 0 )
-            <small>Voce tem {{ count($tasks) }} Tarefas.</small>
-            <ul class="list-group clear-list m-t">
-              @foreach($tasks as $key => $task)
-                  <li class="list-group-item fist-item"><a href="{{route('task', ['id' => $task->id])}}">
-                        <span class="label label-default">{{$key+1}}</span>
-                         {{$task->description}}
-                        @if($task->status->id == 2)
-                          <span class="label label-success pull-right">Em andamento</span>
-                        @elseif($task->status->id == 3)
-                          <span class="label label-primary pull-right">Finalizado</span>
-                        @elseif($task->status->id == 4)
-                          <span class="label label-danger pull-right">Cancelado</span>
-                        @else
-                          <span class="label label-warning pull-right">Aguardando</span>
-                        @endif</a>
-                  </li>
-              @endforeach
-            </ul>
-            <a href="{{route('board')}}" class="btn btn-default full-width">Ver Quadro</a>
+            <small>Parabéns, Voce Realizou {{ count($tasks) }} Tarefas. </small><a href="{{route('board')}}" class="btn btn-link btn-xs">Ver Quadro</a>
+
             @else
-              <p>Bom trabalho, Você não possui tarefas no momento.</p>
+              <p>Você não possui tarefas no momento.</p>
             @endif
         </div>
-        <div class="col-sm-6">
-            <div class="flot-chart dashboard-chart">
-                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
-            </div>
-            <div class="row text-left">
-                <div class="col-xs-4">
-                    <div class=" m-l-md">
-                        <span class="h4 font-bold m-t block">{{ count($concluded) }}</span>
-                        <small class="text-muted m-b block">Tarefas concluídas</small>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <span class="h4 font-bold m-t block">{{$spentTime}} minutos</span>
-                    <small class="text-muted m-b block">Tempo Gasto Esta Semana</small>
-                </div>
-                <div class="col-xs-4">
-                    <span class="h4 font-bold m-t block">{{$spentTime}} minutos</span>
-                    <small class="text-muted m-b block">Tempo Gasto</small>
-                </div>
 
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="statistic-box">
-                <h4>
-                    Seu Desempenho
-                </h4>
-                <p>
-                    Você realizou até o momento {{count($concluded)}} tarefas.
-                </p>
-                <div class="row text-center">
-                    <div class="col-lg-6">
-                        <canvas id="polarChart" width="80" height="80"></canvas>
-                        <h5 >Kolter</h5>
-                    </div>
-                    <div class="col-lg-6">
-                        <canvas id="doughnutChart" width="78" height="78"></canvas>
-                        <h5 >Maxtor</h5>
-                    </div>
-                </div>
-                <div class="m-t">
-                    <small>Gráficos que medem o seu desempenho.</small>
-                </div>
+        <div class="col-md-3">
 
-            </div>
         </div>
 
     </div>

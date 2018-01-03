@@ -23,18 +23,19 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Tarefas</h5>
+                        @if(Auth::user()->isAdmin())
                         <div class="ibox-tools">
                             <a href="{{route('task_create')}}" class="btn btn-primary btn-xs">Criar nova Tarefa</a>
                         </div>
+                        @endif
                     </div>
                     <div class="ibox-content">
                         <div class="row m-b-sm m-t-sm">
-                            <div class="col-md-1">
-                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" ><i class="fa fa-refresh"></i> Refresh</button>
-                            </div>
-                            <div class="col-md-11">
-                                <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+                            <div class="col-md-12">
+                                <form metho="get" action="#">
+                                <div class="input-group"><input type="text" name="filter" placeholder="Pesquisar" class="input-sm form-control"> <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-sm btn-primary"> Ir!</button> </span></div>
+                                </form>
                             </div>
                         </div>
 
@@ -51,6 +52,13 @@
                                             <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
                                             <br/>
                                             <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
+                                        </td>
+                                        <td class="project-completion">
+                                            <small>GUT:  <b>
+                                              <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->severity); !!}">{{$task->severity}}</span>
+                                              <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->urgency); !!}">{{$task->urgency}}</span>
+                                              <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->trend); !!}">{{$task->trend}}</span>
+                                            </b></small>
                                         </td>
                                         <td class="project-completion">
                                             <small>Situação  <b>{{$task->status->name}}</b></small>

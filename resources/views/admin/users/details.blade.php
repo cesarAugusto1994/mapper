@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 
-@section('css')
+@push('stylesheets')
         <link href="{{asset('admin/css/custom.css')}}" rel="stylesheet">
-@endsection
+@endpush
 
 @section('content')
 
@@ -35,7 +35,7 @@
                             <div class="avatar">
                                 <img class="img" src="{{Gravatar::get($user->email)}}" alt="Avatar">
                                 <div class="overlay"></div>
-                                <div class="button"><a href="{{route('user_avatar', ['id' => $user->id])}}"> Editar Foto </a></div>
+                                <!--<div class="button"><a href="{{route('user_avatar', ['id' => $user->id])}}"> Editar Foto </a></div>-->
                             </div>
 
                         </div>
@@ -53,7 +53,28 @@
                         <h5>Atividades</h5>
                     </div>
                     <div class="ibox-content">
-                        Nenhuma Atividade Até o momento
+
+                      <div>
+                          <div class="feed-activity-list">
+
+                              @foreach($logs as $log)
+                                  <div class="feed-element">
+                                      <a href="{{ route('user', ['id' => $log->user->id]) }}" class="pull-left">
+                                          <img alt="image" class="img-circle" src="{{Gravatar::get($log->user->email)}}">
+                                      </a>
+                                      <div class="media-body ">
+                                          <small class="pull-right"></small>
+                                          <strong>{{$log->user->name == Auth::user()->name ? 'Você' : $log->user->name}}</strong> {{ $log->message }} <br>
+                                          <small class="text-muted">{{ $log->created_at->format('H:i - d.m.Y') }}</small>
+
+                                      </div>
+                                  </div>
+                              @endforeach
+
+                          <!--<button class="btn btn-primary btn-block m-t"><i class="fa fa-arrow-down"></i> Show More</button>-->
+
+                      </div>
+
                     </div>
                 </div>
 
@@ -77,7 +98,7 @@
                         <div class="form-group"><label>E-mail</label> <input type="email" name="email" placeholder="Informe seu E-mail" value="{{$user->email}}" class="form-control"></div>
                         <div class="form-group"><label>Nova Senha</label> <input type="password" name="password" placeholder="Informe a sua nova senha" class="form-control"></div>
 
-                        <div class="form-group"><label>Departamento</label> 
+                        <div class="form-group"><label>Departamento</label>
                             <select class="form-control" name="department_id">
 
                                 @foreach($departments as $department)
@@ -97,6 +118,3 @@
     </div>
 
 @endsection
-
-
-

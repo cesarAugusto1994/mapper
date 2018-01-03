@@ -56,7 +56,7 @@ class HomeController extends Controller
         });
 
         return view('home')
-        ->with('logs', TaskLogs::limit(10)->orderBy('id', 'DESC')->get())
+        ->with('logs', TaskLogs::limit(6)->orderBy('id', 'DESC')->get())
         ->with('tasks', $tasks)
         ->with('time', $spentTime->toJson())
         ->with('spent', $time->toJson())

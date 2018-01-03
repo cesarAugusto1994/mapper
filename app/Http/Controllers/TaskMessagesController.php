@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\TaskMessages;
+use Auth;
 
 class TaskMessagesController extends Controller
 {
@@ -44,7 +46,16 @@ class TaskMessagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->request->all();
+
+        $message = new TaskMessages();
+        $message->message = $data['message'];
+        $message->user_id = Auth::user()->id;
+        $message->task_id = $data['task'];
+
+        $message->save();
+
+        return redirect()->route('task', $data['task']);
     }
 
     /**

@@ -24,6 +24,8 @@ Route::prefix('user')->group(function () {
     Route::get('task/create/form', 'TaskController@create')->name('task_create');
     Route::get('task/{id}/edit', 'TaskController@edit')->name('task_edit');
 
+    Route::post('task/message/store', 'TaskMessagesController@store')->name('task_message_store');
+
     Route::post('task/store', 'TaskController@store')->name('task_store');
 
     Route::get('departments', 'DepartmentsController@index')->name('departments');
