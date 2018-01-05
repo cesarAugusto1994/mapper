@@ -45,9 +45,6 @@
                                 <tbody>
                                 @forelse ($tasks as $task)
                                     <tr>
-                                        <td class="project-status">
-                                            <span class="label label-primary">Active</span>
-                                        </td>
                                         <td class="project-title">
                                             <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
                                             <br/>
@@ -62,18 +59,16 @@
                                         </td>
                                         <td class="project-completion">
                                             <small>Situação  <b>{{$task->status->name}}</b></small>
-                                        @if($task->status_id == 4)
-                                            <br/>
-                                            <label class="label label-danger">Cancelado</label>
-                                        @else
                                             <div class="progress progress-mini">
                                                 <div style="width:
                                                 @if ($task->status_id == 1) 0%
                                                 @elseif ($task->status_id == 2) 50%
-                                                @elseif ($task->status_id == 3) 100%
-                                                @endif;" class="progress-bar"></div>
+                                                @elseif ($task->status_id == 3 || $task->status_id == 4) 100%
+                                                @endif;" class="progress-bar
+                                                @if ($task->status_id == 2) progress-bar-warning
+                                                @elseif ($task->status_id == 4) progress-bar-danger
+                                                @endif;"></div>
                                             </div>
-                                        @endif
                                         </td>
                                         <td class="project-people">
                                             <a href="{{route('user', ['id' => $task->sponsor->id])}}">

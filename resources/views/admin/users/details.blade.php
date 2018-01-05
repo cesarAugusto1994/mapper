@@ -24,7 +24,7 @@
     </div>
     <div class="wrapper wrapper-content">
         <div class="row animated fadeInRight">
-            <div class="col-md-2">
+            <div class="col-lg-2 col-md-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Perfil Detalhes</h5>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-lg-4 col-md-8">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Atividades</h5>
@@ -77,6 +77,64 @@
 
                     </div>
                 </div>
+            </div>
+
+          </div>
+
+            <div class="col-lg-6">
+              <div class="ibox float-e-margins">
+                  <div class="ibox-title">
+                      <h5>Tarefas</h5>
+                      <div class="ibox-tools">
+                          <a href="{{route('task_create')}}" class="btn btn-primary btn-xs">Criar nova Tarefa</a>
+                      </div>
+                  </div>
+                  <div class="ibox-content">
+                      <div class="project-list">
+                        <table class="table table-hover">
+                            <tbody>
+                            @forelse ($tasks as $task)
+                                <tr>
+                                    <td class="project-title">
+                                        <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
+                                        <br/>
+                                        <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
+                                    </td>
+                                    <td class="project-completion">
+                                        <small>GUT:  <b>
+                                          <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->severity); !!}">{{$task->severity}}</span>
+                                          <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->urgency); !!}">{{$task->urgency}}</span>
+                                          <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->trend); !!}">{{$task->trend}}</span>
+                                        </b></small>
+                                    </td>
+                                    <td class="project-completion">
+                                        <small>Situação  <b>{{$task->status->name}}</b></small>
+                                        <div class="progress progress-mini">
+                                            <div style="width:
+                                            @if ($task->status_id == 1) 0%
+                                            @elseif ($task->status_id == 2) 50%
+                                            @elseif ($task->status_id == 3 || $task->status_id == 4) 100%
+                                            @endif;" class="progress-bar
+                                            @if ($task->status_id == 2) progress-bar-warning
+                                            @elseif ($task->status_id == 4) progress-bar-danger
+                                            @endif;"></div>
+                                        </div>
+                                    </td>
+                                    <td class="project-actions">
+                                        <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td>
+                                </tr>
+                                Nenhuma tarefa até o momento.
+                            @endforelse
+                            </tbody>
+                        </table>
+                      </div>
+                  </div>
+              </div>
 
             </div>
         </div>

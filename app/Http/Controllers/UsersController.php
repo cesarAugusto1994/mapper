@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Department;
 use App\TaskLogs;
+use App\Task;
 use Illuminate\Http\Request;
 use Request as Req;
 
@@ -74,9 +75,11 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        $tasks = Task::where('user_id', $user->id)->limit(6)->orderBy('id', 'DESC')->get();
 
         return view('admin.users.details')
         ->with('user', $user)
+        ->with('tasks', $tasks)
         ->with('logs', TaskLogs::where('user_id', $user->id)->limit(6)->orderBy('id', 'DESC')->get())
         ->with('departments', Department::all());
     }

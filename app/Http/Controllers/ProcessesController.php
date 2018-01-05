@@ -68,9 +68,15 @@ class ProcessesController extends Controller
      */
     public function show($id)
     {
+        $tasks = Task::where('process_id', $id);
+
+        if (Req::has('filter')) {
+            $tasks = Task::where('description', 'like', '%' . Req::get('filter') . '%');
+        }
+
         return view('admin.processes.details')
             ->with('process', Process::find($id))
-            ->with('tasks', Task::where('process_id', $id)->get());
+            ->with('tasks', $tasks->get());
     }
 
     /**

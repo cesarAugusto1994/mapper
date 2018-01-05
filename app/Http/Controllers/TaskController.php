@@ -8,6 +8,7 @@ use App\TaskMessages;
 use App\Process;
 use App\User;
 use App\TaskLogs;
+use App\TaskDelay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Request as Req;
@@ -59,17 +60,9 @@ class TaskController extends Controller
             ->with('departments', Department::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function hourToMinutes($hours)
     {
-        $data = $request->request->all();
-
-        $tempo = \DateTime::createFromFormat('H:i', $data['time']);
+        $tempo = \DateTime::createFromFormat('H:i', $hours);
 
         $hora = $tempo->format('H');
         $minutos = $tempo->format('i');
@@ -80,12 +73,25 @@ class TaskController extends Controller
             $time += $hora*60;
         }
 
+        return $time;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $data = $request->request->all();
+
         $data = [
             'description' => $data['description'],
             'process_id' => $data['process_id'],
             'user_id' => $data['user_id'],
             'frequency' => $data['frequency'],
-            'time' => $time,
+            'time' => $this->hourToMinutes($data['time']),
             'method' => $data['method'],
             'indicator' => $data['indicator'],
             'client_id' => $data['client_id'],
@@ -146,6 +152,14 @@ class TaskController extends Controller
         } elseif (Req::get('status') == Task::STATUS_FINALIZADO && $task->status_id != Task::STATUS_FINALIZADO) {
             $task->status_id = Task::STATUS_FINALIZADO;
             $task->end = new \DateTime('now');
+
+            $horaInicio = new \DateTime($task->begin);
+
+            $diff = $task->end->diff($horaInicio);
+            $minutos = $diff->i + ($diff->h * 60);
+
+            $task->spent_time = $minutos;
+
             $task->save();
 
             $log = new TaskLogs();
@@ -214,9 +228,12 @@ class TaskController extends Controller
             return redirect()->route('task', ['id' => $newTask->id]);
         }
 
+        $taskDelay = TaskDelay::where('task_id', $task->id)->first();
+
         return view('admin.tasks.details')
             ->with('task', $task)
             ->with('gut', $gut)
+            ->with('taskDelay', $taskDelay)
             ->with('remainTime', $remainTime)
             ->with('processes', Process::all())
             ->with('logs', TaskLogs::where('task_id', $id)->orderBy('id', 'DESC')->get())
@@ -256,7 +273,24 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $task = Task::find($id);
+
+        $time = 0;
+
+         $hours = floor($task->time / 60);
+         $minutes = ($task->time % 60);
+
+         if ($hours < 10) {
+            $hours = str_pad($hours, 2, "0", STR_PAD_LEFT);
+         }
+
+        return view('admin.tasks.edit')
+            ->with('task', $task)
+            ->with('time', "{$hours}:{$minutes}")
+            ->with('processes', Process::all())
+            ->with('users', User::all())
+            ->with('departments', Department::all());
     }
 
     /**
@@ -268,7 +302,116 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->request->all();
+
+        $task = Task::find($id);
+
+        $data = [
+            'description' => $data['description'],
+            'process_id' => $data['process_id'],
+            'user_id' => $data['user_id'],
+            'frequency' => $data['frequency'],
+            'time' => $this->hourToMinutes($data['time']),
+            'method' => $data['method'],
+            'indicator' => $data['indicator'],
+            'client_id' => $data['client_id'],
+            'vendor_id' => $data['vendor_id'],
+            'severity' => $data['severity'],
+            'urgency' => $data['urgency'],
+            'trend' => $data['trend']
+        ];
+
+        $task->description = $data['description'];
+        $task->process_id = $data['process_id'];
+        $task->user_id = $data['user_id'];
+        $task->frequency = $data['frequency'];
+        $task->time = $data['time'];
+        $task->method = $data['method'];
+        $task->indicator = $data['indicator'];
+        $task->client_id = $data['client_id'];
+        $task->vendor_id = $data['vendor_id'];
+        $task->severity = $data['severity'];
+        $task->urgency = $data['urgency'];
+        $task->trend = $data['trend'];
+        $task->save();
+
+        $log = new TaskLogs();
+        $log->task_id = $task->id;
+        $log->user_id = Auth::user()->id;
+        $log->message = 'Editou a tarefa ' . $task->description;
+        $log->save();
+
+        return redirect()->route('task', ['id' => $task->id]);
+    }
+
+    public function delay(Request $request, $id)
+    {
+      try {
+        $data = $request->request->all();
+
+        $task = Task::find($id);
+
+        $taskDelay = new TaskDelay();
+        $taskDelay->user_id = Auth::user()->id;
+        $taskDelay->message = $data['message'];
+        $taskDelay->task_id = $id;
+        $taskDelay->save();
+
+        $log = new TaskLogs();
+        $log->task_id = $task->id;
+        $log->user_id = Auth::user()->id;
+        $log->message = 'Adicionou o motivo do atraso com a tarefa ' .
+        $task->description . ' motivo: ' . $data['message'];
+        $log->save();
+
+        return response()->json([
+            'class' => 'Sucesso',
+            'message' => 'O motivo foi enviado com sucesso.'
+        ]);
+      } catch(Exception $e) {
+        return response()->json([
+            'class' => 'Erro',
+            'message' => $e->getMessage()
+        ]);
+      }
+    }
+
+    public static function toGraph()
+    {
+        $date = new \DateTime('now');
+        $lastMonth = $date->modify('-1 month');
+        $selectedDate = (string)$lastMonth->format('Y-m-d H:i:s');
+
+        $tasks = Task::where('created_at', '>', $selectedDate)->get();
+
+        $tasks = $tasks->toArray();
+
+        $itensAtTime = 0;
+        $itensDelayed = 0;
+
+        foreach ($tasks as  $task) {
+
+            if($task['status_id'] != Task::STATUS_FINALIZADO) {
+                continue;
+            }
+
+            $dateTime = (new \DateTime($task['created_at']))->format('Y, m, d');
+
+            if ($task['spent_time'] < $task['time']) {
+
+                $itensAtTime++;
+
+                $itens['atTime'][$dateTime] = $itensAtTime;
+
+                continue;
+            }
+
+            $itensDelayed++;
+
+            $itens['delay'][$dateTime] = $itensDelayed;
+        }
+
+        return json_encode($itens);
     }
 
     /**

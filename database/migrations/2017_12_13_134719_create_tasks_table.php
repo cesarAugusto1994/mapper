@@ -24,6 +24,7 @@ class CreateTasksTable extends Migration
             $table->integer('time');
             $table->dateTime('begin')->nullable();
             $table->dateTime('end')->nullable();
+            $table->integer('spent_time')->nullable();
             $table->string('method');
             $table->string('indicator')->nullable();
             $table->integer('client_id')->unsigned();

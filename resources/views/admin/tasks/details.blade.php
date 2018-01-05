@@ -45,7 +45,7 @@
                             <a href="?duplicate=1"> Duplicar Tarefa</a>
                         </li>
                         @if($task->status_id != 3 && $task->status_id != 4)
-                            <li><a href="#">Editar Tarefa</a></li>
+                            <li><a href="{{ route('task_edit', ['id' => $task->id]) }}">Editar Tarefa</a></li>
                         @endif
                     </ul>
                 </div>
@@ -79,7 +79,7 @@
 								<dt>Criado por:</dt>
 								<dd>{{$task->createdBy->name}}</dd>
 								<dt>Mensagens:</dt>
-								<dd> 0</dd>
+								<dd> {{ count($messages) }}</dd>
 								<dt>Cliente:</dt>
 								<dd>
 									<a href="{{route('department', ['id' => $task->client->id])}}" class="text-navy"> {{$task->client->name}}</a>
@@ -127,17 +127,16 @@
 							<dl class="dl-horizontal">
 								<dt>Completed:</dt>
 								<dd>
-									@if($task->status_id == 4)
-									<label class="label label-danger">Cancelado</label>
-									@else
 									<div class="progress progress-striped active m-b-sm">
-										<div style="width:
-                                                @if ($task->status_id == 1) 0%
-                                                @elseif ($task->status_id == 2) 50%
-                                                @elseif ($task->status_id == 3) 100%
-                                                @endif;" class="progress-bar"></div>
+											<div style="width:
+											@if ($task->status_id == 1) 0%
+											@elseif ($task->status_id == 2) 50%
+											@elseif ($task->status_id == 3 || $task->status_id == 4) 100%
+											@endif;" class="progress-bar
+											@if ($task->status_id == 2) progress-bar-warning
+											@elseif ($task->status_id == 4) progress-bar-danger
+											@endif;"></div>
 									</div>
-									@endif
 								</dd>
 							</dl>
 						</div>
@@ -187,7 +186,7 @@
 														<img alt="image" class="img-circle" src="{{Gravatar::get($message->user->email)}}">
 													</a>
 													<div class="media-body ">
-														<small class="pull-right">Agora</small>
+														<small class="pull-right"></small>
 														<strong>{{$message->user->name}}</strong>
 														<br>
 														<small class="text-muted">{{$message->created_at->format('d/m/Y H:i:s')}}</small>
@@ -265,20 +264,41 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="m-b-md">
-								<h2>Timer</h2>
-                                @if($task->status->id == 2)
-								    <div class="example" data-timer="{{$remainTime}}"></div>
-                                @endif
+								<h2>Tempo</h2>
+                    @if($task->status->id == 2)
+								    		<div class="example" data-timer="{{$remainTime}}"></div>
+                    @endif
+										<input type="hidden" id="urlAPI" value="{{ route('task_delay', ['id' => $task->id]) }}"/>
+										<input type="hidden" id="motivoEnviado" value="{{ count($taskDelay) }}"/>
+
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
+			@if(!empty($taskDelay->message))
+					<div class="ibox">
+						<div class="ibox-content">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="m-b-md">
+										<h2>Motivo do Atraso</h2>
+
+										<p>{{ $taskDelay->message }}</p>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			@endif
+
 		</div>
 	</div>
 </div>
 
-@endsection @section('scripts')
+@endsection @push('scripts')
 
 <script>
 	$(document).ready(function() {
@@ -291,18 +311,18 @@
                 "show": false
             },
             "Hours": {
-                "text": "Hours",
-                "color": "#CCCCCC",
+                "text": "Hora(s)",
+                "color": "#1ab394",
                 "show": true
             },
             "Minutes": {
-                "text": "Minutes",
-                "color": "#40484F",
+                "text": "Minutos",
+                "color": "#1ab394",
                 "show": true
             },
             "Seconds": {
-                "text": "Seconds",
-                "color": "#40484F",
+                "text": "Segundos",
+                "color": "#1ab394",
                 "show": true
             }
             }
@@ -312,6 +332,60 @@
             if(total<=0){
                 $(".example").TimeCircles().destroy();
                 $(this).fadeOut('slow').replaceWith("<div class='alert alert-danger'>Tempo Expirado!</div>");
+
+								if($('#motivoEnviado').val() > 0) {
+										return false;
+								}
+
+								swal({
+									  title: 'Informe o motivo do Atraso',
+										customClass: 'bounceInLeft',
+									  input: 'textarea',
+									  confirmButtonText: 'Enviar',
+									  showLoaderOnConfirm: true,
+									  preConfirm: (text) => {
+									    return new Promise((resolve) => {
+									      setTimeout(() => {
+									        if (text === '') {
+									          swal.showValidationError(
+									            'Por Favor Informe o motivo do atraso.'
+									          )
+									        }
+									        resolve()
+									      }, 2000)
+									    })
+									  },
+									  allowOutsideClick: () => false
+									}).then((result) => {
+									  if (result.value) {
+
+											const ipAPI = $('#urlAPI').val();
+
+									    swal({
+									      type: 'success',
+									      title: 'O motivo foi enviado!',
+									      html: 'Motivo: ' + result.value,
+												preConfirm: () => {
+													 return $.post(ipAPI, { message : result.value, _token : "{{ csrf_token() }}" }).then((data) => {
+														 setTimeout(function() {
+																 toastr.options = {
+																		 closeButton: true,
+																		 progressBar: true,
+																		 showMethod: 'slideDown',
+																		 timeOut: 4000
+																 };
+																 toastr.success('Mapeador de Processos', data.message);
+
+																 setTimeout(function() {
+																	 	window.location.reload();
+																 }, 4000)
+
+														 }, 1300);
+													 })
+												 }
+									    })
+									  }
+									})
             }
 
             if(value>(total/1000)){
@@ -324,4 +398,4 @@
         });
 </script>
 
-@endsection
+@endpush

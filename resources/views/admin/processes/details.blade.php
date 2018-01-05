@@ -43,44 +43,62 @@
                     </div>
                     <div class="ibox-content">
                         <div class="row m-b-sm m-t-sm">
-                            <div class="col-md-1">
-                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" ><i class="fa fa-refresh"></i> Refresh</button>
-                            </div>
-                            <div class="col-md-11">
-                                <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+
+                            <div class="col-md-12">
+                              <form metho="get" action="#">
+                                  <div class="input-group"><input type="text" name="filter" placeholder="Pesquisar" class="input-sm form-control"> <span class="input-group-btn">
+                                      <button type="submit" class="btn btn-sm btn-primary"> Ir!</button> </span></div>
+                                  </form>
                             </div>
                         </div>
 
                         <div class="project-list">
 
-                            <table class="table table-hover">
-                                <tbody>
-                                @foreach($tasks as $task)
-                                    <tr>
-                                        <td class="project-status">
-                                          @if($task->status_id == 2)
-                                            <span class="label label-success">Em andamento</span>
-                                          @elseif($task->status_id == 3)
-                                            <span class="label label-primary">Finalizado</span>
-                                          @elseif($task->status_id == 4)
-                                            <span class="label label-danger">Cancelado</span>
-                                          @else
-                                            <span class="label label-warning">Aguardando</span>
-                                          @endif
-                                        </td>
-                                        <td class="project-title">
-                                            <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
-                                            <br/>
-                                            <small>Criado em {{ $task->created_at->format('d/m/Y H:i:s')}}</small>
-                                        </td>
-                                        <td class="project-actions">
-                                            <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                          <table class="table table-hover">
+                              <tbody>
+                              @forelse ($tasks as $task)
+                                  <tr>
+                                      <td class="project-title">
+                                          <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
+                                          <br/>
+                                          <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
+                                      </td>
+                                      <td class="project-completion">
+                                          <small>GUT:  <b>
+                                            <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->severity); !!}">{{$task->severity}}</span>
+                                            <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->urgency); !!}">{{$task->urgency}}</span>
+                                            <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->trend); !!}">{{$task->trend}}</span>
+                                          </b></small>
+                                      </td>
+                                      <td class="project-completion">
+                                          <small>Situação  <b>{{$task->status->name}}</b></small>
+                                          <div class="progress progress-mini">
+                                              <div style="width:
+                                              @if ($task->status_id == 1) 0%
+                                              @elseif ($task->status_id == 2) 50%
+                                              @elseif ($task->status_id == 3 || $task->status_id == 4) 100%
+                                              @endif;" class="progress-bar
+                                              @if ($task->status_id == 2) progress-bar-warning
+                                              @elseif ($task->status_id == 4) progress-bar-danger
+                                              @endif;"></div>
+                                          </div>
+                                      </td>
+                                      <td class="project-people">
+                                          <a href="{{route('user', ['id' => $task->sponsor->id])}}">
+                                          <img alt="image" class="img-circle" src="{{Gravatar::get($task->sponsor->email)}}"></a>
+                                      </td>
+                                      <td class="project-actions">
+                                          <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
+                                      </td>
+                                  </tr>
+                                  @empty
+                                  <tr>
+                                      <td>
+                                  </tr>
+                                  Nenhuma tarefa até o momento.
+                              @endforelse
+                              </tbody>
+                          </table>
                         </div>
                     </div>
                 </div>

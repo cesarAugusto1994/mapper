@@ -14,6 +14,7 @@
 	<link href="{{ asset("admin/css/animate.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/style.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/TimeCircles.css") }}" rel="stylesheet">
+	<link href="{{ asset("css/sweetalert2.min.css") }}" rel="stylesheet">
 
 	@stack('stylesheets')
 
@@ -111,6 +112,7 @@
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.spline.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.resize.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.pie.js')}}"></script>
+		<script src="{{asset('admin/js/plugins/flot/jquery.flot.time.js')}}"></script>
 
 	<script src="{{asset('admin/js/plugins/peity/jquery.peity.min.js')}}"></script>
 	<script src="{{asset('admin/js/inspinia.js')}}"></script>
@@ -124,6 +126,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touch/1.1.0/jquery.touch.min.js"></script>
 
 	<script src="{{asset('admin/js/TimeCircles.js')}}"></script>
+
+	<script src="{{asset('/js/sweatalert2.min.js')}}"></script>
 
 	<script>
 
@@ -147,7 +151,7 @@
 
 	</script>
 
-	@yield('scripts')
+	@stack('scripts')
 
 </body>
 

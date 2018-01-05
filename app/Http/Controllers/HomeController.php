@@ -26,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tasks = Task::where('user_id', Auth::user()->id)->limit(5)->get();
+        $tasks = Task::where('user_id', Auth::user()->id)->limit(6)->orderBy('id', 'DESC')->get();
+
         $concluded = $tasks->filter(function($task) {
             return $task->status_id == 3;
         });
@@ -55,13 +56,30 @@ class HomeController extends Controller
               ] ;
         });
 
+        $peddingTasks = $tasks->filter(function($task) {
+            return $task->status->id == Task::STATUS_PENDENTE;
+        });
+
         return view('home')
         ->with('logs', TaskLogs::limit(6)->orderBy('id', 'DESC')->get())
         ->with('tasks', $tasks)
+        ->with('peddingTasks', $peddingTasks)
         ->with('time', $spentTime->toJson())
         ->with('spent', $time->toJson())
         ->with('proposedTime', $time->toJson())
         ->with('spentTime', $spentTime->sum())
         ->with('concluded', $concluded);
+    }
+
+    public static function minutesToHour($time)
+    {
+        $hours = floor($time / 60);
+        $minutes = ($time % 60);
+
+        if ($hours < 10) {
+           $hours = str_pad($hours, 2, "0", STR_PAD_LEFT);
+        }
+
+        return "{$hours}:{$minutes}";
     }
 }
