@@ -40,15 +40,6 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div class="row m-b-sm m-t-sm">
-                            <div class="col-md-1">
-                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" ><i class="fa fa-refresh"></i> Refresh</button>
-                            </div>
-                            <div class="col-md-11">
-                                <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
-                            </div>
-                        </div>
 
                         <div class="project-list">
 
@@ -65,8 +56,7 @@
                                         <small>Criado em {{ $process->created_at->format('d/m/Y H:i:s')}}</small>
                                     </td>
                                     <td class="project-actions">
-                                        <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                                        <a href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                        <a href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
                                     </td>
                                 </tr>
                                 @endforeach

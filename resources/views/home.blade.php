@@ -98,14 +98,11 @@
                                 <i class="fa fa-comments"></i>
                                 {{ $log->created_at->format('H:i') }}
                                 <br>
-                                <small class="text-navy">{{ App\Helpers\TimesAgo::render($log->created_at->format('Y-m-d H:i:s')) }}</small>
+                                <small class="text-navy">{{ App\Helpers\TimesAgo::render($log->created_at) }}</small>
                             </div>
                             <div class="col-xs-7 content no-top-border">
                                 <p class="m-b-xs"><strong>{{$log->user->name == Auth::user()->name ? 'Você' : $log->user->name}}</strong></p>
-
                                 <p>{{ $log->message }}</p>
-
-
                             </div>
                         </div>
                     </div>

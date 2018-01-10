@@ -381,6 +381,7 @@ class TaskController extends Controller
         $date = new \DateTime('now');
         $lastMonth = $date->modify('-1 month');
         $selectedDate = (string)$lastMonth->format('Y-m-d H:i:s');
+        $itens = [];
 
         $tasks = Task::where('created_at', '>', $selectedDate)->get();
 

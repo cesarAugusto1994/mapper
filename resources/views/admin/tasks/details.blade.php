@@ -217,34 +217,25 @@
 										</div>
 										<div class="tab-pane" id="tab-2">
 
-											<table class="table table-striped">
-												<thead>
-													<tr>
-														<th>Horário</th>
-														<th>Comentário</th>
-														<th>Usuário</th>
-													</tr>
-												</thead>
-												<tbody>
-													@forelse($logs as $log)
-													<tr>
-														<td>
-															{{$log->created_at->format('d/m/Y H:i:s')}}
-														</td>
-														<td>
-															<p class="small">
-																{{$log->message}}
-															</p>
-														</td>
-														<td>
-															{{$log->user->name}}
-														</td>
-													</tr>
-													@empty @endforelse
+											<div class="ibox-content inspinia-timeline">
 
-												</tbody>
-											</table>
-
+			                    @foreach($logs as $log)
+			                    <div class="timeline-item">
+			                        <div class="row">
+			                            <div class="col-xs-3 date">
+			                                <i class="fa fa-comments"></i>
+			                                {{ $log->created_at->format('H:i') }}
+			                                <br>
+			                                <small class="text-navy">{{ App\Helpers\TimesAgo::render($log->created_at) }}</small>
+			                            </div>
+			                            <div class="col-xs-7 content no-top-border">
+			                                <p class="m-b-xs"><strong>{{$log->user->name == Auth::user()->name ? 'Você' : $log->user->name}}</strong></p>
+			                                <p>{{ $log->message }}</p>
+			                            </div>
+			                        </div>
+			                    </div>
+			                    @endforeach
+			                </div>
 										</div>
 									</div>
 

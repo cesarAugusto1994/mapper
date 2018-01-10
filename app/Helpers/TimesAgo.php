@@ -18,9 +18,17 @@ class TimesAgo
 
     public static function render($time)
     {
+         if(!$time) {
+             return '';
+         }
+
+         if(!$time instanceof \DateTime) {
+            return '';
+         }
+
          $out    = '';
          $now    = time(); // current time
-         $diff   = $now - date_timestamp_get(new \DateTime($time)); // difference between the current and the provided dates
+         $diff   = $now - date_timestamp_get($time); // difference between the current and the provided dates
 
          if( $diff < 60 ) {
              return self::TIMEBEFORE_NOW;
@@ -31,7 +39,7 @@ class TimesAgo
          } elseif( $diff < 3600 * 24 * 2 ) {
             return self::TIMEBEFORE_YESTERDAY;
          } else {
-            return strftime( date( 'Y', $time ) == date( 'Y' ) ? self::TIMEBEFORE_FORMAT : self::TIMEBEFORE_FORMAT_YEAR, $time );
+            return strftime( $time->format('Y') == date( 'Y' ) ? self::TIMEBEFORE_FORMAT : self::TIMEBEFORE_FORMAT_YEAR, $time->format('Y') );
          }
      }
 
