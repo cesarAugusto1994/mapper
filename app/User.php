@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Role;
+use App\Task;
+use App\TaskLogs;
 
 class User extends Authenticatable
 {
@@ -31,6 +33,16 @@ class User extends Authenticatable
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(TaskLogs::class);
     }
 
     public function roles()

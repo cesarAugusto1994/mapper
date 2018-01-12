@@ -127,9 +127,6 @@ class TaskController extends Controller
         $horaAtual = new \DateTime('now');
         $horaCorte = new \DateTime($task->begin);
 
-        $data1  = $horaAtual->format('Y-m-d H:i:s');
-        $data2  = $horaCorte->format('Y-m-d H:i:s');
-
         $diff = $horaAtual->diff($horaCorte);
         $segundos = $diff->s + ($diff->i * 60) + ($diff->h * 60);
 
@@ -150,11 +147,10 @@ class TaskController extends Controller
 
             return redirect()->route('task', ['id' => $task->id]);
         } elseif (Req::get('status') == Task::STATUS_FINALIZADO && $task->status_id != Task::STATUS_FINALIZADO) {
+
             $task->status_id = Task::STATUS_FINALIZADO;
             $task->end = new \DateTime('now');
-
             $horaInicio = new \DateTime($task->begin);
-
             $diff = $task->end->diff($horaInicio);
             $minutos = $diff->i + ($diff->h * 60);
 

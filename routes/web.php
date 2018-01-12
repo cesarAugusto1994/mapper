@@ -39,6 +39,8 @@ Route::prefix('admin')->group(function () {
 
   Route::post('users/create/store', 'UsersController@store')->name('user_store');
   Route::post('user/{id}/update', 'UsersController@update')->name('user_update');
+
+  Route::get('boards', 'BoardController@index')->name('boards');
 });
 
 Route::prefix('user')->group(function () {

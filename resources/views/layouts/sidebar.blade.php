@@ -23,6 +23,9 @@
                     </li>
                     @if(Auth::user()->isAdmin())
                       <li>
+                          <a href="{{route('boards')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Board</span></a>
+                      </li>
+                      <li>
                           <a href="{{route('departments')}}"><i class="fa fa-balance-scale"></i> <span class="nav-label">Departamentos</span></a>
                       </li>
                       <li>

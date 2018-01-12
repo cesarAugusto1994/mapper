@@ -31,6 +31,78 @@ class UsersController extends Controller
         return view('admin.users.index')->with('users', User::all());
     }
 
+    public static function getTaskPercentage($id)
+    {
+        $user = User::find($id);
+
+        $total = $user->tasks->isNotEmpty() ? count($user->tasks->filter(function($task) {
+            return $task->status_id != Task::STATUS_CANCELADO;
+        })) : 1;
+
+        $concludedTasks = count($user->tasks->filter(function($task) {
+            return $task->status_id == Task::STATUS_FINALIZADO;
+        }));
+
+        $inProgressTasks = count($user->tasks->filter(function($task) {
+            return $task->status_id == Task::STATUS_EM_ANDAMENTO;
+        }));
+
+        $porcent = round((($concludedTasks + ($inProgressTasks*0.50)) / $total) * 100);
+
+        return $porcent;
+    }
+
+    public static function getTaskPercentageProgress($id)
+    {
+        $porcentage = self::getTaskPercentage($id);
+
+        $classColor = 'progress-bar-primary';
+
+        if(0 < $porcentage && 50 >= $porcentage) {
+            $classColor = 'progress-bar-warning';
+        } elseif (50 < $porcentage && 100 > $porcentage) {
+            $classColor = 'progress-bar-primary';
+        }
+
+        return $classColor;
+    }
+
+    public static function getLatestTask($id)
+    {
+        $tasks = Task::where('user_id', $id)->where('status_id', Task::STATUS_EM_ANDAMENTO)->orderBy('id', 'DESC')->get();
+
+        $horaAtual = new \DateTime('now');
+
+        $lastests = $tasks->filter(function($task) use($horaAtual) {
+
+          $horaCorte = new \DateTime($task->begin);
+
+          $diff = $horaAtual->diff($horaCorte);
+          $segundos = $diff->s + ($diff->i * 60) + ($diff->h * 60);
+
+          $remainTime = ($task->time*60) - $segundos;
+
+          return $task->time > $remainTime;
+
+        });
+
+        if($lastests->isEmpty()) {
+          return '';
+        }
+
+        return 'Tarefa Atrasada';
+    }
+
+    public static function getTodayLogs($id)
+    {
+        $logs = TaskLogs::where('user_id', $id)
+        ->where('created_at', '>', (new \DateTime('now'))->format('Y-m-d') . ' 00:00:00')
+        ->orderBy('id', 'DESC')
+        ->take(3);
+
+        return $logs->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
