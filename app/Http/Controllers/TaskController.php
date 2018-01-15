@@ -9,6 +9,7 @@ use App\Process;
 use App\User;
 use App\TaskLogs;
 use App\TaskDelay;
+use App\TaskPause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Request as Req;
@@ -132,6 +133,24 @@ class TaskController extends Controller
 
         $remainTime = ($task->time*60) - $segundos;
 
+        $taskPause = TaskPause::where('task_id', $task->id)->get();
+
+        if($taskPause->last()) {
+
+          if(empty($taskPause->end) && !empty($taskPause->begin)) {
+            $diff2 = $horaAtual->diff(new \DateTime($taskPause->begin));
+          } else {
+            $base = new \DateTime($taskPause->end);
+            $diff2 = $base->diff(new \DateTime($taskPause->begin));
+          }
+
+            $segundos2 = $diff2->s + ($diff2->i * 60) + ($diff2->h * 60 * 60);
+
+            $remainTime = $remainTime + $segundos2;
+        }
+
+        //echo $remainTime;
+
         $gut = ($task->severity * $task->urgency * $task->trend);
 
         if (Req::get('status') == Task::STATUS_EM_ANDAMENTO && $task->status_id != Task::STATUS_EM_ANDAMENTO) {
@@ -209,31 +228,57 @@ class TaskController extends Controller
 
             $newTask = Task::create($data);
 
-            $log = new TaskLogs();
-            $log->task_id = $newTask->id;
-            $log->user_id = Auth::user()->id;
-            $log->message = 'Criou tarefa ' . $newTask->description;
-            $log->save();
+            $this->log($task, 'Duplicou a tarefa ' . $task->id);
 
-            $log = new TaskLogs();
-            $log->task_id = $task->id;
-            $log->user_id = Auth::user()->id;
-            $log->message = 'Duplicou a tarefa ' . $task->description;
-            $log->save();
+            $this->log($newTask, 'Criou a tarefa ' . $newTask->id);
 
             return redirect()->route('task', ['id' => $newTask->id]);
         }
 
         $taskDelay = TaskDelay::where('task_id', $task->id)->first();
+        $pausedTask = TaskPause::where('task_id', $task->id)->where("end", null)->first();
 
         return view('admin.tasks.details')
             ->with('task', $task)
             ->with('gut', $gut)
             ->with('taskDelay', $taskDelay)
+            ->with('pausedTask', $pausedTask)
             ->with('remainTime', $remainTime)
             ->with('processes', Process::all())
             ->with('logs', TaskLogs::where('task_id', $id)->orderBy('id', 'DESC')->get())
             ->with('messages', TaskMessages::where('task_id', $id)->get());
+    }
+
+    public function log(Task $task, $message)
+    {
+        $log = new TaskLogs();
+        $log->task_id = $task->id;
+        $log->user_id = Auth::user()->id;
+        $log->message = $message;
+        $log->save();
+    }
+
+    public function pause($id)
+    {
+        $task = Task::find($id);
+
+        $taskPause = new TaskPause();
+        $taskPause->task_id = $task->id;
+        $taskPause->user_id = Auth::user()->id;
+        $taskPause->message = Req::input('message');
+        $taskPause->begin = new \DateTime('now');
+        $taskPause->save();
+
+        $this->log($task, 'Pausou a tarefa ' . $task->description);
+    }
+
+    public function unPause($id)
+    {
+        $pausedTask = TaskPause::find($id);
+        $pausedTask->end = new \DateTime('now');
+        $pausedTask->save();
+
+        $this->log($pausedTask->task, 'Continuou a tarefa ' . $pausedTask->task->description);
     }
 
     public static function getColorFromValue($value)

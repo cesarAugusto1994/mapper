@@ -47,6 +47,8 @@ Route::prefix('user')->group(function () {
     Route::get('tasks', 'TaskController@index')->name('tasks');
     Route::get('board', 'TaskController@showBoard')->name('board');
     Route::get('task/{id}', 'TaskController@show')->name('task');
+    Route::post('task/{id}/pause', 'TaskController@pause')->name('task_pause');
+    Route::post('task/{id}/start', 'TaskController@unPause')->name('task_start');
 
     Route::post('task/message/store', 'TaskMessagesController@store')->name('task_message_store');
 

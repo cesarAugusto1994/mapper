@@ -1,8 +1,8 @@
 @extends('layouts.layout') @section('content')
 
 <div class="row wrapper border-bottom white-bg page-heading">
-	<div class="col-sm-4">
-		<h2>Tarefa Detalhes</h2>
+	<div class="col-sm-12">
+		<h2>Tarefa Detalhes <a class="text-center label label-info">Tarefa Pausada</a></h2>
 		<ol class="breadcrumb">
 			<li>
 				<a href="/">Home</a>
@@ -11,6 +11,7 @@
 				<strong>Tarefa Detalhes</strong>
 			</li>
 		</ol>
+
 	</div>
 </div>
 <div class="row">
@@ -25,6 +26,17 @@
                     <button data-toggle="dropdown" class="btn btn-default btn-outline btn-xs dropdown-toggle">Menu <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         @if($task->status_id == 2)
+														@if(count($pausedTask) > 0)
+														<li>
+																<a class="btn-unpause">
+																<i class="fa fa-play"></i> Continuar Tarefa</a>
+														</li>
+														@elseif(empty($taskDelay))
+														<li>
+																<a class="btn-pause">
+																<i class="fa fa-pause"></i> Pausar Tarefa</a>
+														</li>
+														@endif
                             <li>
                                 <a href="?status=3">
 																<i class="fa fa-stop"></i> Finalizar Tarefa</a>
@@ -261,6 +273,12 @@
                     @endif
 										<input type="hidden" id="urlAPI" value="{{ route('task_delay', ['id' => $task->id]) }}"/>
 										<input type="hidden" id="motivoEnviado" value="{{ count($taskDelay) }}"/>
+										<input type="hidden" id="urlTaskPause" value="{{ route('task_pause', ['id' => $task->id]) }}"/>
+										<input type="hidden" id="pausedTask" value="{{ count($pausedTask) }}"/>
+										@if($pausedTask)
+										<input type="hidden" id="urlTaskStart" value="{{ route('task_start', ['id' => $pausedTask->id]) }}"/>
+										@endif
+
 
 							</div>
 						</div>
@@ -294,7 +312,9 @@
 <script>
 	$(document).ready(function() {
 
-        $(".example").TimeCircles({start: true, fg_width: 0.05,
+				var options = {
+						"start": true,
+						"fg_width": 0.05,
             "time": {
             "Days": {
                 "text": "Days",
@@ -316,8 +336,15 @@
                 "color": "#1ab394",
                 "show": true
             }
-            }
-        }).addListener(countdownComplete);
+					}};
+
+        $(".example").TimeCircles(options).addListener(countdownComplete);
+
+				var pausedTask = $('#pausedTask').val();
+
+				if(pausedTask > 0) {
+					$(".example").TimeCircles(options).stop();
+				}
 
         function countdownComplete(unit, value, total){
             if(total<=0){
@@ -387,6 +414,107 @@
         }
 
         });
+
+				$(".btn-pause").click(function() {
+					swal({
+							title: 'Informe o motivo para pausar a tarefa.',
+							customClass: 'bounceInLeft',
+							input: 'textarea',
+							confirmButtonText: 'Enviar',
+							showLoaderOnConfirm: true,
+							showCancelButton: true,
+							preConfirm: (text) => {
+								return new Promise((resolve) => {
+									setTimeout(() => {
+										if (text === '') {
+											swal.showValidationError(
+												'Por Favor Informe o motivo do atraso.'
+											)
+										}
+										resolve()
+									}, 2000)
+								})
+							},
+							allowOutsideClick: () => false
+						}).then((result) => {
+							if (result.value) {
+
+								const ipAPI = $('#urlTaskPause').val();
+
+								swal({
+									type: 'success',
+									title: 'O motivo foi enviado!',
+									html: 'Motivo: ' + result.value,
+									preConfirm: () => {
+										 return $.post(ipAPI, { id: {{ $task->id }}, message : result.value, _token : "{{ csrf_token() }}" }).then((data) => {
+											 setTimeout(function() {
+													 toastr.options = {
+															 closeButton: true,
+															 progressBar: true,
+															 showMethod: 'slideDown',
+															 timeOut: 4000
+													 };
+													 toastr.success('Mapeador de Processos', data.message);
+
+													 setTimeout(function() {
+															window.location.reload();
+													 }, 2000)
+
+											 }, 1300);
+										 })
+									 }
+								})
+							}
+						})
+				});
+
+				$(".btn-unpause").click(function() {
+					swal({
+						  title: 'Deseja Continuar a tarefa?',
+						  type: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  confirmButtonText: 'Sim',
+						  cancelButtonText: 'Cancelar',
+						  confirmButtonClass: 'btn btn-success',
+						  cancelButtonClass: 'btn btn-danger',
+						  buttonsStyling: true,
+						  reverseButtons: true
+						}).then((result) => {
+						  if (result.value) {
+
+								const urlAPITaskStart = $('#urlTaskStart').val();
+
+								$.post(urlAPITaskStart, { id: {{ $task->id }}, message : result.value, _token : "{{ csrf_token() }}" }).then((data) => {
+									setTimeout(function() {
+											toastr.options = {
+													closeButton: true,
+													progressBar: true,
+													showMethod: 'slideDown',
+													timeOut: 4000
+											};
+											toastr.success('Mapeador de Processos', data.message);
+
+											setTimeout(function() {
+												 window.location.reload();
+											}, 2000)
+
+									}, 1300);
+								})
+
+
+						    swal(
+						      'OK!',
+						      'Agora é só continuar na tarefa.',
+						      'success'
+						    )
+						  // result.dismiss can be 'cancel', 'overlay',
+						  // 'close', and 'timer'
+						  }
+						})
+				});
+
 </script>
 
 @endpush
