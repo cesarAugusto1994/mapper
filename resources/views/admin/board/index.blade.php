@@ -20,11 +20,11 @@
 
       <div class="row">
           @foreach($users as $user)
-          <div class="col-lg-3 col-md-4 col-xs-12">
+          <div class="col-lg-2 col-md-4 col-xs-12">
               <div class="ibox">
                   <div class="ibox-title">
                       <span class="label label-danger pull-right">{!! App\Http\Controllers\UsersController::getLatestTask($user->id) !!}</span>
-                      <h5>{{ $user->name }}</h5>
+                      <h5>{{ substr($user->name, 0, 15) }}</h5>
                   </div>
                   <div class="ibox-content">
                       <div class="team-members text-center">
@@ -44,7 +44,7 @@
                       <div>
 
                       @forelse($user->tasks->sortByDesc('id')->take(6) as $task)
-                        <span><a href="{{ route('task', ['id' => $task->id]) }}" style="color: #2f4050">{{ $task->description }}</a>:</span>
+                        <span><a href="{{ route('task', ['id' => $task->id]) }}" style="color: #2f4050">{{ substr($task->description, 0, 26) }}</a>:</span>
                         <div class="stat-percent">@if ($task->status_id == 1) 0%
                         @elseif ($task->status_id == 2) 50%
                         @elseif ($task->status_id == 3 || $task->status_id == 4) 100%
@@ -65,24 +65,21 @@
                       @endforelse
 
                       @if($user->logs->isNotEmpty())
-                      <div class="inspinia-timeline">
+                      <div class="feed-activity-list">
 
                         <br/>
                         <h3>Histórico</h3>
 
                           @forelse(App\Http\Controllers\UsersController::getTodayLogs($user->id) as $log)
-                          <div class="timeline-item">
-                              <div class="row">
-                                  <div class="col-xs-3 date">
-                                      <i class="fa fa-comments"></i>
-                                      {{ $log->created_at->format('H:i') }}
-                                      <br>
-                                      <small class="text-navy">{{ App\Helpers\TimesAgo::render($log->created_at) }}</small>
-                                  </div>
-                                  <div class="col-xs-7 content no-top-border">
-                                      <p class="m-b-xs"><strong>{{$log->user->name == Auth::user()->name ? 'Você' : $log->user->name}}</strong></p>
-                                      <p>{{ $log->message }}</p>
-                                  </div>
+                          <div class="feed-element">
+                              <a href="{{ route('user', ['id' => $log->user->id]) }}" class="pull-left">
+                                  <img alt="image" class="img-circle" src="{{Gravatar::get($log->user->email)}}">
+                              </a>
+                              <div class="media-body ">
+                                  <small class="pull-right"></small>
+                                  <strong>{{$log->user->name == Auth::user()->name ? 'Você' : $log->user->name}}</strong> {{ $log->message }} <br>
+                                  <small class="text-muted">{{ $log->created_at->format('H:i - d.m.Y') }}</small>
+
                               </div>
                           </div>
                           @empty
