@@ -354,6 +354,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\TaskPause' => __DIR__ . '/../..' . '/app/TaskPause.php',
         'App\\TaskStatus' => __DIR__ . '/../..' . '/app/TaskStatus.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'App\\UserNotifications' => __DIR__ . '/../..' . '/app/UserNotifications.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',

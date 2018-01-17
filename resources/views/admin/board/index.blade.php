@@ -20,7 +20,7 @@
 
       <div class="row">
           @foreach($users as $user)
-          <div class="col-lg-2 col-md-4 col-xs-12">
+          <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
               <div class="ibox">
                   <div class="ibox-title">
                       <span class="label label-danger pull-right">{!! App\Http\Controllers\UsersController::getLatestTask($user->id) !!}</span>
@@ -43,7 +43,7 @@
 
                       <div>
 
-                      @forelse($user->tasks->sortByDesc('id')->take(6) as $task)
+                      @forelse($user->tasks->sortByDesc('id') as $task)
                         <span><a href="{{ route('task', ['id' => $task->id]) }}" style="color: #2f4050">{{ substr($task->description, 0, 26) }}</a>:</span>
                         <div class="stat-percent">@if ($task->status_id == 1) 0%
                         @elseif ($task->status_id == 2) 50%

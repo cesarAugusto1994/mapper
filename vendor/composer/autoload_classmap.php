@@ -44,6 +44,7 @@ return array(
     'App\\TaskPause' => $baseDir . '/app/TaskPause.php',
     'App\\TaskStatus' => $baseDir . '/app/TaskStatus.php',
     'App\\User' => $baseDir . '/app/User.php',
+    'App\\UserNotifications' => $baseDir . '/app/UserNotifications.php',
     'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
     'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',

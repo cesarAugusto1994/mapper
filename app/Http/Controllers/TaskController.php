@@ -133,11 +133,11 @@ class TaskController extends Controller
 
         $remainTime = ($task->time*60) - $segundos;
 
-        $taskPause = TaskPause::where('task_id', $task->id)->get();
+        $taskPause = TaskPause::where('task_id', $task->id)->first();
 
-        if($taskPause->last()) {
+        if(!empty($taskPause)) {
 
-          if(empty($taskPause->end) && !empty($taskPause->begin)) {
+          if(empty($taskPause->end)) {
             $diff2 = $horaAtual->diff(new \DateTime($taskPause->begin));
           } else {
             $base = new \DateTime($taskPause->end);

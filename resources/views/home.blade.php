@@ -22,9 +22,9 @@
                         <div class="ibox">
                             <div class="ibox-content">
                                 <h5>Tarefas Realizadas Hoje</h5>
-                                <h1 class="no-margins">{{ count($tasks) }}</h1>
-                                <div class="stat-percent font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
-                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($tasks->sum('time')) }}</small>
+                                <h1 class="no-margins">{{ count($concluded) }}</h1>
+                                <div class="stat-percent font-bold text-navy">0% <i class="fa fa-bolt"></i></div>
+                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concluded->sum('time')) }}</small>
                             </div>
                         </div>
                     </div>
@@ -32,19 +32,19 @@
                         <div class="ibox">
                             <div class="ibox-content">
                                 <h5>Tarefas Realizadas nesta Semana</h5>
-                                <h1 class="no-margins">{{ count($tasks) }}</h1>
-                                <div class="stat-percent font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
-                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($tasks->sum('time')) }}</small>
+                                <h1 class="no-margins">{{ count($concludedInThisWeek) }}</h1>
+                                <div class="stat-percent font-bold text-navy">0% <i class="fa fa-bolt"></i></div>
+                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisWeek->sum('time')) }}</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="ibox">
                             <div class="ibox-content">
-                                <h5>Tarefas Realizadas no mês Anterior</h5>
-                                <h1 class="no-margins">{{ count($tasks) }}</h1>
-                                <div class="stat-percent font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
-                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($tasks->sum('time')) }}</small>
+                                <h5>Tarefas Realizadas neste mês</h5>
+                                <h1 class="no-margins">{{ count($concludedInThisMount) }}</h1>
+                                <div class="stat-percent font-bold text-navy">0% <i class="fa fa-bolt"></i></div>
+                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisMount->sum('time')) }}</small>
                             </div>
                         </div>
                     </div>
@@ -52,9 +52,9 @@
                         <div class="ibox danger">
                             <div class="ibox-content">
                                 <h5>Atrasos</h5>
-                                <h1 class="no-margins">{{ count($tasks)/2 }} / {{ count($tasks) }}</h1>
-                                <div class="stat-percent font-bold text-danger">12% <i class="fa fa-level-down"></i></div>
-                                <small>Tempo: 0</small>
+                                <h1 class="no-margins">{{ count($concludedInThisMountWithDelay) }} / {{ count($concludedInThisMount) }}</h1>
+                                <div class="stat-percent font-bold text-danger">{{ $percentMount }}% <i class="fa fa-level-down"></i></div>
+                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisMountWithDelay->sum('spent_time') - $concludedInThisMountWithDelay->sum('time')) }}</small>
                             </div>
                         </div>
                     </div>
@@ -82,9 +82,9 @@
                 @if($peddingTasks->isNotEmpty())
                 <div class="ibox-content ibox-heading">
                     <h3>Você tem tarefas Pendentes para hoje!</h3>
-                    @foreach($peddingTasks as $pedding)
+                    @foreach($peddingTasks->take(3) as $pedding)
                     <p>
-                        <small><i class="fa fa-spinner fa-pulse fa-fw"></i> <a class="text-navy" href="{{ route('task', ['id' => $pedding->id]) }}">{{ $pedding->description }}</a></small>
+                        <small><i class="fa fa-go"></i> <a class="text-navy" href="{{ route('task', ['id' => $pedding->id]) }}">{{ $pedding->description }}</a></small>
                     </p>
                     @endforeach
                 </div>
@@ -179,7 +179,7 @@
                     showMethod: 'slideDown',
                     timeOut: 4000
                 };
-                toastr.success('Mapeador de Processos', 'Seja Bem vindo {{ Auth::user()->name }}');
+                //toastr.success('Mapeador de Processos', 'Seja Bem vindo {{ Auth::user()->name }}');
 
             }, 1300);
         });

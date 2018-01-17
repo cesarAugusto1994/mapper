@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Task;
 use App\TaskLogs;
 use Auth;
+use Redis;
 
 class HomeController extends Controller
 {
@@ -26,13 +27,39 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tasks = Task::where('user_id', Auth::user()->id)->limit(6)->orderBy('id', 'DESC')->get();
+        $tasks = Task::where('user_id', Auth::user()->id)->limit(12)->orderBy('id', 'DESC')->get();
 
         $concluded = $tasks->filter(function($task) {
-            return $task->status_id == 3;
+            return $task->status_id == Task::STATUS_FINALIZADO;
         });
 
-        $spentTime = $tasks->sum('time');
+        $date = new \DateTime('now');
+
+        $concludedInThisWeek = $tasks->filter(function($task) use($date) {
+
+            $dateWeekNumber = $date->format('w') - 1;
+
+            if($dateWeekNumber > 0) {
+                $date->modify("- {$dateWeekNumber} days");
+            }
+
+            return $task->status_id == Task::STATUS_FINALIZADO && $task->end >= $date->format(\DateTime::ISO8601);
+        });
+
+        $concludedInThisMount = $tasks->filter(function($task) use($date) {
+
+            $dateDaysNumber = $date->format('d');
+
+            if($dateDaysNumber != 1) {
+                $date->modify("- {$dateDaysNumber} days");
+            }
+
+            return $task->status_id == Task::STATUS_FINALIZADO && $task->end >= $date->format(\DateTime::ISO8601);
+        });
+
+        $concludedInThisMountWithDelay = $concludedInThisMount->filter(function($task) {
+            return $task->spent_time > $task->time;
+        });
 
         $spentTime = $tasks->map(function($task) {
 
@@ -60,6 +87,8 @@ class HomeController extends Controller
             return $task->status->id == Task::STATUS_PENDENTE;
         });
 
+        $percentMount = self::getPercetageDoneTasks($concludedInThisMount, $concludedInThisMountWithDelay);
+
         return view('home')
         ->with('logs', TaskLogs::limit(6)->orderBy('id', 'DESC')->get())
         ->with('tasks', $tasks)
@@ -68,13 +97,24 @@ class HomeController extends Controller
         ->with('spent', $time->toJson())
         ->with('proposedTime', $time->toJson())
         ->with('spentTime', $spentTime->sum())
-        ->with('concluded', $concluded);
+        ->with('concluded', $concluded)
+        ->with('concludedInThisWeek', $concludedInThisWeek)
+        ->with('concludedInThisMount', $concludedInThisMount)
+        ->with('concludedInThisMountWithDelay', $concludedInThisMountWithDelay)
+        ->with('percentMount', $percentMount);
+    }
+
+    public static function getPercetageDoneTasks($concludedInThisMount, $concludedInThisMountWithDelay)
+    {
+        return round((count($concludedInThisMountWithDelay)/count($concludedInThisMount)) * 100, 2);
     }
 
     public static function minutesToHour($time)
     {
         $hours = floor($time / 60);
         $minutes = ($time % 60);
+
+        $minutes = str_pad($minutes, 2, "0", STR_PAD_LEFT);
 
         if ($hours < 10) {
            $hours = str_pad($hours, 2, "0", STR_PAD_LEFT);
