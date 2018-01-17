@@ -2,7 +2,7 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
 	<div class="col-sm-12">
-		<h2>Tarefa Detalhes <a class="text-center label label-info">Tarefa Pausada</a></h2>
+		<h2>Tarefa Detalhes @if($pausedTask)<a class="text-center label label-info">Tarefa Pausada</a>@endif</h2>
 		<ol class="breadcrumb">
 			<li>
 				<a href="/">Home</a>
