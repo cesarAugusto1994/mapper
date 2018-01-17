@@ -106,7 +106,7 @@ class HomeController extends Controller
 
     public static function getPercetageDoneTasks($concludedInThisMount, $concludedInThisMountWithDelay)
     {
-        return round((count($concludedInThisMountWithDelay)/count($concludedInThisMount)) * 100, 2);
+        return round((count($concludedInThisMountWithDelay)/ !empty($concludedInThisMount) ? count($concludedInThisMount) : 1) * 100, 2);
     }
 
     public static function minutesToHour($time)

@@ -21,13 +21,13 @@ class UserTableSeeder extends Seeder
         $employee->email = 'admin@admin.com';
         $employee->password = bcrypt('secret');
         $employee->save();
-        $employee->roles()->attach($role_employee);
+        $employee->roles()->attach($role_manager);
 
         $manager = new User();
         $manager->name = 'usuario';
         $manager->email = 'user@user.com';
         $manager->password = bcrypt('secret');
         $manager->save();
-        $manager->roles()->attach($role_manager);
+        $manager->roles()->attach($role_employee);
     }
 }

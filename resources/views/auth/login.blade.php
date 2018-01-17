@@ -13,7 +13,7 @@
             <form class="m-t" method="POST" role="form" action="{{ route('login') }}">
             {{ csrf_field() }}
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input type="email" name="email" class="form-control" placeholder="Username" required="">
+                    <input type="email" name="email" class="form-control" placeholder="E-mail" required="">
 
                         @if ($errors->has('email'))
                             <span class="help-block">
@@ -23,7 +23,7 @@
 
                 </div>
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <input type="password" name="password" class="form-control" placeholder="Password" required="">
+                    <input type="password" name="password" class="form-control" placeholder="Senha" required="">
 
                         @if ($errors->has('password'))
                             <span class="help-block">
