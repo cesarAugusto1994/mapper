@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->integer('department_id')->nullable();
             $table->rememberToken();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

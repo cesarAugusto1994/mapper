@@ -15,7 +15,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-9">
+	<div class="col-lg-9 col-md-8">
 		<div class="wrapper wrapper-content animated fadeInUp">
 			<div class="ibox">
 				<div class="ibox-content">
@@ -111,7 +111,7 @@
 								<dt>Responsável:</dt>
 								<dd class="project-people">
 									<a href="{{route('user', ['id' => $task->sponsor->id])}}">
-										<img alt="image" title="{{$task->sponsor->name}}" class="img-circle" src="{{Gravatar::get(Auth::user()->email)}}">
+										<img alt="image" title="{{$task->sponsor->name}}" class="img-circle" src="{{Gravatar::get($task->sponsor->email)}}">
 									</a>
 								</dd>
 							</dl>
@@ -260,8 +260,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-3">
-		<div class="wrapper wrapper-content animated fadeInUp">
+	@if($task->status->id == 2)
+	<div class="col-lg-3 col-md-4">
+		<div class="wrapper wrapper-content project-manager animated fadeInUp">
 			<div class="ibox">
 				<div class="ibox-content">
 					<div class="row">
@@ -305,6 +306,7 @@
 
 		</div>
 	</div>
+	@endif
 </div>
 
 @endsection @push('scripts')

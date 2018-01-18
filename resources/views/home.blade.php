@@ -22,7 +22,7 @@
                             <div class="ibox-content">
                                 <h5>Tarefas Realizadas Hoje</h5>
                                 <h1 class="no-margins">{{ count($concluded) }}</h1>
-                                <div class="stat-percent font-bold text-navy">0% <i class="fa fa-bolt"></i></div>
+                                <div class="stat-percent font-bold text-navy">0% </div>
                                 <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concluded->sum('time')) }}</small>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <div class="ibox-content">
                                 <h5>Tarefas Realizadas nesta Semana</h5>
                                 <h1 class="no-margins">{{ count($concludedInThisWeek) }}</h1>
-                                <div class="stat-percent font-bold text-navy">0% <i class="fa fa-bolt"></i></div>
+                                <div class="stat-percent font-bold text-navy">0% </div>
                                 <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisWeek->sum('time')) }}</small>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             <div class="ibox-content">
                                 <h5>Tarefas Realizadas neste mês</h5>
                                 <h1 class="no-margins">{{ count($concludedInThisMount) }}</h1>
-                                <div class="stat-percent font-bold text-navy">0% <i class="fa fa-bolt"></i></div>
+                                <div class="stat-percent font-bold text-navy">0% </div>
                                 <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisMount->sum('time')) }}</small>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                             <div class="ibox-content">
                                 <h5>Atrasos</h5>
                                 <h1 class="no-margins">{{ count($concludedInThisMountWithDelay) }} / {{ count($concludedInThisMount) }}</h1>
-                                <div class="stat-percent font-bold text-danger">{{ $percentMount }}% <i class="fa fa-level-down"></i></div>
+                                <div class="stat-percent font-bold text-danger">{{ $percentMount }}% </div>
                                 <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisMountWithDelay->sum('spent_time') - $concludedInThisMountWithDelay->sum('time')) }}</small>
                             </div>
                         </div>
@@ -69,14 +69,6 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Recente</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
                 </div>
                 @if($peddingTasks->isNotEmpty())
                 <div class="ibox-content ibox-heading">
@@ -90,7 +82,7 @@
                 @endif
                 <div class="ibox-content inspinia-timeline">
 
-                    @foreach($logs as $log)
+                    @forelse($logs as $log)
                     <div class="timeline-item">
                         <div class="row">
                             <div class="col-xs-3 date">
@@ -105,7 +97,11 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @empty
+                        <div class="alert alert-info">
+                            Voce não possui nenhum log até o momento>.
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -114,13 +110,16 @@
           <div class="ibox">
               <div class="ibox-title">
                   <h5>Suas Tarefas</h5>
-                  <div class="ibox-tools">
-                      <a href="{{route('task_create')}}" class="btn btn-primary btn-xs">Criar nova Tarefa</a>
-                  </div>
+                  @if(Auth::user()->isAdmin())
+                      <div class="ibox-tools">
+                          <a href="{{route('task_create')}}" class="btn btn-primary btn-xs">Criar nova Tarefa</a>
+                      </div>
+                  @endif
               </div>
               <div class="ibox-content">
                   <div class="project-list">
-                    <table class="table table-hover table-responsive">
+                    @if($tasks->isNotEmpty())
+                      <table class="table table-hover table-responsive">
                         <tbody>
                         @forelse ($tasks as $task)
                             <tr>
@@ -154,13 +153,19 @@
                                 </td>
                             </tr>
                             @empty
-                            <tr>
-                                <td>
-                            </tr>
-                            Nenhuma tarefa até o momento.
+                              <div class="alert alert-info">
+                                  Nenhuma tarefa até o momento.
+                              </div>
                         @endforelse
                         </tbody>
                     </table>
+                    @else
+
+                    <div class="alert alert-info">
+                        Nenhuma tarefa até o momento.
+                    </div>
+
+                    @endif
                   </div>
               </div>
           </div>

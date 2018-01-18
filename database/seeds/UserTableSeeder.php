@@ -24,7 +24,7 @@ class UserTableSeeder extends Seeder
         $employee->roles()->attach($role_manager);
 
         $manager = new User();
-        $manager->name = 'usuario';
+        $manager->name = 'Usuario';
         $manager->email = 'user@user.com';
         $manager->password = bcrypt('secret');
         $manager->save();

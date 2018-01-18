@@ -209,10 +209,12 @@ class TaskController extends Controller
 
          if (Req::has('duplicate')) {
 
+            $user = Auth::user()->isAdmin() ? $task->user_id : Auth::user()->id;
+
             $data = [
                 'description' => $task->description,
                 'process_id' => $task->process_id,
-                'user_id' => $task->user_id,
+                'user_id' => $user,
                 'frequency' => $task->frequency,
                 'time' => $task->time,
                 'method' => $task->method,

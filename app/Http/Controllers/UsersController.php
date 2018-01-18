@@ -6,8 +6,10 @@ use App\User;
 use App\Department;
 use App\TaskLogs;
 use App\Task;
+use App\Role;
 use Illuminate\Http\Request;
 use Request as Req;
+use Illuminate\Validation\Validator;
 
 class UsersController extends Controller
 {
@@ -124,14 +126,28 @@ class UsersController extends Controller
 
         $data = Req::all();
 
+        $validator = \Illuminate\Support\Facades\Validator::make($data, [
+          'name' => 'required|max:255|unique:users',
+          'email' => 'required|email|max:255|unique:users',
+          'password' => 'required|min:6',
+          'roles' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $roleUser = Role::where("name", $data['roles'])->first();
+
         $user = new User();
 
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = bcrypt($data['password']);
         $user->department_id = $data['department_id'];
-
         $user->save();
+        $user->roles()->attach($roleUser);
+
 
         //User::create(Req::all());
 
