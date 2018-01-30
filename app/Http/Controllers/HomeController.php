@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
 use App\TaskLogs;
+use App\Process;
+use App\User;
+use App\Department;
 use Auth;
 use Redis;
 
@@ -90,6 +93,9 @@ class HomeController extends Controller
         $percentMount = self::getPercetageDoneTasks($concludedInThisMount, $concludedInThisMountWithDelay);
 
         return view('home')
+        ->with('processes', Process::all())
+        ->with('users', User::all())
+        ->with('departments', Department::all())
         ->with('logs', TaskLogs::limit(6)->orderBy('id', 'DESC')->get())
         ->with('tasks', $tasks)
         ->with('peddingTasks', $peddingTasks)
@@ -120,6 +126,6 @@ class HomeController extends Controller
            $hours = str_pad($hours, 2, "0", STR_PAD_LEFT);
         }
 
-        return "{$hours}:{$minutes}";
+        return "{$hours}:{$minutes}:00";
     }
 }

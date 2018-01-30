@@ -80,9 +80,9 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td>
+                                        <td>Nenhuma tarefa até o momento.</td>
                                     </tr>
-                                    Nenhuma tarefa até o momento.
+
                                 @endforelse
                                 </tbody>
                             </table>

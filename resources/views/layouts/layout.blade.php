@@ -15,6 +15,8 @@
 	<link href="{{ asset("admin/css/style.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/TimeCircles.css") }}" rel="stylesheet">
 	<link href="{{ asset("css/sweetalert2.min.css") }}" rel="stylesheet">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 
 	@stack('stylesheets')
 
@@ -108,6 +110,9 @@
 	<script src="{{asset('admin/js/bootstrap.min.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.tooltip.min.j')}}s"></script>

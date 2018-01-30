@@ -15,7 +15,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-9 col-md-8">
+	<div class="col-lg-9 col-md-12">
 		<div class="wrapper wrapper-content animated fadeInUp">
 			<div class="ibox">
 				<div class="ibox-content">
@@ -260,8 +260,7 @@
 			</div>
 		</div>
 	</div>
-	@if($task->status->id == 2)
-	<div class="col-lg-3 col-md-4">
+	<div class="col-lg-3 col-md-12">
 		<div class="wrapper wrapper-content project-manager animated fadeInUp">
 			<div class="ibox">
 				<div class="ibox-content">
@@ -306,7 +305,6 @@
 
 		</div>
 	</div>
-	@endif
 </div>
 
 @endsection @push('scripts')

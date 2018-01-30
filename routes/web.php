@@ -41,6 +41,19 @@ Route::prefix('admin')->group(function () {
   Route::post('user/{id}/update', 'UsersController@update')->name('user_update');
 
   Route::get('boards', 'BoardController@index')->name('boards');
+
+  Route::get('mappings', 'MapperController@index')->name('mappings');
+  Route::get('mapping/{id}/edit', 'MapperController@edit')->name('mapping_edit');
+  Route::get('mapping/{id}', 'MapperController@show')->name('mapping');
+  Route::get('mapping/create/form', 'MapperController@create')->name('mapping_create');
+
+  Route::post('mapping/store', 'MapperController@store')->name('mapping_store');
+
+  Route::get('mapping/{id}/add-task', 'MapperController@addTask')->name('mapping_tasks');
+  Route::post('mapping/{id}/add-task-store', 'MapperController@addTaskStore')->name('mapping_tasks_store');
+
+  Route::get('mapping/{id}/task/{task}/remove', 'MapperController@removeTaskStore')->name('mapper_remove_task');
+
 });
 
 Route::prefix('user')->group(function () {

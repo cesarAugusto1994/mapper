@@ -19,7 +19,7 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             @foreach($departments as $department)
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <div class="contact-box">
                         <a href="{{route('department', ['id' => $department->id])}}">
                             <div class="col-sm-12">

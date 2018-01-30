@@ -4,13 +4,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2>Processos</h2>
+            <h2>Mapeamentos</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('home')}}">Painel</a>
                 </li>
                 <li class="active">
-                    <strong>Processos</strong>
+                    <strong>Mapeamentos</strong>
                 </li>
             </ol>
         </div>
@@ -22,9 +22,9 @@
 
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Processos</h5>
+                        <h5>Mapeamentos</h5>
                         <div class="ibox-tools">
-                            <a href="{{route('process_create')}}" class="btn btn-primary btn-xs">Criar novo Processo</a>
+                            <a href="{{route('mapping_create')}}" class="btn btn-primary btn-xs">Criar novo Mapeamento</a>
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -33,18 +33,22 @@
 
                             <table class="table table-hover">
                                 <tbody>
-                                @foreach($processes as $process)
+                                @foreach($mappings as $map)
                                 <tr>
                                     <td class="project-status">
-                                        <span class="label label-primary">{{$process->department->name}}</span>
+                                        <span class="label label-{!! $map->active == 1 ? 'primary' : 'danger' !!}">{!! $map->active == 1 ? 'Ativo' : 'Inativo' !!}</span>
                                     </td>
                                     <td class="project-title">
-                                        <a href="{{route('process', ['id' => $process->id])}}">{{$process->name}}</a>
+                                        <a href="{{route('mapping', ['id' => $map->id])}}">{{$map->name}}</a>
                                         <br/>
-                                        <small>Criado em {{ $process->created_at->format('d/m/Y H:i:s')}}</small>
+                                        <small>Criado em {{ $map->created_at->format('d/m/Y H:i:s')}}</small>
+                                    </td>
+                                    <td class="project-people">
+                                        <a href="{{route('user', ['id' => $map->user->id])}}">
+                                        <img alt="image" class="img-circle" src="{{Gravatar::get($map->user->email)}}"></a>
                                     </td>
                                     <td class="project-actions">
-                                        <a href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
+                                        <a href="{{route('mapping_edit', ['id' => $map->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
                                     </td>
                                 </tr>
                                 @endforeach
