@@ -161,13 +161,13 @@ class TaskController extends Controller
 
             $task->status_id = Task::STATUS_EM_ANDAMENTO;
             $task->begin = new \DateTime('now');
-            //$task->save();
+            $task->save();
 
             $log = new TaskLogs();
             $log->task_id = $task->id;
             $log->user_id = Auth::user()->id;
             $log->message = 'Alterou o status da tarefa ' . $task->description . ' para Em Andamento.';
-            //$log->save();
+            $log->save();
 
             return redirect()->route('task', ['id' => $task->id]);
         } elseif (Req::get('status') == Task::STATUS_FINALIZADO && $task->status_id != Task::STATUS_FINALIZADO) {

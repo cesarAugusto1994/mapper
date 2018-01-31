@@ -59,6 +59,14 @@ class MapperController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+        $hasMapperWithUser = Mapper::where('user_id', $data['user'])->where('active', 1)->get();
+
+        if ($hasMapperWithUser) {
+            return back()->withErrors('Já existe um mapeamento ativo para este usuário.');
+        }
+
+        exit;
+
         $mapper = new Mapper();
 
         $mapper->name = $data['name'];
@@ -107,6 +115,18 @@ class MapperController extends Controller
         $mTask = Task::findOrFail($task);
         $mTask->mapper_id = null;
         $mTask->save();
+
+        return redirect()->route('mapping', ['id' => $id]);
+    }
+
+    public function start($id)
+    {
+        $mapper = Mapper::findOrFail($id);
+
+        $mapper->active = true;
+        $mapper->started_at = new \DateTime('now');
+
+        $mapper->save();
 
         return redirect()->route('mapping', ['id' => $id]);
     }

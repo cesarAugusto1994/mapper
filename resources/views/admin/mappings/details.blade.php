@@ -9,7 +9,17 @@
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
             <h2>Mapeamento - {{ $mapper->name }}
-              @if($mapper->tasks->isNotEmpty())<a href="{{route('user_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Iniciar</a>@endif</h2>
+              @if($mapper->active != 1)
+              @if($mapper->tasks->isNotEmpty())
+                  <form method="post" action="{{ route('mapping_start', ['id' => $mapper->id]) }}">
+                      {{ csrf_field() }}
+                      <button type="submit" class="btn btn-lg bottom-right btn-primary pull-right">Iniciar</button>
+                  </form>
+              @endif
+              @else
+                <span class="bottom-right pull-right">Mapeamento já Iniciado</span>
+              @endif
+            </h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="index.html">Home</a>

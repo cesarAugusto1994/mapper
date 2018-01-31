@@ -19,6 +19,13 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
+
+              @foreach ($errors->all() as $error)
+
+                  <div class="alert alert-danger">{{ $error }}</div>
+
+              @endforeach
+
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Novo Mapeamento</h5>
