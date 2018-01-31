@@ -19,6 +19,11 @@ class Task extends Model
         'status_id', 'created_by', 'active', 'mapper_id'
     ];
 
+    public function process()
+    {
+        return $this->belongsTo(Process::class, 'process_id');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');

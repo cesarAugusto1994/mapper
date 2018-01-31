@@ -35,7 +35,8 @@
                               <table class="table table-hover">
                                   <tbody>
                                     @forelse ($tasks as $task)
-                                        <tr>
+                                        @if($task->process->department->id == $mapper->user->department->id)
+                                          <tr>
                                             <td class="project-status">
                                                 <input type="checkbox" value="{{ $task->id }}" class="tasks" name="ids[]"/>
                                             </td>
@@ -72,6 +73,8 @@
                                                 <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
                                             </td>
                                         </tr>
+                                        @endif
+
                                         @empty
                                         <tr>
                                             <td>Nenhuma tarefa até o momento.</td>

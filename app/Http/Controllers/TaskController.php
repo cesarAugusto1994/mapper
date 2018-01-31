@@ -112,7 +112,7 @@ class TaskController extends Controller
         $log->message = 'Criou tarefa ' . $task->description;
         $log->save();
 
-        return redirect()->route('process', ['id' => $data['process_id']]);
+        return redirect()->route('task', ['id' => $task->id]);
     }
 
     /**
