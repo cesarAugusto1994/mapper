@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Process extends Model
 {
-    protected $fillable = ['name', 'department_id'];
+    protected $fillable = ['name', 'department_id', 'frequency_id'];
 
     public function department()
     {

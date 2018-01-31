@@ -36,6 +36,13 @@
                                         @endforeach
                                     </select></div>
                             </div>
+                            <div class="form-group"><label class="col-sm-2 control-label">Frequencia</label>
+                                <div class="col-sm-10"><select class="form-control m-b" name="frequency_id">
+                                        @foreach($frequencies as $frequency)
+                                            <option value="{{$frequency->id}}">{{$frequency->name}}</option>
+                                        @endforeach
+                                    </select></div>
+                            </div>
                             <button class="btn btn-primary">Salvar</button>
                         </form>
                     </div>

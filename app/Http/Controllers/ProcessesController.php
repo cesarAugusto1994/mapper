@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Department;
 use App\Task;
 use App\Process;
+use App\Frequency;
 use Illuminate\Http\Request;
 use Request as Req;
 
@@ -44,7 +45,9 @@ class ProcessesController extends Controller
      */
     public function create()
     {
-        return view('admin.processes.create')->with('departments', Department::all());
+        return view('admin.processes.create')
+        ->with('departments', Department::all())
+        ->with('frequencies', Frequency::all());
     }
 
     /**
@@ -89,7 +92,8 @@ class ProcessesController extends Controller
     {
         return view('admin.processes.edit')
             ->with('departments', Department::all())
-            ->with('process', Process::find($id));
+            ->with('process', Process::find($id))
+            ->with('frequencies', Frequency::all());
     }
 
     /**
@@ -101,7 +105,16 @@ class ProcessesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->request->all();
+
+        $process = Process::findOrFail($id);
+
+        $process->name = $data['name'];
+        $process->department_id = $data['department_id'];
+        $process->frequency_id = $data['frequency_id'];
+        $process->save();
+
+        return redirect()->route('processes');
     }
 
     /**

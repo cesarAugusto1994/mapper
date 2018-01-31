@@ -31,6 +31,7 @@ Route::prefix('admin')->group(function () {
   Route::get('process/create/form', 'ProcessesController@create')->name('process_create');
   Route::post('process/create/store', 'ProcessesController@store')->name('processes_store');
   Route::get('process/{id}/edit', 'ProcessesController@edit')->name('process_edit');
+  Route::post('process/{id}/update', 'ProcessesController@update')->name('process_update');
 
   Route::get('user/{id}/avatar', 'UsersController@editAvatar')->name('user_avatar');
   Route::get('users/create/form', 'UsersController@create')->name('user_create');
