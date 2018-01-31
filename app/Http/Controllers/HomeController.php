@@ -10,6 +10,7 @@ use App\User;
 use App\Department;
 use Auth;
 use Redis;
+use Redirect;
 
 class HomeController extends Controller
 {
@@ -30,6 +31,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->active) {
+          Auth::logout();
+          return Redirect::route('login')->withErrors('Desculpe, mas o Usuário está desativado, entre em contato com o Administrador.');
+        }
+
         $tasks = Task::where('user_id', Auth::user()->id)->limit(12)->orderBy('id', 'DESC')->get();
 
         $concluded = $tasks->filter(function($task) {
