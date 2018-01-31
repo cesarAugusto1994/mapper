@@ -19,7 +19,7 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             @foreach($users as $user)
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-4 col-md-6">
                     <div class="contact-box">
                         <a href="{{route('user', ['id' => $user->id])}}">
                             <div class="col-sm-4">
@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-8">
-                                <h3><strong>{{$user->name}}</strong>   <span class="text-center label label-{{ $user->active ? 'primary' : 'danger' }}">{{ $user->active ? 'Ativo' : 'Inativo' }}</span></h3>
+                                <h3><strong>{{substr($user->name, 0, 20)}}</strong>   <span class="text-center pull-right label label-{{ $user->active ? 'primary' : 'danger' }}">{{ $user->active ? 'Ativo' : 'Inativo' }}</span></h3>
                                 <p><i class="fa fa-at"></i> {{$user->email}}</p>
                             </div>
                             <div class="clearfix"></div>
