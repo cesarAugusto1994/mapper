@@ -316,19 +316,4 @@
 
 @push('scripts')
 
-    <script>
-        $(document).ready(function() {
-            setTimeout(function() {
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 4000
-                };
-                //toastr.success('Mapeador de Processos', 'Seja Bem vindo {{ Auth::user()->name }}');
-
-            }, 1300);
-        });
-    </script>
-
 @endpush
