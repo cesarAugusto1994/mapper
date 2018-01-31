@@ -31,7 +31,7 @@
 
                         <div class="project-list">
 
-                            <table class="table table-hover">
+                            <table class="table table-hover table-responsive">
                                 <tbody>
                                 @foreach($mappings as $map)
                                 <tr>
@@ -46,11 +46,11 @@
                                     <td class="project-title">
                                         <p>Tempo Previsto <a>{{ App\Http\Controllers\HomeController::minutesToHour($map->tasks->sum('time')) }}<a></p>
                                     </td>
-                                    <td class="project-people">
+                                    <td class="project-people hidden-xs">
                                         <a href="{{route('user', ['id' => $map->user->id])}}">
                                         <img alt="image" class="img-circle" src="{{Gravatar::get($map->user->email)}}"></a>
                                     </td>
-                                    <td class="project-actions">
+                                    <td class="project-actions hidden-xs">
                                         <a href="{{route('mapping_edit', ['id' => $map->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
                                     </td>
                                 </tr>

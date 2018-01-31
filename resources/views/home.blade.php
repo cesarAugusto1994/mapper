@@ -148,7 +148,7 @@
                                         @endif;"></div>
                                     </div>
                                 </td>
-                                <td class="project-actions">
+                                <td class="project-actions hidden-xs">
                                     <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
                                 </td>
                             </tr>

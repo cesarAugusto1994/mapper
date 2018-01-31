@@ -83,11 +83,11 @@
                                               @endif;"></div>
                                           </div>
                                       </td>
-                                      <td class="project-people">
+                                      <td class="project-people hidden-xs">
                                           <a href="{{route('user', ['id' => $task->sponsor->id])}}">
                                           <img alt="image" class="img-circle" src="{{Gravatar::get($task->sponsor->email)}}"></a>
                                       </td>
-                                      <td class="project-actions">
+                                      <td class="project-actions hidden-xs">
                                           <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
                                       </td>
                                   </tr>
