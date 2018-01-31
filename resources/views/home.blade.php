@@ -140,7 +140,7 @@
                                     <div class="progress progress-mini">
                                         <div style="width:
                                         @if ($task->status_id == 1) 0%
-                                        @elseif ($task->status_id == 2) 50%
+                                        @elseif ($task->status_id == 2) 40%
                                         @elseif ($task->status_id == 3 || $task->status_id == 4) 100%
                                         @endif;" class="progress-bar
                                         @if ($task->status_id == 2) progress-bar-warning

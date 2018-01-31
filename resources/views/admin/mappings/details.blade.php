@@ -17,7 +17,7 @@
                   </form>
               @endif
               @else
-                <span class="bottom-right pull-right">Mapeamento já Iniciado</span>
+                <span class="bottom-right label label-primary pull-right">Em Execução</span>
               @endif
             </h2>
             <ol class="breadcrumb">
@@ -55,7 +55,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-10">
+            <div class="col-lg-10 col-md-8">
               <div class="ibox float-e-margins">
                   <div class="ibox-title">
                       <h5>Tarefas</h5>
@@ -74,14 +74,14 @@
                                       <br/>
                                       <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
                                   </td>
-                                  <td class="project-completion">
+                                  <td class="project-completion hidden-xs">
                                       <small>GUT:  <b>
                                         <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->severity); !!}">{{$task->severity}}</span>
                                         <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->urgency); !!}">{{$task->urgency}}</span>
                                         <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->trend); !!}">{{$task->trend}}</span>
                                       </b></small>
                                   </td>
-                                  <td class="project-completion">
+                                  <td class="project-completion hidden-xs">
                                       <small>Situação  <b>{{$task->status->name}}</b></small>
                                       <div class="progress progress-mini">
                                           <div style="width:
@@ -100,9 +100,8 @@
                                   </td>
                                   <td class="project-actions">
                                       @if($task->status->id == 1)
-                                          <a href="{{route('mapper_remove_task', ['id' => $mapper->id, 'task' => $task->id])}}" class="btn btn-danger btn-outline btn-sm"> Remover </a>
+                                          <a href="{{route('mapper_remove_task', ['id' => $mapper->id, 'task' => $task->id])}}" class="btn btn-danger btn-outline btn-xs"> Desvincular </a>
                                       @endif
-                                      <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
                                   </td>
                               </tr>
                                 @empty
