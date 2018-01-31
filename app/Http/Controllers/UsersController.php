@@ -203,12 +203,17 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $data = $request->request->all();
 
-        $user->name = $request->request->get('name');
-        $user->email = $request->request->get('email');
-        $user->department_id = $request->request->get('department_id');
-        $password = $request->request->get('password');
+        $user = User::findOrFail($id);
+
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->department_id = $data['department_id'];
+        $password = $data['password'];
+
+        $user->do_task = $data['do_task'];
+        $user->active = $data['active'];
 
         if (!empty($password)) {
             $user->password = bcrypt($password);

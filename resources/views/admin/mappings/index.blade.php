@@ -43,6 +43,9 @@
                                         <br/>
                                         <small>Criado em {{ $map->created_at->format('d/m/Y H:i:s')}}</small>
                                     </td>
+                                    <td class="project-title">
+                                        <p>Tempo Previsto <a>{{ App\Http\Controllers\HomeController::minutesToHour($map->tasks->sum('time')) }}<a></p>
+                                    </td>
                                     <td class="project-people">
                                         <a href="{{route('user', ['id' => $map->user->id])}}">
                                         <img alt="image" class="img-circle" src="{{Gravatar::get($map->user->email)}}"></a>

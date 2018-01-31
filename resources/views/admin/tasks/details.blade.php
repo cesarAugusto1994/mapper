@@ -23,7 +23,7 @@
 						<div class="col-lg-12">
 							<div class="m-b-md">
                 <div class="btn-group pull-right">
-                    <button data-toggle="dropdown" class="btn btn-default btn-outline btn-xs dropdown-toggle">Menu <span class="caret"></span></button>
+                    <button data-toggle="dropdown" class="btn btn-default btn-outline dropdown-toggle">Menu <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         @if($task->status_id == 2)
 														@if(count($pausedTask) > 0)
@@ -43,8 +43,15 @@
                             </li>
                         @elseif($task->status_id == 1)
                             <li>
-                                <a href="?status=2"><i class="fa fa-play"></i> Iniciar Tarefa</a>
+																@if(!empty($task->mapper) && $task->mapper->active == 1)
+                                		<a href="?status=2"><i class="fa fa-play"></i> Iniciar Tarefa</a>
+																@else
+																		<a disabled id="btn-task-start-blocked"><i class="fa fa-play"></i> Iniciar Tarefa</a>
+																@endif
                             </li>
+														@if(!empty($task->mapper) && $task->mapper->active != 1)
+																<li><a href="{{ route('mapping', ['id' => $task->mapper->id]) }}"> Mapeamento</a></li>
+														@endif
                         @endif
                         @if($task->status_id != 3 && $task->status_id != 4)
                             <li class="divider"></li>
@@ -513,6 +520,16 @@
 						  // 'close', and 'timer'
 						  }
 						})
+				});
+
+				$("#btn-task-start-blocked").click(function() {
+					toastr.options = {
+							closeButton: true,
+							progressBar: true,
+							showMethod: 'slideDown',
+							timeOut: 6000
+					};
+					toastr.warning('Esta tarefa Pertence a um mapeamento, deve primeiro iniciá-lo.', 'Alerta');
 				});
 
 </script>

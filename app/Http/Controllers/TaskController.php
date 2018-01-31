@@ -154,15 +154,20 @@ class TaskController extends Controller
         $gut = ($task->severity * $task->urgency * $task->trend);
 
         if (Req::get('status') == Task::STATUS_EM_ANDAMENTO && $task->status_id != Task::STATUS_EM_ANDAMENTO) {
+
+            if($task->mapper->active != 1) {
+                return redirect()->back()->with('message', 'Esta tarefa Pertence a um mapeamento, deve primeiro iniciá-lo.');
+            }
+
             $task->status_id = Task::STATUS_EM_ANDAMENTO;
             $task->begin = new \DateTime('now');
-            $task->save();
+            //$task->save();
 
             $log = new TaskLogs();
             $log->task_id = $task->id;
             $log->user_id = Auth::user()->id;
             $log->message = 'Alterou o status da tarefa ' . $task->description . ' para Em Andamento.';
-            $log->save();
+            //$log->save();
 
             return redirect()->route('task', ['id' => $task->id]);
         } elseif (Req::get('status') == Task::STATUS_FINALIZADO && $task->status_id != Task::STATUS_FINALIZADO) {

@@ -16,7 +16,7 @@ class Task extends Model
         'frequency', 'time', 'method',
         'indicator', 'client_id', 'vendor_id',
         'severity', 'urgency', 'trend',
-        'status_id', 'created_by', 'active'
+        'status_id', 'created_by', 'active', 'mapper_id'
     ];
 
     public function createdBy()
@@ -37,6 +37,11 @@ class Task extends Model
     public function sponsor()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function mapper()
+    {
+        return $this->belongsTo(Mapper::class, 'mapper_id');
     }
 
 

@@ -27,7 +27,8 @@
             <div class="col-lg-2 col-md-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Perfil Detalhes</h5>
+                        <h5>Perfil Detalhes  </h5>
+                        <span class="pull-right label label-{{ $user->active ? 'primary' : 'danger' }}">{{ $user->active ? 'Ativo' : 'Inativo' }}</span>
                     </div>
                     <div>
                         <div class="ibox-content no-padding border-left-right">
@@ -57,7 +58,7 @@
                       <div>
                           <div class="feed-activity-list">
 
-                              @foreach($logs as $log)
+                              @forelse($logs as $log)
                                   <div class="feed-element">
                                       <a href="{{ route('user', ['id' => $log->user->id]) }}" class="pull-left">
                                           <img alt="image" class="img-circle" src="{{Gravatar::get($log->user->email)}}">
@@ -69,7 +70,12 @@
 
                                       </div>
                                   </div>
-                              @endforeach
+
+                              @empty
+                                  <div class="alert alert-info">
+                                      Você não possui nenhum registro até o momento.
+                                  </div>
+                              @endforelse
 
                           <!--<button class="btn btn-primary btn-block m-t"><i class="fa fa-arrow-down"></i> Show More</button>-->
 
@@ -91,9 +97,10 @@
                   </div>
                   <div class="ibox-content">
                       <div class="project-list">
+                        @if($tasks->isNotEmpty())
                         <table class="table table-hover">
                             <tbody>
-                            @forelse ($tasks as $task)
+                            @foreach ($tasks as $task)
                                 <tr>
                                     <td class="project-title">
                                         <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
@@ -124,14 +131,15 @@
                                         <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
                                     </td>
                                 </tr>
-                                @empty
-                                <tr>
-                                    <td>
-                                </tr>
-                                Nenhuma tarefa até o momento.
-                            @endforelse
+
+                            @endforeach
                             </tbody>
                         </table>
+                        @else
+                            <div class="alert alert-info">
+                                Nenhuma tarefa delegada à você até o momento.
+                            </div>
+                        @endif
                       </div>
                   </div>
               </div>
@@ -154,7 +162,10 @@
                     <div class="modal-body">
                         <div class="form-group"><label>Seu Nome</label> <input type="text" name="name" placeholder="Informe seu Nome" value="{{$user->name}}" class="form-control"></div>
                         <div class="form-group"><label>E-mail</label> <input type="email" name="email" placeholder="Informe seu E-mail" value="{{$user->email}}" class="form-control"></div>
-                        <div class="form-group"><label>Nova Senha</label> <input type="password" name="password" placeholder="Informe a sua nova senha" class="form-control"></div>
+                        <div class="form-group"><label>Nova Senha</label>
+                          <input type="password" name="password" placeholder="Informe a sua nova senha" autocomplete="off" class="form-control">
+                          <span class="help-block m-b-none">Deixe este campo em branco caso não queira alterar a senha.</span>
+                        </div>
 
                         <div class="form-group"><label>Departamento</label>
                             <select class="form-control" name="department_id">
@@ -165,6 +176,42 @@
 
                             </select>
                         </div>
+
+                        <div class="form-group {!! $errors->has('roles') ? 'has-error' : '' !!}"><label>Acesso</label>
+
+                              <select id="roles" name="roles" required="required" class="form-control">
+                                  <option value="user">Usuário</option>
+                                  <option value="admin">Administrador</option>
+                              </select>
+                              {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
+
+                        </div>
+
+                        <div class="form-group"><label>Executa Tarefas</label>
+                            <br/>
+                            <div class="btn-group" data-toggle="buttons">
+                              <label class="btn btn-primary {{ $user->do_task ? 'active' : '' }}">
+                                <input type="radio" name="do_task" id="option1" value="1" autocomplete="off" {{ $user->do_task ? 'checked' : '' }}> Sim
+                              </label>
+                              <label class="btn btn-primary {{ !$user->do_task ? 'active' : '' }}">
+                                <input type="radio" name="do_task" id="option2" value="0" autocomplete="off" {{ !$user->do_task ? 'checked' : '' }}> Não
+                              </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label>Ativo</label>
+                          <br/>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary {{ $user->active ? 'active' : '' }}">
+                              <input type="radio" name="active" id="option1" value="1" autocomplete="off" {{ $user->active ? 'checked' : '' }}> Sim
+                            </label>
+                            <label class="btn btn-primary {{ !$user->active ? 'active' : '' }}">
+                              <input type="radio" name="active" id="option2" value="0" autocomplete="off" {{ !$user->active ? 'checked' : '' }}> Não
+                            </label>
+                          </div>
+
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>

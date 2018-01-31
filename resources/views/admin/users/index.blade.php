@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-8">
-                                <h3><strong>{{$user->name}}</strong></h3>
+                                <h3><strong>{{$user->name}}</strong>   <span class="text-center label label-{{ $user->active ? 'primary' : 'danger' }}">{{ $user->active ? 'Ativo' : 'Inativo' }}</span></h3>
                                 <p><i class="fa fa-at"></i> {{$user->email}}</p>
                             </div>
                             <div class="clearfix"></div>

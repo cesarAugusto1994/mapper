@@ -36,7 +36,9 @@
                                 <div class="col-sm-10">
                                   <select class="selectpicker show-tick" data-width="100%" name="user">
                                         @foreach($users as $user)
-                                            <option value="{{$user->id}}"><img alt="" src="{{ Gravatar::get(Auth::user()->email) }}" />{{$user->name}}</option>
+                                            @if($user->do_task && $user->active)
+                                                <option value="{{$user->id}}"><img alt="" src="{{ Gravatar::get(Auth::user()->email) }}" />{{$user->name}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                       {!! $errors->first('user', '<p class="help-block">:message</p>') !!}
