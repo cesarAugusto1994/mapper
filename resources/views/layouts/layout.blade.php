@@ -104,11 +104,20 @@
 
 	</div>
 
-	<script src="{{asset('admin/js/jquery-2.1.1.js')}}"></script>
+	<!--<script src="{{asset('admin/js/jquery-2.1.1.js')}}"></script>-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="{{asset('admin/js/bootstrap.min.js')}}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touch/1.1.0/jquery.touch.min.js"></script>
+	<script src="{{asset('admin/js/inspinia.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+	<script src="{{asset('admin/js/plugins/peity/jquery.peity.min.js')}}"></script>
+	<script src="{{asset('admin/js/plugins/pace/pace.min.js')}}"></script>
+	<script src="{{asset('admin/js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+	<script src="{{asset('admin/js/plugins/toastr/toastr.min.js')}}"></script>
+	<script src="{{asset('admin/js/TimeCircles.js')}}"></script>
+	<script src="{{asset('/js/sweatalert2.min.js')}}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touch/1.1.0/jquery.touch.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
 	<!-- Latest compiled and minified JavaScript -->
 
@@ -121,19 +130,11 @@
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.pie.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.time.js')}}"></script>
 -->
-	<script src="{{asset('admin/js/plugins/peity/jquery.peity.min.js')}}"></script>
-	<script src="{{asset('admin/js/inspinia.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/pace/pace.min.js')}}"></script>
-	<script src="{{asset('admin/js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+
 	<!--
 	<script src="{{asset('admin/js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/chartJs/Chart.min.js')}}"></script>
 -->
-	<script src="{{asset('admin/js/plugins/toastr/toastr.min.js')}}"></script>
-	<script src="{{asset('admin/js/TimeCircles.js')}}"></script>
-	<script src="{{asset('/js/sweatalert2.min.js')}}"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
 	<script>
 
