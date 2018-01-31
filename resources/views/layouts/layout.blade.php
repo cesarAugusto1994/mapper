@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
-
 	<meta charset="utf-8">
+	<meta http-equiv="Content-Language" content="pt-br">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title>Process Mapper | Admin</title>
@@ -17,7 +16,6 @@
 	<link href="{{ asset("css/sweetalert2.min.css") }}" rel="stylesheet">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-
 	@stack('stylesheets')
 
 </head>
