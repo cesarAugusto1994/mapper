@@ -114,45 +114,36 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
+<!--
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.tooltip.min.j')}}s"></script>
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.spline.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.resize.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.pie.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.time.js')}}"></script>
-
+-->
 	<script src="{{asset('admin/js/plugins/peity/jquery.peity.min.js')}}"></script>
 	<script src="{{asset('admin/js/inspinia.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/pace/pace.min.js')}}"></script>
-
 	<script src="{{asset('admin/js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+	<!--
 	<script src="{{asset('admin/js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/chartJs/Chart.min.js')}}"></script>
+-->
 	<script src="{{asset('admin/js/plugins/toastr/toastr.min.js')}}"></script>
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touch/1.1.0/jquery.touch.min.js"></script>
-
 	<script src="{{asset('admin/js/TimeCircles.js')}}"></script>
-
 	<script src="{{asset('/js/sweatalert2.min.js')}}"></script>
 
 	<script>
 
 		$(document).ready(function() {
 
-			/** add active class and stay opened when selected */
 			var url = window.location;
 
-			// for sidebar menu entirely but not cover treeview
 			$('ul#side-menu a').filter(function() {
 			 return this.href == url;
 			}).parent().addClass('active');
-
-			// for treeview
-			/*$('ul.treeview-menu a').filter(function() {
-			 return this.href == url;
-			}).parentsUntil(".side-menu > .treeview-menu").addClass('active');
-*/
 
 		});
 
