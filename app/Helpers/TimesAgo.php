@@ -7,12 +7,12 @@ namespace App\Helpers;
  */
 class TimesAgo
 {
-    const TIMEBEFORE_NOW = 'now';
-    const TIMEBEFORE_MINUTE = '{num} minute ago';
-    const TIMEBEFORE_MINUTES = '{num} minutes ago';
-    const TIMEBEFORE_HOUR = '{num} hour ago';
-    const TIMEBEFORE_HOURS = '{num} hours ago';
-    const TIMEBEFORE_YESTERDAY = 'yesterday';
+    const TIMEBEFORE_NOW = 'agora';
+    const TIMEBEFORE_MINUTE = '{num} minuto atrás';
+    const TIMEBEFORE_MINUTES = '{num} minutos atrás';
+    const TIMEBEFORE_HOUR = '{num} hora atrás';
+    const TIMEBEFORE_HOURS = '{num} horas atrás';
+    const TIMEBEFORE_YESTERDAY = 'ontem';
     const TIMEBEFORE_FORMAT = '%e %b';
     const TIMEBEFORE_FORMAT_YEAR = '%e %b, %Y';
 

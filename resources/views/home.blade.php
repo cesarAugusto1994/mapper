@@ -127,8 +127,23 @@
                                     <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
                                     <br/>
                                     <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
+                                    <div class="visible-xs">
+
+                                        <small>GUT: <b>{{$task->severity * $task->urgency * $task->trend}}</b></small>
+                                        <br/>
+                                        <small>Tempo Aprox.: <b>{{App\Http\Controllers\HomeController::minutesToHour($task->time)}}</b></small>
+                                        @if($task->status_id == 3)
+                                            <br/>
+                                            <small>Tempo Gasto: <b>{{App\Http\Controllers\HomeController::minutesToHour($task->spent_time - $task->time)}}</b></small>
+                                        @endif
+
+                                        @if($task->status_id == 2)
+                                            <br/>
+                                            <small>Iniciada em: <b>{{$task->begin->format('d/m/Y H:i')}}</b></small>
+                                        @endif
+                                    </div>
                                 </td>
-                                <td class="project-completion">
+                                <td class="project-completion hidden-xs">
                                     <small>GUT:  <b>
                                       <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->severity); !!}">{{$task->severity}}</span>
                                       <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->urgency); !!}">{{$task->urgency}}</span>

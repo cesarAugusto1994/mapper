@@ -55,7 +55,7 @@
                                         <br/>
                                         <small>Criado em {{ $process->created_at->format('d/m/Y H:i:s')}}</small>
                                     </td>
-                                    <td class="project-actions">
+                                    <td class="project-actions hidden-xs">
                                         <a href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
                                     </td>
                                 </tr>

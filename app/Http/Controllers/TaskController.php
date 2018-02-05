@@ -155,7 +155,7 @@ class TaskController extends Controller
 
         if (Req::get('status') == Task::STATUS_EM_ANDAMENTO && $task->status_id != Task::STATUS_EM_ANDAMENTO) {
 
-            if($task->mapper->active != 1) {
+            if($task->mapper && $task->mapper->active != 1) {
                 return redirect()->back()->with('message', 'Esta tarefa Pertence a um mapeamento, deve primeiro iniciá-lo.');
             }
 
@@ -235,9 +235,9 @@ class TaskController extends Controller
 
             $newTask = Task::create($data);
 
-            $this->log($task, 'Duplicou a tarefa ' . $task->id);
+            $this->log($task, 'Duplicou a tarefa ' . $task->description);
 
-            $this->log($newTask, 'Criou a tarefa ' . $newTask->id);
+            $this->log($newTask, 'Criou a tarefa ' . $newTask->description);
 
             return redirect()->route('task', ['id' => $newTask->id]);
         }

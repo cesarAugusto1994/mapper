@@ -43,13 +43,13 @@
                             </li>
                         @elseif($task->status_id == 1)
                             <li>
-																@if(!empty($task->mapper) && $task->mapper->active == 1)
+																@if(($task->mapper && $task->mapper->active == 1) || !$task->mapper)
                                 		<a href="?status=2"><i class="fa fa-play"></i> Iniciar Tarefa</a>
 																@else
 																		<a disabled id="btn-task-start-blocked"><i class="fa fa-play"></i> Iniciar Tarefa</a>
 																@endif
                             </li>
-														@if(!empty($task->mapper) && $task->mapper->active != 1)
+														@if(($task->mapper) && $task->mapper->active != 1)
 																<li><a href="{{ route('mapping', ['id' => $task->mapper->id]) }}"> Mapeamento</a></li>
 														@endif
                         @endif
@@ -75,20 +75,14 @@
 										<div class="alert alert-danger">Esta tarefa é de altissima graviade, urgencia e tendencia já que o seu indice GUT é {{ $gut }}</div>
 								@endif
 
-								<h2>{{$task->description}}</h2>
+								<h2>{{$task->description}} @if ($task->mapper) <small>({{ $task->mapper->name }})</small> @endif</h2>
 							</div>
 
 							<dl class="dl-horizontal">
 								<dt>Status:</dt>
-								@if($task->active)
 								<dd>
-									<span class="label label-primary">Ativo</span>
+									<span class="label label-primary">{{ $task->active ? 'Ativo' : 'Inativo' }} </span>
 								</dd>
-								@else
-								<dd>
-									<span class="label label-primary">Inativo</span>
-								</dd>
-								@endif
 							</dl>
 						</div>
 					</div>
@@ -124,7 +118,7 @@
 							</dl>
 						</div>
 
-						<div class="col-lg-3">
+						<div class="col-lg-3 col-md-6">
 							<dl class="dl-horizontal">
 								<dt>Gravidade:</dt>
 								<dd>

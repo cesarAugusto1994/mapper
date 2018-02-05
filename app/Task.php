@@ -19,6 +19,8 @@ class Task extends Model
         'status_id', 'created_by', 'active', 'mapper_id'
     ];
 
+    protected $dates = ['begin', 'end'];
+
     public function process()
     {
         return $this->belongsTo(Process::class, 'process_id');
