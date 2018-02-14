@@ -32,13 +32,13 @@
 						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
 							<i class="fa fa-bars"></i>
 						</a>
-						<form role="search" class="navbar-form-custom" method="get" action="#">
+						<!--<form role="search" class="navbar-form-custom" method="get" action="#">
 							<div class="form-group">
 								<input type="text" placeholder="Pesquise por algo..." class="form-control" name="top-search" id="top-search">
 							</div>
-						</form>
+						</form>-->
 					</div>
-					<ul class="nav navbar-top-links navbar-right">
+					<ul class="nav navbar-top-links navbar-right pull-right">
 						<!--
 						<li class="dropdown">
 							<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
