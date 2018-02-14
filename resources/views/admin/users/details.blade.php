@@ -11,7 +11,7 @@
             <h2>Perfil</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{route('home')}}">Home</a>
                 </li>
                 <li class="active">
                     <strong>Perfil</strong>

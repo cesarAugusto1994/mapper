@@ -59,13 +59,11 @@ class MapperController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $hasMapperWithUser = Mapper::where('user_id', $data['user'])->where('active', 1)->get();
+        $hasMapperWithUser = Mapper::where('user_id', $data['user'])->where('active', 1)->first();
 
         if ($hasMapperWithUser) {
             return back()->withErrors('Já existe um mapeamento ativo para este usuário.');
         }
-
-        exit;
 
         $mapper = new Mapper();
 

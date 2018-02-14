@@ -7,7 +7,7 @@
             <h2>Departamento</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{route('home')}}">Home</a>
                 </li>
                 <li class="active">
                     <strong>Novo Departamento</strong>

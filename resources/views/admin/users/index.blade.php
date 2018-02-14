@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-sm-8">
                                 <h3><strong>{{substr($user->name, 0, 20)}}</strong>   <span class="text-center pull-right label label-{{ $user->active ? 'primary' : 'danger' }}">{{ $user->active ? 'Ativo' : 'Inativo' }}</span></h3>
-                                <p><i class="fa fa-map-marker"></i> {{$user->department->name}}</p>
+                                @if($user->department)<p><i class="fa fa-map-marker"></i> {{$user->department->name}}</p>@endif
                             </div>
                             <div class="clearfix"></div>
                         </a>

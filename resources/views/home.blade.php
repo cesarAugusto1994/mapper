@@ -7,7 +7,7 @@
         <div class="col-md-3">
             <h2>Bem Vindo(a) {{ Auth()->User()->name  }}</h2>
             @if( count($tasks) > 0 )
-            <small>Parabéns, Voce Realizou {{ count($tasks) }} Tarefas. </small><a href="{{route('board')}}" class="btn btn-link btn-xs">Ver Quadro</a>
+            <small>Parabéns, Voce Realizou {{ count($tasks) }} Tarefas. </small>
 
             @else
               <p>Você não possui tarefas no momento.</p>

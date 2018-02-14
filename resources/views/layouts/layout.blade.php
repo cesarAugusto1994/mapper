@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="pace-done skin-1">
+<body class="pace-done skin-3">
 	<div id="wrapper">
 
 		@include('layouts.sidebar')
@@ -144,7 +144,7 @@
 
 			$('ul#side-menu a').filter(function() {
 			 return this.href == url;
-			}).parent().addClass('active');
+		 }).parent().addClass('active').attr('href', '#');
 
 		});
 

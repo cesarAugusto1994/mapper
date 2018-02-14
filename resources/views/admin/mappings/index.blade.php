@@ -4,7 +4,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2>Mapeamentos</h2>
+            <h2>Mapeamentos <a href="{{route('mapping_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('home')}}">Painel</a>
@@ -24,7 +24,6 @@
                     <div class="ibox-title">
                         <h5>Mapeamentos</h5>
                         <div class="ibox-tools">
-                            <a href="{{route('mapping_create')}}" class="btn btn-primary btn-xs">Criar novo Mapeamento</a>
                         </div>
                     </div>
                     <div class="ibox-content">

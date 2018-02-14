@@ -64,7 +64,7 @@
                           @endif;"></div>
                       </div>
                       @empty
-                          <p>Nenhuma tarefa registrada</p>
+                          <small>Nenhuma tarefa registrada</small>
                       @endforelse
 
                       @if($user->logs->isNotEmpty())
