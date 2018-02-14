@@ -46,16 +46,16 @@
                             <table class="table table-hover">
                                 <tbody>
                                 @foreach($processes as $process)
-                                <tr>
-                                    <td class="project-title">
-                                        <a href="{{route('process', ['id' => $process->id])}}">{{$process->name}}</a>
-                                        <br/>
-                                        <small>Criado em {{ $process->created_at->format('d/m/Y H:i:s')}}</small>
-                                    </td>
-                                    <td class="project-actions hidden-xs">
-                                        <a href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="project-title">
+                                            <a href="{{route('process', ['id' => $process->id])}}">{{$process->name}}</a>
+                                            <br/>
+                                            <small>Criado em {{ $process->created_at->format('d/m/Y H:i:s')}}</small>
+                                        </td>
+                                        <td class="project-actions hidden-xs">
+                                            <a href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>
