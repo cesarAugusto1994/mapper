@@ -47,9 +47,6 @@
                                 <tbody>
                                 @foreach($processes as $process)
                                 <tr>
-                                    <td class="project-status">
-                                        <span class="label label-primary">Em Progresso</span>
-                                    </td>
                                     <td class="project-title">
                                         <a href="{{route('process', ['id' => $process->id])}}">{{$process->name}}</a>
                                         <br/>
