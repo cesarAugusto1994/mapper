@@ -89,9 +89,14 @@ class MapperController extends Controller
 
     public function addTask($id)
     {
+      $tasks = Task::where('status_id', 1)->where('mapper_id', null)->get();
+      $mapper = Mapper::findOrFail($id);
+
+      //dd($tasks->toArray());
+
         return view('admin.mappings.add-task')
-        ->with('mapper', Mapper::findOrFail($id))
-        ->with('tasks', Task::where('status_id', 1)->where('mapper_id', null)->get());
+        ->with('mapper', $mapper)
+        ->with('tasks', $tasks);
     }
 
     public function addTaskStore()

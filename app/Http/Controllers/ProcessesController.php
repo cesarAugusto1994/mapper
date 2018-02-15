@@ -111,7 +111,7 @@ class ProcessesController extends Controller
 
         $process->name = $data['name'];
         $process->department_id = $data['department_id'];
-        $process->frequency_id = $data['frequency_id'];
+        //$process->frequency_id = $data['frequency_id'];
         $process->save();
 
         return redirect()->route('processes');
