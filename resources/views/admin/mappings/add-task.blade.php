@@ -27,6 +27,7 @@
                     </div>
                     <div class="ibox-content">
 
+                        @if($mapper->user->department)
                         <div class="project-list">
                             <form action="{{ route('mapping_tasks_store', ['id' => $mapper->id]) }}" method="post">
                               <input type="hidden" name="user" value="{{ $mapper->user->id }}">
@@ -92,6 +93,9 @@
                               </table>
                           </form>
                         </div>
+                        @else
+                            <div class="alert alert-info"> {{$mapper->user->name}} não está registrado(a) em nenhum Departamento, Adicione este usuário à um departamento. <a class="btn btn-xs btn-info" href="{{route('user', ['id' => $mapper->user->id])}}">editar</a></div>
+                        @endif
                     </div>
                 </div>
 
