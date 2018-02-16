@@ -49,6 +49,10 @@ class UsersController extends Controller
             return $task->status_id == Task::STATUS_EM_ANDAMENTO;
         }));
 
+        if($total <= 0) {
+          $total = 1;
+        }
+
         $porcent = round((($concludedTasks + ($inProgressTasks*0.50)) / $total) * 100);
 
         return $porcent;
