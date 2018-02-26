@@ -2,7 +2,13 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
 	<div class="col-sm-12">
-		<h2>Tarefa Detalhes @if($pausedTask && $task->status_id == 2)<a class="text-center label label-info">Tarefa Pausada</a>@endif</h2>
+		<h2>Tarefa Detalhes @if($pausedTask && $task->status_id == 2)<a class="text-center label label-info">Tarefa Pausada</a>@endif
+			@if($task->status->id == 2)
+				<div class="col-lg-2 col-md-4 col-sm-4 col-xs-5 pull-right">
+					<div class="example" data-timer="{{$remainTime}}"></div>
+				</div>
+			@endif
+		</h2>
 		<ol class="breadcrumb">
 			<li>
 				<a href="/">Home</a>
@@ -261,31 +267,50 @@
 			</div>
 		</div>
 	</div>
+
+	@if($task->mapper_id)
 	<div class="col-lg-3 col-md-12">
 		<div class="wrapper wrapper-content project-manager animated fadeInUp">
 			<div class="ibox">
 				<div class="ibox-content">
 					<div class="row">
 						<div class="col-lg-12">
-							<div class="m-b-md">
-								<h2>Tempo</h2>
-                    @if($task->status->id == 2)
-								    		<div class="example" data-timer="{{$remainTime}}"></div>
-                    @endif
-										<input type="hidden" id="urlAPI" value="{{ route('task_delay', ['id' => $task->id]) }}"/>
-										<input type="hidden" id="motivoEnviado" value="{{ count($taskDelay) }}"/>
-										<input type="hidden" id="urlTaskPause" value="{{ route('task_pause', ['id' => $task->id]) }}"/>
-										<input type="hidden" id="pausedTask" value="{{ count($pausedTask) }}"/>
-										@if($pausedTask)
-										<input type="hidden" id="urlTaskStart" value="{{ route('task_start', ['id' => $pausedTask->id]) }}"/>
-										@endif
+								<h2>Proximas tarefas</h2>
 
-
-							</div>
+								<table id="table" data-pagination="true"
+                    data-toggle="table"
+										data-url="{{ route('mapping_tasks_to_do', ['id' => $task->mapper_id]) }}"
+                    data-striped="true"
+                    data-click-to-select="true" data-flat="true"
+                    style="cursor: pointer"
+                >
+                <thead>
+                    <tr>
+                        <th data-sortable="true" data-field="nome">Tarefa</th>
+                        <th data-sortable="true" data-field="duracao">Duração</th>
+                    </tr>
+                </thead>
+                </table>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	@endif
+
+
+	<div class="col-lg-3 col-md-12">
+		<div class="wrapper wrapper-content project-manager animated fadeInUp">
+
+
+			<input type="hidden" id="urlAPI" value="{{ route('task_delay', ['id' => $task->id]) }}"/>
+			<input type="hidden" id="motivoEnviado" value="{{ count($taskDelay) }}"/>
+			<input type="hidden" id="urlTaskPause" value="{{ route('task_pause', ['id' => $task->id]) }}"/>
+			<input type="hidden" id="pausedTask" value="{{ count($pausedTask) }}"/>
+			@if($pausedTask)
+			<input type="hidden" id="urlTaskStart" value="{{ route('task_start', ['id' => $pausedTask->id]) }}"/>
+			@endif
 
 			@if(!empty($taskDelay->message))
 					<div class="ibox">

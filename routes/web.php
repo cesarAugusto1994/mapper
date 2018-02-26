@@ -48,6 +48,8 @@ Route::prefix('admin')->group(function () {
   Route::get('mapping/{id}', 'MapperController@show')->name('mapping');
   Route::get('mapping/create/form', 'MapperController@create')->name('mapping_create');
 
+  Route::get('mapping/{id}/tasks', 'MapperController@taskToDo')->name('mapping_tasks_to_do');
+
   Route::post('mapping/store', 'MapperController@store')->name('mapping_store');
 
   Route::get('mapping/{id}/add-task', 'MapperController@addTask')->name('mapping_tasks');

@@ -48,6 +48,7 @@
                         <div class="ibox-content profile-content">
                             <h4><strong>{{$mapper->user->name}}</strong></h4>
 
+                            <p><b>Tempo Pevisto</b> <label class="lead">{{ App\Http\Controllers\HomeController::minutesToHour($mapper->tasks->sum('time')) }}<label></p>
                             <p><b>Tempo Total</b> <label class="lead">{{ App\Http\Controllers\HomeController::minutesToHour($mapper->tasks->sum('time')) }}<label></p>
 
                         </div>

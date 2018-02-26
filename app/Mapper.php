@@ -8,7 +8,7 @@ class Mapper extends Model
 {
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class, 'mapper_id', 'id');
     }
 
     public function user()

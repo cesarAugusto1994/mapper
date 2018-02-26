@@ -21,7 +21,7 @@ class MapperController extends Controller
      {
          $this->middleware('auth');
      }
-     
+
     /**
      * Display a listing of the resource.
      *
@@ -142,6 +142,30 @@ class MapperController extends Controller
         $mapper->save();
 
         return redirect()->route('mapping', ['id' => $id]);
+    }
+
+    public function taskToDo($id)
+    {
+        $mapping = Mapper::findOrFail($id);
+        $tasks = $mapping->tasks()->get();
+
+        $resultado = $tasks->filter(function($task) {
+            return $task->status_id == 1 || $task->status_id == 2;
+        });
+
+        $resultado = $resultado->map(function($task) {
+            $link = route('task', ['id' => $task->id]);
+
+            return [
+                'nome' => "<a href={$link} class='text-navy'>".$task->description."</a>",
+                'duracao' => HomeController::minutesToHour($task->time),
+            ];
+        });
+
+
+      /*  $tasks = Task::where('mapper_id', $id)->get();*/
+
+        return json_encode($resultado);
     }
 
     /**

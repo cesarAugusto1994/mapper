@@ -31,7 +31,7 @@
                         <span class="pull-right label label-{{ $user->active ? 'primary' : 'danger' }}">{{ $user->active ? 'Ativo' : 'Inativo' }}</span>
                     </div>
                     <div>
-                        <div class="ibox-content no-padding border-left-right">
+                        <div class="ibox-content no-padding border-left-right hidden-xs">
 
                             <div class="avatar">
                                 <img class="img" src="{{Gravatar::get($user->email)}}" alt="Avatar">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="ibox-content profile-content">
                             <h4><strong>{{$user->name}}</strong></h4>
-                                <p><i class="fa fa-map-marker"></i> {{$user->department->name ?? ''}} </p>
+                                @if($user->department)<p><i class="fa fa-map-marker"></i> {{$user->department->name ?? ''}} </p>@endif
                                 <button class="btn btn-primary btn-xs full-width" data-toggle="modal" data-target="#editar">Editar</button>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                                         <br/>
                                         <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
                                     </td>
-                                    <td class="project-completion">
+                                    <td class="project-completion hidden-xs">
                                         <small>GUT:  <b>
                                           <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->severity); !!}">{{$task->severity}}</span>
                                           <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->urgency); !!}">{{$task->urgency}}</span>
