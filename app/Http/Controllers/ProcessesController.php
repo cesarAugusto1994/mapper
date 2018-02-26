@@ -58,7 +58,39 @@ class ProcessesController extends Controller
      */
     public function store(Request $request)
     {
-        $process = Process::create(Req::all());
+        $data = Req::all();
+
+        $time = TaskController::hourToMinutes($data['time']);
+
+        $process = new Process();
+        $process->name = $data['name'];
+        $process->department_id = $data['department_id'];
+        $process->time = $time;
+        $process->frequency_id = $data['frequency_id'];
+        $process->save();
+
+        if(isset($data['iname'])) {
+            $iname = $data['iname'];
+            $itime = $data['itime'];
+            $ifrequency = $data['ifrequency'];
+            $idepartment = $data['idepartment'];
+
+            foreach ($iname as $key => $name) {
+
+                $time = $time.$key;
+
+                $time = TaskController::hourToMinutes($itime[$key]);
+
+                $process = new Process();
+                $process->name = $name;
+                $process->department_id = $idepartment[$key];
+                $process->time = $time;
+                $process->frequency_id = $ifrequency[$key];
+                $process->save();
+            }
+        }
+
+        flash('Novo processo adicionado com sucesso.')->success()->important();
 
         return redirect()->route('process', ['id' => $process['id']]);
     }
@@ -113,6 +145,8 @@ class ProcessesController extends Controller
         $process->department_id = $data['department_id'];
         //$process->frequency_id = $data['frequency_id'];
         $process->save();
+
+        flash('Edição do processo concluída com sucesso.')->success()->important();
 
         return redirect()->route('processes');
     }

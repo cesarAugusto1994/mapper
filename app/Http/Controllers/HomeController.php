@@ -134,4 +134,13 @@ class HomeController extends Controller
 
         return "{$hours}:{$minutes}:00";
     }
+
+    public static function intToHour($hour)
+    {
+        if(empty($hour)) {
+            return;
+        }
+
+        return "{$hour}:00:00";
+    }
 }

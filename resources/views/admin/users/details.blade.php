@@ -23,12 +23,16 @@
         </div>
     </div>
     <div class="wrapper wrapper-content">
+        @include('flash::message')
         <div class="row animated fadeInRight">
-            <div class="col-lg-2 col-md-4">
+            <div class="col-lg-2 col-md-4 col-sm-4">
+
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Perfil Detalhes  </h5>
-                        <span class="pull-right label label-{{ $user->active ? 'primary' : 'danger' }}">{{ $user->active ? 'Ativo' : 'Inativo' }}</span>
+                        <h5>Detalhes  </h5>
+                        @if(!$user->active)
+                        <span class="pull-right label label-danger">Inativo</span>
+                        @endif
                     </div>
                     <div>
                         <div class="ibox-content no-padding border-left-right hidden-xs">
@@ -43,12 +47,14 @@
                         <div class="ibox-content profile-content">
                             <h4><strong>{{$user->name}}</strong></h4>
                                 @if($user->department)<p><i class="fa fa-map-marker"></i> {{$user->department->name ?? ''}} </p>@endif
-                                <button class="btn btn-primary btn-xs full-width" data-toggle="modal" data-target="#editar">Editar</button>
+                                <button class="btn btn-default btn-xs btn-block" data-toggle="modal" data-target="#editar">Editar</button>
+                                <button class="btn btn-white btn-xs btn-block" data-toggle="modal" data-target="#editar-configuracoes">Cofigurações</button>
+                                <button class="btn btn-white btn-xs btn-block" data-toggle="modal" data-target="#editar-senha">Alterar Senha</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-8">
+            <div class="col-lg-4 col-md-8 col-sm-8">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Atividades</h5>
@@ -72,7 +78,7 @@
                                   </div>
 
                               @empty
-                                  <div class="alert alert-info">
+                                  <div class="alert alert-warning">
                                       Você não possui nenhum registro até o momento.
                                   </div>
                               @endforelse
@@ -136,7 +142,7 @@
                             </tbody>
                         </table>
                         @else
-                            <div class="alert alert-info">
+                            <div class="alert alert-warning">
                                 Nenhuma tarefa delegada à você até o momento.
                             </div>
                         @endif
@@ -162,10 +168,6 @@
                     <div class="modal-body">
                         <div class="form-group"><label>Seu Nome</label> <input type="text" name="name" placeholder="Informe seu Nome" value="{{$user->name}}" class="form-control"></div>
                         <div class="form-group"><label>E-mail</label> <input type="email" name="email" placeholder="Informe seu E-mail" value="{{$user->email}}" class="form-control"></div>
-                        <div class="form-group"><label>Nova Senha</label>
-                          <input type="password" name="password" placeholder="Informe a sua nova senha" autocomplete="off" class="form-control">
-                          <span class="help-block m-b-none">Deixe este campo em branco caso não queira alterar a senha.</span>
-                        </div>
 
                         <div class="form-group"><label>Departamento</label>
                             <select class="form-control" name="department_id">
@@ -177,41 +179,113 @@
                             </select>
                         </div>
 
-                        <div class="form-group {!! $errors->has('roles') ? 'has-error' : '' !!}"><label>Acesso</label>
 
-                              <select id="roles" name="roles" required="required" class="form-control">
-                                  <option value="user">Usuário</option>
-                                  <option value="admin">Administrador</option>
-                              </select>
-                              {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                        </div>
+    <div class="modal inmodal" id="editar-configuracoes" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="{{Gravatar::get($user->email)}}" />
+                    <br/>
+                    <h4 class="modal-title">Configurações</h4>
+                </div>
+                <form action="{{route('user_update_configurations', ['id' => $user->id])}}" method="post">
+                    {{csrf_field()}}
+                    <div class="modal-body">
 
-                        <div class="form-group"><label>Executa Tarefas</label>
-                            <br/>
-                            <div class="btn-group" data-toggle="buttons">
-                              <label class="btn btn-primary {{ $user->do_task ? 'active' : '' }}">
-                                <input type="radio" name="do_task" id="option1" value="1" autocomplete="off" {{ $user->do_task ? 'checked' : '' }}> Sim
-                              </label>
-                              <label class="btn btn-primary {{ !$user->do_task ? 'active' : '' }}">
-                                <input type="radio" name="do_task" id="option2" value="0" autocomplete="off" {{ !$user->do_task ? 'checked' : '' }}> Não
-                              </label>
-                            </div>
-                        </div>
+                        <div class="row">
 
-                        <div class="form-group"><label>Ativo</label>
-                          <br/>
-                          <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary {{ $user->active ? 'active' : '' }}">
-                              <input type="radio" name="active" id="option1" value="1" autocomplete="off" {{ $user->active ? 'checked' : '' }}> Sim
-                            </label>
-                            <label class="btn btn-primary {{ !$user->active ? 'active' : '' }}">
-                              <input type="radio" name="active" id="option2" value="0" autocomplete="off" {{ !$user->active ? 'checked' : '' }}> Não
-                            </label>
+                          <div class="form-group col-sm-6"><label>Horario Chegada</label>
+                            <input type="time" name="begin" value="{{ $user->begin ? $user->begin : '07:30' }}" class="form-control">
                           </div>
 
+                          <div class="form-group col-sm-6"><label>Horario Saída para Almoçar</label>
+                            <input type="time" name="lunch" value="{{ $user->lunch ? $user->lunch : '12:00' }}" class="form-control">
+                          </div>
+
+                          <div class="form-group col-sm-6"><label>Retorno do Almoço</label>
+                            <input type="time" name="lunch_return" value="{{ $user->lunch_return ? $user->lunch_return : '13:00' }}" class="form-control">
+                          </div>
+
+                          <div class="form-group col-sm-6"><label>Fim de Expediente</label>
+                            <input type="time" name="end" value="{{ $user->end ? $user->end : '17:30' }}" class="form-control">
+                          </div>
+
+                          <div class="form-group col-sm-6"><label>Carga horária Semanal</label>
+                            <input type="number" name="weekly_workload" value="{{ $user->weekly_workload ? $user->weekly_workload : '' }}" placeholder="Ex:. 44 hrs" autocomplete="off" class="form-control">
+                          </div>
+
+                          <div class="form-group col-sm-12 {!! $errors->has('roles') ? 'has-error' : '' !!}"><label>Acesso</label>
+
+                                <select id="roles" name="roles" required="required" class="form-control">
+                                    <option value="user">Usuário</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                                {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
+
+                          </div>
+
+                          <div class="form-group col-sm-6"><label>Executa Tarefas</label>
+                              <br/>
+                              <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-primary {{ $user->do_task ? 'active' : '' }}">
+                                  <input type="radio" name="do_task" id="option1" value="1" autocomplete="off" {{ $user->do_task ? 'checked' : '' }}> Sim
+                                </label>
+                                <label class="btn btn-primary {{ !$user->do_task ? 'active' : '' }}">
+                                  <input type="radio" name="do_task" id="option2" value="0" autocomplete="off" {{ !$user->do_task ? 'checked' : '' }}> Não
+                                </label>
+                              </div>
+                          </div>
+
+                          <div class="form-group col-sm-6"><label>Ativo</label>
+                            <br/>
+                            <div class="btn-group" data-toggle="buttons">
+                              <label class="btn btn-primary {{ $user->active ? 'active' : '' }}">
+                                <input type="radio" name="active" id="option1" value="1" autocomplete="off" {{ $user->active ? 'checked' : '' }}> Sim
+                              </label>
+                              <label class="btn btn-primary {{ !$user->active ? 'active' : '' }}">
+                                <input type="radio" name="active" id="option2" value="0" autocomplete="off" {{ !$user->active ? 'checked' : '' }}> Não
+                              </label>
+                            </div>
+                          </div>
                         </div>
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal" id="editar-senha" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="{{Gravatar::get($user->email)}}" />
+                    <br/>
+                    <h4 class="modal-title">Alterar Senha</h4>
+                </div>
+                <form action="{{route('user_update_password', ['id' => $user->id])}}" method="post">
+                    {{csrf_field()}}
+                    <div class="modal-body">
+                        <div class="form-group"><label>Nova Senha</label>
+                          <input type="password" required autofocus name="password" placeholder="Informe a sua nova senha" autocomplete="off" class="form-control">
+
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>

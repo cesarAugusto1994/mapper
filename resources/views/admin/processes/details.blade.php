@@ -18,6 +18,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="wrapper wrapper-content animated fadeInUp">
+
+                @include('flash::message')
+                
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
@@ -38,7 +41,7 @@
                     <div class="ibox-title">
                         <h5>Tarefas</h5>
                         <div class="ibox-tools">
-                            <a href="{{route('task_create')}}" class="btn btn-primary btn-xs">Criar nova Tarefa</a>
+                            <a href="{{route('task_create', ['process' => $process->id])}}" class="btn btn-primary btn-xs">Criar nova Tarefa</a>
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -53,7 +56,7 @@
                         </div>
 
                         <div class="project-list">
-
+                          @if($tasks->isNotEmpty())
                           <table class="table table-hover">
                               <tbody>
                               @forelse ($tasks as $task)
@@ -98,6 +101,11 @@
                               @endforelse
                               </tbody>
                           </table>
+                          @else
+                              <div class="alert alert-warning">
+                                  Nenhuma tarefa registrada até o momento.
+                              </div>
+                          @endif
                         </div>
                     </div>
                 </div>

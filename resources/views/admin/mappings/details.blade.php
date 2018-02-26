@@ -33,6 +33,9 @@
     <div class="wrapper wrapper-content">
         <div class="row animated fadeInRight">
             <div class="col-lg-2 col-md-4">
+
+                @include('flash::message')
+                
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Mapeamento Detalhes</h5>
@@ -46,10 +49,28 @@
 
                         </div>
                         <div class="ibox-content profile-content">
-                            <h4><strong>{{$mapper->user->name}}</strong></h4>
+                            <h4><strong>{{$mapper->user->name}}</strong> @if($mapper->user->department)<small>{{$mapper->user->department->name}}</small>@endif</h4>
 
-                            <p><b>Tempo Pevisto</b> <label class="lead">{{ App\Http\Controllers\HomeController::minutesToHour($mapper->tasks->sum('time')) }}<label></p>
-                            <p><b>Tempo Total</b> <label class="lead">{{ App\Http\Controllers\HomeController::minutesToHour($mapper->tasks->sum('time')) }}<label></p>
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr>
+                                      <td>
+                                        <b>Tempo Pevisto</b>
+                                      </td>
+                                      <td>
+                                        <b><label class="lead">{{ App\Http\Controllers\HomeController::intToHour($mapper->user->weekly_workload) }}<label>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <b>Tempo Total</b>
+                                      </td>
+                                      <td>
+                                        <b><label class="lead">{{ App\Http\Controllers\HomeController::minutesToHour($mapper->tasks->sum('time')) }}<label>
+                                      </td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
                         </div>
                     </div>
@@ -66,6 +87,7 @@
                   </div>
                   <div class="ibox-content">
                       <div class="project-list">
+                        @if($mapper->tasks->isNotEmpty())
                         <table class="table table-hover">
                             <tbody>
                             @forelse ($mapper->tasks as $task)
@@ -113,6 +135,11 @@
                             @endforelse
                             </tbody>
                         </table>
+                        @else
+                        <div class="alert alert-warning">
+                            Nenhuma tarefa registrada até o momento.
+                        </div>
+                        @endif
                       </div>
                   </div>
               </div>

@@ -4,7 +4,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2>Tarefas</h2>
+            <h2>Tarefas<a href="{{route('task_create')}}" class="btn bottom-right btn-primary pull-right">Criar Tarefa</a></h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('home')}}">Painel</a>
@@ -20,20 +20,17 @@
         <div class="col-lg-12">
             <div class="wrapper wrapper-content animated fadeInUp">
 
+                @include('flash::message')
+                
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Tarefas</h5>
-                        @if(Auth::user()->isAdmin())
-                        <div class="ibox-tools">
-                            <a href="{{route('task_create')}}" class="btn btn-primary btn-xs">Criar nova Tarefa</a>
-                        </div>
-                        @endif
                     </div>
                     <div class="ibox-content">
                         <div class="row m-b-sm m-t-sm">
                             <div class="col-md-12">
                                 <form metho="get" action="#">
-                                <div class="input-group"><input type="text" name="filter" placeholder="Pesquisar" class="input-sm form-control"> <span class="input-group-btn">
+                                <div class="input-group"><input type="text" name="filter" placeholder="Digite para pesquisar..." class="input-sm form-control"> <span class="input-group-btn">
                                     <button type="submit" class="btn btn-sm btn-primary"> Ir!</button> </span></div>
                                 </form>
                             </div>
@@ -41,6 +38,7 @@
 
                         <div class="project-list">
 
+                            @if($tasks->isNotEmpty())
                             <table class="table table-hover">
                                 <tbody>
                                 @forelse ($tasks as $task)
@@ -80,12 +78,15 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td>Nenhuma tarefa até o momento.</td>
+                                        <td></td>
                                     </tr>
 
                                 @endforelse
                                 </tbody>
                             </table>
+                            @else
+                                <div class="alert alert-warning">Nenhuma tarefa foi registrada até o momento.</div>
+                            @endif
                         </div>
                     </div>
                 </div>

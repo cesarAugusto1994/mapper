@@ -23,6 +23,9 @@
 <div class="row">
 	<div class="col-lg-9 col-md-12">
 		<div class="wrapper wrapper-content animated fadeInUp">
+
+			@include('flash::message')
+			
 			<div class="ibox">
 				<div class="ibox-content">
 					<div class="row">

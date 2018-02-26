@@ -18,6 +18,7 @@ class CreateProcessesTable extends Migration
             $table->string('name');
             $table->integer('department_id')->unsigned();
             $table->foreign('department_id')->references('id')->on('departments');
+            $table->integer('time');
             $table->timestamps();
         });
     }

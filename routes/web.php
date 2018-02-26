@@ -35,11 +35,12 @@ Route::prefix('admin')->group(function () {
 
   Route::get('user/{id}/avatar', 'UsersController@editAvatar')->name('user_avatar');
   Route::get('users/create/form', 'UsersController@create')->name('user_create');
-
   Route::get('user/{id}/avatar/{avatar}/upload', 'UsersController@uploadAvatar')->name('user_upload_avatar');
-
   Route::post('users/create/store', 'UsersController@store')->name('user_store');
   Route::post('user/{id}/update', 'UsersController@update')->name('user_update');
+
+  Route::post('user/{id}/update/configs', 'UsersController@updateConfigs')->name('user_update_configurations');
+  Route::post('user/{id}/update/password', 'UsersController@updatePassword')->name('user_update_password');
 
   Route::get('boards', 'BoardController@index')->name('boards');
 

@@ -16,9 +16,12 @@
         </div>
     </div>
 
-        <div class="row">
+
+    <div class="row">
             <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInUp">
+
+                @include('flash::message')
 
                 <div class="ibox">
                     <div class="ibox-title">
@@ -30,6 +33,7 @@
 
                         <div class="project-list">
 
+                            @if($processes->isNotEmpty())
                             <table class="table table-hover">
                                 <tbody>
                                 @foreach($processes as $process)
@@ -49,6 +53,9 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            @else
+                                <div class="alert alert-warning">Nenhum processo registrado até o momento.</div>
+                            @endif
                         </div>
                     </div>
                 </div>

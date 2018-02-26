@@ -10,6 +10,7 @@ use App\Role;
 use Illuminate\Http\Request;
 use Request as Req;
 use Illuminate\Validation\Validator;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -30,7 +31,15 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index')->with('users', User::all());
+        $users = User::all();;
+        /*
+            if(Auth::user()->isAdmin()) {
+                $users =  User::all();
+            } else {
+                $users =  User::where('id', Auth::user()->id)->get();
+            }
+        */
+        return view('admin.users.index')->with('users', $users);
     }
 
     public static function getTaskPercentage($id)
@@ -152,6 +161,7 @@ class UsersController extends Controller
         $user->save();
         $user->roles()->attach($roleUser);
 
+        flash('Novo usuário adicionado com sucesso.')->success()->important();
 
         //User::create(Req::all());
 
@@ -214,7 +224,36 @@ class UsersController extends Controller
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->department_id = $data['department_id'];
-        $password = $data['password'];
+
+        $user->save();
+
+        return redirect()->route('user', ['id' => $id]);
+
+        flash('As informações do usuário foram alteradas com sucesso.')->success()->important();
+    }
+
+    public function updateConfigs(Request $request, $id)
+    {
+        $data = $request->request->all();
+
+        $validator = \Illuminate\Support\Facades\Validator::make($data, [
+          'roles' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::findOrFail($id);
+
+        $roleUser = Role::where("name", $data['roles'])->first();
+
+        $user->begin = $data['begin'];
+        $user->lunch = $data['lunch'];
+        $user->lunch_return = $data['lunch_return'];
+        $user->end = $data['end'];
+
+        $user->weekly_workload = $data['weekly_workload'];
 
         $user->do_task = $data['do_task'];
         $user->active = $data['active'];
@@ -224,6 +263,30 @@ class UsersController extends Controller
         }
 
         $user->save();
+
+        $user->roles()->attach($roleUser);
+
+        flash('As configurações do usuário foram alteradas com sucesso.')->success()->important();
+
+        return redirect()->route('user', ['id' => $id]);
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $data = $request->request->all();
+
+        $user = User::findOrFail($id);
+
+
+        $password = $data['password'];
+
+        if (!empty($password)) {
+            $user->password = bcrypt($password);
+        }
+
+        $user->save();
+
+        flash('A senha do usuário foi alterada com sucesso.')->success()->important();
 
         return redirect()->route('user', ['id' => $id]);
     }

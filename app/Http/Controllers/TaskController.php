@@ -61,7 +61,7 @@ class TaskController extends Controller
             ->with('departments', Department::all());
     }
 
-    public function hourToMinutes($hours)
+    public static function hourToMinutes($hours)
     {
         $tempo = \DateTime::createFromFormat('H:i', $hours);
 
@@ -87,11 +87,26 @@ class TaskController extends Controller
     {
         $data = $request->request->all();
 
+        $validator = \Illuminate\Support\Facades\Validator::make($data, [
+          'description' => 'required|max:255',
+          'process_id' => 'required',
+          'user_id' => 'required',
+          'time' => 'required',
+          'client_id' => 'required',
+          'vendor_id' => 'required',
+          'severity' => 'required',
+          'urgency' => 'required',
+          'trend' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         $data = [
             'description' => $data['description'],
             'process_id' => $data['process_id'],
             'user_id' => $data['user_id'],
-            'frequency' => $data['frequency'],
             'time' => $this->hourToMinutes($data['time']),
             'method' => $data['method'],
             'indicator' => $data['indicator'],
@@ -111,6 +126,8 @@ class TaskController extends Controller
         $log->user_id = Auth::user()->id;
         $log->message = 'Criou tarefa ' . $task->description;
         $log->save();
+
+        flash('Nova tarefa adicionada com sucesso.')->success()->important();
 
         return redirect()->route('task', ['id' => $task->id]);
     }
@@ -388,6 +405,8 @@ class TaskController extends Controller
         $log->user_id = Auth::user()->id;
         $log->message = 'Editou a tarefa ' . $task->description;
         $log->save();
+
+        flash('A tarefa foi editada com sucesso.')->success()->important();
 
         return redirect()->route('task', ['id' => $task->id]);
     }

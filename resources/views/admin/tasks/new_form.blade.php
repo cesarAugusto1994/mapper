@@ -20,6 +20,9 @@
 
         <div class="row">
             <div class="col-lg-12">
+
+                @include('flash::message')
+                
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Nova Tarefa</h5>

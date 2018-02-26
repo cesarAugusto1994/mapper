@@ -12,15 +12,8 @@ class DepartmentTableSeeder extends Seeder
     public function run()
     {
         DB::table('departments')->insert([
-            'name' => 'RH',
-        ]);
-
-        DB::table('departments')->insert([
-            'name' => 'Contabil',
-        ]);
-
-        DB::table('departments')->insert([
-            'name' => 'TI',
+            'name' => 'Geral',
+            'user_id' => 1
         ]);
     }
 }

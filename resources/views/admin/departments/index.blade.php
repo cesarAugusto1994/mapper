@@ -18,6 +18,9 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
+
+          @include('flash::message')
+
             @foreach($departments as $department)
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="contact-box">

@@ -177,6 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Creativeorange\Gravatar\GravatarServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 

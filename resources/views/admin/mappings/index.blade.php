@@ -20,6 +20,8 @@
             <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInUp">
 
+                @include('flash::message')
+
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Mapeamentos</h5>
@@ -29,7 +31,7 @@
                     <div class="ibox-content">
 
                         <div class="project-list">
-
+                            @if($mappings->isNotEmpty())
                             <table class="table table-hover table-responsive">
                                 <tbody>
                                 @foreach($mappings as $map)
@@ -56,6 +58,9 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            @else
+                                <div class="alert alert-warning">Nenhum mapeamento foi registrado até o momento.</div>
+                            @endif
                         </div>
                     </div>
                 </div>
