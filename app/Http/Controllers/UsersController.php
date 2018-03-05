@@ -31,14 +31,14 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();;
-        /*
-            if(Auth::user()->isAdmin()) {
-                $users =  User::all();
-            } else {
-                $users =  User::where('id', Auth::user()->id)->get();
-            }
-        */
+        $users = User::all();
+
+        if(Auth::user()->isAdmin()) {
+            $users =  User::all();
+        } else {
+            $users =  User::where('id', Auth::user()->id)->get();
+        }
+
         return view('admin.users.index')->with('users', $users);
     }
 

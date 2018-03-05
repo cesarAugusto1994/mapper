@@ -21,7 +21,7 @@
             <div class="col-lg-12">
 
                 @include('flash::message')
-                
+
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Nova Tarefa</h5>
@@ -33,19 +33,10 @@
                             <div class="row">
                               <div class="col-md-12">
                                 <div class="col-md-6">
-                                    <div class="form-group {!! $errors->has('description') ? 'has-error' : '' !!}">
-                                        <label class="col-sm-2 control-label">Descrição</label>
-                                        <div class="col-sm-10">
-                                            <textarea type="text" required name="description" rows="3"
-                                                   placeholder="Descreva a tarefa e informações relevantes." class="form-control"></textarea>
-                                                   {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
-                                        </div>
-                                    </div>
                                     <div class="form-group {!! $errors->has('process_id') ? 'has-error' : '' !!}">
                                         <label class="col-sm-2 control-label">Processo</label>
                                         <div class="col-sm-10">
-                                            <select class="selectpicker" data-style="btn-white"  title="Selecione um Processo" data-live-search="true" show-tick show-menu-arrow data-width="100%"  name="process_id">
-                                                <option></option>
+                                            <select class="selectpicker" id="select-processes" data-style="btn-white"  title="Selecione um Processo" data-live-search="true" show-tick show-menu-arrow data-width="100%"  name="process_id">
                                                 @foreach($processes as $process)
                                                     <option value="{{$process->id}}" @if(isset($_GET['process'])) {{ $_GET['process'] == $process->id ? 'selected' : ''}} @endif>{{$process->name}}</option>
                                                 @endforeach
@@ -53,11 +44,31 @@
                                             {!! $errors->first('process_id', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
+                                    <div class="form-group {!! $errors->has('description') ? 'has-error' : '' !!}">
+                                        <label class="col-sm-2 control-label">Descrição</label>
+                                        <div class="col-sm-10">
+                                            <textarea type="text" required name="description" id="description" rows="3"
+                                                   placeholder="Descreva a tarefa e informações relevantes." class="form-control"></textarea>
+                                                   {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group {!! $errors->has('mapper_id') ? 'has-error' : '' !!}">
+                                        <label class="col-sm-2 control-label">Mapeamento</label>
+                                        <div class="col-sm-10">
+                                            <select class="selectpicker" data-style="btn-white"  title="Selecione um Mapeamento" data-live-search="true" show-tick show-menu-arrow data-width="100%"  name="mapper_id">
+                                                @foreach($mappings as $mapper)
+                                                    <option value="{{$mapper->id}}">{{$mapper->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            {!! $errors->first('mapper_id', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                    </div>
                                     <div class="form-group {!! $errors->has('user_id') ? 'has-error' : '' !!}">
                                         <label class="col-sm-2 control-label">Responsável</label>
                                         <div class="col-sm-10">
                                             <select class="selectpicker" data-style="btn-white" title="Selecione um Resposável" data-live-search="true" show-tick show-menu-arrow data-width="100%"  name="user_id" required>
-                                                <option></option>
+
                                                 @foreach($users as $user)
                                                     <option value="{{$user->id}}" {{ $user->id == Auth::user()->id ? 'selected' : '' }}>{{$user->name}}</option>
                                                 @endforeach
@@ -99,7 +110,7 @@
 
                                     <div class="form-group {!! $errors->has('client_id') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Cliente</label>
                                         <div class="col-sm-10"><select class="selectpicker" title="Selecione um Cliente" data-style="btn-white" required data-live-search="true" show-tick show-menu-arrow data-width="100%"  name="client_id">
-                                                <option></option>
+
                                                 @foreach($departments as $department)
                                                     <option value="{{$department->id}}">{{$department->name}}</option>
                                                 @endforeach
@@ -109,7 +120,7 @@
 
                                     <div class="form-group {!! $errors->has('vendor_id') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Fornecedor</label>
                                         <div class="col-sm-10"><select class="selectpicker" title="Selecione um Fornecedor" data-style="btn-white" required data-live-search="true" show-tick show-menu-arrow data-width="100%"  name="vendor_id">
-                                                <option></option>
+
                                                 @foreach($departments as $department)
                                                     <option value="{{$department->id}}">{{$department->name}}</option>
                                                 @endforeach
@@ -160,13 +171,16 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary">Salvar</button>
+                                    <a class="btn btn-white">Cancelar</a>
+                                </div>
+
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-12 text-center">
-                                  <button class="btn btn-primary">Salvar</button>
-                              </div>
+
                             </div>
 
                         </form>
@@ -177,3 +191,15 @@
     </div>
 
 @endsection
+
+@push('scripts')
+
+  <script>
+      $(document).ready(function() {
+        $('#select-processes').change(function() {
+            $('#description').val($('#select-processes option:selected').text());
+        });
+      });
+  </script>
+
+@endpush

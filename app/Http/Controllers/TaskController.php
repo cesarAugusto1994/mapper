@@ -13,6 +13,7 @@ use App\TaskPause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Request as Req;
+use App\Mapper;
 
 class TaskController extends Controller
 {
@@ -55,9 +56,23 @@ class TaskController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->isAdmin()) {
+            $mapings = Mapper::where('user_id', Auth::user()->id)->orderBy('id')->get();
+            $processes = Process::where('department_id', Auth::user()->department_id)->get();
+        } else {
+            $mapings = Mapper::orderBy('id')->get();
+            $processes = Process::all();
+        }
+
+        if($mapings->isEmpty()) {
+            flash('Antes de mais nada, adicione um mapeamento para esta semana.')->success()->important();
+            return redirect()->route('mapping_create');
+        }
+
         return view('admin.tasks.create')
-            ->with('processes', Process::all())
+            ->with('processes', $processes)
             ->with('users', User::all())
+            ->with('mappings', $mapings)
             ->with('departments', Department::all());
     }
 
@@ -106,6 +121,7 @@ class TaskController extends Controller
         $data = [
             'description' => $data['description'],
             'process_id' => $data['process_id'],
+            'mapper_id' => $data['mapper_id'],
             'user_id' => $data['user_id'],
             'time' => $this->hourToMinutes($data['time']),
             'method' => $data['method'],

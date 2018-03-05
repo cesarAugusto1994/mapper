@@ -8,6 +8,7 @@ use App\Process;
 use App\Frequency;
 use Illuminate\Http\Request;
 use Request as Req;
+use Auth;
 
 class ProcessesController extends Controller
 {
@@ -29,11 +30,26 @@ class ProcessesController extends Controller
     public function index()
     {
 
-         if (Req::has('filter')) {
-            $process = Process::where('name', 'like', '%' . Req::get('filter') . '%')->get();
-        } else {
-            $process = Process::all();
-        }
+          if(Auth::user()->isAdmin()) {
+
+               if (Req::has('filter')) {
+                     $process = Process::where('name', 'like', '%' . Req::get('filter') . '%')->get();
+               } else {
+                   $process = Process::all();
+               }
+
+          } else {
+
+              if (Req::has('filter')) {
+                    $process = Process::where('name', 'like', '%' . Req::get('filter') . '%')
+                    ->where('department_id', Auth::user()->department_id)->get();
+              } else {
+                  $process =  Process::where('department_id', Auth::user()->department_id)->get();
+              }
+
+          }
+
+
 
         return view('admin.processes.index')->with('processes', $process);
     }

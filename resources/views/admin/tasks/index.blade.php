@@ -21,7 +21,7 @@
             <div class="wrapper wrapper-content animated fadeInUp">
 
                 @include('flash::message')
-                
+
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Tarefas</h5>

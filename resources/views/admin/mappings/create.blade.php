@@ -43,10 +43,10 @@
                             </div>
                             <div class="form-group {!! $errors->has('user') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Usuário</label>
                                 <div class="col-sm-10">
-                                  <select class="selectpicker show-tick" data-width="100%" name="user">
+                                  <select class="selectpicker show-tick" data-style="btn-white" data-width="100%" name="user">
                                         @foreach($users as $user)
                                             @if($user->do_task && $user->active)
-                                                <option value="{{$user->id}}"><img alt="" src="{{ Gravatar::get(Auth::user()->email) }}" />{{$user->name}}</option>
+                                                <option value="{{$user->id}}" {{ Auth::user()->id == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -54,6 +54,7 @@
                                   </div>
                             </div>
                             <button class="btn btn-primary">Salvar</button>
+                            <a class="btn btn-white" href="{{ route('mappings') }}">Cancelar</a>
                         </form>
                     </div>
                 </div>

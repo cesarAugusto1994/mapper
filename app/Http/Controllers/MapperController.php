@@ -9,6 +9,7 @@ use App\Task;
 use App\MapperTasks;
 use Request as Req;
 use Illuminate\Validation\Validator;
+use Auth;
 
 class MapperController extends Controller
 {
@@ -29,7 +30,13 @@ class MapperController extends Controller
      */
     public function index()
     {
-        return view('admin.mappings.index')->with('mappings', Mapper::all());
+        if(Auth::user()->isAdmin()) {
+            $mappings =  Mapper::all();
+        } else {
+            $mappings =  Mapper::where('user_id', Auth::user()->id)->get();
+        }
+
+        return view('admin.mappings.index')->with('mappings', $mappings);
     }
 
     /**
@@ -39,8 +46,14 @@ class MapperController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->isAdmin()) {
+            $users =  User::all();
+        } else {
+            $users =  User::where('id', Auth::user()->id)->get();
+        }
+
         return view('admin.mappings.create')
-        ->with('users', User::all());
+        ->with('users', $users);
     }
 
     /**
