@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException as ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,19 +50,22 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($exception instanceof Exception) {
+        if($exception instanceof ModelNotFoundException) {
+
+            $error['code'] = 500;
+            $error['message'] = 'Erro interno no servidor.';
+
+            return response()->view('errors.custom', $error, $error['code']);
+        }
+
+        if($exception instanceof NotFoundHttpException) {
 
             $error = [
               'code' => 404,
               'message' => 'Página não encontrada.'
             ];
 
-            if($exception->getCode() == 500) {
-                $error['code'] = 500;
-                $error['message'] = 'Erro interno no servidor.';
-            }
-
-            return response()->view('errors.custom', $error, 500);
+            return response()->view('errors.custom', $error, $error['code']);
         }
 
         return parent::render($request, $exception);
