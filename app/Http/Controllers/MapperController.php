@@ -189,7 +189,7 @@ class MapperController extends Controller
      */
     public function edit($id)
     {
-
+        abort(500);
     }
 
     /**

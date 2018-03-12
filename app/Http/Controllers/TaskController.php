@@ -156,127 +156,136 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task = Task::find($id);
 
-        $horaAtual = new \DateTime('now');
-        $horaCorte = new \DateTime($task->begin);
+        try {
 
-        $diff = $horaAtual->diff($horaCorte);
-        $segundos = $diff->s + ($diff->i * 60) + ($diff->h * 60);
+            $task = Task::findOrFail($id);
 
-        $remainTime = ($task->time*60) - $segundos;
+            $horaAtual = new \DateTime('now');
+            $horaCorte = new \DateTime($task->begin);
 
-        $taskPause = TaskPause::where('task_id', $task->id)->first();
+            $diff = $horaAtual->diff($horaCorte);
+            $segundos = $diff->s + ($diff->i * 60) + ($diff->h * 60);
 
-        if(!empty($taskPause)) {
+            $remainTime = ($task->time*60) - $segundos;
 
-          if(empty($taskPause->end)) {
-            $diff2 = $horaAtual->diff(new \DateTime($taskPause->begin));
-          } else {
-            $base = new \DateTime($taskPause->end);
-            $diff2 = $base->diff(new \DateTime($taskPause->begin));
-          }
+            $taskPause = TaskPause::where('task_id', $task->id)->first();
 
-            $segundos2 = $diff2->s + ($diff2->i * 60) + ($diff2->h * 60 * 60);
+            if(!empty($taskPause)) {
 
-            $remainTime = $remainTime + $segundos2;
-        }
+              if(empty($taskPause->end)) {
+                $diff2 = $horaAtual->diff(new \DateTime($taskPause->begin));
+              } else {
+                $base = new \DateTime($taskPause->end);
+                $diff2 = $base->diff(new \DateTime($taskPause->begin));
+              }
 
-        //echo $remainTime;
+                $segundos2 = $diff2->s + ($diff2->i * 60) + ($diff2->h * 60 * 60);
 
-        $gut = ($task->severity * $task->urgency * $task->trend);
-
-        if (Req::get('status') == Task::STATUS_EM_ANDAMENTO && $task->status_id != Task::STATUS_EM_ANDAMENTO) {
-
-            if($task->mapper && $task->mapper->active != 1) {
-                return redirect()->back()->with('message', 'Esta tarefa Pertence a um mapeamento, deve primeiro iniciá-lo.');
+                $remainTime = $remainTime + $segundos2;
             }
 
-            $task->status_id = Task::STATUS_EM_ANDAMENTO;
-            $task->begin = new \DateTime('now');
-            $task->save();
+            //echo $remainTime;
 
-            $log = new TaskLogs();
-            $log->task_id = $task->id;
-            $log->user_id = Auth::user()->id;
-            $log->message = 'Alterou o status da tarefa ' . $task->description . ' para Em Andamento.';
-            $log->save();
+            $gut = ($task->severity * $task->urgency * $task->trend);
 
-            return redirect()->route('task', ['id' => $task->id]);
-        } elseif (Req::get('status') == Task::STATUS_FINALIZADO && $task->status_id != Task::STATUS_FINALIZADO) {
+            if (Req::get('status') == Task::STATUS_EM_ANDAMENTO && $task->status_id != Task::STATUS_EM_ANDAMENTO) {
 
-            $task->status_id = Task::STATUS_FINALIZADO;
-            $task->end = new \DateTime('now');
-            $horaInicio = new \DateTime($task->begin);
-            $diff = $task->end->diff($horaInicio);
-            $minutos = $diff->i + ($diff->h * 60);
+                if($task->mapper && $task->mapper->active != 1) {
+                    return redirect()->back()->with('message', 'Esta tarefa Pertence a um mapeamento, deve primeiro iniciá-lo.');
+                }
 
-            $task->spent_time = $minutos;
+                $task->status_id = Task::STATUS_EM_ANDAMENTO;
+                $task->begin = new \DateTime('now');
+                $task->save();
 
-            $task->save();
+                $log = new TaskLogs();
+                $log->task_id = $task->id;
+                $log->user_id = Auth::user()->id;
+                $log->message = 'Alterou o status da tarefa ' . $task->description . ' para Em Andamento.';
+                $log->save();
 
-            $log = new TaskLogs();
-            $log->task_id = $task->id;
-            $log->user_id = Auth::user()->id;
+                return redirect()->route('task', ['id' => $task->id]);
+            } elseif (Req::get('status') == Task::STATUS_FINALIZADO && $task->status_id != Task::STATUS_FINALIZADO) {
 
-            if (0 > $remainTime) {
-              $msg = 'Finalizou a tarefa ' . $task->description . ' com atraso.';
-            } else {
-              $msg = 'Alterou o status da tarefa ' . $task->description . ' para Finalizado.';
+                $task->status_id = Task::STATUS_FINALIZADO;
+                $task->end = new \DateTime('now');
+                $horaInicio = new \DateTime($task->begin);
+                $diff = $task->end->diff($horaInicio);
+                $minutos = $diff->i + ($diff->h * 60);
+
+                $task->spent_time = $minutos;
+
+                $task->save();
+
+                $log = new TaskLogs();
+                $log->task_id = $task->id;
+                $log->user_id = Auth::user()->id;
+
+                if (0 > $remainTime) {
+                  $msg = 'Finalizou a tarefa ' . $task->description . ' com atraso.';
+                } else {
+                  $msg = 'Alterou o status da tarefa ' . $task->description . ' para Finalizado.';
+                }
+
+                $log->message = $msg;
+                $log->save();
+
+                return redirect()->route('task', ['id' => $task->id]);
             }
 
-            $log->message = $msg;
-            $log->save();
+            if (Req::get('cancel')) {
+                $task->status_id = Task::STATUS_CANCELADO;
+                $task->begin = $task->end = new \DateTime('now');
+                $task->save();
 
-            return redirect()->route('task', ['id' => $task->id]);
+                $log = new TaskLogs();
+                $log->task_id = $task->id;
+                $log->user_id = Auth::user()->id;
+                $log->message = 'Alterou o status da tarefa ' . $task->description . ' para Cancelado.';
+                $log->save();
+
+                return redirect()->route('task', ['id' => $task->id]);
+            }
+
+             if (Req::has('duplicate')) {
+
+                $user = Auth::user()->isAdmin() ? $task->user_id : Auth::user()->id;
+
+                $data = [
+                    'description' => $task->description,
+                    'process_id' => $task->process_id,
+                    'user_id' => $user,
+                    'frequency' => $task->frequency,
+                    'time' => $task->time,
+                    'method' => $task->method,
+                    'indicator' => $task->indicator,
+                    'client_id' => $task->client_id,
+                    'vendor_id' => $task->vendor_id,
+                    'severity' => $task->severity,
+                    'urgency' => $task->urgency,
+                    'trend' => $task->trend,
+                    'status_id' => Task::STATUS_PENDENTE,
+                    'created_by' => Auth::user()->id,
+                ];
+
+                $newTask = Task::create($data);
+
+                $this->log($task, 'Duplicou a tarefa ' . $task->description);
+
+                $this->log($newTask, 'Criou a tarefa ' . $newTask->description);
+
+                return redirect()->route('task', ['id' => $newTask->id]);
+            }
+
+            $taskDelay = TaskDelay::where('task_id', $task->id)->first();
+            $pausedTask = TaskPause::where('task_id', $task->id)->where("end", null)->first();
+
+        } catch(Exception $e) {
+
+            return response()->view('errors.custom', [], 404);
+
         }
-
-        if (Req::get('cancel')) {
-            $task->status_id = Task::STATUS_CANCELADO;
-            $task->begin = $task->end = new \DateTime('now');
-            $task->save();
-
-            $log = new TaskLogs();
-            $log->task_id = $task->id;
-            $log->user_id = Auth::user()->id;
-            $log->message = 'Alterou o status da tarefa ' . $task->description . ' para Cancelado.';
-            $log->save();
-
-            return redirect()->route('task', ['id' => $task->id]);
-        }
-
-         if (Req::has('duplicate')) {
-
-            $user = Auth::user()->isAdmin() ? $task->user_id : Auth::user()->id;
-
-            $data = [
-                'description' => $task->description,
-                'process_id' => $task->process_id,
-                'user_id' => $user,
-                'frequency' => $task->frequency,
-                'time' => $task->time,
-                'method' => $task->method,
-                'indicator' => $task->indicator,
-                'client_id' => $task->client_id,
-                'vendor_id' => $task->vendor_id,
-                'severity' => $task->severity,
-                'urgency' => $task->urgency,
-                'trend' => $task->trend,
-                'status_id' => Task::STATUS_PENDENTE,
-                'created_by' => Auth::user()->id,
-            ];
-
-            $newTask = Task::create($data);
-
-            $this->log($task, 'Duplicou a tarefa ' . $task->description);
-
-            $this->log($newTask, 'Criou a tarefa ' . $newTask->description);
-
-            return redirect()->route('task', ['id' => $newTask->id]);
-        }
-
-        $taskDelay = TaskDelay::where('task_id', $task->id)->first();
-        $pausedTask = TaskPause::where('task_id', $task->id)->where("end", null)->first();
 
         return view('admin.tasks.details')
             ->with('task', $task)
