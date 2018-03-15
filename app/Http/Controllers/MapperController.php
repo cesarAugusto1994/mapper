@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Mapper;
+use App\Models\Mapper;
 use App\User;
-use App\Task;
-use App\MapperTasks;
+use App\Models\Task;
+use App\Models\MapperTasks;
 use Request as Req;
 use Illuminate\Validation\Validator;
 use Auth;
@@ -31,7 +31,26 @@ class MapperController extends Controller
     public function index()
     {
         if(Auth::user()->isAdmin()) {
+
+            $users = User::all();
+
+            foreach ($users as $user) {
+
+                $mapping =  Mapper::where('user_id', $user->id)->get();
+
+                if($mapping->isNotEmpty()) {
+                    continue;
+                }
+
+                $mapper = new Mapper();
+                $mapper->name = 'Mapeamento ' . $user->name;
+                $mapper->user_id = $user->id;
+                $mapper->status_id = 2;
+                $mapper->save();
+            }
+
             $mappings =  Mapper::all();
+
         } else {
             $mappings =  Mapper::where('user_id', Auth::user()->id)->get();
         }
@@ -92,6 +111,7 @@ class MapperController extends Controller
 
         $mapper->name = $data['name'];
         $mapper->user_id = $data['user'];
+        $mapper->status_id = 1;
         $mapper->save();
 
         return redirect()->action('MapperController@index');
@@ -105,9 +125,17 @@ class MapperController extends Controller
      */
     public function show($id)
     {
+        $mapper = Mapper::findOrFail($id);
+
+        $tasks = Task::where('status_id', 1)->where('user_id', $mapper->user->id)->where('mapper_id', null)->get();
+
+        foreach ($tasks as $task) {
+            $task->mapper_id = $mapper->id;
+            $task->save();
+        }
 
         return view('admin.mappings.details')
-        ->with('mapper', Mapper::findOrFail($id));
+        ->with('mapper', $mapper);
     }
 
     public function addTask($id)
@@ -148,9 +176,30 @@ class MapperController extends Controller
     public function start($id)
     {
         $mapper = Mapper::findOrFail($id);
-
-        $mapper->active = true;
         $mapper->started_at = new \DateTime('now');
+        $mapper->status_id = 2;
+
+        $mapper->save();
+
+        return redirect()->route('mapping', ['id' => $id]);
+    }
+
+    public function done($id)
+    {
+        $mapper = Mapper::findOrFail($id);
+        $mapper->closed_at = new \DateTime('now');
+        $mapper->status_id = 4;
+
+        $mapper->save();
+
+        return redirect()->route('mapping', ['id' => $id]);
+    }
+
+    public function cancel($id)
+    {
+        $mapper = Mapper::findOrFail($id);
+        $mapper->closed_at = new \DateTime('now');
+        $mapper->status_id = 3;
 
         $mapper->save();
 

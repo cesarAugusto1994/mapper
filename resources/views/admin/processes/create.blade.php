@@ -4,10 +4,10 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Departamento</h2>
+            <h2>Processo</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 <li class="active">
                     <strong>Novo Processo</strong>
@@ -21,7 +21,7 @@
             <div class="col-lg-12">
 
                 @include('flash::message')
-                
+
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Novo Processo</h5>

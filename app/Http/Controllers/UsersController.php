@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Department;
-use App\TaskLogs;
-use App\Task;
-use App\Role;
+use App\Models\Department;
+use App\Models\TaskLogs;
+use App\Models\Task;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Request as Req;
 use Illuminate\Validation\Validator;

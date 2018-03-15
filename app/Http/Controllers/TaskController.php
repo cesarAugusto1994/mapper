@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Department;
-use App\Task;
-use App\TaskMessages;
-use App\Process;
+use App\Models\Department;
+use App\Models\Task;
+use App\Models\TaskMessages;
+use App\Models\Process;
+use App\Models\SubProcesses;
 use App\User;
-use App\TaskLogs;
-use App\TaskDelay;
-use App\TaskPause;
+use App\Models\TaskLogs;
+use App\Models\TaskDelay;
+use App\Models\TaskPause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Request as Req;
-use App\Mapper;
+use App\Models\Mapper;
 
 class TaskController extends Controller
 {
@@ -56,23 +57,19 @@ class TaskController extends Controller
      */
     public function create()
     {
-        if(!Auth::user()->isAdmin()) {
+        /*if(!Auth::user()->isAdmin()) {
             $mapings = Mapper::where('user_id', Auth::user()->id)->orderBy('id')->get();
-            $processes = Process::where('department_id', Auth::user()->department_id)->get();
+            $subprocesses = SubProcesses::where('process_id', Auth::user()->department_id)->get();
         } else {
             $mapings = Mapper::orderBy('id')->get();
-            $processes = Process::all();
-        }
 
-        if($mapings->isEmpty()) {
-            flash('Antes de mais nada, adicione um mapeamento para esta semana.')->success()->important();
-            return redirect()->route('mapping_create');
-        }
+        }*/
+
+        $subprocesses = SubProcesses::all();
 
         return view('admin.tasks.create')
-            ->with('processes', $processes)
+            ->with('subprocesses', $subprocesses)
             ->with('users', User::all())
-            ->with('mappings', $mapings)
             ->with('departments', Department::all());
     }
 
@@ -104,7 +101,7 @@ class TaskController extends Controller
 
         $validator = \Illuminate\Support\Facades\Validator::make($data, [
           'description' => 'required|max:255',
-          'process_id' => 'required',
+          'sub_process_id' => 'required',
           'user_id' => 'required',
           'time' => 'required',
           'client_id' => 'required',
@@ -120,8 +117,7 @@ class TaskController extends Controller
 
         $data = [
             'description' => $data['description'],
-            'process_id' => $data['process_id'],
-            'mapper_id' => $data['mapper_id'],
+            'sub_process_id' => $data['sub_process_id'],
             'user_id' => $data['user_id'],
             'time' => $this->hourToMinutes($data['time']),
             'method' => $data['method'],

@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Task extends Model
 {
@@ -12,11 +13,11 @@ class Task extends Model
     const STATUS_CANCELADO = 4;
 
     protected $fillable = [
-        'description', 'process_id', 'user_id',
+        'description', 'sub_process_id', 'user_id',
         'frequency', 'time', 'method',
         'indicator', 'client_id', 'vendor_id',
         'severity', 'urgency', 'trend',
-        'status_id', 'created_by', 'active', 'mapper_id'
+        'status_id', 'created_by', 'active'
     ];
 
     protected $dates = ['begin', 'end'];
@@ -34,6 +35,11 @@ class Task extends Model
     public function client()
     {
         return $this->belongsTo(Department::class, 'client_id');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(Department::class, 'vendor_id');
     }
 
     public function status()

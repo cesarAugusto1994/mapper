@@ -4,7 +4,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2>Mapeamentos <a href="{{route('mapping_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
+            <h2>Mapeamentos</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('home')}}">Painel</a>
@@ -36,9 +36,6 @@
                                 <tbody>
                                 @foreach($mappings as $map)
                                 <tr>
-                                    <td class="project-status">
-                                        <span class="label label-{!! $map->active == 1 ? 'primary' : 'danger' !!}">{!! $map->active == 1 ? 'Ativo' : 'Inativo' !!}</span>
-                                    </td>
                                     <td class="project-title">
                                         <a href="{{route('mapping', ['id' => $map->id])}}">{{$map->name}}</a>
                                         <br/>
@@ -51,9 +48,9 @@
                                         <a href="{{route('user', ['id' => $map->user->id])}}">
                                         <img alt="image" class="img-circle" src="{{Gravatar::get($map->user->email)}}"></a>
                                     </td>
-                                    <td class="project-actions hidden-xs">
+                                    <!--<td class="project-actions hidden-xs">
                                         <a href="{{route('mapping_edit', ['id' => $map->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
-                                    </td>
+                                    </td>-->
                                 </tr>
                                 @endforeach
                                 </tbody>

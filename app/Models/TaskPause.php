@@ -1,10 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Task;
 
-class MapperTasks extends Model
+class TaskPause extends Model
 {
     public function task()
     {

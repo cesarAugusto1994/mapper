@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
-use App\Models\Process;
-use App\User;
 use Illuminate\Http\Request;
-use Request as Req;
+use App\Models\Process;
+use App\Models\SubProcesses;
 
-class DepartmentsController extends Controller
+class SubProcessesController extends Controller
 {
+      /**
+      * Create a new controller instance.
+      *
+      * @return void
+      */
+     public function __construct()
+     {
+         $this->middleware('auth');
+     }
 
-     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -27,9 +25,9 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
-        $departments = Department::all();
+        $process = SubProcesses::all();
 
-        return view('admin.departments.index')->with('departments', $departments);
+        return view('admin.subprocesses.index')->with('processes', $process);
     }
 
     /**
@@ -39,7 +37,8 @@ class DepartmentsController extends Controller
      */
     public function create()
     {
-        return view('admin.departments.create')->with('users', User::all());
+        return view('admin.subprocesses.create')
+        ->with('processes', Process::all());
     }
 
     /**
@@ -50,9 +49,16 @@ class DepartmentsController extends Controller
      */
     public function store(Request $request)
     {
-         Department::create(Req::all());
+        $data = $request->request->all();
 
-        return redirect()->action('DepartmentsController@index');
+        $subprocess = new SubProcesses();
+        $subprocess->name = $data['name'];
+        $subprocess->process_id = $data['process_id'];
+        $subprocess->save();
+
+        flash('Novo sub processo adicionado com sucesso.')->success()->important();
+
+        return redirect()->route('subprocess', ['id' => $subprocess['id']]);
     }
 
     /**
@@ -63,12 +69,10 @@ class DepartmentsController extends Controller
      */
     public function show($id)
     {
-        $department = Department::find($id);
-        $processes = Process::where('department_id', $id)->get();
+        $subprocess = SubProcesses::find($id);
 
-        return view('admin.departments.details')
-            ->with('department', $department)
-            ->with('processes', $processes);
+        return view('admin.subprocesses.details')
+            ->with('subprocess', $subprocess);
     }
 
     /**
@@ -79,9 +83,7 @@ class DepartmentsController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.departments.edit')
-            ->with('department', Department::find($id))
-            ->with('users', User::all());
+        //
     }
 
     /**
@@ -93,14 +95,7 @@ class DepartmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $department = Department::find($id);
-
-        $department->name = Req::input('name');
-        $department->user_id = Req::input('user_id');
-
-        $department->save();
-
-        return redirect()->route('department', ['id' => $department->id]);;
+        //
     }
 
     /**

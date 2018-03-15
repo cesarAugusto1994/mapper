@@ -32,6 +32,14 @@ Route::prefix('admin')->group(function () {
   Route::post('process/create/store', 'ProcessesController@store')->name('processes_store');
   Route::get('process/{id}/edit', 'ProcessesController@edit')->name('process_edit');
   Route::post('process/{id}/update', 'ProcessesController@update')->name('process_update');
+  Route::get('process/{id}/tojson', 'ProcessesController@toJson')->name('process_to_json');
+
+  Route::get('subprocesses', 'SubProcessesController@index')->name('subprocesses');
+  Route::get('subprocess/{id}', 'SubProcessesController@show')->name('subprocess');
+  Route::get('subprocesses/form/create', 'SubProcessesController@create')->name('sub_process_create');
+  Route::post('subprocesses/create/store', 'SubProcessesController@store')->name('sub_process_store');
+  Route::get('subprocesses/{id}/edit', 'SubProcessesController@edit')->name('sub_process_edit');
+  Route::post('subprocesses/{id}/update', 'SubProcessesController@update')->name('sub_process_update');
 
   Route::get('user/{id}/avatar', 'UsersController@editAvatar')->name('user_avatar');
   Route::get('users/create/form', 'UsersController@create')->name('user_create');

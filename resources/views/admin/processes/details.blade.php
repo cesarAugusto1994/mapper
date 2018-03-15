@@ -20,7 +20,7 @@
             <div class="wrapper wrapper-content animated fadeInUp">
 
                 @include('flash::message')
-                
+
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
@@ -28,7 +28,7 @@
                                 <div class="m-b-md">
                                     <a href="{{route('process_edit', ['id' => $process->id])}}"
                                        style="margin-left: 4px;"
-                                       class="btn btn-white btn-xs pull-right">Editar Departamento</a>
+                                       class="btn btn-white btn-xs pull-right">Editar Processo</a>
                                     <h2>{{$process->name}} </h2>
                                     <small>{{$process->department->name}}</small>
                                 </div>
@@ -39,71 +39,35 @@
 
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Tarefas</h5>
+                        <h5>Sub Processos</h5>
                         <div class="ibox-tools">
-                            <a href="{{route('task_create', ['process' => $process->id])}}" class="btn btn-primary btn-xs">Criar nova Tarefa</a>
+                            <a href="{{route('sub_process_create', ['process' => $process->id])}}" class="btn btn-primary btn-xs">Criar Sub Processo</a>
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div class="row m-b-sm m-t-sm">
 
-                            <div class="col-md-12">
-                              <form metho="get" action="#">
-                                  <div class="input-group"><input type="text" name="filter" placeholder="Pesquisar" class="input-sm form-control"> <span class="input-group-btn">
-                                      <button type="submit" class="btn btn-sm btn-primary"> Ir!</button> </span></div>
-                                  </form>
-                            </div>
-                        </div>
 
                         <div class="project-list">
-                          @if($tasks->isNotEmpty())
+                          @if($subprocesses->isNotEmpty())
                           <table class="table table-hover">
                               <tbody>
-                              @forelse ($tasks as $task)
+                              @foreach ($subprocesses as $subprocess)
                                   <tr>
                                       <td class="project-title">
-                                          <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
+                                          <a href="{{route('task', ['id' => $task->id])}}">{{$subprocess->name}}</a>
                                           <br/>
-                                          <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
-                                      </td>
-                                      <td class="project-completion">
-                                          <small>GUT:  <b>
-                                            <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->severity); !!}">{{$task->severity}}</span>
-                                            <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->urgency); !!}">{{$task->urgency}}</span>
-                                            <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->trend); !!}">{{$task->trend}}</span>
-                                          </b></small>
-                                      </td>
-                                      <td class="project-completion">
-                                          <small>Situação  <b>{{$task->status->name}}</b></small>
-                                          <div class="progress progress-mini">
-                                              <div style="width:
-                                              @if ($task->status_id == 1) 0%
-                                              @elseif ($task->status_id == 2) 50%
-                                              @elseif ($task->status_id == 3 || $task->status_id == 4) 100%
-                                              @endif;" class="progress-bar
-                                              @if ($task->status_id == 2) progress-bar-warning
-                                              @elseif ($task->status_id == 4) progress-bar-danger
-                                              @endif;"></div>
-                                          </div>
-                                      </td>
-                                      <td class="project-people hidden-xs">
-                                          <a href="{{route('user', ['id' => $task->sponsor->id])}}">
-                                          <img alt="image" class="img-circle" src="{{Gravatar::get($task->sponsor->email)}}"></a>
+                                          <small>Criada em {{$subprocess->created_at->format('d/m/Y H:i')}}</small>
                                       </td>
                                       <td class="project-actions hidden-xs">
-                                          <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
+                                          <a href="{{route('subprocess', ['id' => $subprocess->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
                                       </td>
                                   </tr>
-                                  @empty
-                                  <tr>
-                                      <td>Nenhuma tarefa até o momento.</td>
-                                  </tr>
-                              @endforelse
+                              @endforeach
                               </tbody>
                           </table>
                           @else
                               <div class="alert alert-warning">
-                                  Nenhuma tarefa registrada até o momento.
+                                  Nenhum sub processo registrado até o momento.
                               </div>
                           @endif
                         </div>

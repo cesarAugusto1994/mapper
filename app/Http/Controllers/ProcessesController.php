@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Department;
-use App\Task;
-use App\Process;
-use App\Frequency;
+use App\Models\Department;
+use App\Models\Task;
+use App\Models\Process;
+use App\Models\Frequency;
+use App\Models\SubProcesses;
 use Illuminate\Http\Request;
 use Request as Req;
 use Auth;
@@ -52,6 +53,12 @@ class ProcessesController extends Controller
 
 
         return view('admin.processes.index')->with('processes', $process);
+    }
+
+    public function toJson($id)
+    {
+        $process =  Process::find($id);
+        return $process->toJson();
     }
 
     /**
@@ -119,15 +126,11 @@ class ProcessesController extends Controller
      */
     public function show($id)
     {
-        $tasks = Task::where('process_id', $id);
-
-        if (Req::has('filter')) {
-            $tasks = Task::where('description', 'like', '%' . Req::get('filter') . '%');
-        }
+        $processes = SubProcesses::where('process_id', $id);
 
         return view('admin.processes.details')
             ->with('process', Process::find($id))
-            ->with('tasks', $tasks->get());
+            ->with('subprocesses', $processes->get());
     }
 
     /**

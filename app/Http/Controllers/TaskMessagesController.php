@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\TaskMessages;
+use App\Models\TaskMessages;
 use Auth;
 
 class TaskMessagesController extends Controller

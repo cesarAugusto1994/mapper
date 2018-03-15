@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Role;
-use App\Task;
-use App\TaskLogs;
+use App\Models\Role;
+use App\Models\Task;
+use App\Models\TaskLogs;
+use App\Models\Department;
 
 class User extends Authenticatable
 {

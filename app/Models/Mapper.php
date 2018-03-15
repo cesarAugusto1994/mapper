@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Mapper extends Model
 {
@@ -14,5 +15,10 @@ class Mapper extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(MapperStatus::class, 'status_id');
     }
 }

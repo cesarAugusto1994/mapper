@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Task;
-use App\TaskLogs;
-use App\Process;
+use App\Models\Task;
+use App\Models\TaskLogs;
+use App\Models\Process;
 use App\User;
-use App\Department;
+use App\Models\Department;
 use Auth;
 use Redis;
 use Redirect;

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Frequency;
+use App\Models\Frequency;
 
 class FrequencyTableSeeder extends Seeder
 {

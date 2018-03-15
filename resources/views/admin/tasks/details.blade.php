@@ -25,7 +25,7 @@
 		<div class="wrapper wrapper-content animated fadeInUp">
 
 			@include('flash::message')
-			
+
 			<div class="ibox">
 				<div class="ibox-content">
 					<div class="row">
@@ -106,6 +106,10 @@
 								<dd>
 									<a href="{{route('department', ['id' => $task->client->id])}}" class="text-navy"> {{$task->client->name}}</a>
 								</dd>
+								<dt>Fornecedor:</dt>
+								<dd>
+									<a href="{{route('department', ['id' => $task->vendor->id])}}" class="text-navy"> {{$task->vendor->name}}</a>
+								</dd>
 
 								<dt>Tempo Previsto:</dt>
 								<dd>{{$task->time}} minutos</dd>
@@ -147,7 +151,7 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<dl class="dl-horizontal">
-								<dt>Completed:</dt>
+								<dt>Completada:</dt>
 								<dd>
 									<div class="progress progress-striped active m-b-sm">
 											<div style="width:
