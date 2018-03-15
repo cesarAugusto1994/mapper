@@ -54,7 +54,7 @@
                               @foreach ($subprocesses as $subprocess)
                                   <tr>
                                       <td class="project-title">
-                                          <a href="{{route('task', ['id' => $task->id])}}">{{$subprocess->name}}</a>
+                                          <a href="{{route('subprocess', ['id' => $subprocess->id])}}">{{$subprocess->name}}</a>
                                           <br/>
                                           <small>Criada em {{$subprocess->created_at->format('d/m/Y H:i')}}</small>
                                       </td>
