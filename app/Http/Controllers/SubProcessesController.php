@@ -58,7 +58,7 @@ class SubProcessesController extends Controller
 
         flash('Novo sub processo adicionado com sucesso.')->success()->important();
 
-        return redirect()->route('subprocess', ['id' => $subprocess['id']]);
+        return redirect()->route('subprocesses');
     }
 
     /**

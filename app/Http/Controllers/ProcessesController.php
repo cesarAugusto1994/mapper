@@ -113,7 +113,7 @@ class ProcessesController extends Controller
 
         flash('Novo processo adicionado com sucesso.')->success()->important();
 
-        return redirect()->route('process', ['id' => $process['id']]);
+        return redirect()->route('processes');
     }
 
     /**
