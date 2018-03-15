@@ -9,16 +9,7 @@
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
             <h2>Mapeamento - {{ $mapper->name }}
-              @if($mapper->active != 1)
-              @if($mapper->tasks->isNotEmpty())
-                  <form method="post" action="{{ route('mapping_start', ['id' => $mapper->id]) }}">
-                      {{ csrf_field() }}
-                      <button type="submit" class="btn btn-lg bottom-right btn-primary pull-right">Iniciar</button>
-                  </form>
-              @endif
-              @else
-                <span class="bottom-right label label-primary pull-right">Em Execução</span>
-              @endif
+
             </h2>
             <ol class="breadcrumb">
                 <li>
@@ -35,7 +26,7 @@
             <div class="col-lg-2 col-md-4">
 
                 @include('flash::message')
-                
+
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Mapeamento Detalhes</h5>
@@ -58,7 +49,11 @@
                                         <b>Tempo Pevisto</b>
                                       </td>
                                       <td>
-                                        <b><label class="lead">{{ App\Http\Controllers\HomeController::intToHour($mapper->user->weekly_workload) }}<label>
+                                        @if(!empty($mapper->user->weekly_workload))
+                                            <b><label class="lead">{{ App\Http\Controllers\HomeController::intToHour($mapper->user->weekly_workload) }}<label></b>
+                                        @else
+                                            <a class="btn btn-white btn-sm" href="{{ route('user', $mapper->user->id) }}">Definir horario</a>
+                                        @endif
                                       </td>
                                     </tr>
                                     <tr>
@@ -82,7 +77,7 @@
                   <div class="ibox-title">
                       <h5>Tarefas</h5>
                       <div class="ibox-tools">
-                          <a href="{{route('mapping_tasks', ['id' => $mapper->id])}}" class="btn btn-primary btn-xs">Adicionar Tarefa</a>
+
                       </div>
                   </div>
                   <div class="ibox-content">
@@ -123,8 +118,9 @@
                                   </td>
                                   <td class="project-actions">
                                       @if($task->status->id == 1)
-                                          <a href="{{route('mapper_remove_task', ['id' => $mapper->id, 'task' => $task->id])}}" class="btn btn-danger btn-outline btn-xs"> Desvincular </a>
-                                      @endif
+                                          <!--<a href="{{route('mapper_remove_task', ['id' => $mapper->id, 'task' => $task->id])}}" class="btn btn-danger btn-outline btn-xs"> Desvincular </a>
+                                          -->
+                                          @endif
                                   </td>
                               </tr>
                                 @empty

@@ -25,9 +25,9 @@ class SubProcessesController extends Controller
      */
     public function index()
     {
-        $process = SubProcesses::all();
+        $subprocesses = SubProcesses::all();
 
-        return view('admin.subprocesses.index')->with('processes', $process);
+        return view('admin.subprocesses.index')->with('subprocesses', $subprocesses);
     }
 
     /**

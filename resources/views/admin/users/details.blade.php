@@ -251,10 +251,10 @@
                             <br/>
                             <div class="btn-group" data-toggle="buttons">
                               <label class="btn btn-primary {{ $user->active ? 'active' : '' }}">
-                                <input type="radio" name="active" id="option1" value="1" autocomplete="off" {{ $user->active ? 'checked' : '' }}> Sim
+                                <input type="radio" name="active" id="option3" value="1" autocomplete="off" {{ $user->active ? 'checked' : '' }}> Sim
                               </label>
                               <label class="btn btn-primary {{ !$user->active ? 'active' : '' }}">
-                                <input type="radio" name="active" id="option2" value="0" autocomplete="off" {{ !$user->active ? 'checked' : '' }}> Não
+                                <input type="radio" name="active" id="option4" value="0" autocomplete="off" {{ !$user->active ? 'checked' : '' }}> Não
                               </label>
                             </div>
                           </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Task;
+use App\Models\TaskModels;
 use App\Models\TaskMessages;
 use App\Models\Process;
 use App\Models\SubProcesses;
@@ -43,6 +44,37 @@ class TaskController extends Controller
         }
 
         return view('admin.tasks.index')->with('tasks', $tasks);
+    }
+
+    public function calendar()
+    {
+        $tasks = Task::all();
+
+        return view('admin.tasks.calendar')
+        ->with('tasks', $tasks);
+    }
+
+    public function getTasks()
+    {
+        $tasks = Task::where('status_id', 1)->get();
+
+        $dados = [];
+
+        $date = new \DateTime('now');
+
+        foreach ($tasks as $task) {
+
+          $inter = $date;
+          $end = $inter->modify("+" . $task->time . " minutes");
+
+          $dados[] = [
+            'nome' => $task->description,
+            'start' => $date->format('Y-m-d H:i'),
+            'end' => $end->format('Y-m-d H:i')
+          ];
+        }
+
+        return json_encode($dados);
     }
 
     public function showBoard()
@@ -130,6 +162,8 @@ class TaskController extends Controller
             'status_id' => Task::STATUS_PENDENTE,
             'created_by' => Auth::user()->id,
         ];
+
+        TaskModels::create($data);
 
         $task = Task::create($data);
 
@@ -359,7 +393,6 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-
         $task = Task::find($id);
 
         $time = 0;
@@ -371,9 +404,12 @@ class TaskController extends Controller
             $hours = str_pad($hours, 2, "0", STR_PAD_LEFT);
          }
 
-        return view('admin.tasks.edit')
+         $subprocesses = SubProcesses::all();
+
+         return view('admin.tasks.edit')
             ->with('task', $task)
             ->with('time', "{$hours}:{$minutes}")
+            ->with('subprocesses', $subprocesses)
             ->with('processes', Process::all())
             ->with('users', User::all())
             ->with('departments', Department::all());
@@ -394,9 +430,8 @@ class TaskController extends Controller
 
         $data = [
             'description' => $data['description'],
-            'process_id' => $data['process_id'],
+            'sub_process_id' => $data['sub_process_id'],
             'user_id' => $data['user_id'],
-            'frequency' => $data['frequency'],
             'time' => $this->hourToMinutes($data['time']),
             'method' => $data['method'],
             'indicator' => $data['indicator'],
@@ -408,9 +443,8 @@ class TaskController extends Controller
         ];
 
         $task->description = $data['description'];
-        $task->process_id = $data['process_id'];
+        $task->sub_process_id = $data['sub_process_id'];
         $task->user_id = $data['user_id'];
-        $task->frequency = $data['frequency'];
         $task->time = $data['time'];
         $task->method = $data['method'];
         $task->indicator = $data['indicator'];

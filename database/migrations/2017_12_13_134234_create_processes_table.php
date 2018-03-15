@@ -18,7 +18,18 @@ class CreateProcessesTable extends Migration
             $table->string('name');
             $table->integer('department_id')->unsigned();
             $table->foreign('department_id')->references('id')->on('departments');
-            $table->integer('time');
+            
+            $table->string('time')->nullable();
+            $table->date('range_start')->nullable();
+            $table->date('range_end')->nullable();
+            $table->boolean('sunday')->nullable();
+            $table->boolean('monday')->nullable();
+            $table->boolean('tuesday')->nullable();
+            $table->boolean('wednesday')->nullable();
+            $table->boolean('thursday')->nullable();
+            $table->boolean('friday')->nullable();
+            $table->boolean('saturday')->nullable();
+
             $table->timestamps();
         });
     }

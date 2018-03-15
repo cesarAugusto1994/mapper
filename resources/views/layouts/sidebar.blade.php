@@ -42,6 +42,10 @@
                     </li>
 
                     <li>
+                      <a href="{{route('task_calendar')}}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendário</span></a>
+                    </li>
+
+                    <li>
                         <a href="{{route('users')}}"><i class="fa fa-users"></i> <span class="nav-label">Usuarios</span></a>
                     </li>
 

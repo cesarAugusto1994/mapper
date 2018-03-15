@@ -33,21 +33,18 @@
 
                         <div class="project-list">
 
-                            @if($processes->isNotEmpty())
+                            @if($subprocesses->isNotEmpty())
                             <table class="table table-hover">
                                 <tbody>
-                                @foreach($processes as $process)
+                                @foreach($subprocesses as $subprocess)
                                 <tr>
-                                    <td class="project-status">
-                                        <span class="label label-primary">{{$process->department->name}}</span>
-                                    </td>
                                     <td class="project-title">
-                                        <a href="{{route('process', ['id' => $process->id])}}">{{$process->name}}</a>
+                                        <a href="{{route('subprocess', ['id' => $subprocess->id])}}">{{$subprocess->name}}</a>
                                         <br/>
-                                        <small>Criado em {{ $process->created_at->format('d/m/Y H:i:s')}}</small>
+                                        <small>{{$subprocess->process->department->name}}</small>
                                     </td>
                                     <td class="project-actions">
-                                        <a href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> Editar </a>
+                                        <a href="{{route('sub_process_edit', ['id' => $subprocess->id])}}" class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> Editar </a>
                                     </td>
                                 </tr>
                                 @endforeach

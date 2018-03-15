@@ -25,12 +25,43 @@ class UserTableSeeder extends Seeder
         $admin->save();
         $admin->roles()->attach($role_admin);
 
-        $user = new User();
-        $user->name = 'Usuario';
-        $user->email = 'user@user.com';
-        $user->password = bcrypt('secret');
-        $user->department_id = 1;
-        $user->save();
-        $user->roles()->attach($role_user);
+        $admin = new User();
+        $admin->name = 'Cesar Augusto';
+        $admin->email = 'cezzaar@gmail.com';
+        $admin->password = bcrypt('mestre');
+        $admin->do_task = false;
+        $admin->department_id = 1;
+        $admin->save();
+        $admin->roles()->attach($role_admin);
+
+        $itens = [
+            [
+              'name' => 'Wanessa',
+              'email' => 'dpessoal@cossilcontabilidade.com.br'
+            ],
+            [
+              'name' => 'Bruna',
+              'email' => 'bruna@cossilcontabilidade.com.br'
+            ],
+            [
+              'name' => 'Paulo Henrique',
+              'email' => 'paulohenrique@cossilcontabilidade.com.br'
+            ],
+            [
+              'name' => 'Mariani',
+              'email' => 'mariani@cossilcontabilidade.com.br'
+            ],
+        ];
+
+        foreach ($itens as $item) {
+            $user = new User();
+            $user->name = $item['name'];
+            $user->email = $item['email'];
+            $user->password = bcrypt('secret');
+            $user->department_id = 1;
+            $user->save();
+            $user->roles()->attach($role_user);
+        }
+
     }
 }

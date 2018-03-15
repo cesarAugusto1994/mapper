@@ -83,35 +83,33 @@ class ProcessesController extends Controller
     {
         $data = Req::all();
 
-        $time = TaskController::hourToMinutes($data['time']);
-
         $process = new Process();
         $process->name = $data['name'];
         $process->department_id = $data['department_id'];
-        $process->time = $time;
         $process->frequency_id = $data['frequency_id'];
-        $process->save();
 
-        if(isset($data['iname'])) {
-            $iname = $data['iname'];
-            $itime = $data['itime'];
-            $ifrequency = $data['ifrequency'];
-            $idepartment = $data['idepartment'];
+        if(!empty($data['week_days'])) {
+            $days = $data['week_days'];
 
-            foreach ($iname as $key => $name) {
-
-                $time = $time.$key;
-
-                $time = TaskController::hourToMinutes($itime[$key]);
-
-                $process = new Process();
-                $process->name = $name;
-                $process->department_id = $idepartment[$key];
-                $process->time = $time;
-                $process->frequency_id = $ifrequency[$key];
-                $process->save();
+            foreach($days as $day) {
+                $process->$day = true;
             }
         }
+
+        if(!empty($data['time'])) {
+            $process->time = $data['time'];
+        }
+
+        if(!empty($data['range_start']) && !empty($data['range_end'])) {
+
+            $inicio = \DateTime::createFromFormat('d/m/Y', $data['range_start']);
+            $fim = \DateTime::createFromFormat('d/m/Y', $data['range_end']);
+
+            $process->range_start = $inicio;
+            $process->range_end = $fim;
+        }
+
+        $process->save();
 
         flash('Novo processo adicionado com sucesso.')->success()->important();
 

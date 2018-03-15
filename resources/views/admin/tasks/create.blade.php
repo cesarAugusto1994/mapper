@@ -69,9 +69,14 @@
                                     <div class="form-group {!! $errors->has('time') ? 'has-error' : '' !!}">
                                         <label class="col-sm-2 control-label">Tempo</label>
                                         <div class="col-sm-10">
-                                            <input type="time" required name="time" id="time" value="00:30"
-                                                   placeholder="Uma nova Tarefa" class="form-control"/>
-                                                   {!! $errors->first('time', '<p class="help-block">:message</p>') !!}
+
+                                          <div class="input-group clockpicker" data-autoclose="true">
+                                            <input type="text" required name="time" id="time" class="form-control" value="00:30">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                          </div>
+                                          {!! $errors->first('time', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                     <div class="form-group {!! $errors->has('method') ? 'has-error' : '' !!}">
@@ -162,7 +167,7 @@
 
                                 <div class="col-md-12">
                                     <button class="btn btn-primary">Salvar</button>
-                                    <a class="btn btn-white">Cancelar</a>
+                                    <a href="{{route('tasks')}}" class="btn btn-white">Cancelar</a>
                                 </div>
 
                               </div>
@@ -184,31 +189,14 @@
 @push('scripts')
 
   <script>
+
+      $('.clockpicker').clockpicker();
+
       $(document).ready(function() {
         $('#select-processes').change(function() {
             $('#description').val($('#select-processes option:selected').text());
-
-            var self = $(this);
-            var id = self.val();
-
-            $.get('/admin/process/'+id+'/tojson', function(data) {
-
-                var time = data.time;
-
-                var $time = 0;
-
-                if(time > 60) {
-                    $time = time/60;
-                }
-
-                $("#time").val();
-
-                console.log($time);
-                console.log(time);
-
-            }, 'json');
-
         });
+        $('#description').val($('#select-processes option:selected').text());
       });
   </script>
 

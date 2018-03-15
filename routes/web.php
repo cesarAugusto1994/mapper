@@ -23,6 +23,10 @@ Route::prefix('admin')->group(function () {
   Route::post('task/store', 'TaskController@store')->name('task_store');
   Route::post('task/{id}/update', 'TaskController@update')->name('task_update');
 
+  Route::get('task/calendar', 'TaskController@calendar')->name('task_calendar');
+  Route::get('task/to-json', 'TaskController@getTasks')->name('tasks_json');
+
+
   Route::get('department/create/form', 'DepartmentsController@create')->name('department_create');
   Route::get('department/{id}/edit', 'DepartmentsController@edit')->name('department_edit');
   Route::post('department/create/store', 'DepartmentsController@store')->name('department_store');

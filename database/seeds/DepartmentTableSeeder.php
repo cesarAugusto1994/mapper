@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Department;
 
 class DepartmentTableSeeder extends Seeder
 {
@@ -11,9 +12,13 @@ class DepartmentTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('departments')->insert([
-            'name' => 'Geral',
-            'user_id' => 1
-        ]);
+        $itens = ['Departamento Contábil', 'Departamento Pessoal', 'Fiscal', 'Arquivo', 'Malote', 'TI'];
+
+        foreach ($itens as $item) {
+            $departamento = new Department();
+            $departamento->name = $item;
+            $departamento->user_id = 1;
+            $departamento->Save();
+        }
     }
 }

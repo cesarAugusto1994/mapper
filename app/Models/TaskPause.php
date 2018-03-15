@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Task;
+use App\User;
 
 class TaskPause extends Model
 {
