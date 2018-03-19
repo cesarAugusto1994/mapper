@@ -45,6 +45,7 @@
                                     </td>
                                     <td class="project-actions">
                                         <a href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> Editar </a>
+                                        
                                     </td>
                                 </tr>
                                 @endforeach

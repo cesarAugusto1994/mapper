@@ -84,8 +84,15 @@
 										<div class="alert alert-danger">Esta tarefa é de altissima graviade, urgencia e tendencia já que o seu indice GUT é {{ $gut }}</div>
 								@endif
 
-								<h2>{{$task->description}} @if ($task->mapper) <small>({{ $task->mapper->name }})</small> @endif</h2>
+								<h2>{{$task->name}} @if ($task->mapper) <small>({{ $task->mapper->name }})</small> @endif</h2>
 							</div>
+
+							<dl class="dl-horizontal">
+								<dt>Descrição:</dt>
+								<dd>
+									<p>{{ $task->description }} </p>
+								</dd>
+							</dl>
 
 							<dl class="dl-horizontal">
 								<dt>Status:</dt>

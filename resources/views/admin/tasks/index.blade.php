@@ -36,7 +36,7 @@
                             </div>
                         </div>
 
-                        <div class="project-list">
+                        <div class="project-list table-responsive">
 
                             @if($tasks->isNotEmpty())
                             <table class="table table-hover">
@@ -46,7 +46,12 @@
                                         <td class="project-title">
                                             <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
                                             <br/>
-                                            <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
+                                            <small>{{$task->subprocess->process->name}}</small>
+                                        </td>
+                                        <td class="project-completion">
+                                            <small>Tempo Previsto:  <b>
+                                              {{ App\Http\Controllers\HomeController::minutesToHour($task->time) }}
+                                            </b></small>
                                         </td>
                                         <td class="project-completion">
                                             <small>GUT:  <b>
@@ -74,6 +79,11 @@
                                         </td>
                                         <td class="project-actions hidden-xs">
                                             <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
+                                              @if ($task->status_id == 1)
+                                                <a href="{{ route('task_initiate', ['id' => $task->id]) }}" class="btn btn-primary btn-sm"> Iniciar </a>
+                                              @elseif ($task->status_id == 2)
+                                                <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-success btn-sm"> Finalizada </a>
+                                              @endif
                                         </td>
                                     </tr>
                                     @empty

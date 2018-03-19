@@ -26,6 +26,7 @@ Route::prefix('admin')->group(function () {
   Route::get('task/calendar', 'TaskController@calendar')->name('task_calendar');
   Route::get('task/to-json', 'TaskController@getTasks')->name('tasks_json');
 
+  Route::get('task/{id}/start', 'TaskController@startTask')->name('task_initiate');
 
   Route::get('department/create/form', 'DepartmentsController@create')->name('department_create');
   Route::get('department/{id}/edit', 'DepartmentsController@edit')->name('department_edit');

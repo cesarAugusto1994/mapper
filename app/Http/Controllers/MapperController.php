@@ -39,6 +39,8 @@ class MapperController extends Controller
                 $mapping =  Mapper::where('user_id', $user->id)->get();
 
                 if($mapping->isNotEmpty()) {
+
+                    $this->setTasks($mapping->first());
                     continue;
                 }
 
@@ -47,6 +49,9 @@ class MapperController extends Controller
                 $mapper->user_id = $user->id;
                 $mapper->status_id = 2;
                 $mapper->save();
+
+                $this->setTasks($mapper);
+
             }
 
             $mappings =  Mapper::all();
@@ -56,6 +61,16 @@ class MapperController extends Controller
         }
 
         return view('admin.mappings.index')->with('mappings', $mappings);
+    }
+
+    public function setTasks($mapper)
+    {
+        $tasks = Task::where('status_id', 1)->where('user_id', $mapper->user->id)->where('mapper_id', null)->get();
+
+        foreach ($tasks as $task) {
+            $task->mapper_id = $mapper->id;
+            $task->save();
+        }
     }
 
     /**

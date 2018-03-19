@@ -13,7 +13,7 @@ class Task extends Model
     const STATUS_CANCELADO = 4;
 
     protected $fillable = [
-        'description', 'sub_process_id', 'user_id',
+        'name', 'description', 'sub_process_id', 'user_id',
         'frequency', 'time', 'method',
         'indicator', 'client_id', 'vendor_id',
         'severity', 'urgency', 'trend',
@@ -22,9 +22,9 @@ class Task extends Model
 
     protected $dates = ['begin', 'end'];
 
-    public function process()
+    public function subprocess()
     {
-        return $this->belongsTo(Process::class, 'process_id');
+        return $this->belongsTo(SubProcesses::class, 'sub_process_id');
     }
 
     public function createdBy()

@@ -106,7 +106,6 @@
 
 	</div>
 
-	<!--<script src="{{asset('admin/js/jquery-2.1.1.js')}}"></script>-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="{{asset('admin/js/inspinia.js')}}"></script>
 	<script src="{{asset('admin/js/bootstrap.min.js')}}"></script>

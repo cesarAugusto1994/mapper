@@ -147,7 +147,10 @@ class TaskController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+        $subprocess = SubProcesses::find($data['sub_process_id']);
+
         $data = [
+            'name' => $subprocess->name,
             'description' => $data['description'],
             'sub_process_id' => $data['sub_process_id'],
             'user_id' => $data['user_id'],
@@ -282,9 +285,11 @@ class TaskController extends Controller
 
                 $user = Auth::user()->isAdmin() ? $task->user_id : Auth::user()->id;
 
+                $subprocess = SubProcesses::find($task->sub_process_id);
+
                 $data = [
-                    'description' => $task->description,
-                    'process_id' => $task->process_id,
+                    'name' => $subprocess->name,
+                    'sub_process_id' => $task->sub_process_id,
                     'user_id' => $user,
                     'frequency' => $task->frequency,
                     'time' => $task->time,
@@ -378,11 +383,15 @@ class TaskController extends Controller
 
     public function startTask($id)
     {
-        $task = Task::find($id);
+        $task = Task::findOrfail($id);
 
-        $task->status = Task::STATUS_PENDENTE;
+        $task->status_id = Task::STATUS_EM_ANDAMENTO;
 
-        return $this->show($id);
+        $task->save();
+
+        flash('A tarefa foi iniciada com sucesso.')->success()->important();
+
+        return redirect()->route('tasks');
     }
 
     /**
@@ -428,7 +437,10 @@ class TaskController extends Controller
 
         $task = Task::find($id);
 
+        $subprocess = SubProcesses::find($data['sub_process_id']);
+
         $data = [
+            'name' => $subprocess->name,
             'description' => $data['description'],
             'sub_process_id' => $data['sub_process_id'],
             'user_id' => $data['user_id'],
@@ -546,5 +558,23 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public static function ociousTime($mapperID)
+    {
+        $mapper = Mapper::find($mapperID);
+
+        $user = User::find($mapper->user->id);
+
+        $week = 44;
+        $days = 5;
+
+        $time = ($week/$days) * 60;
+
+        $workTime = $mapper->tasks->sum('time');
+
+        $rest = $time - $workTime;
+
+        return HomeController::minutesToHour($rest);
     }
 }

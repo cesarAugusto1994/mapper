@@ -41,8 +41,14 @@
                                         <br/>
                                         <small>Criado em {{ $map->created_at->format('d/m/Y H:i:s')}}</small>
                                     </td>
-                                    <td class="project-title">
-                                        <p>Tempo Previsto <a>{{ App\Http\Controllers\HomeController::minutesToHour($map->tasks->sum('time')) }}<a></p>
+                                    <td class="project-completion">
+                                        <span>Tempo Tarefas {{ App\Http\Controllers\HomeController::minutesToHour($map->tasks->sum('time')) }}</span>
+                                    </td>
+                                    <td class="project-completion">
+                                        <span>Tarefas: {{ $map->tasks->count() }}<a></span>
+                                    </td>
+                                    <td class="project-completion">
+                                        <span>Tempo Ocioso: {{ App\Http\Controllers\TaskController::ociousTime($map->id) }}<a></span>
                                     </td>
                                     <td class="project-people hidden-xs">
                                         <a href="{{route('user', ['id' => $map->user->id])}}">

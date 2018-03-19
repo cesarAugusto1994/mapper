@@ -194,9 +194,9 @@
 
       $(document).ready(function() {
         $('#select-processes').change(function() {
-            $('#description').val($('#select-processes option:selected').text());
+            //$('#description').val($('#select-processes option:selected').text());
         });
-        $('#description').val($('#select-processes option:selected').text());
+        //$('#description').val($('#select-processes option:selected').text());
       });
   </script>
 
