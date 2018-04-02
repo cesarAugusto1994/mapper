@@ -38,8 +38,6 @@
                                 <tr>
                                     <td class="project-title">
                                         <a href="{{route('mapping', ['id' => $map->id])}}">{{$map->name}}</a>
-                                        <br/>
-                                        <small>Criado em {{ $map->created_at->format('d/m/Y H:i:s')}}</small>
                                     </td>
                                     <td class="project-completion">
                                         <span>Tempo Tarefas {{ App\Http\Controllers\HomeController::minutesToHour($map->tasks->sum('time')) }}</span>

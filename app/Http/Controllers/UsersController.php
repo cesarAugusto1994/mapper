@@ -248,10 +248,10 @@ class UsersController extends Controller
 
         $roleUser = Role::where("name", $data['roles'])->first();
 
-        $user->begin = $data['begin'];
+        $user->start_day = $data['begin'];
         $user->lunch = $data['lunch'];
         $user->lunch_return = $data['lunch_return'];
-        $user->end = $data['end'];
+        $user->end_day = $data['end'];
 
         $user->weekly_workload = $data['weekly_workload'];
 

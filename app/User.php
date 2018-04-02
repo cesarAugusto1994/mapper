@@ -31,6 +31,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $dates = ['begin', 'end'];
+
     public function department()
     {
         return $this->belongsTo(Department::class);

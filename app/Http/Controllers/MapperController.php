@@ -278,4 +278,39 @@ class MapperController extends Controller
     {
         //
     }
+
+    public static function tasksDelayed($mapper)
+    {
+        $user = Auth::user();
+
+        $route = route('user', ['id' => $user->id]);
+
+        if(is_null($user->end_day)) {
+           return '<div class="alert alert-warning">Adicione um horario à este usuário.  <a class="btn btn-primary btn-sm pull-right" href="'.$route.'">Acessar</a></div>';
+        }
+
+        $timeTasks = $mapper->tasks->filter(function($task) {
+          return $task->status->id == 1 || $task->status->id == 2;
+        })->sum('time');
+
+        if(empty($timeTasks)) {
+          return '<div class="alert alert-warning">Usuário sem tarefas.</div>';
+        }
+
+        $time = \DateTime::createFromFormat('H:i:s', $user->end_day);
+        $saida = $time;
+        $horario = new \DateTime('now');
+
+        $tempoRestante = $horario->diff($saida);
+
+        $tempoHora = $tempoMinutos = 0;
+
+        if($tempoRestante->h) {
+          $tempoHora = $tempoRestante->h*60;
+        }
+
+        $tempoMinutos = $tempoRestante->i + $tempoHora;
+
+        return $timeTasks > $tempoMinutos ? '<div class="alert alert-warning">Você pode não terminar as tarefas antes do seu expediente terminar, horario de saída: ' . $time->format('H:i:s') . '!</div>' : '';
+    }
 }

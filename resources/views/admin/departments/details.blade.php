@@ -20,7 +20,7 @@
             <div class="wrapper wrapper-content animated fadeInUp">
 
                 @include('flash::message')
-                
+
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
@@ -52,8 +52,6 @@
                                     <tr>
                                         <td class="project-title">
                                             <a href="{{route('process', ['id' => $process->id])}}">{{$process->name}}</a>
-                                            <br/>
-                                            <small>Criado em {{ $process->created_at->format('d/m/Y H:i:s')}}</small>
                                         </td>
                                         <td class="project-actions hidden-xs">
                                             <a href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>

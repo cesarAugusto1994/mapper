@@ -41,7 +41,7 @@
                                     <td class="project-title">
                                         <a href="{{route('subprocess', ['id' => $subprocess->id])}}">{{$subprocess->name}}</a>
                                         <br/>
-                                        <small>{{$subprocess->process->department->name}}</small>
+                                        <small>{{$subprocess->process->department->name}} / {{$subprocess->process->name}}</small>
                                     </td>
                                     <td class="project-actions">
                                         <a href="{{route('sub_process_edit', ['id' => $subprocess->id])}}" class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> Editar </a>

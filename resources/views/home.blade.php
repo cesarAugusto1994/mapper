@@ -139,7 +139,7 @@
 
                                         @if($task->status_id == 2)
                                             <br/>
-                                            <small>Iniciada em: <b>{{$task->begin->format('d/m/Y H:i')}}</b></small>
+                                            <small>Iniciada em: <b>{{$task->begin ? $task->begin->format('d/m/Y H:i') : ''}}</b></small>
                                         @endif
                                     </div>
                                 </td>

@@ -149,24 +149,28 @@ class TaskController extends Controller
 
         $subprocess = SubProcesses::find($data['sub_process_id']);
 
-        $data = [
-            'name' => $subprocess->name,
-            'description' => $data['description'],
-            'sub_process_id' => $data['sub_process_id'],
-            'user_id' => $data['user_id'],
-            'time' => $this->hourToMinutes($data['time']),
-            'method' => $data['method'],
-            'indicator' => $data['indicator'],
-            'client_id' => $data['client_id'],
-            'vendor_id' => $data['vendor_id'],
-            'severity' => $data['severity'],
-            'urgency' => $data['urgency'],
-            'trend' => $data['trend'],
-            'status_id' => Task::STATUS_PENDENTE,
-            'created_by' => Auth::user()->id,
-        ];
+        $taskmodel = TaskModels::where('description', $data['description'])->where('sub_process_id', $data['sub_process_id'])->get();
 
-        TaskModels::create($data);
+        if($taskmodel->isEmpty()) {
+            $data = [
+                'name' => $subprocess->name,
+                'description' => $data['description'],
+                'sub_process_id' => $data['sub_process_id'],
+                'user_id' => $data['user_id'],
+                'time' => $this->hourToMinutes($data['time']),
+                'method' => $data['method'],
+                'indicator' => $data['indicator'],
+                'client_id' => $data['client_id'],
+                'vendor_id' => $data['vendor_id'],
+                'severity' => $data['severity'],
+                'urgency' => $data['urgency'],
+                'trend' => $data['trend'],
+                'status_id' => Task::STATUS_PENDENTE,
+                'created_by' => Auth::user()->id,
+            ];
+
+            TaskModels::create($data);
+        }
 
         $task = Task::create($data);
 
@@ -386,6 +390,7 @@ class TaskController extends Controller
         $task = Task::findOrfail($id);
 
         $task->status_id = Task::STATUS_EM_ANDAMENTO;
+        $task->begin = new \DateTime();
 
         $task->save();
 
@@ -393,6 +398,24 @@ class TaskController extends Controller
 
         return redirect()->route('tasks');
     }
+
+    public static function taskDelayed($task)
+    {
+        $dateTime = new \DateTime('now');
+        $start = $task->begin;
+
+        if($task->status->id != 2) {
+          return;
+        }
+
+        if(empty($start)) {
+          return;
+        }
+
+        return $dateTime > $start ? 'class="danger" data-toggle="tooltip" data-placement="bottom" title="Tarefa Atrasada"' : '';
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -571,9 +594,16 @@ class TaskController extends Controller
 
         $time = ($week/$days) * 60;
 
-        $workTime = $mapper->tasks->sum('time');
+        $workTime = $mapper->tasks->filter(function($task) {
+            return $task->status->id == 2 || $task->status->id == 3;
+        })->sum('time');
 
         $rest = $time - $workTime;
+
+        if(0 > $rest) {
+          echo '<span class="label label-primary"><i class="fa fa-thumbs-up"></i> Sem tempo ocioso.</span>';
+          return;
+        }
 
         return HomeController::minutesToHour($rest);
     }

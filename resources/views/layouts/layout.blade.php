@@ -123,6 +123,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
 	<script>
     $('#flash-overlay-modal').modal();
+		$('[data-toggle="tooltip"]').tooltip();
 	</script>
 
 

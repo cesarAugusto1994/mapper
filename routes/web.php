@@ -17,15 +17,14 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
+
   Route::get('task/create/form', 'TaskController@create')->name('task_create');
   Route::get('task/{id}/edit', 'TaskController@edit')->name('task_edit');
   Route::post('task/store', 'TaskController@store')->name('task_store');
   Route::post('task/{id}/update', 'TaskController@update')->name('task_update');
-
   Route::get('task/calendar', 'TaskController@calendar')->name('task_calendar');
   Route::get('task/to-json', 'TaskController@getTasks')->name('tasks_json');
-
   Route::get('task/{id}/start', 'TaskController@startTask')->name('task_initiate');
 
   Route::get('department/create/form', 'DepartmentsController@create')->name('department_create');
@@ -38,6 +37,7 @@ Route::prefix('admin')->group(function () {
   Route::get('process/{id}/edit', 'ProcessesController@edit')->name('process_edit');
   Route::post('process/{id}/update', 'ProcessesController@update')->name('process_update');
   Route::get('process/{id}/tojson', 'ProcessesController@toJson')->name('process_to_json');
+  Route::post('process/copy', 'ProcessesController@copy')->name('process_copy');
 
   Route::get('subprocesses', 'SubProcessesController@index')->name('subprocesses');
   Route::get('subprocess/{id}', 'SubProcessesController@show')->name('subprocess');
@@ -51,7 +51,6 @@ Route::prefix('admin')->group(function () {
   Route::get('user/{id}/avatar/{avatar}/upload', 'UsersController@uploadAvatar')->name('user_upload_avatar');
   Route::post('users/create/store', 'UsersController@store')->name('user_store');
   Route::post('user/{id}/update', 'UsersController@update')->name('user_update');
-
   Route::post('user/{id}/update/configs', 'UsersController@updateConfigs')->name('user_update_configurations');
   Route::post('user/{id}/update/password', 'UsersController@updatePassword')->name('user_update_password');
 
@@ -61,37 +60,28 @@ Route::prefix('admin')->group(function () {
   Route::get('mapping/{id}/edit', 'MapperController@edit')->name('mapping_edit');
   Route::get('mapping/{id}', 'MapperController@show')->name('mapping');
   Route::get('mapping/create/form', 'MapperController@create')->name('mapping_create');
-
   Route::get('mapping/{id}/tasks', 'MapperController@taskToDo')->name('mapping_tasks_to_do');
-
   Route::post('mapping/store', 'MapperController@store')->name('mapping_store');
-
   Route::get('mapping/{id}/add-task', 'MapperController@addTask')->name('mapping_tasks');
   Route::post('mapping/{id}/add-task-store', 'MapperController@addTaskStore')->name('mapping_tasks_store');
-
   Route::get('mapping/{id}/task/{task}/remove', 'MapperController@removeTaskStore')->name('mapper_remove_task');
-
   Route::post('mapping/{id}/start', 'MapperController@start')->name('mapping_start');
 
-});
+  Route::get('tasks', 'TaskController@index')->name('tasks');
+  Route::get('board', 'TaskController@showBoard')->name('board');
+  Route::get('task/{id}', 'TaskController@show')->name('task');
+  Route::post('task/{id}/pause', 'TaskController@pause')->name('task_pause');
+  Route::post('task/{id}/start', 'TaskController@unPause')->name('task_start');
+  Route::post('task/message/store', 'TaskMessagesController@store')->name('task_message_store');
+  Route::post('task/{id}/delay', 'TaskController@delay')->name('task_delay');
 
-Route::prefix('user')->group(function () {
-    Route::get('tasks', 'TaskController@index')->name('tasks');
-    Route::get('board', 'TaskController@showBoard')->name('board');
-    Route::get('task/{id}', 'TaskController@show')->name('task');
-    Route::post('task/{id}/pause', 'TaskController@pause')->name('task_pause');
-    Route::post('task/{id}/start', 'TaskController@unPause')->name('task_start');
+  Route::get('departments', 'DepartmentsController@index')->name('departments');
+  Route::get('department/{id}', 'DepartmentsController@show')->name('department');
 
-    Route::post('task/message/store', 'TaskMessagesController@store')->name('task_message_store');
+  Route::get('processes', 'ProcessesController@index')->name('processes');
+  Route::get('process/{id}', 'ProcessesController@show')->name('process');
 
-    Route::get('departments', 'DepartmentsController@index')->name('departments');
-    Route::get('department/{id}', 'DepartmentsController@show')->name('department');
+  Route::get('users', 'UsersController@index')->name('users');
+  Route::get('user/{id}', 'UsersController@show')->name('user');
 
-    Route::get('processes', 'ProcessesController@index')->name('processes');
-    Route::get('process/{id}', 'ProcessesController@show')->name('process');
-
-    Route::get('users', 'UsersController@index')->name('users');
-    Route::get('user/{id}', 'UsersController@show')->name('user');
-
-    Route::post('task/{id}/delay', 'TaskController@delay')->name('task_delay');
 });

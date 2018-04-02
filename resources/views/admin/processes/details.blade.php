@@ -46,7 +46,6 @@
                     </div>
                     <div class="ibox-content">
 
-
                         <div class="project-list">
                           @if($subprocesses->isNotEmpty())
                           <table class="table table-hover">
@@ -56,7 +55,7 @@
                                       <td class="project-title">
                                           <a href="{{route('subprocess', ['id' => $subprocess->id])}}">{{$subprocess->name}}</a>
                                           <br/>
-                                          <small>Criada em {{$subprocess->created_at->format('d/m/Y H:i')}}</small>
+                                          <small>{{$subprocess->process->department->name}} / {{$subprocess->process->name}}</small>
                                       </td>
                                       <td class="project-actions hidden-xs">
                                           <a href="{{route('subprocess', ['id' => $subprocess->id])}}" class="btn btn-white btn-sm"> Visualizar </a>

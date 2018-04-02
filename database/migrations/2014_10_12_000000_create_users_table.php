@@ -21,10 +21,10 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->integer('department_id')->nullable();
 
-            $table->time('begin')->nullable();
+            $table->time('start_day')->nullable();
             $table->time('lunch')->nullable();
             $table->time('lunch_return')->nullable();
-            $table->time('end')->nullable();
+            $table->time('end_day')->nullable();
 
             $table->integer('weekly_workload')->nullable();
 

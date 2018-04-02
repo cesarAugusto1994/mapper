@@ -32,9 +32,9 @@
                         <h5>Mapeamento Detalhes</h5>
                     </div>
                     <div>
-                        <div class="ibox-content no-padding border-left-right">
+                        <div class="ibox-content no-padding border-left-right ">
 
-                            <div class="avatar">
+                            <div class="avatar hidden-xs">
                                 <img class="img" src="{{Gravatar::get($mapper->user->email)}}" alt="Avatar">
                             </div>
 
@@ -81,16 +81,25 @@
                       </div>
                   </div>
                   <div class="ibox-content">
-                      <div class="project-list">
+                      <div class="project-list table-responsive">
                         @if($mapper->tasks->isNotEmpty())
+
+                        {!! App\Http\Controllers\MapperController::tasksDelayed($mapper); !!}
+
                         <table class="table table-hover">
                             <tbody>
                             @forelse ($mapper->tasks as $task)
-                              <tr>
+                              <tr {!! App\Http\Controllers\TaskController::taskDelayed($task) !!} >
                                   <td class="project-title">
                                       <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
                                       <br/>
+                                      @if($task->status->id == 2)
+                                      <small>Iniciada em {{$task->begin ? $task->begin->format('d/m/Y H:i') : ''}}</small>
+                                      @elseif($task->status->id == 3)
+                                      <small>Finalizada em {{$task->end->format('d/m/Y H:i')}}</small>
+                                      @else
                                       <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
+                                      @endif
                                   </td>
                                   <td class="project-completion hidden-xs">
                                       <small>GUT:  <b>
@@ -117,10 +126,11 @@
                                       Tempo <a>{{ App\Http\Controllers\HomeController::minutesToHour($task->time) }}</a>
                                   </td>
                                   <td class="project-actions">
-                                      @if($task->status->id == 1)
-                                          <!--<a href="{{route('mapper_remove_task', ['id' => $mapper->id, 'task' => $task->id])}}" class="btn btn-danger btn-outline btn-xs"> Desvincular </a>
-                                          -->
-                                          @endif
+                                    @if ($task->status_id == 1)
+                                      <a href="{{ route('task_initiate', ['id' => $task->id]) }}" class="btn btn-primary btn-sm"> Iniciar </a>
+                                    @elseif ($task->status_id == 2)
+                                      <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-success btn-sm"> Finalizada </a>
+                                    @endif
                                   </td>
                               </tr>
                                 @empty
