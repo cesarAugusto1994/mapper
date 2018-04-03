@@ -21,7 +21,7 @@
 
           @include('flash::message')
 
-            @foreach($departments as $department)
+            @foreach($departments as $department) 
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="contact-box">
                         <a href="{{route('department', ['id' => $department->id])}}">

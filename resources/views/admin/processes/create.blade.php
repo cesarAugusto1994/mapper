@@ -39,14 +39,14 @@
 
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group"><label class="col-sm-2 control-label">Nome</label>
-                                        <div class="col-sm-10"><input type="text" name="name" required class="form-control"></div>
+                                        <div class="col-sm-10"><input type="text" name="name" autofocus required class="form-control"></div>
                                     </div>
                                     <div class="form-group">
                                       <label class="col-sm-2 control-label">Departamento</label>
                                         <div class="col-sm-10">
                                           <select class="form-control m-b" required name="department_id" {{ !Auth::user()->isAdmin() ? 'readonly="readonly"' : '' }}>
                                                 @foreach($departments as $department)
-                                                    <option value="{{$department->id}}" @if(Auth::user()->isAdmin()) {{ Auth::user()->department->id == $department->id ? 'selected' : '' }} @endif>{{$department->name}}</option>
+                                                    <option value="{{$department->id}}" @if(Auth::user()->isAdmin()) {{ Auth::user()->department->id == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
                                                 @endforeach
                                             </select></div>
                                     </div>

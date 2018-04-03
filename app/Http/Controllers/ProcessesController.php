@@ -30,7 +30,7 @@ class ProcessesController extends Controller
      */
     public function index()
     {
-
+/*
           if(Auth::user()->isAdmin()) {
 
                if (Req::has('filter')) {
@@ -49,10 +49,16 @@ class ProcessesController extends Controller
               }
 
           }
+*/
+          $departments = Department::all();
+
+          return view('admin.processes.index')
+          ->with('departments', $departments)
+          ->with('frequencies', Frequency::all());
 
 
 
-        return view('admin.processes.index')->with('processes', $process);
+        //return view('admin.processes.index')->with('processes', $process);
     }
 
     public function toJson($id)
