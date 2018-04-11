@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubProcessesTable extends Migration
+class CreateClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateSubProcessesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_processes', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('process_id')->unsigned();
-            $table->foreign('process_id')->references('id')->on('processes');
             $table->boolean('active')->default(true);
-            $table->boolean('is_model')->default(false);
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateSubProcessesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_processes');
+        Schema::dropIfExists('clients');
     }
 }

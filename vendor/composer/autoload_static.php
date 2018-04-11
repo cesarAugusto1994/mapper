@@ -324,6 +324,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
     );
 
     public static $classMap = array (
+        'App\\Client' => __DIR__ . '/../..' . '/app/Client.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Helpers\\TimesAgo' => __DIR__ . '/../..' . '/app/Helpers/TimesAgo.php',
@@ -361,6 +362,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Models\\TaskDelay' => __DIR__ . '/../..' . '/app/Models/TaskDelay.php',
         'App\\Models\\TaskLogs' => __DIR__ . '/../..' . '/app/Models/TaskLogs.php',
         'App\\Models\\TaskMessages' => __DIR__ . '/../..' . '/app/Models/TaskMessages.php',
+        'App\\Models\\TaskModels' => __DIR__ . '/../..' . '/app/Models/TaskModels.php',
         'App\\Models\\TaskPause' => __DIR__ . '/../..' . '/app/Models/TaskPause.php',
         'App\\Models\\TaskStatus' => __DIR__ . '/../..' . '/app/Models/TaskStatus.php',
         'App\\Models\\UserNotifications' => __DIR__ . '/../..' . '/app/Models/UserNotifications.php',
@@ -369,7 +371,6 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
-        'App\\TaskModels' => __DIR__ . '/../..' . '/app/TaskModels.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',

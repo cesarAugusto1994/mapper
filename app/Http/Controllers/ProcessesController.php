@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
+use App\Models\{Department, Client};
 use App\Models\Task;
 use App\Models\Process;
 use App\Models\Frequency;
@@ -106,6 +106,10 @@ class ProcessesController extends Controller
             $process->time = $data['time'];
         }
 
+        if(isset($data['is_model'])) {
+            $process->is_model = true;
+        }
+
         if(!empty($data['range_start']) && !empty($data['range_end'])) {
 
             $inicio = \DateTime::createFromFormat('d/m/Y', $data['range_start']);
@@ -120,6 +124,19 @@ class ProcessesController extends Controller
         flash('Novo processo adicionado com sucesso.')->success()->important();
 
         return redirect()->route('processes');
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function copyClients()
+    {
+      $clients = Client::all();
+
+      return view('admin.clients.copy', compact('clients'));
     }
 
     public function copy()

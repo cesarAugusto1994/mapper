@@ -32,6 +32,8 @@ class CreateProcessesTable extends Migration
 
             $table->boolean('active')->default(true);
 
+            $table->boolean('is_model')->default(false);
+
             $table->timestamps();
         });
     }

@@ -28,6 +28,9 @@
                         <a href="{{route('mappings')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Mapeamentos</span></a>
                     </li>
                     <li>
+                        <a href="{{route('clients')}}"><i class="fa fa-users"></i> <span class="nav-label">Clientes</span></a>
+                    </li>
+                    <li>
                         <a href="{{route('departments')}}"><i class="fa fa-balance-scale"></i> <span class="nav-label">Departamentos</span></a>
                     </li>
                     <li>

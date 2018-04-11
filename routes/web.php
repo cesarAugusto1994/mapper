@@ -38,6 +38,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::post('process/{id}/update', 'ProcessesController@update')->name('process_update');
   Route::get('process/{id}/tojson', 'ProcessesController@toJson')->name('process_to_json');
   Route::post('process/copy', 'ProcessesController@copy')->name('process_copy');
+  Route::get('process/{id}/copy/clients', 'ProcessesController@copyClients')->name('process_copy_clients');
+
+  Route::get('clients', 'ClientController@index')->name('clients');
+  Route::get('client/create/form', 'ClientController@create')->name('client_create');
+  Route::post('client/create/store', 'ClientController@store')->name('client_store');
+  Route::get('client/{id}/edit', 'ClientController@edit')->name('client_edit');
+  Route::post('client/{id}/update', 'ClientController@update')->name('client_update');
 
   Route::get('subprocesses', 'SubProcessesController@index')->name('subprocesses');
   Route::get('subprocess/{id}', 'SubProcessesController@show')->name('subprocess');

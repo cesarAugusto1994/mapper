@@ -37,11 +37,17 @@ class TaskController extends Controller
      */
     public function index()
     {
-        if (Req::has('filter')) {
-            $tasks = Task::where('description', 'like', '%' . Req::get('filter') . '%')->get();
-        } else {
-            $tasks = Task::all();
+        $tasks = Task::orderBy('id');
+
+        if(!\Auth::user()->isAdmin()) {
+            $tasks->where('user_id', \Auth::user()->id);
         }
+
+        if (Req::has('filter')) {
+            $tasks->where('description', 'like', '%' . Req::get('filter') . '%');
+        }
+
+        $tasks = $tasks->paginate(10);
 
         return view('admin.tasks.index')->with('tasks', $tasks);
     }
@@ -468,7 +474,7 @@ class TaskController extends Controller
             $user = User::where('do_task', true)->get()->random();
             $userId = $user->id;
         }
-        
+
         $data = [
             'name' => $subprocess->name,
             'description' => $data['description'],

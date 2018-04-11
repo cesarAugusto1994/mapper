@@ -45,6 +45,9 @@
                               <table class="table table-hover">
                                   <tbody>
                                   @foreach($department->processes as $process)
+
+                                  @if($process->is_model)
+
                                   <tr>
                                       <td class="project-title">
                                           <a href="{{route('process', ['id' => $process->id])}}">{{$process->name}}</a>
@@ -53,11 +56,14 @@
                                         -->
                                       </td>
                                       <td class="project-actions">
-                                          <a data-id="{{ $process->id }}" title="copiar" class="btn btn-xs btn-white btnCopiarProcesso" data-toggle="modal" data-target="#copiar-processo-modal"><i class="fa fa-copy"></i></a>
+                                          <a href="{{ route('process_copy_clients', ['id' => $process->id]) }}" data-id="{{ $process->id }}" title="copiar" class="btn btn-xs btn-white" ><i class="fa fa-copy"></i></a>
                                           <a title="editar" href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-xs btn-white"><i class="fa fa-pencil"></i></a>
                                           <a title="inativar" href="#" class="btn btn-xs btn-white"><i class="fa fa-trash-o"></i></a>
                                       </td>
                                   </tr>
+
+                                  @endif
+
                                   @endforeach
                                   </tbody>
                               </table>
@@ -119,6 +125,11 @@
                                               <option value="{{$department->id}}" @if(Auth::user()->isAdmin()) {{ Auth::user()->department->id == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
                                           @endforeach
                                     </select>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="control-label">É um modelo?</label>
+                                      <input type="checkbox" name="is_model" value="1"/>
                                 </div>
 
                                 <div class="form-group">

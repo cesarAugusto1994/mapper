@@ -41,7 +41,7 @@
                             @if($tasks->isNotEmpty())
                             <table class="table table-hover">
                                 <tbody>
-                                @forelse ($tasks as $task)
+                                @foreach ($tasks as $task)
                                     <tr>
                                         <td class="project-title">
                                             <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
@@ -86,13 +86,9 @@
                                               @endif
                                         </td>
                                     </tr>
-                                    @empty
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-
-                                @endforelse
+                                @endforeach
                                 </tbody>
+                                <tfoot><tr><td colspan="6">{{ $tasks->links() }}</td></tr></tfoot>
                             </table>
                             @else
                                 <div class="alert alert-warning">Nenhuma tarefa foi registrada até o momento.</div>

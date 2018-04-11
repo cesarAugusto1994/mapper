@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Client' => $baseDir . '/app/Client.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Helpers\\TimesAgo' => $baseDir . '/app/Helpers/TimesAgo.php',
@@ -43,6 +44,7 @@ return array(
     'App\\Models\\TaskDelay' => $baseDir . '/app/Models/TaskDelay.php',
     'App\\Models\\TaskLogs' => $baseDir . '/app/Models/TaskLogs.php',
     'App\\Models\\TaskMessages' => $baseDir . '/app/Models/TaskMessages.php',
+    'App\\Models\\TaskModels' => $baseDir . '/app/Models/TaskModels.php',
     'App\\Models\\TaskPause' => $baseDir . '/app/Models/TaskPause.php',
     'App\\Models\\TaskStatus' => $baseDir . '/app/Models/TaskStatus.php',
     'App\\Models\\UserNotifications' => $baseDir . '/app/Models/UserNotifications.php',
@@ -51,7 +53,6 @@ return array(
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
-    'App\\TaskModels' => $baseDir . '/app/TaskModels.php',
     'App\\User' => $baseDir . '/app/User.php',
     'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
     'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
