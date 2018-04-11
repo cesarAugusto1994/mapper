@@ -57,6 +57,7 @@
                                         <label class="col-sm-2 control-label">Responsável</label>
                                         <div class="col-sm-10">
                                             <select class="selectpicker" data-style="btn-white" title="Selecione um Resposável" data-live-search="true" show-tick show-menu-arrow data-width="100%"  name="user_id" required>
+                                                <option value="random">Aleatório</option>
                                                 @foreach($users as $user)
                                                     <option value="{{$user->id}}" {{ $user->id == $task->user_id ? 'selected' : '' }}>{{$user->name}}</option>
                                                 @endforeach

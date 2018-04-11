@@ -36,6 +36,8 @@ class HomeController extends Controller
           return Redirect::route('login')->withErrors('Desculpe, mas o Usuário está desativado, entre em contato com o Administrador.');
         }
 
+        $this->createTasksFromProcesses();
+
         $tasks = Task::where('user_id', Auth::user()->id)->limit(12)->orderBy('id', 'DESC')->get();
 
         $concluded = $tasks->filter(function($task) {
@@ -114,6 +116,37 @@ class HomeController extends Controller
         ->with('concludedInThisMount', $concludedInThisMount)
         ->with('concludedInThisMountWithDelay', $concludedInThisMountWithDelay)
         ->with('percentMount', $percentMount);
+    }
+
+    public function createTasksFromProcesses()
+    {
+        $dailyProcesses = Process::where('frequency_id', 2)->get();
+
+        $itens = $dailyProcesses->map(function($subprocesses) {
+          return $subprocesses->get()->map(function($tasks) {
+            return $tasks->get()->map(function($task) {
+
+                if($task->status_id != Task::STATUS_PENDENTE) {
+
+                    $newTask = new Task();
+                    $task->description = $task->description;
+                    $task->sub_process_id = $task->sub_process_id;
+                    $task->user_id = $task->user_id;
+                    $task->time = $task->time;
+                    $task->method = $task->method;
+                    $task->indicator = $task->indicator;
+                    $task->client_id = $task->client_id;
+                    $task->vendor_id = $task->vendor_id;
+                    $task->severity = $task->severity;
+                    $task->urgency = $task->urgency;
+                    $task->trend = $task->trend;
+
+                }
+            });
+          });
+        });
+
+        dd($itens);
     }
 
     public static function getPercetageDoneTasks($concludedInThisMount, $concludedInThisMountWithDelay)

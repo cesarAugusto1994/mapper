@@ -19,4 +19,9 @@ class Process extends Model
     {
         return $this->hasMany(SubProcesses::class, 'process_id');
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(SubProcesses::class, 'process_id');
+    }
 }

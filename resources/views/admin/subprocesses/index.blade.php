@@ -27,7 +27,7 @@
                     <div class="ibox-title">
                         <h5>Sub-Processos</h5>
                         <div class="ibox-tools">
-                          
+
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -45,7 +45,8 @@
                                         <small>{{$subprocess->process->department->name}} / {{$subprocess->process->name}}</small>
                                     </td>
                                     <td class="project-actions">
-                                        <a href="{{route('sub_process_edit', ['id' => $subprocess->id])}}" class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> Editar </a>
+                                        <a href="{{route('task_create', ['sub_process' => $subprocess->id])}}" class="btn btn-primary btn-sm">Criar Tarefa</a>
+                                        <a href="{{route('sub_process_edit', ['id' => $subprocess->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
                                     </td>
                                 </tr>
                                 @endforeach

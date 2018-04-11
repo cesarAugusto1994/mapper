@@ -40,10 +40,6 @@ class UserTableSeeder extends Seeder
               'email' => 'dpessoal@cossilcontabilidade.com.br'
             ],
             [
-              'name' => 'Bruna',
-              'email' => 'bruna@cossilcontabilidade.com.br'
-            ],
-            [
               'name' => 'Paulo Henrique',
               'email' => 'paulohenrique@cossilcontabilidade.com.br'
             ],

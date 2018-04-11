@@ -425,7 +425,7 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $task = Task::find($id);
+        $task = Task::findOrFail($id);
 
         $time = 0;
 
@@ -458,15 +458,22 @@ class TaskController extends Controller
     {
         $data = $request->request->all();
 
-        $task = Task::find($id);
+        $task = Task::findOrFail($id);
 
-        $subprocess = SubProcesses::find($data['sub_process_id']);
+        $subprocess = SubProcesses::findOrFail($data['sub_process_id']);
 
+        $userId = $data['user_id'];
+
+        if($data['user_id'] == 'random') {
+            $user = User::where('do_task', true)->get()->random();
+            $userId = $user->id;
+        }
+        
         $data = [
             'name' => $subprocess->name,
             'description' => $data['description'],
             'sub_process_id' => $data['sub_process_id'],
-            'user_id' => $data['user_id'],
+            'user_id' => $userId,
             'time' => $this->hourToMinutes($data['time']),
             'method' => $data['method'],
             'indicator' => $data['indicator'],
