@@ -37,15 +37,15 @@ class UserTableSeeder extends Seeder
         $itens = [
             [
               'name' => 'Wanessa',
-              'email' => 'dpessoal@cossilcontabilidade.com.br'
+              'email' => 'dpessoal@cossil.com.br'
             ],
             [
               'name' => 'Paulo Henrique',
-              'email' => 'paulohenrique@cossilcontabilidade.com.br'
+              'email' => 'paulohenrique@cossil.com.br'
             ],
             [
               'name' => 'Mariani',
-              'email' => 'mariani@cossilcontabilidade.com.br'
+              'email' => 'mariani@cossil.com.br'
             ],
         ];
 
@@ -53,7 +53,7 @@ class UserTableSeeder extends Seeder
             $user = new User();
             $user->name = $item['name'];
             $user->email = $item['email'];
-            $user->password = bcrypt('secret');
+            $user->password = bcrypt(123);
             $user->department_id = 1;
             $user->save();
             $user->roles()->attach($role_user);

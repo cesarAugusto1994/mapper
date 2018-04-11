@@ -146,7 +146,6 @@ class HomeController extends Controller
           });
         });
 
-        dd($itens);
     }
 
     public static function getPercetageDoneTasks($concludedInThisMount, $concludedInThisMountWithDelay)
