@@ -52,6 +52,10 @@
                           @continue
                         @endif
 
+                        @if($task->status_id == 3 || $task->status_id == 4)
+                          @continue
+                        @endif
+
                         <span><a href="{{ route('task', ['id' => $task->id]) }}" style="color: #2f4050">{{ substr($task->description, 0, 26) }}</a>:<br/>
                         <small>{{ $task->owner->name }}</small>
                         </span>
