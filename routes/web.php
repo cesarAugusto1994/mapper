@@ -17,6 +17,10 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/web', function() {
+  return redirect()->route('home');
+});
+
 Route::prefix('admin')->middleware('auth')->group(function () {
 
   # Tasks
