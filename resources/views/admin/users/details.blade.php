@@ -107,6 +107,11 @@
                         <table class="table table-hover">
                             <tbody>
                             @foreach ($tasks as $task)
+
+                            @if($task->is_model)
+                              @continue
+                            @endif
+                            
                                 <tr>
                                     <td class="project-title">
                                         <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>

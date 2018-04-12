@@ -239,7 +239,7 @@ class ProcessesController extends Controller
                       'severity' => $task->severity,
                       'urgency' => $task->urgency,
                       'trend' => $task->trend,
-                      'status_id' => Task::STATUS_PENDENTE,
+                      'status_id' => Task::STATUS_FINALIZADO,
                       'created_by' => Auth::user()->id,
                       'owner_id' => $client->id,
                   ];

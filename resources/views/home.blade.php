@@ -122,6 +122,15 @@
                       <table class="table table-hover table-responsive">
                         <tbody>
                         @forelse ($tasks as $task)
+
+                        @if($task->is_model)
+                          @continue
+                        @endif
+
+                        @if($task->status_id == 3 || $task->status_id == 4)
+                          @continue
+                        @endif
+
                             <tr>
                                 <td class="project-title">
                                     <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
