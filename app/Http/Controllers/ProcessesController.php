@@ -51,14 +51,39 @@ class ProcessesController extends Controller
           }
 */
           $departments = Department::all();
+          $frequencies = Frequency::all();
 
-          return view('admin.processes.index')
-          ->with('departments', $departments)
-          ->with('frequencies', Frequency::all());
+          return view('admin.processes.index', compact('departments', 'frequencies'));
 
+    }
 
+    public function indexModels()
+    {
+/*
+          if(Auth::user()->isAdmin()) {
 
-        //return view('admin.processes.index')->with('processes', $process);
+               if (Req::has('filter')) {
+                     $process = Process::where('name', 'like', '%' . Req::get('filter') . '%')->get();
+               } else {
+                   $process = Process::all();
+               }
+
+          } else {
+
+              if (Req::has('filter')) {
+                    $process = Process::where('name', 'like', '%' . Req::get('filter') . '%')
+                    ->where('department_id', Auth::user()->department_id)->get();
+              } else {
+                  $process =  Process::where('department_id', Auth::user()->department_id)->get();
+              }
+
+          }
+*/
+          $departments = Department::all();
+          $frequencies = Frequency::all();
+
+          return view('admin.processes.index-models', compact('departments', 'frequencies'));
+
     }
 
     public function toJson($id)

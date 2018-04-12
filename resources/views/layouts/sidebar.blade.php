@@ -36,9 +36,6 @@
                     <li>
                         <a href="{{route('processes')}}"><i class="fa fa-cogs"></i> <span class="nav-label">Processos</span></a>
                     </li>
-                    <li>
-                        <a href="{{route('subprocesses')}}"><i class="fa fa-cogs"></i> <span class="nav-label">Sub-Processos</span></a>
-                    </li>
 
                     <li>
                       <a href="{{route('tasks')}}"><i class="fa fa-calendar"></i> <span class="nav-label">Tarefas</span></a>

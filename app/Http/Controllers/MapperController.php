@@ -279,9 +279,9 @@ class MapperController extends Controller
         //
     }
 
-    public static function tasksDelayed($mapper)
+    public static function tasksDelayed($mapper, $user)
     {
-        $user = Auth::user();
+        #$user = Auth::user();
 
         $route = route('user', ['id' => $user->id]);
 

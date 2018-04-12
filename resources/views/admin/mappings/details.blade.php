@@ -87,7 +87,7 @@
                       <div class="project-list table-responsive">
                         @if($mapper->tasks->isNotEmpty())
 
-                        {!! App\Http\Controllers\MapperController::tasksDelayed($mapper); !!}
+                        {!! App\Http\Controllers\MapperController::tasksDelayed($mapper, $mapper->user); !!}
 
                         <table class="table table-hover">
                             <tbody>

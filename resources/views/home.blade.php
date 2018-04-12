@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="row border-bottom white-bg dashboard-header">
+    <div class="row border-bottom  dashboard-header">
 
         <div class="col-md-3">
             <h2>Bem Vindo(a) {{ Auth()->User()->name  }}</h2>
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     @empty
-                        <div class="alert alert-info">
+                        <div class="alert alert-warning">
                             Voce não possui nenhum log até o momento>.
                         </div>
                     @endforelse
@@ -112,7 +112,7 @@
                   <h5>Suas Tarefas</h5>
                   @if(Auth::user()->isAdmin())
                       <div class="ibox-tools">
-                          <a data-toggle="modal" data-target="#newTask" class="btn btn-primary btn-xs">Criar nova Tarefa</a>
+                          <a data-toggle="modal" data-target="#newTask" class="btn btn-white btn-xs">Nova Tarefa</a>
                       </div>
                   @endif
               </div>
@@ -168,7 +168,7 @@
                                 </td>
                             </tr>
                             @empty
-                              <div class="alert alert-info">
+                              <div class="alert alert-warning">
                                   Nenhuma tarefa até o momento.
                               </div>
                         @endforelse
@@ -176,7 +176,7 @@
                     </table>
                     @else
 
-                    <div class="alert alert-info">
+                    <div class="alert alert-warning">
                         Nenhuma tarefa até o momento.
                     </div>
 

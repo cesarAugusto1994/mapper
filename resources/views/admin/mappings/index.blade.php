@@ -49,7 +49,7 @@
                                         <span>Tempo Ocioso: {{ App\Http\Controllers\TaskController::ociousTime($map->id) }}<a></span>
                                     </td>
                                     <td class="project-people hidden-xs">
-                                        <a href="{{route('user', ['id' => $map->user->id])}}">
+                                        <a href="{{route('user', ['id' => $map->user->id])}}" title="{{ $map->user->name }}">
                                         <img alt="image" class="img-circle" src="{{Gravatar::get($map->user->email)}}"></a>
                                     </td>
                                     <!--<td class="project-actions hidden-xs">
