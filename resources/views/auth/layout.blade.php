@@ -13,6 +13,8 @@
     <link href="admin/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="admin/css/animate.css" rel="stylesheet">
     <link href="admin/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.7.0/introjs.min.css">
 
 </head>
 

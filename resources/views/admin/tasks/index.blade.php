@@ -4,7 +4,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2>Tarefas<a href="{{route('task_create')}}" class="btn bottom-right btn-primary pull-right">Criar Tarefa</a></h2>
+            <h2>Tarefas<a href="{{route('task_create')}}" class="btn bottom-right btn-primary pull-right" onclick="openSwalPageLoader();">Criar Tarefa</a></h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('home')}}">Painel</a>
@@ -44,7 +44,7 @@
                                 @foreach ($tasks as $task)
                                     <tr>
                                         <td class="project-title">
-                                            <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
+                                            <a href="{{route('task', ['id' => $task->id])}}" onclick="openSwalPageLoader();">{{$task->description}}</a>
                                             <br/>
                                             <small>{{$task->subprocess->process->name}}</small>
                                         </td>
@@ -77,16 +77,16 @@
                                             </div>
                                         </td>
                                         <td class="project-people hidden-xs">
-                                            <a href="{{route('user', ['id' => $task->sponsor->id])}}" title="{{ $task->sponsor->name }}">
+                                            <a href="{{route('user', ['id' => $task->sponsor->id])}}" title="{{ $task->sponsor->name }}" onclick="openSwalPageLoader();">
                                             <img alt="image" class="img-circle" src="{{Gravatar::get($task->sponsor->email)}}"></a>
                                         </td>
                                         <td class="project-actions hidden-xs">
-                                            <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
                                               @if ($task->status_id == 1)
-                                                <a href="{{ route('task_initiate', ['id' => $task->id]) }}" class="btn btn-primary btn-sm"> Iniciar </a>
+                                                <a href="{{ route('task_initiate', ['id' => $task->id]) }}" class="btn btn-primary btn-sm" onclick="openSwalScreen();"> Iniciar </a>
                                               @elseif ($task->status_id == 2)
-                                                <a href="{{route('task', ['id' => $task->id, 'status' => 3])}}" class="btn btn-success btn-sm"> Finalizada </a>
+                                                <a href="{{route('task_finish', ['id' => $task->id])}}" class="btn btn-success btn-sm" onclick="openSwalScreen();"> Finalizar </a>
                                               @endif
+                                              <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm" onclick="openSwalPageLoader();"> Visualizar </a>
                                         </td>
                                     </tr>
                                 @endforeach

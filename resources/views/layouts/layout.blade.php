@@ -18,6 +18,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.7.0/introjs.min.css">
 	@stack('stylesheets')
 
 </head>
@@ -107,8 +109,10 @@
 	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="{{asset('admin/js/inspinia.js')}}"></script>
 	<script src="{{asset('admin/js/bootstrap.min.js')}}"></script>
+	<script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+	<script src="{{asset('admin/js/inspinia.js')}}"></script>
+	<script src="{{asset('admin/js/funcoes.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/peity/jquery.peity.min.js')}}"></script>
@@ -160,6 +164,10 @@
 	</script>
 
 	@stack('scripts')
+
+	<script>
+		openSwalPageLoaded();
+	</script>
 
 </body>
 

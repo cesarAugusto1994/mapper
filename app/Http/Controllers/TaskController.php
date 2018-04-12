@@ -380,6 +380,22 @@ class TaskController extends Controller
         $this->log($pausedTask->task, 'Continuou a tarefa ' . $pausedTask->task->description);
     }
 
+    public function finish($id)
+    {
+        $task = Task::findOrfail($id);
+
+        $task->status_id = Task::STATUS_FINALIZADO;
+        $task->end = new \DateTime();
+
+        $task->save();
+
+        $this->log($task, ' Finalizou a tarefa a tarefa ' . $task->description);
+
+        flash('A tarefa foi finalizada com sucesso.')->success()->important();
+
+        return redirect()->route('tasks');
+    }
+
     public static function getColorFromValue($value)
     {
           switch ($value) {

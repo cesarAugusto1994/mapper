@@ -347,8 +347,8 @@
 	</div>
 </div>
 
-<input type="" id="task_user" value="{{ $task->sponsor->id }}">
-<input type="" id="session_user" value="{{ \Auth::user()->id }}">
+<input type="hidden" id="task_user" value="{{ $task->sponsor->id }}">
+<input type="hidden" id="session_user" value="{{ \Auth::user()->id }}">
 
 @endsection @push('scripts')
 

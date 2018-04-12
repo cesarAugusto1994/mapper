@@ -19,35 +19,35 @@
                         </div>
                     </li>
                     <li>
-                        <a href="{{route('home')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Painel</span> </a>
+                        <a href="{{route('home')}}" onclick="openSwalPageLoader();"><i class="fa fa-th-large"></i> <span class="nav-label">Painel</span> </a>
                     </li>
                     @if(\Auth::user()->isAdmin())
                         <li>
-                            <a href="{{route('boards')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Board</span></a>
+                            <a href="{{route('boards')}}" onclick="openSwalPageLoader();"><i class="fa fa-th-large"></i> <span class="nav-label">Board</span></a>
                         </li>
                         <li>
-                            <a href="{{route('mappings')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Mapeamentos</span></a>
+                            <a href="{{route('mappings')}}" onclick="openSwalPageLoader();"><i class="fa fa-th-large"></i> <span class="nav-label">Mapeamentos</span></a>
                         </li>
                     @endif
                     <li>
-                        <a href="{{route('clients')}}"><i class="fa fa-users"></i> <span class="nav-label">Clientes</span></a>
+                        <a href="{{route('clients')}}" onclick="openSwalPageLoader();"><i class="fa fa-users"></i> <span class="nav-label">Clientes</span></a>
                     </li>
                     <li>
-                        <a href="{{route('departments')}}"><i class="fa fa-balance-scale"></i> <span class="nav-label">Departamentos</span></a>
+                        <a href="{{route('departments')}}" onclick="openSwalPageLoader();"><i class="fa fa-balance-scale"></i> <span class="nav-label">Departamentos</span></a>
                     </li>
                     <li>
-                        <a href="{{route('processes')}}"><i class="fa fa-cogs"></i> <span class="nav-label">Processos</span></a>
+                        <a href="{{route('processes')}}" onclick="openSwalPageLoader();"><i class="fa fa-cogs"></i> <span class="nav-label">Processos</span></a>
                     </li>
 
                     <li>
-                      <a href="{{route('tasks')}}"><i class="fa fa-calendar"></i> <span class="nav-label">Tarefas</span></a>
+                      <a href="{{route('tasks')}}" onclick="openSwalPageLoader();"><i class="fa fa-calendar"></i> <span class="nav-label">Tarefas</span></a>
                     </li>
                     @if(\Auth::user()->isAdmin())
                         <li>
                           <a href="{{route('task_calendar')}}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendário</span></a>
                         </li>
                         <li>
-                            <a href="{{route('users')}}"><i class="fa fa-users"></i> <span class="nav-label">Usuarios</span></a>
+                            <a href="{{route('users')}}" onclick="openSwalPageLoader();"><i class="fa fa-users"></i> <span class="nav-label">Usuarios</span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Relatórios e Desempenho</span></a>

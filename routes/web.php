@@ -32,11 +32,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::get('task/calendar', 'TaskController@calendar')->name('task_calendar');
   Route::get('task/to-json', 'TaskController@getTasks')->name('tasks_json');
   Route::get('task/{id}/start', 'TaskController@startTask')->name('task_initiate');
+  Route::get('task/{id}/finish', 'TaskController@finish')->name('task_finish');
 
   Route::post('task/store', 'TaskController@store')->name('task_store');
   Route::post('task/{id}/update', 'TaskController@update')->name('task_update');
   Route::post('task/{id}/pause', 'TaskController@pause')->name('task_pause');
   Route::post('task/{id}/start', 'TaskController@unPause')->name('task_start');
+
   Route::post('task/message/store', 'TaskMessagesController@store')->name('task_message_store');
   Route::post('task/{id}/delay', 'TaskController@delay')->name('task_delay');
 

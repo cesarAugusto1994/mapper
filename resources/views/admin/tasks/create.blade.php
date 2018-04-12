@@ -167,7 +167,7 @@
 
                                 <div class="col-md-12">
                                     <button class="btn btn-primary">Salvar</button>
-                                    <a href="{{route('tasks')}}" class="btn btn-white">Cancelar</a>
+                                    <a href="{{route('tasks')}}" class="btn btn-white" onclick="openSwalPageLoader();">Cancelar</a>
                                 </div>
 
                               </div>
