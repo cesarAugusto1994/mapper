@@ -85,7 +85,7 @@
                                               @if ($task->status_id == 1)
                                                 <a href="{{ route('task_initiate', ['id' => $task->id]) }}" class="btn btn-primary btn-sm"> Iniciar </a>
                                               @elseif ($task->status_id == 2)
-                                                <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-success btn-sm"> Finalizada </a>
+                                                <a href="{{route('task', ['id' => $task->id, 'status' => 3])}}" class="btn btn-success btn-sm"> Finalizada </a>
                                               @endif
                                         </td>
                                     </tr>

@@ -347,6 +347,9 @@
 	</div>
 </div>
 
+<input type="" id="task_user" value="{{ $task->sponsor->id }}">
+<input type="" id="session_user" value="{{ \Auth::user()->id }}">
+
 @endsection @push('scripts')
 
 <script>
@@ -393,6 +396,10 @@
 
 								if($('#motivoEnviado').val() > 0) {
 										return false;
+								}
+
+								if($('#task_user').val() != $('#session_user').val()) {
+									return false;
 								}
 
 								swal({
