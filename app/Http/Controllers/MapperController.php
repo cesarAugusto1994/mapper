@@ -142,7 +142,7 @@ class MapperController extends Controller
     {
         $mapper = Mapper::findOrFail($id);
 
-        $tasks = Task::where('status_id', 1)->where('user_id', $mapper->user->id)->where('mapper_id', null)->get();
+        $tasks = Task::where('status_id', 1)->where('status_id', 2)->where('user_id', $mapper->user->id)->where('mapper_id', null)->get();
 
         foreach ($tasks as $task) {
             $task->mapper_id = $mapper->id;
@@ -286,7 +286,7 @@ class MapperController extends Controller
         $route = route('user', ['id' => $user->id]);
 
         if(is_null($user->end_day)) {
-           return '<div class="alert alert-warning">Adicione um horario à este usuário.  <a class="btn btn-primary btn-sm pull-right" href="'.$route.'">Acessar</a></div>';
+           return '<div class="alert alert-warning">Adicione um horário para este usuário.  <a class="btn btn-white btn-sm pull-right" href="'.$route.'">Acessar</a></div>';
         }
 
         $timeTasks = $mapper->tasks->filter(function($task) {

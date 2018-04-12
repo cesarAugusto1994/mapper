@@ -92,6 +92,12 @@
                         <table class="table table-hover">
                             <tbody>
                             @forelse ($mapper->tasks as $task)
+
+                              @if($task->is_model)
+                                @continue
+                              @endif
+
+
                               <tr {!! App\Http\Controllers\TaskController::taskDelayed($task) !!} >
                                   <td class="project-title">
                                       <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
@@ -103,6 +109,7 @@
                                       @else
                                       <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
                                       @endif
+                                      / <small>Cliente: <b>{{$task->owner->name}}</b></small>
                                   </td>
                                   <td class="project-completion hidden-xs">
                                       <small>GUT:  <b>

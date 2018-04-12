@@ -46,8 +46,15 @@
 
                       <div>
 
-                      @forelse($user->tasks->sortByDesc('id') as $task)
-                        <span><a href="{{ route('task', ['id' => $task->id]) }}" style="color: #2f4050">{{ substr($task->description, 0, 26) }}</a>:</span>
+                      @forelse($user->tasks as $task)
+
+                        @if($task->is_model)
+                          @continue
+                        @endif
+
+                        <span><a href="{{ route('task', ['id' => $task->id]) }}" style="color: #2f4050">{{ substr($task->description, 0, 26) }}</a>:<br/>
+                        <small>{{ $task->owner->name }}</small>
+                        </span>
                         <div class="stat-percent">@if ($task->status_id == 1) 0%
                         @elseif ($task->status_id == 2) 50%
                         @elseif ($task->status_id == 3 || $task->status_id == 4) 100%
