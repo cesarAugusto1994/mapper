@@ -37,7 +37,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('id');
+        $tasks = Task::where('is_model', false);
 
         if(!\Auth::user()->isAdmin()) {
             $tasks->where('user_id', \Auth::user()->id);
@@ -153,7 +153,7 @@ class TaskController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $subprocess = SubProcesses::find($data['sub_process_id']);
+        $subprocess = SubProcesses::findOrFail($data['sub_process_id']);
 
         $taskmodel = TaskModels::where('description', $data['description'])->where('sub_process_id', $data['sub_process_id'])->get();
 
@@ -179,6 +179,11 @@ class TaskController extends Controller
         }
 
         $task = Task::create($data);
+
+        if($subprocess->is_model) {
+          $task->is_model = true;
+          $task->save();
+        }
 
         $log = new TaskLogs();
         $log->task_id = $task->id;

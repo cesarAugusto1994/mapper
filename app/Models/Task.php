@@ -57,5 +57,10 @@ class Task extends Model
         return $this->belongsTo(Mapper::class, 'mapper_id');
     }
 
+    public function owner()
+    {
+        return $this->belongsTo(Client::class, 'owner_id');
+    }
+
 
 }

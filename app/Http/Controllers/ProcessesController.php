@@ -132,91 +132,109 @@ class ProcessesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function copyClients()
+    public function copyClients($id)
     {
       $clients = Client::all();
+      $process = Process::findOrFail($id);
 
-      return view('admin.clients.copy', compact('clients'));
+      return view('admin.clients.copy', compact('clients', 'process'));
     }
 
-    public function copy()
+    public function copy(Request $request)
     {
 
         try {
 
-          $data = Req::all();
+          $data = $request->request->all();
+
+          if(empty($data['clients'])) {
+            flash('Informe ao menos um cliente para continuar o processo.')->error()->important();
+            return redirect()->back();
+          }
 
           $id = $data['process_id'];
-          $name = $data['name'];
+          #$name = $data['name'];
 
-          if(empty($id) || empty($name)) {
-              flash('Ocorreu um erro inesperado ao copiar o processo.')->error()->important();
-              return redirect()->back();
+          foreach ($data['clients'] as $key => $clientId) {
+
+            $client = Client::findOrFail($clientId);
+            $process = Process::findOrFail($id);
+
+            $name = $process->name . ' Cliente: ' . $client->name;
+
+            if(empty($id) || empty($name)) {
+                flash('Ocorreu um erro inesperado ao copiar o processo.')->error()->important();
+                return redirect()->back();
+            }
+
+            $someProcess = Process::where('name', $name)->get();
+
+            if($someProcess->isNotEmpty()) {
+                flash('Já existe um processo com este mesmo nome.')->error()->important();
+                return redirect()->back();
+            }
+
+            $process = Process::findOrFail($id);
+
+            $pro = new Process();
+            $pro->name = $name;
+            $pro->department_id = $process->department_id;
+            $pro->frequency_id = $process->frequency_id;
+            $pro->monday = $process->monday;
+            $pro->tuesday = $process->tuesday;
+            $pro->wednesday = $process->wednesday;
+            $pro->thursday = $process->thursday;
+            $pro->friday = $process->friday;
+            $pro->saturday = $process->saturday;
+            $pro->sunday = $process->sunday;
+            $pro->range_start = $process->range_start;
+            $pro->range_end = $process->range_end;
+            $pro->time = $process->time;
+            #$pro->save();
+
+            $process->subprocesses->map(function($subprocess) use ($process, $client) {
+
+                $sub = new SubProcesses();
+                $sub->name = $subprocess->name;
+                $sub->process_id = $process->id;
+                #$sub->save();
+
+                $subprocess->taskModels->map(function($task) use($subprocess, $client) {
+
+                  $data = [
+                      'name' => $subprocess->name,
+                      'description' => $task->description,
+                      'sub_process_id' => $subprocess->id,
+                      'user_id' => $task->user_id,
+                      'time' => $task->time,
+                      'method' => $task->method,
+                      'indicator' => $task->indicator,
+                      'client_id' => $task->client_id,
+                      'vendor_id' => $task->vendor_id,
+                      'severity' => $task->severity,
+                      'urgency' => $task->urgency,
+                      'trend' => $task->trend,
+                      'status_id' => Task::STATUS_PENDENTE,
+                      'created_by' => Auth::user()->id,
+                      'owner_id' => $client->id,
+                  ];
+
+                  $newTask = new Task();
+
+                  foreach ($data as $key => $item) {
+                      $newTask->$key = $item;
+                  }
+
+                  $newTask->save();
+
+                });
+
+            });
+
           }
 
-          $someProcess = Process::where('name', $name)->get();
 
-          if($someProcess->isNotEmpty()) {
-              flash('Já existe um processo com este mesmo nome.')->error()->important();
-              return redirect()->back();
-          }
-
-          $process = Process::findOrFail($id);
-
-          $pro = new Process();
-          $pro->name = $name;
-          $pro->department_id = $process->department_id;
-          $pro->frequency_id = $process->frequency_id;
-          $pro->monday = $process->monday;
-          $pro->tuesday = $process->tuesday;
-          $pro->wednesday = $process->wednesday;
-          $pro->thursday = $process->thursday;
-          $pro->friday = $process->friday;
-          $pro->saturday = $process->saturday;
-          $pro->sunday = $process->sunday;
-          $pro->range_start = $process->range_start;
-          $pro->range_end = $process->range_end;
-          $pro->time = $process->time;
-          $pro->save();
-
-          $process->subprocesses->map(function($subprocess) use ($pro) {
-
-              $sub = new SubProcesses();
-              $sub->name = $subprocess->name;
-              $sub->process_id = $pro->id;
-              $sub->save();
-
-              $subprocess->taskModels->map(function($task) use($sub) {
-
-                $data = [
-                    'name' => $sub->name,
-                    'description' => $task->description,
-                    'sub_process_id' => $sub->id,
-                    'user_id' => $task->user_id,
-                    'time' => $task->time,
-                    'method' => $task->method,
-                    'indicator' => $task->indicator,
-                    'client_id' => $task->client_id,
-                    'vendor_id' => $task->vendor_id,
-                    'severity' => $task->severity,
-                    'urgency' => $task->urgency,
-                    'trend' => $task->trend,
-                    'status_id' => Task::STATUS_PENDENTE,
-                    'created_by' => Auth::user()->id,
-                ];
-
-                $newTask = new Task();
-
-                foreach ($data as $key => $item) {
-                    $newTask->$key = $item;
-                }
-
-                $newTask->save();
-
-              });
-
-          });
-
+          flash('Processos copiados com sucesso.')->success()->important();
           return redirect()->route('processes');
 
         } catch(Exception $e) {

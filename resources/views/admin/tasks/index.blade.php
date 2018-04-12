@@ -48,6 +48,9 @@
                                             <br/>
                                             <small>{{$task->subprocess->process->name}}</small>
                                         </td>
+                                        <td class="project-title">
+                                            <a href="{{route('task', ['id' => $task->id])}}">{{$task->owner->name}}</a>
+                                        </td>
                                         <td class="project-completion">
                                             <small>Tempo Previsto:  <b>
                                               {{ App\Http\Controllers\HomeController::minutesToHour($task->time) }}
@@ -74,7 +77,7 @@
                                             </div>
                                         </td>
                                         <td class="project-people hidden-xs">
-                                            <a href="{{route('user', ['id' => $task->sponsor->id])}}">
+                                            <a href="{{route('user', ['id' => $task->sponsor->id])}}" title="{{ $task->sponsor->name }}">
                                             <img alt="image" class="img-circle" src="{{Gravatar::get($task->sponsor->email)}}"></a>
                                         </td>
                                         <td class="project-actions hidden-xs">

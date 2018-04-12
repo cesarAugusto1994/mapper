@@ -32,16 +32,20 @@
                         <h5>Copiar Processo</h5>
                     </div>
                     <div class="ibox-content">
-                        <form method="post" class="form-horizontal" action="{{route('processes_store')}}">
+                        <form method="post" class="form-horizontal" action="{{route('process_copy')}}">
                             {{csrf_field()}}
 
                             <div class="row">
 
-                                <div class="col-lg-6 col-md-6">
+                                <div class="col-lg-12 col-md-6">
                                     <div class="form-group"><label class="col-sm-2 control-label">Nome</label>
-                                        <div class="col-sm-10"><input type="text" name="name" autofocus required class="form-control"></div>
+                                        <div class="col-sm-10">
+                                          <input type="hidden" name="process_id" value="{{ $process->id }}">
+                                          <input type="text" disabled value="{{ $process->name }}" class="form-control">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group"><label class="col-sm-2 control-label">Clientes</label>
+                                      <div class="col-sm-10">
                                       <div class="ibox-content">
 
                                           <div class="project-list">
@@ -50,6 +54,9 @@
                                                       <tbody>
                                                           @foreach($clients as $client)
                                                               <tr>
+                                                                <td class="project-title" style="width:20px">
+                                                                    <input name="clients[]" type="checkbox" value="{{ $client->id }}">
+                                                                </td>
                                                                   <td class="project-title">
                                                                       <a href="#">{{$client->name}}</a>
                                                                   </td>
@@ -62,6 +69,7 @@
                                               @endif
                                           </div>
 
+                                      </div>
                                       </div>
                                     </div>
 

@@ -51,9 +51,16 @@ class SubProcessesController extends Controller
     {
         $data = $request->request->all();
 
+        $process = Process::findOrFail($data['process_id']);
+
         $subprocess = new SubProcesses();
         $subprocess->name = $data['name'];
-        $subprocess->process_id = $data['process_id'];
+        $subprocess->process_id = $process->id;
+
+        if($process->is_model) {
+          $subprocess->is_model = true;
+        }
+
         $subprocess->save();
 
         flash('Novo sub processo adicionado com sucesso.')->success()->important();

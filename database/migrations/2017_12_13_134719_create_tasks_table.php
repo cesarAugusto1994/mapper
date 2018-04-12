@@ -37,6 +37,7 @@ class CreateTasksTable extends Migration
             $table->integer('trend');
             $table->integer('mapper_id')->nullable();
             $table->boolean('is_model')->default(false);
+            $table->integer('owner_id')->nullable();
             $table->timestamps();
         });
     }

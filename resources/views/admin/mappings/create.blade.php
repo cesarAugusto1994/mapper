@@ -7,7 +7,10 @@
             <h2>Mapeamentos</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{route('home')}}">Home</a>
+                </li>
+                <li>
+                    <a href="{{route('mappings')}}">Mapeamentos</a>
                 </li>
                 <li class="active">
                     <strong>Novo Mapeamento</strong>
