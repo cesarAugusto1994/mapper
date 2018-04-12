@@ -19,7 +19,6 @@
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.7.0/introjs.min.css">
 	@stack('stylesheets')
 
 </head>
@@ -120,7 +119,6 @@
 	<script src="{{asset('admin/js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 	<script src="{{asset('admin/js/plugins/toastr/toastr.min.js')}}"></script>
 	<script src="{{asset('admin/js/TimeCircles.js')}}"></script>
-	<script src="{{asset('/js/sweatalert2.min.js')}}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touch/1.1.0/jquery.touch.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
