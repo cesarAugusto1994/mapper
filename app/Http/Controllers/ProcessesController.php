@@ -114,6 +114,13 @@ class ProcessesController extends Controller
     {
         $data = Req::all();
 
+        $hasProcess = Process::where('name', $data['name'])->where('department_id', $data['department_id'])->get();
+
+        if($hasProcess->isNotEmpty()) {
+          flash('Já existe um processo com este mesmo nome para este departamento.')->error()->important();
+          return redirect()->back();
+        }
+
         $process = new Process();
         $process->name = $data['name'];
         $process->department_id = $data['department_id'];

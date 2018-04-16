@@ -22,8 +22,9 @@
     </div>
 
 
-    <div class="row">
-            <div class="wrapper wrapper-content animated fadeInUp">
+
+        <div class="wrapper wrapper-content animated fadeInUp">
+              <div class="row">
 
               @include('flash::message')
 
@@ -41,7 +42,7 @@
                             <a class="btn btn-xs btn-white" data-toggle="modal" data-target="#criar-processo-modal">Adicionar</a>
                           </div>
                       </div>
-                      <div class="ibox-content" style="min-height: 300px;max-height: 300px;overflow-y: auto;;">
+                      <div class="ibox-content" style="{{ !\Auth::user()->isAdmin() && $department->id != \Auth::user()->department->id }} ? 'min-height: 300px;max-height: 300px;overflow-y: auto;' : ''">
 
                           <div class="project-list">
 
@@ -66,7 +67,7 @@
                                             <a disabled class="btn btn-xs btn-white" title="É necessário criar tarefas para gerá-las">Gerar Tarefas</a>
                                           @endif
                                           <a title="editar" href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-xs btn-white"><i class="fa fa-pencil"></i></a>
-                                          <a title="inativar" href="#" class="btn btn-xs btn-white"><i class="fa fa-trash-o"></i></a>
+                                          <!--<a title="inativar" href="#" class="btn btn-xs btn-white"><i class="fa fa-trash-o"></i></a>-->
                                       </td>
                                   </tr>
 

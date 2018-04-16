@@ -58,6 +58,7 @@
                                           <small>{{$subprocess->process->department->name}} / {{$subprocess->process->name}}</small>
                                       </td>
                                       <td class="project-actions hidden-xs">
+                                          <a href="{{route('task_create', ['sub_process' => $subprocess->id])}}" class="btn btn-primary btn-sm">Criar Tarefa</a>
                                           <a href="{{route('subprocess', ['id' => $subprocess->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
                                       </td>
                                   </tr>

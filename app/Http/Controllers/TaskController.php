@@ -195,7 +195,7 @@ class TaskController extends Controller
 
         flash('Nova tarefa adicionada com sucesso.')->success()->important();
 
-        return redirect()->route('task', ['id' => $task->id]);
+        return redirect()->route('tasks');
     }
 
     /**

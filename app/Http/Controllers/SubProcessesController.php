@@ -60,6 +60,13 @@ class SubProcessesController extends Controller
     {
         $data = $request->request->all();
 
+        $hasSubProcess = SubProcesses::where('name', $data['name'])->where('process_id', $data['process_id'])->get();
+
+        if($hasSubProcess->isNotEmpty()) {
+          flash('Já existe um subprocesso com este mesmo nome para este departamento.')->error()->important();
+          return redirect()->back();
+        }
+
         $process = Process::findOrFail($data['process_id']);
 
         $subprocess = new SubProcesses();
@@ -72,9 +79,9 @@ class SubProcessesController extends Controller
 
         $subprocess->save();
 
-        flash('Novo sub processo adicionado com sucesso.')->success()->important();
+        flash('Novo subprocesso adicionado com sucesso.')->success()->important();
 
-        return redirect()->route('subprocesses');
+        return redirect()->route('process', ['id' => $process->id]);
     }
 
     /**
