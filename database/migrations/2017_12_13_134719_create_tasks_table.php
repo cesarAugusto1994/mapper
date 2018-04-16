@@ -19,6 +19,8 @@ class CreateTasksTable extends Migration
             $table->text('description');
             $table->integer('sub_process_id')->unsigned();
             $table->foreign('sub_process_id')->references('id')->on('sub_processes');
+            $table->integer('process_id')->unsigned();
+            $table->foreign('process_id')->references('id')->on('processes');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('frequency')->nullable();

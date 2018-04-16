@@ -157,11 +157,14 @@ class TaskController extends Controller
 
         $taskmodel = TaskModels::where('description', $data['description'])->where('sub_process_id', $data['sub_process_id'])->get();
 
-        if($taskmodel->isEmpty()) {
+        $name = $subprocess->name;
+
+        #if($taskmodel->isEmpty()) {
             $data = [
-                'name' => $subprocess->name,
+                'name' => $name,
                 'description' => $data['description'],
                 'sub_process_id' => $data['sub_process_id'],
+                'process_id' => $subprocess->process->id,
                 'user_id' => $data['user_id'],
                 'time' => $this->hourToMinutes($data['time']),
                 'method' => $data['method'],
@@ -175,8 +178,8 @@ class TaskController extends Controller
                 'created_by' => Auth::user()->id,
             ];
 
-            TaskModels::create($data);
-        }
+            #TaskModels::create($data);
+        #}
 
         $task = Task::create($data);
 
@@ -640,5 +643,19 @@ class TaskController extends Controller
         }
 
         return HomeController::minutesToHour($rest);
+    }
+
+    public static function existsTaskByClient($client, $process)
+    {
+        $hasTasks = Task::where('owner_id', $client->id)->where('process_id', $process->id)->whereIn('status_id', [1,2])->get();
+
+        return $hasTasks->isNotEmpty();
+    }
+
+    public static function existsTaskByProcess($process)
+    {
+        $hasTasks = Task::where('process_id', $process->id)->get();
+
+        return $hasTasks->isNotEmpty();
     }
 }

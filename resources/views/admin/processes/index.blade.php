@@ -56,7 +56,11 @@
                                         -->
                                       </td>
                                       <td class="project-actions">
-                                          <a href="{{ route('process_copy_clients', ['id' => $process->id]) }}" data-id="{{ $process->id }}" title="copiar" class="btn btn-xs btn-white" ><i class="fa fa-copy"></i></a>
+                                          @if(\App\Http\Controllers\TaskController::existsTaskByProcess($process))
+                                            <a href="{{ route('process_copy_clients', ['id' => $process->id]) }}" data-id="{{ $process->id }}" title="Gerar Tarefas" class="btn btn-xs btn-white" ><i class="fa fa-copy"></i> Gerar Tarefas</a>
+                                          @else
+                                            <a disabled class="btn btn-xs btn-white" title="É necessário criar tarefas para gerá-las">Gerar Tarefas</a>
+                                          @endif
                                           <a title="editar" href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-xs btn-white"><i class="fa fa-pencil"></i></a>
                                           <a title="inativar" href="#" class="btn btn-xs btn-white"><i class="fa fa-trash-o"></i></a>
                                       </td>

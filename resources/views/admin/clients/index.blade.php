@@ -51,7 +51,7 @@
                                     </tbody>
                                 </table>
                             @else
-                                <div class="alert alert-warning text-center">Nenhum processo registrado até o momento.</div>
+                                <div class="alert alert-warning text-center">Nenhum cliente registrado até o momento.</div>
                             @endif
                         </div>
 

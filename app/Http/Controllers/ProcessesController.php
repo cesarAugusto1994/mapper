@@ -230,6 +230,7 @@ class ProcessesController extends Controller
                       'name' => $subprocess->name,
                       'description' => $task->description,
                       'sub_process_id' => $subprocess->id,
+                      'process_id' => $subprocess->process->id,
                       'user_id' => $task->user_id,
                       'time' => $task->time,
                       'method' => $task->method,
@@ -239,7 +240,7 @@ class ProcessesController extends Controller
                       'severity' => $task->severity,
                       'urgency' => $task->urgency,
                       'trend' => $task->trend,
-                      'status_id' => Task::STATUS_FINALIZADO,
+                      'status_id' => Task::STATUS_PENDENTE,
                       'created_by' => Auth::user()->id,
                       'owner_id' => $client->id,
                   ];

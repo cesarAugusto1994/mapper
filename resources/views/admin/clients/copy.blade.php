@@ -15,7 +15,7 @@
                     <a href="/">Home</a>
                 </li>
                 <li class="active">
-                    <strong>Copiar Processo</strong>
+                    <strong>Gerar Tarefas</strong>
                 </li>
             </ol>
         </div>
@@ -29,7 +29,7 @@
 
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Copiar Processo</h5>
+                        <h5>Gerar Tarefas</h5>
                     </div>
                     <div class="ibox-content">
                         <form method="post" class="form-horizontal" action="{{route('process_copy')}}">
@@ -55,7 +55,7 @@
                                                           @foreach($clients as $client)
                                                               <tr>
                                                                 <td class="project-title" style="width:20px">
-                                                                    <input name="clients[]" type="checkbox" value="{{ $client->id }}">
+                                                                    <input name="clients[]" type="checkbox" {{ \App\Http\Controllers\TaskController::existsTaskByClient($client, $process) ? 'disabled' : '' }} value="{{ $client->id }}">
                                                                 </td>
                                                                   <td class="project-title">
                                                                       <a href="#">{{$client->name}}</a>
@@ -65,7 +65,7 @@
                                                       </tbody>
                                                   </table>
                                               @else
-                                                  <div class="alert alert-warning text-center">Nenhum processo registrado até o momento.</div>
+                                                  <div class="alert alert-warning text-center">Nenhum cliente registrado até o momento.</div>
                                               @endif
                                           </div>
 
@@ -75,8 +75,9 @@
 
                                 </div>
                             </div>
-
+                            @if($clients->isNotEmpty())
                             <button class="btn btn-primary">Salvar</button>
+                            @endif
                             <a href="{{route('processes')}}" class="btn btn-white">Cancelar</a>
                         </form>
                     </div>

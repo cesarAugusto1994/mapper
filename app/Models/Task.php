@@ -13,7 +13,8 @@ class Task extends Model
     const STATUS_CANCELADO = 4;
 
     protected $fillable = [
-        'name', 'description', 'sub_process_id', 'user_id',
+        'name', 'description', 'process_id',
+        'sub_process_id', 'user_id',
         'frequency', 'time', 'method',
         'indicator', 'client_id', 'vendor_id',
         'severity', 'urgency', 'trend',
