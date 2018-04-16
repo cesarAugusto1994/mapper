@@ -131,9 +131,7 @@ class ProcessesController extends Controller
             $process->time = $data['time'];
         }
 
-        if(isset($data['is_model'])) {
-            $process->is_model = true;
-        }
+        $process->is_model = true;
 
         if(!empty($data['range_start']) && !empty($data['range_end'])) {
 
@@ -201,6 +199,8 @@ class ProcessesController extends Controller
 
             $process = Process::findOrFail($id);
 
+
+/*
             $pro = new Process();
             $pro->name = $name;
             $pro->department_id = $process->department_id;
@@ -216,42 +216,40 @@ class ProcessesController extends Controller
             $pro->range_end = $process->range_end;
             $pro->time = $process->time;
             #$pro->save();
-
+*/
             $process->subprocesses->map(function($subprocess) use ($process, $client) {
-
+/*
                 $sub = new SubProcesses();
                 $sub->name = $subprocess->name;
                 $sub->process_id = $process->id;
                 #$sub->save();
+*/
+                return $subprocess->tasks->map(function($task) use($subprocess, $client) {
 
-                $subprocess->taskModels->map(function($task) use($subprocess, $client) {
+                  if($task->is_model) {
 
-                  $data = [
-                      'name' => $subprocess->name,
-                      'description' => $task->description,
-                      'sub_process_id' => $subprocess->id,
-                      'process_id' => $subprocess->process->id,
-                      'user_id' => $task->user_id,
-                      'time' => $task->time,
-                      'method' => $task->method,
-                      'indicator' => $task->indicator,
-                      'client_id' => $task->client_id,
-                      'vendor_id' => $task->vendor_id,
-                      'severity' => $task->severity,
-                      'urgency' => $task->urgency,
-                      'trend' => $task->trend,
-                      'status_id' => Task::STATUS_PENDENTE,
-                      'created_by' => Auth::user()->id,
-                      'owner_id' => $client->id,
-                  ];
+                    $data = [
+                        'name' => $subprocess->name,
+                        'description' => $task->description,
+                        'sub_process_id' => $subprocess->id,
+                        'process_id' => $subprocess->process->id,
+                        'user_id' => $task->user_id,
+                        'time' => $task->time,
+                        'method' => $task->method,
+                        'indicator' => $task->indicator,
+                        'client_id' => $task->client_id,
+                        'vendor_id' => $task->vendor_id,
+                        'severity' => $task->severity,
+                        'urgency' => $task->urgency,
+                        'trend' => $task->trend,
+                        'status_id' => Task::STATUS_PENDENTE,
+                        'created_by' => Auth::user()->id,
+                        'owner_id' => $client->id,
+                    ];
 
-                  $newTask = new Task();
+                    Task::create($data);
 
-                  foreach ($data as $key => $item) {
-                      $newTask->$key = $item;
                   }
-
-                  $newTask->save();
 
                 });
 

@@ -32,9 +32,11 @@
                     <li>
                         <a href="{{route('clients')}}" onclick="openSwalPageLoader();"><i class="fa fa-users"></i> <span class="nav-label">Clientes</span></a>
                     </li>
+                    @if(\Auth::user()->isAdmin())
                     <li>
                         <a href="{{route('departments')}}" onclick="openSwalPageLoader();"><i class="fa fa-balance-scale"></i> <span class="nav-label">Departamentos</span></a>
                     </li>
+                    @endif
                     <li>
                         <a href="{{route('processes')}}" onclick="openSwalPageLoader();"><i class="fa fa-cogs"></i> <span class="nav-label">Processos</span></a>
                     </li>

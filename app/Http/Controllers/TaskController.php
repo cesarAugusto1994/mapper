@@ -181,12 +181,11 @@ class TaskController extends Controller
             #TaskModels::create($data);
         #}
 
-        $task = Task::create($data);
-
         if($subprocess->is_model) {
-          $task->is_model = true;
-          $task->save();
+          $data['is_model'] = true;
         }
+
+        $task = Task::create($data);
 
         $log = new TaskLogs();
         $log->task_id = $task->id;

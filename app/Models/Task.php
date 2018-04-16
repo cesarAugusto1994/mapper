@@ -17,8 +17,8 @@ class Task extends Model
         'sub_process_id', 'user_id',
         'frequency', 'time', 'method',
         'indicator', 'client_id', 'vendor_id',
-        'severity', 'urgency', 'trend',
-        'status_id', 'created_by', 'active'
+        'severity', 'urgency', 'trend', 'owner_id',
+        'status_id', 'created_by', 'active', 'is_model'
     ];
 
     protected $dates = ['begin', 'end'];

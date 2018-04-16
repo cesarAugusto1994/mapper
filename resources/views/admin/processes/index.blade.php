@@ -28,7 +28,11 @@
               @include('flash::message')
 
                 @foreach($departments as $department)
-                  <div class="col-lg-4">
+                  <div class="{{ \Auth::user()->isAdmin() ? 'col-lg-4' : 'col-lg-12' }}">
+
+                      @if(!\Auth::user()->isAdmin() && $department->id != \Auth::user()->department->id)
+                        @continue
+                      @endif
 
                       <div class="ibox">
                       <div class="ibox-title">
@@ -131,10 +135,10 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                   <label class="control-label">É um modelo?</label>
                                       <input type="checkbox" name="is_model" value="1"/>
-                                </div>
+                                </div>-->
 
                                 <div class="form-group">
                                   <label class="control-label">Frequencia</label>
