@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="row border-bottom  dashboard-header">
+    <div class="row widget border-bottom white-bg dashboard-header">
 
         <div class="col-md-3">
             <h2>Bem Vindo(a) {{ Auth()->User()->name  }}</h2>
