@@ -628,11 +628,15 @@ class TaskController extends Controller
         $week = 44;
         $days = 5;
 
-        $time = ($week/$days) * 60;
+        $time = ($week) * 60;
 
+        $workTime = $mapper->tasks->sum('time');
+
+        /*
         $workTime = $mapper->tasks->filter(function($task) {
             return $task->status->id == 2 || $task->status->id == 3;
         })->sum('time');
+        */
 
         $rest = $time - $workTime;
 
