@@ -12,7 +12,7 @@
             <h2>Clientes <a data-toggle="modal" data-target="#adicionar-cliente-modal" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('home')}}">Painel</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
                     <strong>Processos</strong>

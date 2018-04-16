@@ -7,7 +7,7 @@
             <h2>Board <a href="{{route('user_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('home')}}">Painel</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
                     <strong>Board</strong>

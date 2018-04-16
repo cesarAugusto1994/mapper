@@ -7,7 +7,7 @@
             <h2>Processo</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
                     <strong>Editar Processo</strong>

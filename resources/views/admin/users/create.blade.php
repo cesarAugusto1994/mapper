@@ -7,7 +7,7 @@
             <h2>Departamento</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('home')}}">Home</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
                     <strong>Novo Departamento</strong>
@@ -21,7 +21,7 @@
             <div class="col-lg-12">
 
                 @include('flash::message')
-                
+
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Novo Usuario</h5>

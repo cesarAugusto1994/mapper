@@ -11,7 +11,7 @@
             <h2>Perfil</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('home')}}">Home</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
                     <strong>Perfil</strong>
@@ -111,7 +111,7 @@
                             @if($task->is_model)
                               @continue
                             @endif
-                            
+
                                 <tr>
                                     <td class="project-title">
                                         <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>

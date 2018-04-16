@@ -7,7 +7,7 @@
             <h2>Mapeamentos</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('home')}}">Painel</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
                     <strong>Mapeamentos</strong>

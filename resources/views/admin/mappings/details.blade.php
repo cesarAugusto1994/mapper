@@ -13,7 +13,7 @@
             </h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('home')}}">Home</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li>
                     <a href="{{route('mappings')}}">Mapeamentos</a>

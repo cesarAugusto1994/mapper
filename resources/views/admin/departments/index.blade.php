@@ -7,7 +7,7 @@
             <h2>Departamentos <a href="{{route('department_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('home')}}">Painel</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
                     <strong>Departamentos</strong>
@@ -21,7 +21,7 @@
 
           @include('flash::message')
 
-            @foreach($departments as $department) 
+            @foreach($departments as $department)
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="contact-box">
                         <a href="{{route('department', ['id' => $department->id])}}">

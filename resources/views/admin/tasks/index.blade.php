@@ -7,7 +7,7 @@
             <h2>Tarefas<a href="{{route('task_create')}}" class="btn bottom-right btn-primary pull-right" onclick="openSwalPageLoader();">Criar Tarefa</a></h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('home')}}">Painel</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
                     <strong>Tarefas</strong>

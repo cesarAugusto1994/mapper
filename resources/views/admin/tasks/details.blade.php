@@ -11,7 +11,7 @@
 		</h2>
 		<ol class="breadcrumb">
 			<li>
-				<a href="/">Home</a>
+				<a href="{{ route('home') }}">Painel Principal</a>
 			</li>
 			<li class="active">
 				<strong>Tarefa Detalhes</strong>

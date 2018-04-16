@@ -7,7 +7,7 @@
             <h2>Usuarios <a href="{{route('user_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('home')}}">Painel</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
                     <strong>Usuarios</strong>
@@ -20,7 +20,7 @@
         <div class="row">
 
             @include('flash::message')
-            
+
             @foreach($users as $user)
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                     <div class="contact-box">
