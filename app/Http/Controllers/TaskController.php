@@ -190,7 +190,7 @@ class TaskController extends Controller
         $log = new TaskLogs();
         $log->task_id = $task->id;
         $log->user_id = Auth::user()->id;
-        $log->message = 'Criou tarefa ' . $task->description;
+        $log->message = 'Criou a tarefa ' . $task->description;
         $log->save();
 
         flash('Nova tarefa adicionada com sucesso.')->success()->important();
