@@ -68,6 +68,11 @@ class MapperController extends Controller
         $tasks = Task::where('status_id', 1)->where('user_id', $mapper->user->id)->where('mapper_id', null)->get();
 
         foreach ($tasks as $task) {
+
+            if($task->is_model) {
+              continue;
+            }
+
             $task->mapper_id = $mapper->id;
             $task->save();
         }
@@ -145,6 +150,11 @@ class MapperController extends Controller
         $tasks = Task::where('status_id', 1)->where('status_id', 2)->where('user_id', $mapper->user->id)->where('mapper_id', null)->get();
 
         foreach ($tasks as $task) {
+
+            if($task->is_model) {
+              continue;
+            }
+
             $task->mapper_id = $mapper->id;
             $task->save();
         }
