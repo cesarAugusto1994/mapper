@@ -45,7 +45,7 @@ class MapperController extends Controller
                 }
 
                 $mapper = new Mapper();
-                $mapper->name = 'Mapeamento ' . $user->name;
+                $mapper->name = $user->name;
                 $mapper->user_id = $user->id;
                 $mapper->status_id = 2;
                 $mapper->save();
