@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Process;
 use App\Models\SubProcesses;
+use Auth;
 
 class SubProcessesController extends Controller
 {
@@ -37,8 +38,16 @@ class SubProcessesController extends Controller
      */
     public function create()
     {
+        $subprocesses = [];
+
+        if(\Auth::user()->isAdmin()) {
+          $subprocesses = Process::all();
+        } else {
+          $subprocesses = Process::where('department_id', Auth::user()->department->id)->get();
+        }
+
         return view('admin.subprocesses.create')
-        ->with('processes', Process::all());
+        ->with('processes', $subprocesses);
     }
 
     /**

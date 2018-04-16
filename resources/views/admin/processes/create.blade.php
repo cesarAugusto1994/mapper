@@ -41,15 +41,20 @@
                                     <div class="form-group"><label class="col-sm-2 control-label">Nome</label>
                                         <div class="col-sm-10"><input type="text" name="name" autofocus required class="form-control"></div>
                                     </div>
-                                    <div class="form-group">
-                                      <label class="col-sm-2 control-label">Departamento</label>
-                                        <div class="col-sm-10">
-                                          <select class="form-control m-b" required name="department_id" {{ !Auth::user()->isAdmin() ? 'readonly="readonly"' : '' }}>
+                                    @if(Auth::user()->isAdmin())
+                                      <div class="form-group">
+                                        <label class="control-label">Departamento</label>
+
+                                          <select class="form-control m-b" required name="department_id" >
                                                 @foreach($departments as $department)
-                                                    <option value="{{$department->id}}" @if(Auth::user()->isAdmin()) {{ Auth::user()->department->id == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
+                                                    <option value="{{$department->id}}" {{ !Auth::user()->isAdmin() ? 'readonly="readonly"' : '' }} @if(Auth::user()->isAdmin()) {{ Auth::user()->department->id == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
                                                 @endforeach
-                                            </select></div>
-                                    </div>
+                                          </select>
+
+                                      </div>
+                                    @else
+                                      <input type="hidden" name="department_id" class="form-control" value="{{ Auth::user()->department->id }}">
+                                    @endif
                                     <div class="form-group">
                                       <label class="col-sm-2 control-label">Frequencia</label>
                                         <div class="col-sm-10">

@@ -39,9 +39,9 @@
 
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Sub Processos</h5>
+                        <h5>Subprocessos</h5>
                         <div class="ibox-tools">
-                            <a href="{{route('sub_process_create', ['process' => $process->id])}}" class="btn btn-primary btn-xs">Criar Sub Processo</a>
+                            <a href="{{route('sub_process_create', ['process' => $process->id])}}" class="btn btn-white btn-xs">Adicionar</a>
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -66,7 +66,7 @@
                           </table>
                           @else
                               <div class="alert alert-warning">
-                                  Nenhum sub processo registrado até o momento.
+                                  Nenhum sub-processo registrado até o momento.
                               </div>
                           @endif
                         </div>

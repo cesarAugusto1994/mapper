@@ -4,13 +4,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2>Sub Processos <a href="{{route('sub_process_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
+            <h2>Subprocessos <a href="{{route('sub_process_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('home')}}">Painel</a>
                 </li>
                 <li class="active">
-                    <strong>Sub Processos</strong>
+                    <strong>Subprocessos</strong>
                 </li>
             </ol>
         </div>
@@ -25,7 +25,7 @@
 
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Sub-Processos</h5>
+                        <h5>Subprocessos</h5>
                         <div class="ibox-tools">
 
                         </div>
@@ -53,7 +53,7 @@
                                 </tbody>
                             </table>
                             @else
-                                <div class="alert alert-warning">Nenhum sub processo registrado até o momento.</div>
+                                <div class="alert alert-warning">Nenhum sub-processo registrado até o momento.</div>
                             @endif
                         </div>
                     </div>

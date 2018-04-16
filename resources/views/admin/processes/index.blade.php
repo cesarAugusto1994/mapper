@@ -126,14 +126,20 @@
                                     <input type="text" name="name" autofocus required class="form-control">
                                 </div>
 
-                                <div class="form-group">
-                                  <label class="control-label">Departamento</label>
-                                    <select class="form-control m-b" required name="department_id" {{ !Auth::user()->isAdmin() ? 'readonly="readonly"' : '' }}>
-                                          @foreach($departments as $department)
-                                              <option value="{{$department->id}}" @if(Auth::user()->isAdmin()) {{ Auth::user()->department->id == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
-                                          @endforeach
-                                    </select>
-                                </div>
+                                @if(Auth::user()->isAdmin())
+                                  <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+
+                                      <select class="form-control m-b" required name="department_id" >
+                                            @foreach($departments as $department)
+                                                <option value="{{$department->id}}" {{ !Auth::user()->isAdmin() ? 'readonly="readonly"' : '' }} @if(Auth::user()->isAdmin()) {{ Auth::user()->department->id == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
+                                            @endforeach
+                                      </select>
+
+                                  </div>
+                                @else
+                                  <input type="hidden" name="department_id" class="form-control" value="{{ Auth::user()->department->id }}">
+                                @endif
 
                                 <!--<div class="form-group">
                                   <label class="control-label">É um modelo?</label>

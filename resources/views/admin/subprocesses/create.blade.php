@@ -7,10 +7,10 @@
             <h2>Sub Processo</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
-                    <strong>Sub Processo</strong>
+                    <strong>Subprocessos</strong>
                 </li>
             </ol>
         </div>
@@ -24,7 +24,7 @@
 
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Novo Sub Processo</h5>
+                        <h5>Novo Subprocesso</h5>
                     </div>
                     <div class="ibox-content">
                         <form method="post" class="form-horizontal" action="{{route('sub_process_store')}}">
