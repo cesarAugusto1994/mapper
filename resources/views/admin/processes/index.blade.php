@@ -9,7 +9,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2>Processos <a href="{{route('process_create')}}" class="btn bottom-right btn-primary pull-right">Novo</a></h2>
+            <h2>Processos </h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
