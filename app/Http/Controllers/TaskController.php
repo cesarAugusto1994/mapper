@@ -201,6 +201,10 @@ class TaskController extends Controller
 
         flash('Nova tarefa adicionada com sucesso.')->success()->important();
 
+        if($subprocess->is_model) {
+          return redirect()->route('processes');
+        }
+
         return redirect()->route('tasks');
     }
 
