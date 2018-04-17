@@ -47,15 +47,15 @@ class UsersController extends Controller
         $user = User::find($id);
 
         $total = $user->tasks->isNotEmpty() ? count($user->tasks->filter(function($task) {
-            return $task->status_id != Task::STATUS_CANCELADO;
+            return $task->status_id != Task::STATUS_CANCELADO && !$task->is_model;
         })) : 1;
 
         $concludedTasks = count($user->tasks->filter(function($task) {
-            return $task->status_id == Task::STATUS_FINALIZADO;
+            return $task->status_id == Task::STATUS_FINALIZADO && !$task->is_model;
         }));
 
         $inProgressTasks = count($user->tasks->filter(function($task) {
-            return $task->status_id == Task::STATUS_EM_ANDAMENTO;
+            return $task->status_id == Task::STATUS_EM_ANDAMENTO && !$task->is_model;
         }));
 
         if($total <= 0) {

@@ -56,7 +56,7 @@
                           @continue
                         @endif
 
-                        <span><a href="{{ route('task', ['id' => $task->id]) }}" style="color: #2f4050">{{ substr($task->description, 0, 26) }}</a>:<br/>
+                        <span><a href="{{ route('task', ['id' => $task->id]) }}" style="color: #2f4050">{{ substr($task->name, 0, 26) }}</a>:<br/>
                         <small>{{ $task->owner->name }}</small>
                         </span>
                         <div class="stat-percent">@if ($task->status_id == 1) 0%
