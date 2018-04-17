@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Department, Client};
+use App\Models\{Department, Client, Mapper};
 use App\Models\Task;
 use App\Models\Process;
 use App\Models\Frequency;
@@ -206,31 +206,8 @@ class ProcessesController extends Controller
 
             $process = Process::findOrFail($id);
 
-
-/*
-            $pro = new Process();
-            $pro->name = $name;
-            $pro->department_id = $process->department_id;
-            $pro->frequency_id = $process->frequency_id;
-            $pro->monday = $process->monday;
-            $pro->tuesday = $process->tuesday;
-            $pro->wednesday = $process->wednesday;
-            $pro->thursday = $process->thursday;
-            $pro->friday = $process->friday;
-            $pro->saturday = $process->saturday;
-            $pro->sunday = $process->sunday;
-            $pro->range_start = $process->range_start;
-            $pro->range_end = $process->range_end;
-            $pro->time = $process->time;
-            #$pro->save();
-*/
             $process->subprocesses->map(function($subprocess) use ($process, $client) {
-/*
-                $sub = new SubProcesses();
-                $sub->name = $subprocess->name;
-                $sub->process_id = $process->id;
-                #$sub->save();
-*/
+
                 return $subprocess->tasks->map(function($task) use($subprocess, $client) {
 
                   if($task->is_model) {
@@ -253,6 +230,12 @@ class ProcessesController extends Controller
                         'created_by' => Auth::user()->id,
                         'owner_id' => $client->id,
                     ];
+
+                    $mapper = Mapper::where('user_id', \Auth::user()->id)->get();
+
+                    if($mapper->isNotEmpty()) {
+                      $data['mapper_id'] = $mapper->first()->id;
+                    }
 
                     Task::create($data);
 
