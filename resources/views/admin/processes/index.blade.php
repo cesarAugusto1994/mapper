@@ -9,7 +9,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2>Processos <a href="{{route('process_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
+            <h2>Processos <a href="{{route('process_create')}}" class="btn bottom-right btn-primary pull-right">Novo</a></h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
@@ -39,10 +39,10 @@
                       <div class="ibox-title">
                           <h5>{{ substr($department->name, 0, 25) }}</h5>
                           <div class="ibox-tools">
-                            <a class="btn btn-xs btn-white" data-toggle="modal" data-target="#criar-processo-modal">Adicionar</a>
+                            <a class="btn btn-xs btn-white btnAddProcess" data-tag="{{ $department->id }}">Adicionar</a>
                           </div>
                       </div>
-                      <div class="ibox-content" style="{{ !\Auth::user()->isAdmin() && $department->id != \Auth::user()->department->id }} ? 'min-height: 300px;max-height: 300px;overflow-y: auto;' : ''">
+                      <div class="ibox-content" style="{{ \Auth::user()->isAdmin() ? 'min-height: 300px;max-height: 300px;overflow-y: auto;' : '' }}">
 
                           <div class="project-list">
 
@@ -64,7 +64,7 @@
                                           @if(\App\Http\Controllers\TaskController::existsTaskByProcess($process))
                                             <a href="{{ route('process_copy_clients', ['id' => $process->id]) }}" data-id="{{ $process->id }}" title="Gerar Tarefas" class="btn btn-xs btn-white" ><i class="fa fa-copy"></i> Gerar Tarefas</a>
                                           @else
-                                            <a disabled class="btn btn-xs btn-white" title="É necessário criar tarefas para gerá-las">Gerar Tarefas</a>
+                                            <a readonly class="btn btn-xs btn-white btnAlert" title="É necessário criar tarefas para gerá-las">Gerar Tarefas</a>
                                           @endif
                                           <a title="editar" href="{{route('process_edit', ['id' => $process->id])}}" class="btn btn-xs btn-white"><i class="fa fa-pencil"></i></a>
                                           <!--<a title="inativar" href="#" class="btn btn-xs btn-white"><i class="fa fa-trash-o"></i></a>-->
@@ -131,7 +131,7 @@
                                   <div class="form-group">
                                     <label class="control-label">Departamento</label>
 
-                                      <select class="form-control m-b" required name="department_id" >
+                                      <select class="form-control m-b" required name="department_id" id="department_id">
                                             @foreach($departments as $department)
                                                 <option value="{{$department->id}}" {{ !Auth::user()->isAdmin() ? 'readonly="readonly"' : '' }} @if(Auth::user()->isAdmin()) {{ Auth::user()->department->id == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
                                             @endforeach
@@ -272,6 +272,27 @@
           }
 
       });
+
+      $(".btnAddProcess").click(function() {
+        var self = $(this);
+        $("#criar-processo-modal").modal('show');
+        $("#department_id").val(self.data('tag'));
+      });
+
+      $(".btnAlert").click(function() {
+        var self = $(this);
+
+          toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+          toastr.warning(self.attr('title'), 'Alerta');
+
+      });
+
+
 
   </script>
 
