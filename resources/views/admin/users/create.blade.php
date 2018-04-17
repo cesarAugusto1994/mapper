@@ -9,6 +9,9 @@
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
+                <li>
+                    <a href="{{ route('departments') }}">Departamentos</a>
+                </li>
                 <li class="active">
                     <strong>Novo Departamento</strong>
                 </li>
@@ -47,7 +50,6 @@
                                   {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-
                             <div class="form-group {!! $errors->has('roles') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Acesso</label>
                                 <div class="col-sm-10">
                                   <select id="roles" name="roles" required="required" class="form-control col-md-7 col-xs-12">
@@ -57,20 +59,20 @@
                                   {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-
-                              <div class="form-group"><label class="col-sm-2 control-label">Departamento</label>
+                            <div class="form-group"><label class="col-sm-2 control-label">Departamento</label>
                               <div class="col-sm-10">
-                            <select class="form-control" name="department_id">
+                              <select class="form-control" name="department_id">
                                 <option value=""></option>
                                 @foreach($departments as $department)
                                     <option value="{{$department->id}}">{{$department->name}}</option>
                                 @endforeach
 
-                            </select>
+                              </select>
+                              </div>
                             </div>
-                        </div>
 
                             <button class="btn btn-primary">Salvar</button>
+                            <a class="btn btn-white" href="{{ back() }}">Cancelar</a>
                         </form>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2>Board <a href="{{route('user_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
+            <h2>Board <a data-toggle="modal" data-target="#add-user-modal" class="btn bottom-right btn-primary pull-right">Novo</a></h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
@@ -97,7 +97,9 @@
                               </div>
                           </div>
                           @empty
+                          <div class="text-center">
                               <p>Nenhum registro encontrado.</p>
+                          <div>
                           @endforelse
                       </div>
                       @endif

@@ -21,6 +21,10 @@ Route::get('/home', function() {
   return redirect()->route('home');
 });
 
+Route::get('/admin', function() {
+  return redirect()->route('home');
+});
+
 Route::prefix('admin')->middleware('auth')->group(function () {
 
   # Tasks

@@ -163,8 +163,6 @@ class UsersController extends Controller
 
         flash('Novo usuário adicionado com sucesso.')->success()->important();
 
-        //User::create(Req::all());
-
         return redirect()->action('UsersController@index');
     }
 

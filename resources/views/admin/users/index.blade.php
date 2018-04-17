@@ -4,7 +4,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
-            <h2>Usuarios <a href="{{route('user_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
+            <h2>Usuarios <a data-toggle="modal" data-target="#add-user-modal" class="btn bottom-right btn-primary pull-right">Novo</a></h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
@@ -19,7 +19,17 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
 
-            @include('flash::message')
+            <div class="col-lg-12">
+
+                @include('flash::message')
+
+                @foreach ($errors->all() as $error)
+
+                    <div class="alert alert-danger">{{ $error }}</div>
+
+                @endforeach
+
+            </div>
 
             @foreach($users as $user)
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
