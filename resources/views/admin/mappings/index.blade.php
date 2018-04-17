@@ -46,6 +46,9 @@
                                         <span>Tarefas: {{ $map->tasks->count() }}<a></span>
                                     </td>
                                     <td class="project-completion">
+                                        <span>Tempo Trabalhado: {{App\Helpers\Mapper::getDoneTimeByUser($map->user->id) }}<a></span>
+                                    </td>
+                                    <td class="project-completion">
                                         <span>Tempo Ocioso: {{ App\Http\Controllers\TaskController::ociousTime($map->id) }}<a></span>
                                     </td>
                                     <td class="project-people hidden-xs">

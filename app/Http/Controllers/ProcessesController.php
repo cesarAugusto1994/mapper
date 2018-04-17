@@ -265,8 +265,8 @@ class ProcessesController extends Controller
           }
 
 
-          flash('Processos copiados com sucesso.')->success()->important();
-          return redirect()->route('processes');
+          flash('tarefas criadas com sucesso.')->success()->important();
+          return redirect()->route('tasks', ['process_id' => $process->id]);
 
         } catch(Exception $e) {
             flash('Ocorreu um erro inesperado ao copiar o processo.')->error()->important();

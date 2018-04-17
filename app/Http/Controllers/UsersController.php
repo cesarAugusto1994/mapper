@@ -291,6 +291,26 @@ class UsersController extends Controller
         return redirect()->route('user', ['id' => $id]);
     }
 
+    public function updatePasswordFirstAccess(Request $request, $id)
+    {
+        $data = $request->request->all();
+
+        $user = User::findOrFail($id);
+
+        $password = $data['password'];
+
+        if (!empty($password)) {
+            $user->password = bcrypt($password);
+            $user->change_password = false;
+        }
+
+        $user->save();
+
+        flash('A sua senha foi alterada com sucesso.')->success()->important();
+
+        return redirect()->back();
+    }
+
         /**
      * Update the specified resource in storage.
      *

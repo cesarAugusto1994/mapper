@@ -10,6 +10,7 @@ use App\Models\MapperTasks;
 use Request as Req;
 use Illuminate\Validation\Validator;
 use Auth;
+use App\Helpers\Mapper as MapperHelper;
 
 class MapperController extends Controller
 {
@@ -60,7 +61,7 @@ class MapperController extends Controller
             $mappings =  Mapper::where('user_id', Auth::user()->id)->get();
         }
 
-        return view('admin.mappings.index')->with('mappings', $mappings);
+        return view('admin.mappings.index', compact('mappings'));
     }
 
     public function setTasks($mapper)
@@ -159,8 +160,9 @@ class MapperController extends Controller
             $task->save();
         }
 
-        return view('admin.mappings.details')
-        ->with('mapper', $mapper);
+        $doneTime = MapperHelper::getDoneTime($mapper);
+
+        return view('admin.mappings.details', compact('mapper', 'doneTime'));
     }
 
     public function addTask($id)

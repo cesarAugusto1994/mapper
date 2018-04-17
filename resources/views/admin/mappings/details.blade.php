@@ -26,9 +26,12 @@
     </div>
     <div class="wrapper wrapper-content">
         <div class="row animated fadeInRight">
-            <div class="col-lg-2 col-md-4">
 
+            <div class="col-lg-12">
                 @include('flash::message')
+            </div>
+
+            <div class="col-lg-2 col-md-4">
 
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -57,6 +60,14 @@
                                         @else
                                             <a class="btn btn-white btn-sm" href="{{ route('user', $mapper->user->id) }}">Definir horario</a>
                                         @endif
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                          <b>Tempo Trabalhado</b>
+                                      </td>
+                                      <td>
+                                          <b><label class="lead">{{ $doneTime }}<label></b>
                                       </td>
                                     </tr>
                                     <tr>
@@ -137,9 +148,9 @@
                                   </td>
                                   <td class="project-actions">
                                     @if ($task->status_id == 1)
-                                      <a href="{{ route('task_initiate', ['id' => $task->id]) }}" class="btn btn-primary btn-sm"> Iniciar </a>
+                                      <a href="{{ route('task_initiate', ['id' => $task->id]) }}" class="btn btn-primary btn-sm" onclick="openSwalScreen();"> Iniciar </a>
                                     @elseif ($task->status_id == 2)
-                                      <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-success btn-sm"> Finalizada </a>
+                                      <a href="{{route('task_finish', ['id' => $task->id])}}" class="btn btn-success btn-sm" onclick="openSwalScreen();"> Finalizar </a>
                                     @endif
                                   </td>
                               </tr>

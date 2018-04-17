@@ -47,6 +47,10 @@ class TaskController extends Controller
             $tasks->where('description', 'like', '%' . Req::get('filter') . '%');
         }
 
+        if (Req::has('process_id')) {
+            $tasks->where('process_id', Req::get('process_id'));
+        }
+
         $tasks = $tasks->paginate(10);
 
         return view('admin.tasks.index')->with('tasks', $tasks);
@@ -395,7 +399,7 @@ class TaskController extends Controller
 
         flash('A tarefa foi finalizada com sucesso.')->success()->important();
 
-        return redirect()->route('tasks');
+        return redirect()->back();
     }
 
     public static function getColorFromValue($value)
@@ -425,7 +429,7 @@ class TaskController extends Controller
 
         flash('A tarefa foi iniciada com sucesso.')->success()->important();
 
-        return redirect()->route('tasks');
+        return redirect()->back();
     }
 
     public static function taskDelayed($task)

@@ -103,6 +103,32 @@
 
 			@yield('content')
 
+			<div class="modal inmodal" id="editar-senha-home" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog">
+					<div class="modal-content animated bounceInRight">
+									<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											<img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="{{Gravatar::get(\Auth::user()->email)}}" />
+											<br/>
+											<h4 class="modal-title">Alterar Senha</h4>
+									</div>
+									<form action="{{route('user_update_password_home', ['id' => \Auth::user()->id])}}" method="post">
+											{{csrf_field()}}
+											<div class="modal-body">
+													<div class="form-group"><label>Nova Senha</label>
+														<input type="password" required autofocus name="password" placeholder="Informe a sua nova senha" autocomplete="off" class="form-control">
+
+													</div>
+											</div>
+											<div class="modal-footer">
+													<button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
+													<button type="submit" class="btn btn-primary">Salvar</button>
+											</div>
+									</form>
+							</div>
+					</div>
+			</div>
+
 			</div>
 
 	</div>
@@ -166,6 +192,14 @@
 	<script>
 		openSwalPageLoaded();
 	</script>
+
+	@if(\Auth::user()->change_password)
+		<script>
+				$(function() {
+					$("#editar-senha-home").modal('show');
+				});
+		</script>
+	@endif
 
 </body>
 

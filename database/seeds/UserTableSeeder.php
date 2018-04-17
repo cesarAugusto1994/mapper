@@ -29,8 +29,9 @@ class UserTableSeeder extends Seeder
         $admin->name = 'Cesar Augusto';
         $admin->email = 'cezzaar@gmail.com';
         $admin->password = bcrypt('mestre');
-        $admin->do_task = false;
+        $admin->do_task = true;
         $admin->department_id = 1;
+        $admin->change_password = true;
         $admin->save();
         $admin->roles()->attach($role_admin);
 
@@ -55,6 +56,8 @@ class UserTableSeeder extends Seeder
             $user->email = $item['email'];
             $user->password = bcrypt(123);
             $user->department_id = 1;
+            $user->weekly_workload = 44;
+            $user->change_password = true;
             $user->save();
             $user->roles()->attach($role_user);
         }

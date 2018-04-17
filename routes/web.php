@@ -83,6 +83,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::post('user/{id}/update/configs', 'UsersController@updateConfigs')->name('user_update_configurations');
   Route::post('user/{id}/update/password', 'UsersController@updatePassword')->name('user_update_password');
 
+  Route::post('user/{id}/update/password/first-access', 'UsersController@updatePasswordFirstAccess')->name('user_update_password_home');
+
+
+
   Route::get('boards', 'BoardController@index')->name('boards');
 
   Route::get('mappings', 'MapperController@index')->name('mappings');

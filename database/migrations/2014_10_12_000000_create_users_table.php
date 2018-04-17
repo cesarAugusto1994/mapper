@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
 
             $table->integer('weekly_workload')->nullable();
 
+            $table->boolean('change_password')->default(false);
+
             $table->boolean('active')->default(true);
             $table->rememberToken();
             $table->timestamps();
