@@ -98,7 +98,7 @@
                   <div class="ibox-title">
                       <h5>Tarefas</h5>
                       <div class="ibox-tools">
-                          <a href="{{route('task_create')}}" class="btn btn-primary btn-xs">Criar nova Tarefa</a>
+                          <a href="{{route('task_create')}}" class="btn btn-white btn-xs">Criar Tarefa</a>
                       </div>
                   </div>
                   <div class="ibox-content">
