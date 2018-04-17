@@ -111,7 +111,7 @@
 
                               <tr {!! App\Http\Controllers\TaskController::taskDelayed($task) !!} >
                                   <td class="project-title">
-                                      <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
+                                      <a href="{{route('task', ['id' => $task->id])}}">{{$task->name}}</a>
                                       <br/>
                                       @if($task->status->id == 2)
                                       <small>Iniciada em {{$task->begin ? $task->begin->format('d/m/Y H:i') : ''}}</small>

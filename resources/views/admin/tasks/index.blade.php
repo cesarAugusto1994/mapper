@@ -44,7 +44,7 @@
                                 @foreach ($tasks as $task)
                                     <tr>
                                         <td class="project-title">
-                                            <a href="{{route('task', ['id' => $task->id])}}" onclick="openSwalPageLoader();">{{$task->description}}</a>
+                                            <a href="{{route('task', ['id' => $task->id])}}" onclick="openSwalPageLoader();">{{$task->name}}</a>
                                             <br/>
                                             <small>{{$task->subprocess->process->name}}</small>
                                         </td>
