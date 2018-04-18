@@ -62,7 +62,15 @@ class UsersController extends Controller
           $total = 1;
         }
 
-        $porcent = round((($concludedTasks + ($inProgressTasks*0.50)) / $total) * 100);
+        if(!$inProgressTasks && !$inProgressTasks && !$total) {
+          return 0;
+        }
+
+        if(!$concludedTasks) {
+          $inProgressTasks = $inProgressTasks*0.50;
+        }
+
+        $porcent = round((($concludedTasks + $inProgressTasks) / $total) * 100);
 
         return $porcent;
     }
@@ -75,7 +83,7 @@ class UsersController extends Controller
 
         if(0 < $porcentage && 50 >= $porcentage) {
             $classColor = 'progress-bar-warning';
-        } elseif (50 < $porcentage && 100 > $porcentage) {
+        } elseif (50 < $porcentage && 100 >= $porcentage) {
             $classColor = 'progress-bar-primary';
         }
 

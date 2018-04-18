@@ -246,7 +246,7 @@ class MapperController extends Controller
             $link = route('task', ['id' => $task->id]);
 
             return [
-                'nome' => "<a href={$link} class='text-navy'>".$task->description."</a>",
+                'nome' => "<a href={$link} class='text-navy'>".$task->name."</a>",
                 'duracao' => HomeController::minutesToHour($task->time),
             ];
         });

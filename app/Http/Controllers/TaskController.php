@@ -51,6 +51,10 @@ class TaskController extends Controller
             $tasks->where('process_id', Req::get('process_id'));
         }
 
+        if (Req::has('user')) {
+            $tasks->where('user_id', Req::get('user'));
+        }
+
         $tasks = $tasks->paginate(10);
 
         return view('admin.tasks.index')->with('tasks', $tasks);

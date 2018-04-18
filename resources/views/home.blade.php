@@ -21,7 +21,7 @@
                         <div class="ibox">
                             <div class="ibox-content">
                                 <h5>Tarefas Realizadas Hoje</h5>
-                                <h1 class="no-margins">{{ count($concluded) }}</h1>
+                                <h1 class="no-margins">{{ $concluded->count() }}</h1>
                                 <div class="stat-percent font-bold text-navy">0% </div>
                                 <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concluded->sum('time')) }}</small>
                             </div>
@@ -31,7 +31,7 @@
                         <div class="ibox">
                             <div class="ibox-content">
                                 <h5>Tarefas Realizadas nesta Semana</h5>
-                                <h1 class="no-margins">{{ count($concludedInThisWeek) }}</h1>
+                                <h1 class="no-margins">{{ $concludedInThisWeek->count() }}</h1>
                                 <div class="stat-percent font-bold text-navy">0% </div>
                                 <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisWeek->sum('time')) }}</small>
                             </div>
@@ -41,7 +41,7 @@
                         <div class="ibox">
                             <div class="ibox-content">
                                 <h5>Tarefas Realizadas neste mês</h5>
-                                <h1 class="no-margins">{{ count($concludedInThisMount) }}</h1>
+                                <h1 class="no-margins">{{ $concludedInThisMount->count() }}</h1>
                                 <div class="stat-percent font-bold text-navy">0% </div>
                                 <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisMount->sum('time')) }}</small>
                             </div>
@@ -51,7 +51,7 @@
                         <div class="ibox danger">
                             <div class="ibox-content">
                                 <h5>Atrasos</h5>
-                                <h1 class="no-margins">{{ count($concludedInThisMountWithDelay) }} / {{ count($concludedInThisMount) }}</h1>
+                                <h1 class="no-margins">{{ $concludedInThisMountWithDelay->count() }} / {{ $concludedInThisMount->count() }}</h1>
                                 <div class="stat-percent font-bold text-danger">{{ $percentMount }}% </div>
                                 <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisMountWithDelay->sum('spent_time') - $concludedInThisMountWithDelay->sum('time')) }}</small>
                             </div>
