@@ -14,7 +14,7 @@ class CreateFieldDoTaskOnUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('do_task')->default(true);
+            //$table->boolean('do_task')->default(true);
         });
     }
 
@@ -26,7 +26,7 @@ class CreateFieldDoTaskOnUsersTable extends Migration
     public function down()
     {
       Schema::table('users', function (Blueprint $table) {
-          $table->dropColumn('do_task');
+          //$table->dropColumn('do_task');
       });
     }
 }

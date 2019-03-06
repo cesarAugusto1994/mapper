@@ -8,26 +8,30 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-12">
-            <h2>Clientes <a data-toggle="modal" data-target="#adicionar-cliente-modal" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
+        <div class="col-lg-10">
+            <h2>Clientes</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li class="active">
-                    <strong>Processos</strong>
+                    <strong>Clientes</strong>
                 </li>
             </ol>
         </div>
+
+        <div class="col-lg-2">
+            @permission('create.clientes')
+                <a href="#" data-toggle="modal" data-target="#adicionar-cliente-modal" class="btn btn-primary btn-block dim m-t-lg">Novo Cliente</a>
+            @endpermission
+
+        </div>
+
     </div>
 
 
     <div class="row">
             <div class="wrapper wrapper-content animated fadeInUp">
-
-                <div class="col-lg-12">
-                    @include('flash::message')
-                </div>
 
                 <div class="col-lg-12">
 
@@ -43,13 +47,48 @@
                                     <tbody>
                                         @foreach($clients as $client)
                                             <tr>
+
                                                 <td class="project-title">
-                                                    <a href="#">{{$client->name}}</a>
+                                                    <p>ID:</p>
+                                                    <a>{{$client->id}}</a>
                                                 </td>
+
+                                                <td class="project-title">
+                                                    <p>Nome:</p>
+                                                    <a>{{$client->name}}</a>
+                                                </td>
+
+                                                <td class="project-title">
+                                                    <p>Telefone:</p>
+                                                    <a>{{$client->phone}}</a>
+                                                </td>
+
+                                                <td class="project-title">
+                                                    <p>Email:</p>
+                                                    <a>{{$client->email}}</a>
+                                                </td>
+
+                                                <td class="project-title">
+                                                    <p>Adicionado em:</p>
+                                                    <a>{{$client->created_at->format('d/m/Y H:i')}}</a>
+                                                </td>
+
+                                                <td class="project-actions">
+                                                  @permission('edit.clientes')
+                                                    <a href="{{route('clients.edit', ['id' => $client->uuid])}}" class="btn btn-white"><i class="fa fa-pencil"></i> Editar</a>
+                                                  @endpermission
+                                                  @permission('delete.clientes')
+                                                    <a data-route="{{route('clients.destroy', ['id' => $client->uuid])}}" class="btn btn-danger btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
+                                                  @endpermission
+                                                </td>
+
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                {{ $clients->links() }}
+
                             @else
                                 <div class="alert alert-warning text-center">Nenhum cliente registrado até o momento.</div>
                             @endif
@@ -93,12 +132,20 @@
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h4 class="modal-title">Novo Cliente</h4>
                     </div>
-                    <form action="{{route('client_store')}}" method="post">
+                    <form action="{{route('clients.store')}}" method="post">
                         {{csrf_field()}}
                         <div class="modal-body">
 
                         <div class="form-group"><label class="control-label">Nome</label>
                             <input type="text" name="name" autofocus required class="form-control">
+                        </div>
+
+                        <div class="form-group"><label class="control-label">Telefone</label>
+                            <input type="text" name="phone" autofocus required class="form-control">
+                        </div>
+
+                        <div class="form-group"><label class="control-label">Email</label>
+                            <input type="email" name="email" autofocus required class="form-control">
                         </div>
 
                         </div>

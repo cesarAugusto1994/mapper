@@ -178,6 +178,12 @@ return [
         App\Providers\RouteServiceProvider::class,
         Creativeorange\Gravatar\GravatarServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Emadadly\LaravelUuid\LaravelUuidServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Codecourse\Notify\NotifyServiceProvider::class,
+        jeremykenedy\LaravelRoles\RolesServiceProvider::class,
+        Laravolt\Avatar\ServiceProvider::class,
+
 
     ],
 
@@ -228,6 +234,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Notify' => Codecourse\Notify\Facades\Notify::class,
+        'Avatar'    => Laravolt\Avatar\Facade::class,
 
     ],
 

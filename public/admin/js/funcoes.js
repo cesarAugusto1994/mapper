@@ -8,7 +8,7 @@ function openSwalPageLoader() {
     });
 }
 
-openSwalPageLoader();
+//openSwalPageLoader();
 
 function openSwalScreen() {
   window.swal({

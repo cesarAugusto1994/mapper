@@ -6,10 +6,10 @@
         <div>
             <div>
 
-                <h1 class="logo-name">MP+</h1>
+                <h1 class="logo-name">GP+</h1>
 
             </div>
-            <h3>Bem vindo ao Process Mapper</h3>
+            <h3>Bem vindo ao Gestão Provider</h3>
             <form class="m-t" method="POST" role="form" action="{{ route('login') }}">
             {{ csrf_field() }}
 
@@ -20,7 +20,7 @@
             @endforeach
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input type="email" name="email" class="form-control" placeholder="E-mail" required="">
+                    <input type="email" name="email" class="form-control" placeholder="E-mail" required="" value="{{ old('email') }}">
 
                         @if ($errors->has('email'))
                             <!--<span class="help-block">
@@ -42,7 +42,7 @@
 
                 <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
-                <p class="text-muted text-center">Cossil Contabilidade &copy;, Direitos Reservados 2018.  <a class="text-navy"><small>Desenvolvido por César Augusto</small></a></p>
+                <p class="text-muted text-center">Provider &copy;, Direitos Reservados 2018.  <a class="text-navy"><small>Desenvolvido por César Augusto</small></a></p>
             </form>
         </div>
     </div>

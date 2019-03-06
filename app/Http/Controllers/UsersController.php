@@ -6,7 +6,7 @@ use App\User;
 use App\Models\Department;
 use App\Models\TaskLogs;
 use App\Models\Task;
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Request as Req;
 use Illuminate\Validation\Validator;
@@ -180,9 +180,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $user = User::find($id);
+        $user = $request->user();
         $tasks = Task::where('user_id', $user->id)->limit(6)->orderBy('id', 'DESC')->get();
 
         return view('admin.users.details')

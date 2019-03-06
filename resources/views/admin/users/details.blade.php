@@ -38,9 +38,7 @@
                         <div class="ibox-content no-padding border-left-right hidden-xs">
 
                             <div class="avatar">
-                                <img class="img" src="{{Gravatar::get($user->email)}}" alt="Avatar">
-                                <div class="overlay"></div>
-                                <!--<div class="button"><a href="{{route('user_avatar', ['id' => $user->id])}}"> Editar Foto </a></div>-->
+                                <img class="img" src="{{Auth::user()->avatar}}" alt="Avatar">
                             </div>
 
                         </div>

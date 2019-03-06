@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Role;
 use App\User;
+use App\Models\People;
+
+use jeremykenedy\LaravelRoles\Models\Role;
+use jeremykenedy\LaravelRoles\Models\Permission;
 
 class UserTableSeeder extends Seeder
 {
@@ -13,53 +16,65 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $role_user = Role::where('name', 'user')->first();
-        $role_admin  = Role::where('name', 'admin')->first();
+        $adminRole = Role::whereName('Administrador')->first();
+        $userRole = Role::whereName('Usuario')->first();
 
-        $admin = new User();
-        $admin->name = 'Administrador';
-        $admin->email = 'admin@admin.com';
-        $admin->password = bcrypt('secret');
-        $admin->do_task = false;
-        $admin->department_id = 1;
-        $admin->save();
-        $admin->roles()->attach($role_admin);
+        $faker = Faker\Factory::create();
 
-        $admin = new User();
-        $admin->name = 'Cesar Augusto';
-        $admin->email = 'cezzaar@gmail.com';
-        $admin->password = bcrypt('mestre');
-        $admin->do_task = true;
-        $admin->department_id = 1;
-        $admin->change_password = true;
-        $admin->save();
-        $admin->roles()->attach($role_admin);
+        // Seed test admin
+        $seededAdminEmail = 'admin@admin.com';
+        $user = User::where('email', '=', $seededAdminEmail)->first();
+        if ($user === null) {
 
-        $itens = [
-            [
-              'name' => 'Wanessa',
-              'email' => 'dpessoal@cossil.com.br'
-            ],
-            [
-              'name' => 'Paulo Henrique',
-              'email' => 'paulohenrique@cossil.com.br'
-            ],
-            [
-              'name' => 'Mariani',
-              'email' => 'mariani@cossil.com.br'
-            ],
-        ];
+            $name = $faker->name;
 
-        foreach ($itens as $item) {
-            $user = new User();
-            $user->name = $item['name'];
-            $user->email = $item['email'];
-            $user->password = bcrypt(123);
-            $user->department_id = 1;
-            $user->weekly_workload = 44;
-            $user->change_password = true;
+            //$avatarlocation = storage_path('avatars').'/avatars/avatar-'.str_slug($name).'.png';
+            $avatar = \Avatar::create($name)->toBase64();
+
+            $person = People::create([
+              'name' => $name,
+              'department_id'=> 1,
+            ]);
+
+            $user = User::create([
+              'nick'                           => str_slug($name),
+              'email'                          => $seededAdminEmail,
+              'password'                       => Hash::make('123123'),
+              'avatar' => $avatar,
+              'do_task' => false,
+              'person_id' => $person->id,
+            ]);
+
+            //$user->profile()->save($profile);
+            $user->attachRole($adminRole);
             $user->save();
-            $user->roles()->attach($role_user);
+        }
+
+        // Seed test user
+        $user = User::where('email', '=', 'user@user.com')->first();
+        if ($user === null) {
+
+            $name = $faker->name;
+
+            $avatar = \Avatar::create($name)->toBase64();
+
+            $person = People::create([
+              'name' => $name,
+              'department_id'=> 1,
+            ]);
+
+            $user = User::create([
+              'nick'                           => str_slug($name),
+              'email'                          => 'user@user.com',
+              'password'                       => Hash::make('123123'),
+              'avatar' => $avatar,
+              'do_task' => true,
+              'person_id' => $person->id,
+            ]);
+
+            //$user->profile()->save(new Profile());
+            $user->attachRole($userRole);
+            $user->save();
         }
 
     }

@@ -6,12 +6,20 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "codecourse/notify": "^1.1",
         "creativeorange/gravatar": "~1.0",
+        "emadadly/laravel-uuid": "^1.2",
         "fideloper/proxy": "~3.3",
+        "jeremykenedy/laravel-roles": "^1.4",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "predis/predis": "^1.1"
+        "laravolt/avatar": "^2.2",
+        "predis/predis": "^1.1",
+        "simplesoftwareio/simple-qrcode": "~2",
+        "spatie/async": "^0.0.4",
+        "spatie/laravel-activitylog": "^3.2",
+        "yadahan/laravel-authentication-log": "^1.1"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

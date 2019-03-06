@@ -24,8 +24,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
-
+        $clients = Client::paginate(10);
         return view('admin.clients.index', compact('clients'));
     }
 
@@ -49,13 +48,13 @@ class ClientController extends Controller
     {
       $data = $request->request->all();
 
-      $client = new Client();
-      $client->name = $data['name'];
-      $client->save();
+      Client::create($data);
 
-      flash('Novo cliente adicionado com sucesso.')->success()->important();
+      notify()->flash('Sucesso!', 'success', [
+        'text' => 'Novo Cliente adicionado com sucesso.'
+      ]);
 
-      return redirect()->route('clients');
+      return redirect()->route('clients.index');
     }
 
     /**
@@ -79,9 +78,9 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-      $client = Client::findOrFail($id);
+        $client = Client::uuid($id);
 
-      return view('admin.clients.edit', compact('client'));
+        return view('admin.clients.edit', compact('client'));
     }
 
     /**
@@ -95,13 +94,14 @@ class ClientController extends Controller
     {
         $data = $request->request->all();
 
-        $client = Client::findOrFail($id);
-        $client->name = $data['name'];
-        $client->save();
+        $client = Client::uuid($id);
+        $client->update($data);
 
-        flash('Edição do clients concluída com sucesso.')->success()->important();
+        notify()->flash('Sucesso!', 'success', [
+          'text' => 'As Informações do cliente foram alteradas com sucesso.'
+        ]);
 
-        return redirect()->route('processes');
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -112,6 +112,29 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+          $client = Client::uuid($id);
+
+          if($client->documents->isNotEmpty()) {
+            return response()->json([
+              'success' => false,
+              'message' => 'O cliente não pode ser removido: existem movimentações.'
+            ]);
+          }
+
+          $client->delete();
+
+          return response()->json([
+            'success' => true,
+            'message' => 'cliente removido com sucesso.'
+          ]);
+
+        } catch(\Exception $e) {
+          return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+          ]);
+        }
     }
 }

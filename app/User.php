@@ -4,14 +4,20 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 use App\Models\Task;
 use App\Models\TaskLogs;
 use App\Models\Department;
+use Spatie\Permission\Traits\HasRoles;
+use Yadahan\AuthenticationLog\AuthenticationLogable;
+use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, AuthenticationLogable;
+    use HasRoleAndPermission;
+
+    protected $guard_name = 'web';
 
     /**
      * The attributes that are mass assignable.
@@ -48,11 +54,6 @@ class User extends Authenticatable
         return $this->hasMany(TaskLogs::class);
     }
 
-    public function roles()
-    {
-      return $this->belongsToMany(Role::class);
-    }
-
     /**
     * @param string|array $roles
     */
@@ -87,6 +88,6 @@ class User extends Authenticatable
     */
     public function isAdmin()
     {
-        return $this->hasRole('Admin');
+        return $this->hasRole('Administrador');
     }
 }

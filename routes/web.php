@@ -33,7 +33,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::get('task/{id}', 'TaskController@show')->name('task');
   Route::get('task/create/form', 'TaskController@create')->name('task_create');
   Route::get('task/{id}/edit', 'TaskController@edit')->name('task_edit');
-  Route::get('task/calendar', 'TaskController@calendar')->name('task_calendar');
+  Route::get('task/calendar/list', 'TaskController@calendar')->name('task_calendar');
   Route::get('task/to-json', 'TaskController@getTasks')->name('tasks_json');
   Route::get('task/{id}/start', 'TaskController@startTask')->name('task_initiate');
   Route::get('task/{id}/finish', 'TaskController@finish')->name('task_finish');
@@ -65,12 +65,14 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::post('process/create/store', 'ProcessesController@store')->name('processes_store');
   Route::post('process/copy', 'ProcessesController@copy')->name('process_copy');
   Route::post('process/{id}/update', 'ProcessesController@update')->name('process_update');
-
+/*
   Route::get('clients', 'ClientController@index')->name('clients');
   Route::get('client/create/form', 'ClientController@create')->name('client_create');
   Route::get('client/{id}/edit', 'ClientController@edit')->name('client_edit');
   Route::post('client/create/store', 'ClientController@store')->name('client_store');
   Route::post('client/{id}/update', 'ClientController@update')->name('client_update');
+*/
+  Route::resource('clients', 'ClientController');
 
   Route::get('subprocesses', 'SubProcessesController@index')->name('subprocesses');
   Route::get('subprocess/{id}', 'SubProcessesController@show')->name('subprocess');
@@ -86,13 +88,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::post('user/{id}/update', 'UsersController@update')->name('user_update');
   Route::post('user/{id}/update/configs', 'UsersController@updateConfigs')->name('user_update_configurations');
   Route::post('user/{id}/update/password', 'UsersController@updatePassword')->name('user_update_password');
-
   Route::post('user/{id}/update/password/first-access', 'UsersController@updatePasswordFirstAccess')->name('user_update_password_home');
-
-
-
   Route::get('boards', 'BoardController@index')->name('boards');
-
   Route::get('mappings', 'MapperController@index')->name('mappings');
   Route::get('mapping/{id}/edit', 'MapperController@edit')->name('mapping_edit');
   Route::get('mapping/{id}', 'MapperController@show')->name('mapping');
@@ -104,9 +101,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::get('mapping/{id}/task/{task}/remove', 'MapperController@removeTaskStore')->name('mapper_remove_task');
   Route::post('mapping/{id}/start', 'MapperController@start')->name('mapping_start');
 
-
-
   Route::get('users', 'UsersController@index')->name('users');
-  Route::get('user/{id}', 'UsersController@show')->name('user');
+  Route::get('profile', 'UsersController@show')->name('user');
+
+  Route::resource('documents', 'DocumentsController');
+  Route::resource('delivery-order', 'DeliveryOrderController');
+
+  Route::resource('roles', 'RolesController');
+  Route::resource('permissions', 'PermissionsController');
 
 });

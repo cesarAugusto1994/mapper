@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Language" content="pt-br">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<title>Process Mapper | Admin</title>
 
@@ -13,17 +14,22 @@
 	<link href="{{ asset("admin/css/animate.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/style.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/TimeCircles.css") }}" rel="stylesheet">
+	<!--
 	<link href="{{ asset("css/sweetalert2.min.css") }}" rel="stylesheet">
+	-->
+
+
+
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
 	@stack('stylesheets')
 
 </head>
 
-<body class="pace-done">
+<body class="pace-done skin-4">
 	<div id="wrapper">
 
 		@include('layouts.sidebar')
@@ -88,7 +94,7 @@
 						</li>
 					-->
 						<li>
-							<a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+							<a class="btnLogout">
 								<div>
 									<i class="fa fa-sign-out"></i> Sair
 								</div>
@@ -194,7 +200,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.20.6/sweetalert2.all.min.js"></script>
 	<script src="{{asset('admin/js/inspinia.js')}}"></script>
 	<script src="{{asset('admin/js/funcoes.js')}}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.4/metisMenu.min.js"></script>
@@ -249,7 +255,7 @@
 	@stack('scripts')
 
 	<script>
-		openSwalPageLoaded();
+		//openSwalPageLoaded();
 	</script>
 
 	@if(\Auth::user()->change_password)
@@ -259,6 +265,111 @@
 				});
 		</script>
 	@endif
+
+	@if (notify()->ready())
+    <script>
+        swal({
+            title: "{!! notify()->message() !!}",
+            text: "{!! notify()->option('text') !!}",
+            type: "{{ notify()->type() }}",
+            @if (notify()->option('timer'))
+                timer: {{ notify()->option('timer') }},
+                showConfirmButton: false
+            @endif
+        });
+    </script>
+@endif
+
+	<script>
+		$(".btnRemoveItem").click(function(e) {
+				var self = $(this);
+
+				swal({
+					title: 'Remover este item?',
+					text: "Não será possível recuperá-lo!",
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Sim',
+					cancelButtonText: 'Cancelar'
+					}).then((result) => {
+					if (result.value) {
+
+						e.preventDefault();
+
+						$.ajax({
+							headers: {
+							 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							 },
+							url: self.data('route'),
+							type: 'POST',
+							dataType: 'json',
+							data: {
+								_method: 'DELETE'
+							}
+						}).done(function(data) {
+
+							if(data.success) {
+
+								self.parents('tr').hide();
+
+								const toast = swal.mixin({
+									toast: true,
+									position: 'top-end',
+									showConfirmButton: false,
+									timer: 3000
+								});
+
+								toast({
+									type: 'success',
+									title: 'Ok!, o registro foi removido com sucesso.'
+								});
+
+							} else {
+
+								Swal.fire({
+								  type: 'error',
+								  title: 'Oops...',
+								  text: data.message,
+								})
+
+							}
+
+
+
+						});
+					}
+				});
+		});
+
+		$('.btnLogout').click(function() {
+
+		    swal({
+		      title: 'Finalizar Sessão?',
+		      text: "Esta sessão será finalizada!",
+		      type: 'warning',
+		      showCancelButton: true,
+		      confirmButtonColor: '#3085d6',
+		      cancelButtonColor: '#d33',
+		      confirmButtonText: 'Sim',
+		      cancelButtonText: 'Cancelar'
+		      }).then((result) => {
+		      if (result.value) {
+
+		        document.getElementById('logout-form').submit();
+
+		        swal({
+		          title: 'Até logo!',
+		          text: 'Sua sessão será finalizada.',
+		          type: 'success',
+		          showConfirmButton: false,
+		        })
+		      }
+		    });
+
+		  });
+
+	</script>
 
 </body>
 

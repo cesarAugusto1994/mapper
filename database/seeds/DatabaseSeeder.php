@@ -12,12 +12,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(TaskStatusTableSeeder::class);
-        #$this->call(UsersTableSeeder::class);
+        $this->call(ModulesTableSeeder::class);
+        $this->call(DepartmentTableSeeder::class);
         // Role comes before User seeder here.
-        $this->call(RoleTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
         // User seeder will use the roles above created.
         $this->call(UserTableSeeder::class);
-        $this->call(DepartmentTableSeeder::class);
+
         $this->call(FrequencyTableSeeder::class);
 
         $this->call(MapperStatusTableSeeder::class);

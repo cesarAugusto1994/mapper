@@ -3,8 +3,9 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-12">
-            <h2>Departamentos <a href="{{route('department_create')}}" class="btn btn-lg bottom-right btn-primary pull-right">Novo</a></h2>
+
+        <div class="col-lg-10">
+            <h2>Departamentos </h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
@@ -14,6 +15,17 @@
                 </li>
             </ol>
         </div>
+
+        <div class="col-lg-2">
+
+          @permission('create.departamentos')
+
+            <a href="{{route('department_create')}}" class="btn btn-primary btn-block dim m-t-lg">Novo Departamento</a>
+
+          @endpermission
+
+        </div>
+
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">
