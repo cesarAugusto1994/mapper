@@ -23,31 +23,25 @@
         </div>
     </div>
     <div class="wrapper wrapper-content">
-        @include('flash::message')
+
         <div class="row animated fadeInRight">
-            <div class="col-lg-2 col-md-4 col-sm-4">
+            <div class="col-lg-3 col-md-4 col-sm-4">
 
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Detalhes  </h5>
+                        <h5>Opções  </h5>
                         @if(!$user->active)
                         <span class="pull-right label label-danger">Inativo</span>
                         @endif
                     </div>
                     <div>
-                        <div class="ibox-content no-padding border-left-right hidden-xs">
 
-                            <div class="avatar">
-                                <img class="img" src="{{Auth::user()->avatar}}" alt="Avatar">
-                            </div>
-
-                        </div>
                         <div class="ibox-content profile-content">
                             <h4><strong>{{$user->name}}</strong></h4>
                                 @if($user->department)<p><i class="fa fa-map-marker"></i> {{$user->department->name ?? ''}} </p>@endif
-                                <button class="btn btn-default btn-xs btn-block" data-toggle="modal" data-target="#editar">Editar</button>
-                                <button class="btn btn-white btn-xs btn-block" data-toggle="modal" data-target="#editar-configuracoes">Cofigurações</button>
-                                <button class="btn btn-white btn-xs btn-block" data-toggle="modal" data-target="#editar-senha">Alterar Senha</button>
+                                <button class="btn btn-white btn-block" data-toggle="modal" data-target="#editar">Editar</button>
+                                <button class="btn btn-white btn-block" data-toggle="modal" data-target="#editar-configuracoes">Cofigurações</button>
+                                <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#editar-senha">Alterar Senha</button>
                         </div>
                     </div>
                 </div>
@@ -91,7 +85,7 @@
 
           </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-5">
               <div class="ibox float-e-margins">
                   <div class="ibox-title">
                       <h5>Tarefas</h5>
@@ -169,11 +163,11 @@
                 <form action="{{route('user_update', ['id' => $user->id])}}" method="post">
                     {{csrf_field()}}
                     <div class="modal-body">
-                        <div class="form-group"><label>Seu Nome</label> <input type="text" name="name" placeholder="Informe seu Nome" value="{{$user->name}}" class="form-control"></div>
-                        <div class="form-group"><label>E-mail</label> <input type="email" name="email" placeholder="Informe seu E-mail" value="{{$user->email}}" class="form-control"></div>
+                        <div class="form-group"><label>Seu Nome</label> <input type="text" name="name" placeholder="Informe seu Nome" value="{{$user->person->name}}" class="form-control" required></div>
+                        <div class="form-group"><label>E-mail</label> <input type="email" readonly name="email" placeholder="Informe seu E-mail" value="{{$user->email}}" class="form-control"></div>
 
                         <div class="form-group"><label>Departamento</label>
-                            <select class="form-control" name="department_id">
+                            <select class="form-control" name="department_id" required>
 
                                 @foreach($departments as $department)
                                     <option value="{{$department->id}}" {{ $user->department_id == $department->id ? 'selected' : '' }}>{{$department->name}}</option>
@@ -198,15 +192,16 @@
         <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="{{Gravatar::get($user->email)}}" />
-                    <br/>
+
                     <h4 class="modal-title">Configurações</h4>
                 </div>
-                <form action="{{route('user_update_configurations', ['id' => $user->id])}}" method="post">
+                <form action="{{route('user_update_configurations', ['id' => $user->uuid])}}" method="post">
                     {{csrf_field()}}
                     <div class="modal-body">
 
                         <div class="row">
+
+                          <!--
 
                           <div class="form-group col-sm-6"><label>Horario Chegada</label>
                             <input type="time" name="begin" value="{{ $user->begin ? $user->begin : '07:30' }}" class="form-control">
@@ -226,6 +221,20 @@
 
                           <div class="form-group col-sm-6"><label>Carga horária Semanal</label>
                             <input type="number" name="weekly_workload" value="{{ $user->weekly_workload ? $user->weekly_workload : '' }}" placeholder="Ex:. 44 hrs" autocomplete="off" class="form-control">
+                          </div>
+
+                        -->
+
+                          <div class="form-group col-sm-4"><label>Usuário SOC</label>
+                            <input type="text" name="login_soc" value="{{ $user->login_soc ? $user->login_soc : '' }}" placeholder="" autocomplete="off" class="form-control">
+                          </div>
+
+                          <div class="form-group col-sm-4"><label>Senha SOC</label>
+                            <input type="text" name="password_soc" value="{{ $user->password_soc ? $user->password_soc : '' }}" placeholder="" autocomplete="off" class="form-control">
+                          </div>
+
+                          <div class="form-group col-sm-4"><label>ID SOC</label>
+                            <input type="text" name="id_soc" value="{{ $user->id_soc ? $user->id_soc : '' }}" placeholder="" autocomplete="off" class="form-control">
                           </div>
 
                           <div class="form-group col-sm-12 {!! $errors->has('roles') ? 'has-error' : '' !!}"><label>Acesso</label>
@@ -282,7 +291,7 @@
                     <br/>
                     <h4 class="modal-title">Alterar Senha</h4>
                 </div>
-                <form action="{{route('user_update_password', ['id' => $user->id])}}" method="post">
+                <form action="{{route('user_update_password', ['id' => $user->uuid])}}" method="post">
                     {{csrf_field()}}
                     <div class="modal-body">
                         <div class="form-group"><label>Nova Senha</label>

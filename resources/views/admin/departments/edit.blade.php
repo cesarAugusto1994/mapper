@@ -9,6 +9,9 @@
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
+                <li>
+                    <a href="{{ route('departments') }}">Departamentos</a>
+                </li>
                 <li class="active">
                     <strong>Editar Departamento</strong>
                 </li>
@@ -33,9 +36,9 @@
                                 <div class="col-sm-10"><input type="text" name="name" value="{{$department->name}}" class="form-control"></div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">Resposável</label>
-                                <div class="col-sm-10"><select class="form-control m-b" name="user_id">
+                                <div class="col-sm-10"><select class="form-control m-b" name="user_id" required>
                                         @foreach($users as $user)
-                                            <option value="{{$user->id}}" {{ $department->user_id == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
+                                            <option value="{{$user->id}}" {{ $department->user_id == $user->id ? 'selected' : '' }}>{{$user->person->name}}</option>
                                         @endforeach
                                     </select></div>
                             </div>

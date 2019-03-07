@@ -29,9 +29,12 @@
               @include('flash::message')
 
                 @foreach($departments as $department)
-                  <div class="{{ \Auth::user()->isAdmin() ? 'col-lg-4' : 'col-lg-12' }}">
 
-                      @if(!\Auth::user()->isAdmin() && $department->id != \Auth::user()->department->id)
+
+
+                  <div class="{{ $isAdmin ? 'col-lg-4' : 'col-lg-12' }}">
+
+                      @if(!$isAdmin && $department->id != $departmentUser)
                         @continue
                       @endif
 
@@ -42,7 +45,7 @@
                             <a class="btn btn-xs btn-white btnAddProcess" data-tag="{{ $department->id }}">Adicionar</a>
                           </div>
                       </div>
-                      <div class="ibox-content" style="{{ \Auth::user()->isAdmin() ? 'min-height: 300px;max-height: 300px;overflow-y: auto;' : '' }}">
+                      <div class="ibox-content" style="{{ $isAdmin ? 'min-height: 300px;max-height: 300px;overflow-y: auto;' : '' }}">
 
                           <div class="project-list">
 
@@ -133,13 +136,13 @@
 
                                       <select class="form-control m-b" required name="department_id" id="department_id">
                                             @foreach($departments as $department)
-                                                <option value="{{$department->id}}" {{ !Auth::user()->isAdmin() ? 'readonly="readonly"' : '' }} @if(Auth::user()->isAdmin()) {{ Auth::user()->department->id == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
+                                                <option value="{{$department->id}}" {{ !$isAdmin ? 'readonly="readonly"' : '' }} @if($isAdmin) {{ $departmentUser == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
                                             @endforeach
                                       </select>
 
                                   </div>
                                 @else
-                                  <input type="hidden" name="department_id" class="form-control" value="{{ Auth::user()->department->id }}">
+                                  <input type="hidden" name="department_id" class="form-control" value="{{ $departmentUser }}">
                                 @endif
 
                                 <!--<div class="form-group">

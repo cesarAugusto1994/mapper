@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-sm-4">
+        <div class="col-sm-12">
             <h2>Ordem de Entrega</h2>
             <ol class="breadcrumb">
                 <li>

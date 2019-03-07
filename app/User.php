@@ -11,11 +11,16 @@ use App\Models\Department;
 use Spatie\Permission\Traits\HasRoles;
 use Yadahan\AuthenticationLog\AuthenticationLogable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
+use Emadadly\LaravelUuid\Uuids;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
     use Notifiable, AuthenticationLogable;
     use HasRoleAndPermission;
+
+    use Uuids;
+    use LogsActivity;
 
     protected $guard_name = 'web';
 
@@ -25,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'login_soc', 'password_soc', 'id_soc'
     ];
 
     /**
@@ -38,6 +43,11 @@ class User extends Authenticatable
     ];
 
     protected $dates = ['begin', 'end'];
+
+    public function person()
+    {
+        return $this->belongsTo('App\Models\People', 'person_id');
+    }
 
     public function department()
     {

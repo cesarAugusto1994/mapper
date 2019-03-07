@@ -41,13 +41,13 @@
                                     <div class="form-group"><label class="col-sm-2 control-label">Nome</label>
                                         <div class="col-sm-10"><input type="text" name="name" autofocus required class="form-control"></div>
                                     </div>
-                                    @if(Auth::user()->isAdmin())
+                                    @if($isAdmin)
                                       <div class="form-group">
                                         <label class="control-label">Departamento</label>
 
                                           <select class="form-control m-b" required name="department_id" >
                                                 @foreach($departments as $department)
-                                                    <option value="{{$department->id}}" {{ !Auth::user()->isAdmin() ? 'readonly="readonly"' : '' }} @if(Auth::user()->isAdmin()) {{ Auth::user()->department->id == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
+                                                    <option value="{{$department->id}}" {{ !$isAdmin ? 'readonly="readonly"' : '' }} @if($isAdmin) {{ $departmentUser == $department->id || (isset($_GET['department']) && $_GET['department'] == $department->id) ? 'selected' : '' }} @endif>{{$department->name}}</option>
                                                 @endforeach
                                           </select>
 

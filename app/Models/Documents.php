@@ -11,7 +11,7 @@ class Documents extends Model
     use Uuids;
     use LogsActivity;
 
-    protected $fillable = ['description', 'client_id', 'created_by'];
+    protected $fillable = ['description', 'client_id', 'created_by', 'status_id'];
 
     protected static $logAttributes = ['description', 'client_id', 'created_by'];
 

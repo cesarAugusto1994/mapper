@@ -3,11 +3,14 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-sm-4">
+        <div class="col-sm-12">
             <h2>Departamento</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
+                </li>
+                <li>
+                    <a href="{{ route('departments') }}">Departamentos</a>
                 </li>
                 <li class="active">
                     <strong>Novo Departamento</strong>
@@ -30,12 +33,12 @@
                         <form method="post" class="form-horizontal" action="{{route('department_store')}}">
                             {{csrf_field()}}
                             <div class="form-group"><label class="col-sm-2 control-label">Nome</label>
-                                <div class="col-sm-10"><input type="text" name="name" class="form-control"></div>
+                                <div class="col-sm-10"><input type="text" name="name" class="form-control" autofocus/></div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">Resposável</label>
                                 <div class="col-sm-10"><select class="form-control m-b" name="user_id">
                                         @foreach($users as $user)
-                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                            <option value="{{$user->id}}">{{$user->person->name}}</option>
                                         @endforeach
                                     </select></div>
                             </div>

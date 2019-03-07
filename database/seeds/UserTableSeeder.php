@@ -43,6 +43,11 @@ class UserTableSeeder extends Seeder
               'avatar' => $avatar,
               'do_task' => false,
               'person_id' => $person->id,
+
+              'login_soc' => 'cesar.sousa',
+              'password_soc' => 'cesar1507',
+              'id_soc' => '6662',
+
             ]);
 
             //$user->profile()->save($profile);
@@ -70,6 +75,11 @@ class UserTableSeeder extends Seeder
               'avatar' => $avatar,
               'do_task' => true,
               'person_id' => $person->id,
+
+              'login_soc' => 'cesar.sousa',
+              'password_soc' => 'cesar1507',
+              'id_soc' => '6662',
+              
             ]);
 
             //$user->profile()->save(new Profile());

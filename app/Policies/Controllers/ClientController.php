@@ -65,14 +65,9 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-      $client = Client::uuid($id);
-      return view('admin.clients.details', compact('client'));
-    }
+      $client = Client::findOrFail($id);
 
-    public function addresses($id)
-    {
-        $client = Client::uuid($id);
-        return view('admin.addresses.show', compact('client'));
+      return view('admin.clients.details', compact('client'));
     }
 
     /**
@@ -84,6 +79,7 @@ class ClientController extends Controller
     public function edit($id)
     {
         $client = Client::uuid($id);
+
         return view('admin.clients.edit', compact('client'));
     }
 

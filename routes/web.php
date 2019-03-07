@@ -110,4 +110,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::resource('roles', 'RolesController');
   Route::resource('permissions', 'PermissionsController');
 
+  Route::get('clients/{id}/addresses', 'ClientController@addresses')->name('client_addresses');
+
 });

@@ -6,8 +6,8 @@
                             <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="{{Auth::user()->avatar}}" />
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth()->user()->name }}</strong>
-                             </span> <span class="text-muted text-xs block">{{  Auth::user()->department->name ?? '' }} <b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth()->user()->person->name }}</strong>
+                            </span> <span class="text-muted text-xs block">{{  Auth::user()->person->department->name ?? '' }} <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="{{route('user')}}">Perfil</a></li>
                                 <li class="divider"></li>
@@ -125,12 +125,29 @@
 
                       @endpermission
 
-                      <!--
-                        <li>
-                          <a href="{{route('task_calendar')}}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendário</span></a>
-                        </li>
-                      -->
+                      <li>
 
+                        <a class="btnRedirectSoc"><i class="fa fa-key"></i> <span class="nav-label">SOC</span></a>
+
+                        <form method="post" action="https://www.soc.com.br/WebSoc/LoginAction.do" id="formularioLoginSoc" target="_blank" class="hidden">
+                          <input required="" name="usu" id="usu" value="{{ \Auth::user()->login_soc }}" type="text" class="FormatForm hidden" placeholder="Usuário">
+                          <input required="" name="senha" id="senha" value="{{ \Auth::user()->password_soc }}" type="password" class="FormatForm hidden" placeholder="Senha">
+                          <div class="row">
+                            <div class="column column-8">
+                              <input required="" name="empsoc" id="empsoc" value="{{ \Auth::user()->id_soc }}" type="text" class="FormatForm hidden" placeholder="ID">
+                            </div>
+                          </div>
+                        </form>
+                      </li>
+
+                      <li>
+                          <a href="http://webmail.provider-es.com.br/?zinitmode=http" target="_blank" ><i class="fa fa-envelope-o"></i> <span class="nav-label">Webmail</span></a>
+                      </li>
+
+                      
+                      <li>
+                        <a href="{{route('task_calendar')}}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendário</span></a>
+                      </li>
 
                 </ul>
 

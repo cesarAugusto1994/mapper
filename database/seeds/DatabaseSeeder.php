@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
 
         $this->call(FrequencyTableSeeder::class);
-
+        $this->call(DocumentStatusTableSeeder::class);
+        
         $this->call(MapperStatusTableSeeder::class);
     }
 }

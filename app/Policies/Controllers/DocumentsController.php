@@ -3,20 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Client;
+use App\Models\{Documents,Client};
+use Auth;
 
-class ClientController extends Controller
+class DocumentsController extends Controller
 {
-    /**
-    * Create a new controller instance.
-    *
-    * @return void
-    */
-   public function __construct()
-   {
-       $this->middleware('auth');
-   }
-
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +15,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::paginate(10);
-        return view('admin.clients.index', compact('clients'));
+        $documents = Documents::orderByDesc('id')->paginate(10);
+        return view('admin.documents.index', compact('documents'));
     }
 
     /**
@@ -35,7 +26,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-      return view('admin.clients.create');
+        $clients = Client::all();
+        return view('admin.documents.create',compact('clients'));
     }
 
     /**
@@ -46,15 +38,20 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-      $data = $request->request->all();
+        $data = $request->request->all();
 
-      Client::create($data);
+        $user = $request->user();
 
-      notify()->flash('Sucesso!', 'success', [
-        'text' => 'Novo Cliente adicionado com sucesso.'
-      ]);
+        $data['created_by'] = $user->id;
+        $data['status_id'] = 1;
 
-      return redirect()->route('clients.index');
+        $document = Documents::create($data);
+
+        notify()->flash('Sucesso!', 'success', [
+          'text' => 'Novo Documento adicionado com sucesso.'
+        ]);
+
+        return redirect()->route('documents.index');
     }
 
     /**
@@ -65,14 +62,7 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-      $client = Client::uuid($id);
-      return view('admin.clients.details', compact('client'));
-    }
-
-    public function addresses($id)
-    {
-        $client = Client::uuid($id);
-        return view('admin.addresses.show', compact('client'));
+        //
     }
 
     /**
@@ -83,8 +73,9 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        $client = Client::uuid($id);
-        return view('admin.clients.edit', compact('client'));
+        $document = Documents::uuid($id);
+        $clients = Client::all();
+        return view('admin.documents.edit',compact('clients', 'document'));
     }
 
     /**
@@ -98,14 +89,14 @@ class ClientController extends Controller
     {
         $data = $request->request->all();
 
-        $client = Client::uuid($id);
-        $client->update($data);
+        $document = Documents::uuid($id);
+        $document->update($data);
 
-        notify()->flash('Sucesso!', 'success', [
-          'text' => 'As Informações do cliente foram alteradas com sucesso.'
+        notify()->flash('Sucesso!', 'success',[
+          'text' => 'Documento editado com sucesso.'
         ]);
 
-        return redirect()->route('clients.index');
+        return redirect()->route('documents.index');
     }
 
     /**
@@ -118,20 +109,12 @@ class ClientController extends Controller
     {
         try {
 
-          $client = Client::uuid($id);
-
-          if($client->documents->isNotEmpty()) {
-            return response()->json([
-              'success' => false,
-              'message' => 'O cliente não pode ser removido: existem movimentações.'
-            ]);
-          }
-
-          $client->delete();
+          $document = Documents::uuid($id);
+          $document->delete();
 
           return response()->json([
             'success' => true,
-            'message' => 'cliente removido com sucesso.'
+            'message' => 'Documento removido com sucesso.'
           ]);
 
         } catch(\Exception $e) {

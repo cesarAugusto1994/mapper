@@ -23,7 +23,7 @@ class CreateClientsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('client_addresses', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('posta_area');
             $table->string('street');
@@ -35,7 +35,12 @@ class CreateClientsTable extends Migration
             $table->string('lat');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+
+            $table->integer('client_id')->unsigned();
+            $table->foreign('client_id')->references('id')->on('clients');
+
             $table->boolean('is_default')->default(false);
+            $table->uuid('uuid')->unique();
             $table->timestamps();
         });
 
@@ -48,7 +53,7 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_address');
+        Schema::dropIfExists('addresses');
         Schema::dropIfExists('clients');
     }
 }

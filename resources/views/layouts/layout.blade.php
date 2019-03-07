@@ -219,7 +219,6 @@
 		$('[data-toggle="tooltip"]').tooltip();
 	</script>
 
-
 	<!-- Latest compiled and minified JavaScript -->
 
 
@@ -368,6 +367,10 @@
 		    });
 
 		  });
+
+			$(".btnRedirectSoc").click(function() {
+					$("#formularioLoginSoc").submit();
+			});
 
 	</script>
 

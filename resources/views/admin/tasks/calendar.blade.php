@@ -55,6 +55,147 @@
   <script src="{{asset('admin/js/plugins/fullcalendar/fullcalendar.min.js')}}"></script>
 
   <script>
+
+    let $calendar = $('#calendar');
+
+    $calendar.fullCalendar({
+        views: {
+          listDay: {
+            buttonText: 'list day',
+            titleFormat: "dddd, DD MMMM YYYY",
+            columnFormat: "",
+            timeFormat: "HH:mm"
+          },
+
+          listWeek: {
+            buttonText: 'list week',
+            columnFormat: "ddd D",
+            timeFormat: "HH:mm"
+          },
+
+          listMonth: {
+            buttonText: 'list month',
+            titleFormat: "MMMM YYYY",
+            timeFormat: "HH:mm"
+          },
+
+          month: {
+            buttonText: 'month',
+            titleFormat: 'MMMM YYYY',
+            columnFormat: "ddd",
+            timeFormat: "HH:mm"
+          },
+
+          agendaWeek: {
+            buttonText: 'agendaWeek',
+            columnFormat: "ddd D",
+            timeFormat: "HH:mm"
+          },
+
+          agendaDay: {
+            buttonText: 'agendaDay',
+            titleFormat: 'dddd, DD MMMM YYYY',
+            columnFormat: "",
+            timeFormat: "HH:mm"
+          },
+        },
+        lang: 'pt-br',
+        defaultView: 'month',
+        eventBorderColor: "#de1f1f",
+        eventColor: "#AC1E23",
+        slotLabelFormat: 'HH:mm',
+        eventLimitText: 'consultas',
+        minTime: '06:00:00',
+        maxTime: '22:00:00',
+        header: {
+            left: 'prev,next,today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay,listMonth,listWeek'
+        },
+
+        navLinks: true,
+        selectable: true,
+        selectHelper: true,
+        select: function(start, end, jsEvent, view) {
+
+            var view = $('.calendar').fullCalendar('getView');
+
+            if (view.name == 'agendaDay' || view.name == 'agendaWeek') {
+
+                //limparModal();
+
+                $("#cadastra-consulta-modal").modal('show');
+                $("#consulta-inicio").val(start.format('DD/MM/YYYY HH:mm'));
+                $("#consulta-fim").val(end.format('DD/MM/YYYY HH:mm'));
+
+            }
+
+        },
+        eventClick: function(event, element, view) {
+            //popularModalAndShow(event);
+        },
+        editable: true,
+        allDaySlot: false,
+        eventLimit: true,
+        dayClick: function(date, jsEvent, view) {
+
+            jsEvent.preventDefault();
+
+            setTimeout(function() {
+
+                //limparModal();
+
+                $("#formConsultaModal").prop('action', $("#consultas-store").val());
+
+                /*if (view.name == 'month') {
+                    $('.calendar').fullCalendar('gotoDate', date);
+                    $('.calendar').fullCalendar('changeView', 'agendaDay');
+                }*/
+
+            }, 100);
+
+        },
+        events: $("#consultas-json").val(),
+        color: 'black', // an option!
+        textColor: 'yellow', // an option!
+        //When u drop an event in the calendar do the following:
+        eventDrop: function(event, delta, revertFunc) {
+            popularModal(event);
+        },
+        //When u resize an event in the calendar do the following:
+        eventResize: function(event, delta, revertFunc) {
+            popularModal(event);
+        },
+        eventRender: function(event, element) {
+            $(element).tooltip({
+                title: event.title
+            });
+        },
+        ignoreTimezone: false,
+        allDayText: 'Dia Inteiro',
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+
+        axisFormat: 'HH:mm',
+
+        buttonText: {
+            prev: "<",
+            next: ">",
+            prevYear: "Ano anterior",
+            nextYear: "Proximo ano",
+            today: "Hoje",
+            month: "Mês",
+            week: "Semana",
+            day: "Dia",
+            listMonth: "Lista Mensal",
+            listWeek: "Lista Semanal",
+            listDay: "Lista Diária"
+        }
+
+    });
+/*
       $(document).ready(function() {
         $('#calendar').fullCalendar({
             height: 340,
@@ -142,7 +283,9 @@
               }
 
     });
+
       });
+          */
   </script>
 
 @endpush

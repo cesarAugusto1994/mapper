@@ -60,7 +60,7 @@
 
                                     <td class="project-title">
                                         <p>Adicionado por:</p>
-                                        <p><a>{{ $document->creator->name }}</a></p>
+                                        <p><a>{{ $document->creator->person->name }}</a></p>
                                     </td>
 
                                     <td class="project-title">

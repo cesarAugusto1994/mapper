@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Models\Department;
 use App\Models\TaskLogs;
-use App\Models\Task;
-use Spatie\Permission\Models\Role;
+use App\Models\{Task,People};
+use jeremykenedy\LaravelRoles\Models\Role;
 use Illuminate\Http\Request;
 use Request as Req;
 use Illuminate\Validation\Validator;
@@ -148,7 +148,7 @@ class UsersController extends Controller
         $data = Req::all();
 
         $validator = \Illuminate\Support\Facades\Validator::make($data, [
-          'name' => 'required|max:255|unique:users',
+
           'email' => 'required|email|max:255|unique:users',
           'password' => 'required|min:6',
           'roles' => 'required',
@@ -158,14 +158,19 @@ class UsersController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $roleUser = Role::where("name", $data['roles'])->first();
+        $roleUser = Role::where("name", 'Administrador')->first();
+
+        $person = People::create([
+            'name' => $data['name'],
+            'department_id' => $data['department_id']
+        ]);
 
         $user = new User();
-
-        $user->name = $data['name'];
+        $user->nick = str_slug($data['name']);
         $user->email = $data['email'];
         $user->password = bcrypt($data['password']);
-        $user->department_id = $data['department_id'];
+        $user->person_id = $person->id;
+
         $user->save();
         $user->roles()->attach($roleUser);
 
@@ -182,7 +187,9 @@ class UsersController extends Controller
      */
     public function show(Request $request)
     {
-        $user = $request->user();
+        $data = $request->request->all();
+
+        $user = User::uuid($data['id']);
         $tasks = Task::where('user_id', $user->id)->limit(6)->orderBy('id', 'DESC')->get();
 
         return view('admin.users.details')
@@ -226,12 +233,14 @@ class UsersController extends Controller
         $data = $request->request->all();
 
         $user = User::findOrFail($id);
-
-        $user->name = $data['name'];
         $user->email = $data['email'];
-        $user->department_id = $data['department_id'];
-
         $user->save();
+
+        $person = $user->person;
+
+        $person->name = $data['name'];
+        $person->department_id = $data['department_id'];
+        $person->save();
 
         return redirect()->route('user', ['id' => $id]);
 
@@ -276,9 +285,7 @@ class UsersController extends Controller
 
         $user->roles()->attach($roleUser);
 
-        notify()->flash('Sucesso!', 'success', [
-          'text' => 'As configurações do usuário foram alteradas com sucesso.'
-        ]);
+        flash('As configurações do usuário foram alteradas com sucesso.')->success()->important();
 
         return redirect()->route('user', ['id' => $id]);
     }
@@ -286,9 +293,7 @@ class UsersController extends Controller
     public function updatePassword(Request $request, $id)
     {
         $data = $request->request->all();
-
         $user = User::uuid($id);
-
         $password = $data['password'];
 
         if (!empty($password)) {
@@ -297,11 +302,9 @@ class UsersController extends Controller
 
         $user->save();
 
-        notify()->flash('Sucesso!', 'success', [
-          'text' => 'A senha do usuário foi alterada com sucesso.'
-        ]);
+        flash('A senha do usuário foi alterada com sucesso.')->success()->important();
 
-        return redirect()->route('user', ['id' => $user->uuid]);
+        return redirect()->route('user', ['id' => $id]);
     }
 
     public function updatePasswordFirstAccess(Request $request, $id)
@@ -319,11 +322,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        //flash('A sua senha foi alterada com sucesso.')->success()->important();
-
-        notify()->flash('Sucesso!', 'success', [
-          'text' => 'A senha do usuário foi alterada com sucesso.'
-        ]);
+        flash('A sua senha foi alterada com sucesso.')->success()->important();
 
         return redirect()->back();
     }

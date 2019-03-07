@@ -34,7 +34,7 @@
             @foreach($users as $user)
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                     <div class="contact-box">
-                        <a href="{{route('user', ['id' => $user->id])}}">
+                        <a href="{{route('user', ['id' => $user->uuid])}}">
                             <div class="col-sm-5 hidden-xs">
                                 <div class="text-center">
                                     <img alt="" style="max-width:96px;max-height:96px" class="img-circle m-t-xs img-responsive" src="{{Gravatar::get($user->email)}}">
@@ -42,8 +42,8 @@
                                 </div>
                             </div>
                             <div class="col-sm-7">
-                                <h3><strong>{{substr($user->name, 0, 20)}}</strong>   @if(!$user->active)<span class="text-center pull-right label label-{{ $user->active ? 'primary' : 'danger' }}">{{ $user->active ? 'Ativo' : 'Inativo' }}</span>@endif</h3>
-                                @if($user->department)<p><i class="fa fa-map-marker"></i> {{$user->department->name}}</p>@endif
+                                <h3><strong>{{substr($user->person->name, 0, 20)}}</strong>   @if(!$user->active)<span class="text-center pull-right label label-{{ $user->active ? 'primary' : 'danger' }}">{{ $user->active ? 'Ativo' : 'Inativo' }}</span>@endif</h3>
+                                @if($user->department)<p><i class="fa fa-map-marker"></i> {{$user->person->department->name}}</p>@endif
                             </div>
                             <div class="clearfix"></div>
                         </a>

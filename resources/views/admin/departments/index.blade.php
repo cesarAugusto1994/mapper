@@ -34,12 +34,12 @@
           @include('flash::message')
 
             @foreach($departments as $department)
-                <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="col-lg-6 col-md-3 col-sm-6">
                     <div class="contact-box">
                         <a href="{{route('department', ['id' => $department->id])}}">
                             <div class="col-sm-12">
                                 <h3><strong>{{$department->name}}</strong></h3>
-                                <p><i class="fa fa-map-marker"></i> {{$department->user->name}}</p>
+                                <p><i class="fa fa-map-marker"></i> {{$department->user->person->name}}</p>
                             </div>
                             <div class="clearfix"></div>
                         </a>

@@ -75,13 +75,13 @@
 
                                                 <td class="project-actions">
                                                   @permission('edit.clientes')
-                                                    <a href="{{route('clients.edit', ['id' => $client->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
+                                                    <a href="{{route('clients.edit', ['id' => $client->uuid])}}" class="btn btn-white"><i class="fa fa-pencil"></i> Editar</a>
                                                   @endpermission
 
-                                                  <a href="{{route('client_addresses', $client->uuid)}}" class="btn btn-warning btn-block"><i class="fa fa-map-marker"></i> Endereços</a>
+                                                  <a href="{{route('clients.edit', ['id' => $client->uuid])}}" class="btn btn-warning"><i class="fa fa-map-marker"></i> Endereços</a>
 
                                                   @permission('delete.clientes')
-                                                    <a data-route="{{route('clients.destroy', ['id' => $client->uuid])}}" class="btn btn-danger btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
+                                                    <a data-route="{{route('clients.destroy', ['id' => $client->uuid])}}" class="btn btn-danger btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
                                                   @endpermission
                                                 </td>
 

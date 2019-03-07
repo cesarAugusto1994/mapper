@@ -34,6 +34,9 @@ class CreateUsersTable extends Migration
             $table->integer('weekly_workload')->nullable();
 
             $table->boolean('active')->default(true);
+
+            $table->uuid('uuid')->unique();
+            
             $table->timestamps();
         });
 
@@ -48,9 +51,18 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->text('avatar')->nullable();
+
             $table->boolean('do_task')->default(true);
+
+            $table->string('login_soc')->nullable();
+            $table->string('password_soc')->nullable();
+            $table->string('id_soc')->nullable();
+
             $table->boolean('change_password')->default(false);
             $table->boolean('active')->default(true);
+
+            $table->uuid('uuid')->unique();
+
             $table->rememberToken();
             $table->timestamps();
         });

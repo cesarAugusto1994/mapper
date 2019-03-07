@@ -13,9 +13,15 @@ class CreateDocumentsTable extends Migration
      */
     public function up()
     {
+        Schema::create('documents_statuses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
-            
+
             $table->string('description');
 
             $table->integer('client_id')->unsigned();
@@ -23,6 +29,9 @@ class CreateDocumentsTable extends Migration
 
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');
+
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('documents_statuses');
 
             $table->uuid('uuid')->unique();
             $table->timestamps();
@@ -37,5 +46,6 @@ class CreateDocumentsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('documents');
+        Schema::dropIfExists('documents_statuses');
     }
 }
