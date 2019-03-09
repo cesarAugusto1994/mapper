@@ -39,7 +39,7 @@
                         <div class="ibox-content profile-content">
                             <h4><strong>{{$user->name}}</strong></h4>
                                 @if($user->department)<p><i class="fa fa-map-marker"></i> {{$user->department->name ?? ''}} </p>@endif
-                                <button class="btn btn-white btn-block" data-toggle="modal" data-target="#editar">Editar</button>
+                                <button class="btn btn-info btn-block" data-toggle="modal" data-target="#editar">Editar</button>
                                 <button class="btn btn-white btn-block" data-toggle="modal" data-target="#editar-configuracoes">Cofigurações</button>
                                 <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#editar-senha">Alterar Senha</button>
                         </div>
@@ -74,8 +74,6 @@
                                       Você não possui nenhum registro até o momento.
                                   </div>
                               @endforelse
-
-                          <!--<button class="btn btn-primary btn-block m-t"><i class="fa fa-arrow-down"></i> Show More</button>-->
 
                       </div>
 
@@ -156,21 +154,29 @@
         <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="{{Gravatar::get($user->email)}}" />
-                    <br/>
-                    <h4 class="modal-title">{{$user->name}}</h4>
+                    <h4 class="modal-title">Editar Informações</h4>
                 </div>
                 <form action="{{route('user_update', ['id' => $user->id])}}" method="post">
                     {{csrf_field()}}
                     <div class="modal-body">
                         <div class="form-group"><label>Seu Nome</label> <input type="text" name="name" placeholder="Informe seu Nome" value="{{$user->person->name}}" class="form-control" required></div>
                         <div class="form-group"><label>E-mail</label> <input type="email" readonly name="email" placeholder="Informe seu E-mail" value="{{$user->email}}" class="form-control"></div>
-
+                        <div class="form-group"><label>CPF</label> <input type="text" name="cpf" placeholder="Informe seu CPF" value="{{$user->person->cpf}}" class="form-control inputCpf" required></div>
                         <div class="form-group"><label>Departamento</label>
-                            <select class="form-control" name="department_id" required>
+                            <select class="selectpicker show-tick select-occupations" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" data-search-occupations="{{ route('occupation_search') }}" name="department_id" required>
 
                                 @foreach($departments as $department)
-                                    <option value="{{$department->id}}" {{ $user->department_id == $department->id ? 'selected' : '' }}>{{$department->name}}</option>
+                                    <option value="{{$department->uuid}}" {{ $user->person->department_id == $department->id ? 'selected' : '' }}>{{$department->name}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+
+                        <div class="form-group"><label>Cargo</label>
+                            <select class="selectpicker show-tick" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%"  id="occupation" name="occupation_id" required>
+
+                                @foreach($occupations as $occupation)
+                                    <option value="{{$occupation->uuid}}" {{ $user->person->occupation_id == $occupation->id ? 'selected' : '' }}>{{$occupation->name}}</option>
                                 @endforeach
 
                             </select>
@@ -230,7 +236,7 @@
                           </div>
 
                           <div class="form-group col-sm-4"><label>Senha SOC</label>
-                            <input type="text" name="password_soc" value="{{ $user->password_soc ? $user->password_soc : '' }}" placeholder="" autocomplete="off" class="form-control">
+                            <input type="password" name="password_soc" value="{{ $user->password_soc ? $user->password_soc : '' }}" placeholder="" autocomplete="off" class="form-control">
                           </div>
 
                           <div class="form-group col-sm-4"><label>ID SOC</label>
@@ -239,9 +245,10 @@
 
                           <div class="form-group col-sm-12 {!! $errors->has('roles') ? 'has-error' : '' !!}"><label>Acesso</label>
 
-                                <select id="roles" name="roles" required="required" class="form-control">
-                                    <option value="user">Usuário</option>
-                                    <option value="admin">Administrador</option>
+                                <select id="role" name="roles" required="required" class="form-control">
+                                    <option value="Usuario">Usuario</option>
+                                    <option value="Gerente">Gerente</option>
+                                    <option value="Administrador">Administrador</option>
                                 </select>
                                 {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
 
@@ -309,3 +316,46 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    <script>
+
+      $(document).ready(function() {
+
+        let selectOccupations = $(".select-occupations");
+        let occupation = $("#occupation");
+
+        selectOccupations.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+
+          let self = $(this);
+          let route = self.data('search-occupations');
+          let value = self.val();
+
+          $.ajax({
+            type: 'GET',
+            url: route + '?param=' + value,
+            async: true,
+            success: function(response) {
+
+              let html = "";
+              occupation.html("");
+              occupation.selectpicker('refresh');
+
+              $.each(response.data, function(idx, item) {
+
+                  html += "<option value="+ item.uuid +">"+ item.name +"</option>";
+
+              });
+
+              occupation.append(html);
+              occupation.selectpicker('refresh');
+
+            }
+          })
+
+        });
+
+      });
+
+    </script>
+@endpush

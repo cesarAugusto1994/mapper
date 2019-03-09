@@ -78,7 +78,7 @@
                                                     <a href="{{route('clients.edit', ['id' => $client->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
                                                   @endpermission
 
-                                                  <a href="{{route('client_addresses', $client->uuid)}}" class="btn btn-warning btn-block"><i class="fa fa-map-marker"></i> Endereços</a>
+                                                  <a href="{{route('client_addresses', $client->uuid)}}" class="btn btn-info btn-block"><i class="fa fa-map-marker"></i> Endereços</a>
 
                                                   @permission('delete.clientes')
                                                     <a data-route="{{route('clients.destroy', ['id' => $client->uuid])}}" class="btn btn-danger btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
@@ -104,30 +104,6 @@
             </div>
         </div>
 
-        <div class="modal inmodal" id="copiar-processo-modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">Copiar Processo</h4>
-                    </div>
-                    <form action="{{route('process_copy')}}" method="post">
-                        {{csrf_field()}}
-                        <div class="modal-body">
-                            <input type="hidden" name="process_id" id="processId"/>
-                            <div class="form-group"><label>Novo Processo</label>
-                              <input type="text" required autofocus name="name" placeholder="Informe um nome à este processo" class="form-control">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary">Salvar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <div class="modal inmodal" id="adicionar-cliente-modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">
@@ -144,11 +120,11 @@
                         </div>
 
                         <div class="form-group"><label class="control-label">Telefone</label>
-                            <input type="text" name="phone" autofocus required class="form-control">
+                            <input type="text" name="phone" required class="form-control inputPhone">
                         </div>
 
                         <div class="form-group"><label class="control-label">Email</label>
-                            <input type="email" name="email" autofocus required class="form-control">
+                            <input type="email" name="email" required class="form-control">
                         </div>
 
                         </div>

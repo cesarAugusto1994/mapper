@@ -110,6 +110,30 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::resource('roles', 'RolesController');
   Route::resource('permissions', 'PermissionsController');
 
-  Route::get('clients/{id}/addresses', 'ClientController@addresses')->name('client_addresses');
+  Route::resource('occupations', 'OccupationController');
+
+  Route::get('clients/addresses/search', 'ClientController@addresses')->name('client_addresses_search');
+
+  Route::get('clients/{id}/addresses', 'AddressesController@show')->name('client_addresses');
+  Route::post('clients/{id}/addresses', 'AddressesController@store')->name('client_addresses_store');
+  Route::delete('clients/{id}/addresses/destroy', 'AddressesController@destroy')->name('client_address_destroy');
+
+  Route::get('clients/{id}/addresses/{address}/edit', 'AddressesController@edit')->name('client_addresses_edit');
+  Route::put('clients/{id}/addresses/{address}/update', 'AddressesController@update')->name('client_addresses_update');
+
+  Route::get('delivery-order/conference/documents', 'DeliveryOrderController@conference')->name('delivery_order_conference');
+
+  Route::get('/department/occupations/search', 'OccupationController@search')->name('occupation_search');
+
+  Route::get('cep', 'UtilController@cep')->name('cep');
+
+  Route::get('users/search', 'UsersController@search')->name('user_search');
+
+  Route::get('user/{id}/permissions', 'UsersController@permissions')->name('user_permissions');
+
+  Route::post('user/{id}/permissions/{permission}/revoke', 'UsersController@revoke')->name('user_permissions_revoke');
+  Route::post('user/{id}/permissions/{permission}/grant', 'UsersController@grant')->name('user_permissions_grant');
 
 });
+
+  Route::get('delivery-order/{id}/start-delivery', 'DeliveryOrderController@start')->name('start_delivery');

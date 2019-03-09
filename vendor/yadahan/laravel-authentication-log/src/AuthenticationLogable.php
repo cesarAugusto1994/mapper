@@ -19,7 +19,7 @@ trait AuthenticationLogable
      */
     public function notifyAuthenticationLogVia()
     {
-        return ['mail'];
+        return [''];
     }
 
     /**

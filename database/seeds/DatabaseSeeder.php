@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TaskStatusTableSeeder::class);
         $this->call(ModulesTableSeeder::class);
         $this->call(DepartmentTableSeeder::class);
+        $this->call(OccupationTableSeeder::class);
         // Role comes before User seeder here.
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
@@ -22,7 +23,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(FrequencyTableSeeder::class);
         $this->call(DocumentStatusTableSeeder::class);
-        
+
+        $this->call(DeliveryOrderStatusesTableSeeder::class);
+
         $this->call(MapperStatusTableSeeder::class);
     }
 }

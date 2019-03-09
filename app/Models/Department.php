@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use App\User;
-
 use Illuminate\Database\Eloquent\Model;
+use Emadadly\LaravelUuid\Uuids;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Department extends Model
 {
+    use Uuids;
+    use LogsActivity;
+
     protected $fillable = ['name', 'user_id'];
 
     public function user()
@@ -19,4 +23,10 @@ class Department extends Model
     {
         return $this->hasMany(Process::class);
     }
+
+    public function occupations()
+    {
+        return $this->hasMany('App\Models\Department\Occupation');
+    }
+
 }

@@ -135,64 +135,7 @@
 					</div>
 			</div>
 
-			<div class="modal inmodal" id="add-user-modal" tabindex="-1" role="dialog" aria-hidden="true">
-					<div class="modal-dialog">
-					<div class="modal-content animated bounceInRight">
-									<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 
-											<h4 class="modal-title">Adicionar Usuário</h4>
-									</div>
-									<form method="post" class="form-horizontal" action="{{route('user_store')}}">
-											<div class="modal-body">
-												{{csrf_field()}}
-														<div class="form-group {!! $errors->has('name') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Nome</label>
-																<div class="col-sm-10">
-																	<input type="text" value="{{ old('name') }}" required name="name" autofocus class="form-control">
-																	{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
-																</div>
-														</div>
-														<div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">E-mail</label>
-																<div class="col-sm-10">
-																	<input type="text" value="{{ old('email') }}" required name="email" class="form-control">
-																	{!! $errors->first('email', '<p class="help-block">:message</p>') !!}
-																</div>
-														</div>
-														<div class="form-group {!! $errors->has('password') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Senha</label>
-																<div class="col-sm-10">
-																	<input type="text" value="{{ old('password') }}" required name="password" class="form-control">
-																	{!! $errors->first('password', '<p class="help-block">:message</p>') !!}
-																</div>
-														</div>
-														<div class="form-group {!! $errors->has('roles') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Acesso</label>
-																<div class="col-sm-10">
-																	<select id="roles" name="roles" required="required" class="form-control col-md-7 col-xs-12">
-																			<option value="user">Usuário</option>
-																			<option value="admin">Administrador</option>
-																	</select>
-																	{!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
-																</div>
-														</div>
-														<div class="form-group"><label class="col-sm-2 control-label">Departamento</label>
-															<div class="col-sm-10">
-															<select class="form-control" name="department_id">
-																<option value=""></option>
-																@foreach(\App\Models\Department::all() as $department)
-																		<option value="{{$department->id}}">{{$department->name}}</option>
-																@endforeach
-
-															</select>
-															</div>
-														</div>
-											</div>
-											<div class="modal-footer">
-													<button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
-													<button type="submit" class="btn btn-primary">Salvar</button>
-											</div>
-									</form>
-							</div>
-					</div>
-			</div>
 
 			</div>
 
@@ -219,6 +162,8 @@
 		$('[data-toggle="tooltip"]').tooltip();
 	</script>
 
+	<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCdFj8jkxW4lzvZjL7R86Smrgy9lmO5wAE&libraries=places&dummy=.js"></script>
+
 	<!-- Latest compiled and minified JavaScript -->
 
 
@@ -236,8 +181,9 @@
 	<script src="{{asset('admin/js/plugins/chartJs/Chart.min.js')}}"></script>
 -->
 
-	<script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
+	<script>
 
 		$(document).ready(function() {
 
@@ -248,6 +194,10 @@
 		 }).parent().addClass('active').attr('href', '#');
 
 		});
+
+	  $('.inputCep').mask('00000-000');
+		$('.inputPhone').mask('(00)00000-0000');
+	  $('.inputCpf').mask('000.000.000-00', {reverse: true});
 
 	</script>
 
@@ -334,8 +284,6 @@
 
 							}
 
-
-
 						});
 					}
 				});
@@ -369,7 +317,24 @@
 		  });
 
 			$(".btnRedirectSoc").click(function() {
-					$("#formularioLoginSoc").submit();
+
+					var loginSoc = $("#usu").val();
+					var passwordSoc = $("#senha").val();
+					var idSoc = $("#empsoc").val();
+
+					if(usu && loginSoc && loginSoc) {
+							$("#formularioLoginSoc").submit();
+					} else {
+
+						Swal.fire({
+							type: 'error',
+							title: 'Falha ao logar no SOC',
+							text: 'Informe as suas credenciais SOC no seu perfil',
+						})
+
+					}
+
+
 			});
 
 	</script>

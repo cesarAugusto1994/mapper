@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Models\Department;
 use App\Models\TaskLogs;
 use App\Models\Task;
-use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Request as Req;
 use Illuminate\Validation\Validator;
 use Auth;
+use App\Models\People;
+
+use App\Models\{Department,Module};
+use App\Models\Department\Occupation;
+use jeremykenedy\LaravelRoles\Models\Role;
+use jeremykenedy\LaravelRoles\Models\Permission;
 
 class UsersController extends Controller
 {
@@ -31,6 +35,10 @@ class UsersController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('view.usuarios')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
         $users = User::all();
 
         if(Auth::user()->isAdmin()) {
@@ -39,7 +47,81 @@ class UsersController extends Controller
             $users =  User::where('id', Auth::user()->id)->get();
         }
 
-        return view('admin.users.index')->with('users', $users);
+        $roles = Role::all();
+
+        $departments = Department::all();
+        $occupations = Occupation::where('department_id', $departments->first()->id)->get();
+
+        return view('admin.users.index', compact('roles', 'users', 'departments', 'occupations'));
+    }
+
+    public function permissions($id)
+    {
+        $permissions = Permission::all();
+
+        $permissionsGroupedByModule = [];
+
+        foreach ($permissions as $key => $permission) {
+            $module = Module::findOrFail($permission->module_id);
+            $permissionsGroupedByModule[$module->name][] = $permission;
+        }
+
+        $user = User::uuid($id);
+
+        return view('admin.users.permissions', compact('permissionsGroupedByModule', 'user'));
+    }
+
+    public function grant($id, $permission)
+    {
+        $user = User::uuid($id);
+        $user->attachPermission($permission);
+        $user->save();
+
+        return response()->json([
+          'success' => true,
+          'message' => 'Permissão concedida com sucesso.'
+        ]);
+    }
+
+    public function revoke($id, $permission)
+    {
+        $user = User::uuid($id);
+        $user->detachPermission($permission);
+        $user->save();
+
+        return response()->json([
+          'success' => true,
+          'message' => 'Permissão revogada com sucesso.'
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $id = $request->get('param');
+
+        try {
+
+          $person = People::uuid($id);
+
+          return response()->json([
+            'success' => true,
+            'message' => 'Registros retornados',
+            'data' => $person
+          ]);
+
+        } catch(\Exception $e) {
+
+          activity()
+         ->causedBy($request->user())
+         ->log('Erro ao buscar informações do usuário: '. $e->getMessage());
+
+          return response()->json([
+            'success' => false,
+            'message' => 'Ocorreu um erro inesperado',
+            'data' => []
+          ]);
+        }
+
     }
 
     public static function getTaskPercentage($id)
@@ -144,11 +226,10 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-
         $data = Req::all();
 
         $validator = \Illuminate\Support\Facades\Validator::make($data, [
-          'name' => 'required|max:255|unique:users',
+          /*'name' => 'required|max:255|unique:users',*/
           'email' => 'required|email|max:255|unique:users',
           'password' => 'required|min:6',
           'roles' => 'required',
@@ -160,12 +241,24 @@ class UsersController extends Controller
 
         $roleUser = Role::where("name", $data['roles'])->first();
 
-        $user = new User();
+        $department = Department::uuid($data['department_id']);
+        $occupation = Occupation::uuid($data['occupation_id']);
 
-        $user->name = $data['name'];
+        $person = People::create([
+          'name' => $data['name'],
+          'department_id' => $department->id,
+          'occupation_id' => $occupation->id,
+          'cpf' => $data['cpf']
+        ]);
+
+        $avatar = \Avatar::create($data['name'])->toBase64();
+
+        $user = new User();
         $user->email = $data['email'];
+        $user->nick = str_slug($data['name']);
         $user->password = bcrypt($data['password']);
-        $user->department_id = $data['department_id'];
+        $user->person_id = $person->id;
+        $user->avatar = $avatar;
         $user->save();
         $user->roles()->attach($roleUser);
 
@@ -182,10 +275,19 @@ class UsersController extends Controller
      */
     public function show(Request $request)
     {
-        $user = $request->user();
+        if($request->has('id')) {
+          $user = User::uuid($request->get('id'));
+        } else {
+          $user = $request->user();
+        }
+
         $tasks = Task::where('user_id', $user->id)->limit(6)->orderBy('id', 'DESC')->get();
 
-        return view('admin.users.details')
+        $departments = Department::all();
+        $departamentoAtual = $user->person->department;
+        $occupations = Occupation::where('department_id', $departamentoAtual->id)->get();
+
+        return view('admin.users.details', compact('occupations', 'departments'))
         ->with('user', $user)
         ->with('tasks', $tasks)
         ->with('logs', TaskLogs::where('user_id', $user->id)->limit(6)->orderBy('id', 'DESC')->get())
@@ -227,13 +329,22 @@ class UsersController extends Controller
 
         $user = User::findOrFail($id);
 
-        $user->name = $data['name'];
-        $user->email = $data['email'];
-        $user->department_id = $data['department_id'];
+        $person = $user->person;
+        $person->name = $data['name'];
+        $person->cpf = $data['cpf'];
 
+        $department = Department::uuid($data['department_id']);
+        $person->department_id = $department->id;
+
+        $occupation = Occupation::uuid($data['occupation_id']);
+        $person->occupation_id = $occupation->id;
+
+        $person->save();
+
+        $user->email = $data['email'];
         $user->save();
 
-        return redirect()->route('user', ['id' => $id]);
+        return redirect()->route('user', ['id' => $user->uuid]);
 
         flash('As informações do usuário foram alteradas com sucesso.')->success()->important();
     }
@@ -273,7 +384,6 @@ class UsersController extends Controller
         }
 
         $user->save();
-
         $user->roles()->attach($roleUser);
 
         notify()->flash('Sucesso!', 'success', [

@@ -12,4 +12,21 @@ class DeliveryOrder extends Model
     use LogsActivity;
 
     protected $table = 'delivery_order';
+
+    protected $fillable = ['status_id', 'client_id', 'delivered_by', 'delivered_at', 'receipt'];
+
+    public function client()
+    {
+        return $this->belongsTo('App\Models\Client');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo('App\Models\DeliveryOrder\Status');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'delivered_by');
+    }
 }

@@ -63,7 +63,7 @@
 
                     @endpermission
 
-                    @permission('view.documentos')
+                    @permission('view.gestao.de.processos')
 
                     <li class="">
                         <a href="#" data-step="3" data-intro="Aqui você vai encontrar o seu painel de Gestão de Processos">
@@ -105,6 +105,13 @@
                                   <a href="{{route('departments')}}" ><i class="fa fa-balance-scale"></i> <span class="nav-label">Departamentos</span></a>
                               </li>
                               @endpermission
+
+                              @permission('view.cargos')
+                              <li>
+                                  <a href="{{route('occupations.index')}}" ><i class="fa fa-balance-scale"></i> <span class="nav-label">Cargos</span></a>
+                              </li>
+                              @endpermission
+
                               @permission('view.usuarios')
                               <li>
                                   <a href="{{route('users')}}" ><i class="fa fa-users"></i> <span class="nav-label">Usuarios</span></a>
@@ -144,7 +151,7 @@
                           <a href="http://webmail.provider-es.com.br/?zinitmode=http" target="_blank" ><i class="fa fa-envelope-o"></i> <span class="nav-label">Webmail</span></a>
                       </li>
 
-                      
+
                       <li>
                         <a href="{{route('task_calendar')}}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendário</span></a>
                       </li>

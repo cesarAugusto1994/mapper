@@ -7,7 +7,7 @@
     <h3 class="font-bold">{{ $message }}</h3>
 
     <div class="error-desc">
-        Você pode voltar à página principal: <br><a href="{{ route('home') }}" class="btn btn-primary m-t">Painel</a>
+        Você pode voltar à página principal: <br><a href="{{ route('home') }}" class="btn btn-primary btn-block m-t p-xs">Voltar</a>
     </div>
 </div>
 

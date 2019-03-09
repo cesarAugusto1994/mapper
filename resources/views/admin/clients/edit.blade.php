@@ -55,7 +55,7 @@
                             <div class="form-group {!! $errors->has('phone') ? 'has-error' : '' !!}">
                                 <label class="col-sm-2 control-label">Telefone</label>
                                 <div class="col-sm-10">
-                                  <input type="text" required name="phone" value="{{ $client->phone }}" class="form-control"/>
+                                  <input type="text" required name="phone" value="{{ $client->phone }}" class="form-control inputPhone"/>
                                     {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>

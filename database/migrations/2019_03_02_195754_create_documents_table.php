@@ -27,6 +27,9 @@ class CreateDocumentsTable extends Migration
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients');
 
+            $table->integer('address_id')->unsigned();
+            $table->foreign('address_id')->references('id')->on('addresses');
+
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');
 

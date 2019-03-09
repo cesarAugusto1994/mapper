@@ -17,16 +17,29 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('user_id')->nullable();
+            $table->uuid('uuid')->unique();
+            $table->timestamps();
+        });
+
+        Schema::create('occupation', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->integer('department_id')->unsigned();
+            $table->foreign('department_id')->references('id')->on('departments');
+            $table->boolean('active')->default(true);
+            $table->uuid('uuid')->unique();
             $table->timestamps();
         });
 
         Schema::create('people', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-
+            $table->string('phone', 15)->nullable();
+            $table->string('cpf', 15);
             $table->integer('department_id')->unsigned();
             $table->foreign('department_id')->references('id')->on('departments');
-
+            $table->integer('occupation_id')->unsigned();
+            $table->foreign('occupation_id')->references('id')->on('occupation');
             $table->time('start_day')->nullable();
             $table->time('lunch')->nullable();
             $table->time('lunch_return')->nullable();
@@ -34,9 +47,8 @@ class CreateUsersTable extends Migration
             $table->integer('weekly_workload')->nullable();
 
             $table->boolean('active')->default(true);
-
             $table->uuid('uuid')->unique();
-            
+
             $table->timestamps();
         });
 

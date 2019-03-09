@@ -1,5 +1,116 @@
 [
     {
+        "name": "alexpechkarev/geometry-library",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/alexpechkarev/geometry-library.git",
+            "reference": "ebbf02c3e907e0bd19c9474fd5eb77b9ca1ce414"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/alexpechkarev/geometry-library/zipball/ebbf02c3e907e0bd19c9474fd5eb77b9ca1ce414",
+            "reference": "ebbf02c3e907e0bd19c9474fd5eb77b9ca1ce414",
+            "shasum": ""
+        },
+        "time": "2015-09-11T15:40:41+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GeometryLibrary\\": "/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Alexander Pechkarev",
+                "email": "alexpechkarev@gmail.com"
+            }
+        ],
+        "description": "PHP Geometry library provides utility functions for the computation of geometric data on the surface of the Earth.",
+        "homepage": "https://alexpechkarev.github.io/geometry-library/",
+        "keywords": [
+            "computations polygons and polylines",
+            "encoding and decoding polyline paths utilities",
+            "google maps geometry library",
+            "php geometry library",
+            "spherical geometry utilities"
+        ]
+    },
+    {
+        "name": "alexpechkarev/google-maps",
+        "version": "1.0.9",
+        "version_normalized": "1.0.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/alexpechkarev/google-maps.git",
+            "reference": "fa6b843e2c89263f233c1ebaaa6603cbb7aed966"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/alexpechkarev/google-maps/zipball/fa6b843e2c89263f233c1ebaaa6603cbb7aed966",
+            "reference": "fa6b843e2c89263f233c1ebaaa6603cbb7aed966",
+            "shasum": ""
+        },
+        "require": {
+            "alexpechkarev/geometry-library": "1.0.0",
+            "illuminate/support": "5.*",
+            "jbroadway/urlify": "^1.1"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.7.*"
+        },
+        "time": "2018-01-09T18:23:57+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GoogleMaps\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Alexander Pechkarev",
+                "email": "alexpechkarev@gmail.com"
+            }
+        ],
+        "description": "Collection of Google Maps API Web Services for Laravel",
+        "homepage": "https://alexpechkarev.github.io/google-maps/",
+        "keywords": [
+            "Google Maps API",
+            "directions api",
+            "distance matrix api",
+            "elevation api",
+            "geocoding api",
+            "geolocation api",
+            "google maps api for laravel",
+            "google maps web service for laravel",
+            "laravel google maps api",
+            "places api web service",
+            "roads api",
+            "time zone api"
+        ]
+    },
+    {
         "name": "anahkiasen/underscore-php",
         "version": "2.0.0",
         "version_normalized": "2.0.0.0",
@@ -98,6 +209,58 @@
         ],
         "description": "BaconQrCode is a QR code generator for PHP.",
         "homepage": "https://github.com/Bacon/BaconQrCode"
+    },
+    {
+        "name": "canducci/cep",
+        "version": "v2.0.2",
+        "version_normalized": "2.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/netdragoon/canduccicep.git",
+            "reference": "7de154e13a0e39d1962dc1430b6993e4deb6b720"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/netdragoon/canduccicep/zipball/7de154e13a0e39d1962dc1430b6993e4deb6b720",
+            "reference": "7de154e13a0e39d1962dc1430b6993e4deb6b720",
+            "shasum": ""
+        },
+        "require": {
+            "ext-fileinfo": "*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpspec/phpspec": "~2.1",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2017-11-13T13:58:52+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Canducci\\Cep\\": "src/Canducci/Cep/"
+            },
+            "files": [
+                "src/Canducci/Cep/CepHelper.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "NETDragoon",
+                "email": "netdragoon@outlook.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "CEP do Brasil",
+        "homepage": "https://github.com/netdragoon/canduccicep",
+        "keywords": [
+            "cep",
+            "laravel"
+        ]
     },
     {
         "name": "codecourse/notify",
@@ -1098,6 +1261,65 @@
                 "email": "acci@acci.cz",
                 "homepage": "http://www.acci.cz/"
             }
+        ]
+    },
+    {
+        "name": "jbroadway/urlify",
+        "version": "1.1.2-stable",
+        "version_normalized": "1.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/jbroadway/urlify.git",
+            "reference": "78118277ba31189fef18323bb78e9c1b89254dcc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/jbroadway/urlify/zipball/78118277ba31189fef18323bb78e9c1b89254dcc",
+            "reference": "78118277ba31189fef18323bb78e9c1b89254dcc",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5"
+        },
+        "time": "2018-12-08T15:51:20+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "URLify": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause-Clear"
+        ],
+        "authors": [
+            {
+                "name": "Johnny Broadway",
+                "email": "johnny@johnnybroadway.com",
+                "homepage": "http://www.johnnybroadway.com/"
+            }
+        ],
+        "description": "PHP port of URLify.js from the Django project. Transliterates non-ascii characters for use in URLs.",
+        "homepage": "https://github.com/jbroadway/urlify",
+        "keywords": [
+            "encode",
+            "iconv",
+            "link",
+            "slug",
+            "translit",
+            "transliterate",
+            "transliteration",
+            "url",
+            "urlify"
         ]
     },
     {

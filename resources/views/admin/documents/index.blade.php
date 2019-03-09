@@ -40,45 +40,65 @@
                         <div class="project-list">
                             @if($documents->isNotEmpty())
                             <table class="table table-hover table-responsive">
+
+                                <thead>
+                                    <tr>
+                                      <th>ID</th>
+                                      <th>Descrição</th>
+                                      <th>Cliente</th>
+                                      <th>Status</th>
+                                      <th>Adicionado por</th>
+                                      <th>Adicionado em</th>
+                                      <th>Tempo passado</th>
+                                      <th>Opções</th>
+                                    </tr>
+                                </thead>
+
                                 <tbody>
                                 @foreach($documents as $document)
                                 <tr>
                                     <td class="project-title">
-                                        <p>ID:</p>
                                         <a>{{$document->id}}</a>
                                     </td>
 
                                     <td class="project-title">
-                                        <p>Descrição:</p>
-                                        <p><a href="{{route('documents.show', ['id' => $document->id])}}">{{ $document->description }}</a></p>
+                                        <a>{{ $document->description }}</a>
                                     </td>
 
                                     <td class="project-title">
-                                        <p>Cliente:</p>
-                                        <p><a href="{{route('documents.show', ['id' => $document->id])}}">{{ $document->client->name }}</a></p>
+                                        <p><a href="{{route('clients.edit', ['id' => $document->client->uuid])}}">{{ $document->client->name }}</a></p>
                                     </td>
 
                                     <td class="project-title">
-                                        <p>Adicionado por:</p>
+                                        <a>{{ $document->status->name }}</a>
+                                    </td>
+
+                                    <td class="project-title">
                                         <p><a>{{ $document->creator->person->name }}</a></p>
                                     </td>
 
                                     <td class="project-title">
-                                        <p>Adicionado em:</p>
                                         <p><a>{{ $document->created_at->format('d/m/Y H:i') }}</a></p>
                                     </td>
 
                                     <td class="project-title">
-                                        <p>Tempo passado:</p>
                                         <p><a>{{ $document->created_at->diffForHumans() }}</a></p>
                                     </td>
 
                                     <td class="project-actions">
                                       @permission('edit.documentos')
-                                        <a href="{{route('documents.edit', ['id' => $document->uuid])}}" class="btn btn-white"><i class="fa fa-pencil"></i> Editar</a>
+                                        <a href="{{route('delivery_order_conference', ['document[]' => $document->uuid])}}" class="btn btn-info btn-block"><i class="fa fa-truck"></i> Ordem Entrega</a>
+                                      @endpermission
+
+                                      @permission('edit.documentos')
+                                        <a href="{{route('documents.edit', ['id' => $document->uuid])}}" class="btn btn-warning btn-block"><i class="fa fa-map-marker"></i> Rastreio Documento</a>
+                                      @endpermission
+
+                                      @permission('edit.documentos')
+                                        <a href="{{route('documents.edit', ['id' => $document->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
                                       @endpermission
                                       @permission('delete.documentos')
-                                        <a data-route="{{route('documents.destroy', ['id' => $document->uuid])}}" class="btn btn-danger btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
+                                        <a data-route="{{route('documents.destroy', ['id' => $document->uuid])}}" class="btn btn-danger btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
                                       @endpermission
                                     </td>
 

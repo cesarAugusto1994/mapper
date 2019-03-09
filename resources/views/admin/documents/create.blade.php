@@ -42,16 +42,27 @@
                                     {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
-                            <div class="form-group {!! $errors->has('user') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Cliente</label>
+                            <div class="form-group {!! $errors->has('client_id') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Cliente</label>
                                 <div class="col-sm-10">
-                                  <select class="selectpicker show-tick" data-style="btn-white" data-width="100%" name="client_id" required>
+                                  <select class="selectpicker show-tick select-client-addresses" data-search-addresses="{{ route('client_addresses_search') }}" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" name="client_id" required>
+
                                         @foreach($clients as $client)
-                                            <option value="{{$client->id}}">{{$client->name}}</option>
+                                            <option value="{{$client->uuid}}">{{$client->name}}</option>
                                         @endforeach
                                     </select>
                                       {!! $errors->first('client_id', '<p class="help-block">:message</p>') !!}
                                   </div>
                             </div>
+
+                            <div class="form-group {!! $errors->has('address_id') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Endereço</label>
+                                <div class="col-sm-10">
+                                  <select class="selectpicker show-tick" id="select-address" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" name="address_id" required>
+
+                                  </select>
+                                      {!! $errors->first('address_id', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+
                             <button class="btn btn-primary">Salvar</button>
                             <a class="btn btn-white" href="{{ route('documents.index') }}">Cancelar</a>
                         </form>
@@ -62,3 +73,46 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    <script>
+
+      $(document).ready(function() {
+
+        let selectClientAddress = $(".select-client-addresses");
+        let selectAddress = $("#select-address");
+
+        selectClientAddress.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+
+          let self = $(this);
+          let route = self.data('search-addresses');
+          let value = self.val();
+
+          $.ajax({
+            type: 'GET',
+            url: route + '?param=' + value,
+            async: true,
+            success: function(response) {
+
+              let html = "";
+              selectAddress.html("");
+              selectAddress.selectpicker('refresh');
+
+              $.each(response.data, function(idx, item) {
+
+                  html += "<option value="+ item.uuid +">"+ item.description +"</option>";
+
+              });
+
+              selectAddress.append(html);
+              selectAddress.selectpicker('refresh');
+
+            }
+          })
+
+        });
+
+      });
+
+    </script>
+@endpush

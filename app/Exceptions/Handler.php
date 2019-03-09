@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException as ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -54,6 +55,16 @@ class Handler extends ExceptionHandler
 
             $error['code'] = 500;
             $error['message'] = 'Erro interno no servidor.';
+
+            return response()->view('errors.custom', $error, $error['code']);
+        }
+
+        if($exception instanceof HttpException && $exception->getStatusCode() == 403) {
+
+            $error = [
+              'code' => 403,
+              'message' => 'Você NÃO tem permissão para acessar esta área do sitema!.'
+            ];
 
             return response()->view('errors.custom', $error, $error['code']);
         }

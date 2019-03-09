@@ -20,17 +20,36 @@ class ModulesTableSeeder extends Seeder
             'route' => '/',
           ],
           [
+            'name' => 'Gestão de Entregas',
+            'slug' => str_slug('Gestão de Entregas'),
+            'description' => 'Gestão de Entregas',
+            'route' => '',
+          ],
+          [
+            'name' => 'Gestão de Processos',
+            'slug' => str_slug('Gestão de Processos'),
+            'description' => 'Gestão de Processos',
+            'route' => '',
+          ],
+          [
+            'name' => 'Administrativo',
+            'slug' => str_slug('Administrativo'),
+            'description' => 'Administrativo',
+            'route' => '',
+          ],
+          [
             'name' => 'Clientes',
             'slug' => str_slug('Clientes'),
             'description' => 'Clientes',
             'route' => '/clients',
           ],
           [
-            'name' => 'Gestão de Entregas',
-            'slug' => str_slug('Gestão de Entregas'),
-            'description' => 'Gestão de Entregas',
-            'route' => '',
+            'name' => 'Cliente Endereços',
+            'slug' => str_slug('Enderecos'),
+            'description' => 'Cliente Enderecos',
+            'route' => '/address',
           ],
+
           [
             'name' => 'Documentos',
             'slug' => str_slug('Documentos'),
@@ -43,12 +62,7 @@ class ModulesTableSeeder extends Seeder
             'description' => 'Ordem Entrega',
             'route' => '/delivery-order',
           ],
-          [
-            'name' => 'Gestão de Processos',
-            'slug' => str_slug('Gestão de Processos'),
-            'description' => 'Gestão de Processos',
-            'route' => '',
-          ],
+
           [
             'name' => 'Board',
             'slug' => str_slug('Board'),
@@ -73,17 +87,18 @@ class ModulesTableSeeder extends Seeder
             'description' => 'Tarefas',
             'route' => '/tasks',
           ],
-          [
-            'name' => 'Administrativo',
-            'slug' => str_slug('Administrativo'),
-            'description' => 'Administrativo',
-            'route' => '',
-          ],
+
           [
             'name' => 'Departamentos',
             'slug' => str_slug('Departamentos'),
             'description' => 'Departamentos',
             'route' => '/departments',
+          ],
+          [
+            'name' => 'Cargos',
+            'slug' => str_slug('Cargos'),
+            'description' => 'Cargos',
+            'route' => '/occupations',
           ],
           [
             'name' => 'Usuarios',

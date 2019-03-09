@@ -20,6 +20,7 @@ return array(
     '538ca81a9a966a6716601ecf48f4eaef' => $vendorDir . '/opis/closure/functions.php',
     'e7223560d890eab89cda23685e711e2c' => $vendorDir . '/psy/psysh/src/Psy/functions.php',
     'e91d0dc994644828154ae2387ede1ca8' => $vendorDir . '/spatie/string/src/string_functions.php',
+    'ee1fbf6a277042bb7f2ccb06366b2716' => $vendorDir . '/canducci/cep/src/Canducci/Cep/CepHelper.php',
     'd92e6dafb93e67e5b59c39d9b9d00659' => $vendorDir . '/codecourse/notify/src/Codecourse/Notify/functions.php',
     'e23faeee409e941dc9b4c80386209c39' => $vendorDir . '/laracasts/flash/src/Laracasts/Flash/functions.php',
     '7dd996d98a91d095f100c75e0b9e2391' => $vendorDir . '/spatie/async/src/helpers.php',

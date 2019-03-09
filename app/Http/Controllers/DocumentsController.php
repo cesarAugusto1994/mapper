@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Documents,Client};
+use App\Models\Client\Address;
 use Auth;
 
 class DocumentsController extends Controller
@@ -15,6 +16,10 @@ class DocumentsController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('view.documentos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
         $documents = Documents::orderByDesc('id')->paginate(10);
         return view('admin.documents.index', compact('documents'));
     }
@@ -43,6 +48,14 @@ class DocumentsController extends Controller
         $user = $request->user();
 
         $data['created_by'] = $user->id;
+
+        $data['status_id'] = 1;
+
+        $client = Client::uuid($data['client_id']);
+        $address = Address::uuid($data['address_id']);
+
+        $data['client_id'] = $client->id;
+        $data['address_id'] = $address->id;
 
         $document = Documents::create($data);
 
@@ -89,6 +102,13 @@ class DocumentsController extends Controller
         $data = $request->request->all();
 
         $document = Documents::uuid($id);
+
+        $client = Client::uuid($data['client_id']);
+        $address = Address::uuid($data['address_id']);
+
+        $data['client_id'] = $client->id;
+        $data['address_id'] = $address->id;
+
         $document->update($data);
 
         notify()->flash('Sucesso!', 'success',[

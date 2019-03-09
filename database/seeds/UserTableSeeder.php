@@ -18,6 +18,7 @@ class UserTableSeeder extends Seeder
     {
         $adminRole = Role::whereName('Administrador')->first();
         $userRole = Role::whereName('Usuario')->first();
+        $permissions = Permission::pluck('id');
 
         $faker = Faker\Factory::create();
 
@@ -34,6 +35,8 @@ class UserTableSeeder extends Seeder
             $person = People::create([
               'name' => $name,
               'department_id'=> 1,
+              'occupation_id'=> 1,
+              'cpf' => '12345678987'
             ]);
 
             $user = User::create([
@@ -52,6 +55,7 @@ class UserTableSeeder extends Seeder
 
             //$user->profile()->save($profile);
             $user->attachRole($adminRole);
+            $user->syncPermissions($permissions);
             $user->save();
         }
 
@@ -66,6 +70,8 @@ class UserTableSeeder extends Seeder
             $person = People::create([
               'name' => $name,
               'department_id'=> 1,
+              'occupation_id'=> 1,
+              'cpf' => '12345678987'
             ]);
 
             $user = User::create([
@@ -79,7 +85,7 @@ class UserTableSeeder extends Seeder
               'login_soc' => 'cesar.sousa',
               'password_soc' => 'cesar1507',
               'id_soc' => '6662',
-              
+
             ]);
 
             //$user->profile()->save(new Profile());

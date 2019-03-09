@@ -184,6 +184,9 @@ return [
         jeremykenedy\LaravelRoles\RolesServiceProvider::class,
         Laravolt\Avatar\ServiceProvider::class,
 
+        //Illuminate\Workbench\WorkbenchServiceProvider::class,
+        Canducci\Cep\Providers\CepServiceProvider::class,
+        GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
 
     ],
 
@@ -237,6 +240,11 @@ return [
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Notify' => Codecourse\Notify\Facades\Notify::class,
         'Avatar'    => Laravolt\Avatar\Facade::class,
+
+        'View'       => Illuminate\Support\Facades\View::class,
+        'Cep'        => Canducci\Cep\Facades\Cep::class,
+        'Endereco'   => Canducci\Cep\Facades\Endereco::class,
+        'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
 
     ],
 

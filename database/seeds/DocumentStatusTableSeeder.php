@@ -12,7 +12,7 @@ class DocumentStatusTableSeeder extends Seeder
      */
     public function run()
     {
-        $itens = ['Criado', 'Pendente', 'Em Transito', 'Entregue', 'Perca'];
+        $itens = ['Criado', 'Ordem Entrega Gerada', 'Pendente', 'Em Transito', 'Entregue', 'Perca'];
 
         foreach ($itens as $key => $item) {
             Status::create(['name' => $item]);

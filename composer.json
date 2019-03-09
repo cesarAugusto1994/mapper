@@ -6,6 +6,8 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "alexpechkarev/google-maps": "1.0.9",
+        "canducci/cep": "2.0.*",
         "codecourse/notify": "^1.1",
         "creativeorange/gravatar": "~1.0",
         "emadadly/laravel-uuid": "^1.2",

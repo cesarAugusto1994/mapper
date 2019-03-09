@@ -46,15 +46,16 @@
                             </div>
                             <div class="form-group {!! $errors->has('password') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Senha</label>
                                 <div class="col-sm-10">
-                                  <input type="text" value="{{ old('password') }}" required name="password" placeholder="Informe a Senha" class="form-control">
+                                  <input type="password" value="{{ old('password') }}" required name="password" placeholder="Informe a Senha" class="form-control">
                                   {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="form-group {!! $errors->has('roles') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Acesso</label>
                                 <div class="col-sm-10">
                                   <select id="roles" name="roles" required="required" class="form-control col-md-7 col-xs-12">
-                                      <option value="user">Usuário</option>
-                                      <option value="admin">Administrador</option>
+                                      <option value="Usuario">Usuario</option>
+                                      <option value="Gerente">Gerente</option>
+                                      <option value="Administrador">Administrador</option>
                                   </select>
                                   {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
                                 </div>

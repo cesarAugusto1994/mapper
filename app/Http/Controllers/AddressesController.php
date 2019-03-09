@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Client\Address;
+use Auth;
 
 class AddressesController extends Controller
 {
@@ -36,7 +37,21 @@ class AddressesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->request->all();
+        $user = $request->user();
+
+        $client = Client::findOrFail($data['client_id']);
+        $data['user_id'] = $user->id;
+
+        $data['is_default'] = $request->has('is_default');
+
+        Address::create($data);
+
+        notify()->flash('Sucesso!', 'success', [
+          'text' => 'O Endereço do Cliente foi adicionado com sucesso.'
+        ]);
+
+        return redirect()->route('client_addresses', $client->uuid);
     }
 
     /**
@@ -47,11 +62,12 @@ class AddressesController extends Controller
      */
     public function show($id)
     {
+        if(!Auth::user()->hasPermission('view.cliente.enderecos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
         $client = Client::uuid($id);
-
-        dd($client);
-
-        return view('admin.addresses.show', compact('client'));
+        return view('admin.clients.addresses.index', compact('client'));
     }
 
     /**
@@ -60,9 +76,11 @@ class AddressesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $address)
     {
-        //
+        $address = Address::uuid($address);
+        $client = $address->client;
+        return view('admin.clients.addresses.edit', compact('client', 'address'));
     }
 
     /**
@@ -72,9 +90,22 @@ class AddressesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $address)
     {
-        //
+        $data = $request->request->all();
+
+        $address = Address::uuid($address);
+
+        $data['is_default'] = $request->has('is_default');
+
+        $address->update($data);
+
+        notify()->flash('Sucesso!', 'success', [
+          'text' => 'O Endereço do Cliente foi atualizado com sucesso.'
+        ]);
+
+        return redirect()->route('client_addresses', $id);
+
     }
 
     /**
@@ -85,6 +116,21 @@ class AddressesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+          $address = Address::uuid($id);
+          $address->delete();
+
+          return response()->json([
+            'success' => true,
+            'message' => 'Endereço removido com sucesso.'
+          ]);
+
+        } catch(\Exception $e) {
+          return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+          ]);
+        }
     }
 }

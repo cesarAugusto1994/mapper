@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use Auth;
 
 class ClientController extends Controller
 {
@@ -24,6 +25,10 @@ class ClientController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasPermission('view.clientes')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
         $clients = Client::paginate(10);
         return view('admin.clients.index', compact('clients'));
     }
@@ -69,10 +74,34 @@ class ClientController extends Controller
       return view('admin.clients.details', compact('client'));
     }
 
-    public function addresses($id)
+    public function addresses(Request $request)
     {
-        $client = Client::uuid($id);
-        return view('admin.addresses.show', compact('client'));
+        $id = $request->get('param');
+
+        try {
+
+          $client = Client::uuid($id);
+
+          return response()->json([
+            'success' => true,
+            'message' => 'Registros retornados',
+            'data' => $client->addresses
+          ]);
+
+        } catch(\Exception $e) {
+
+          activity()
+         ->causedBy($request->user())
+         ->log('Erro ao buscar endereço do cliente: '. $e->getMessage());
+
+          return response()->json([
+            'success' => false,
+            'message' => 'Ocorreu um erro inesperado',
+            'data' => []
+          ]);
+
+        }
+
     }
 
     /**
@@ -119,6 +148,13 @@ class ClientController extends Controller
         try {
 
           $client = Client::uuid($id);
+
+          if($client->addresses->isNotEmpty()) {
+            return response()->json([
+              'success' => false,
+              'message' => 'O cliente não pode ser removido: existem endereços vinculados a ele.'
+            ]);
+          }
 
           if($client->documents->isNotEmpty()) {
             return response()->json([

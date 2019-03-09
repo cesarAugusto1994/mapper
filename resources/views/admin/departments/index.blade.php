@@ -31,20 +31,52 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
 
-          @include('flash::message')
-
             @foreach($departments as $department)
-                <div class="col-lg-6 col-md-3 col-sm-6">
-                    <div class="contact-box">
-                        <a href="{{route('department', ['id' => $department->id])}}">
-                            <div class="col-sm-12">
-                                <h3><strong>{{$department->name}}</strong></h3>
-                                <p><i class="fa fa-map-marker"></i> {{$department->user->person->name}}</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </a>
-                    </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                  <div class="widget white-bg">
+
+                    <div class="row">
+
+                      <div class="col-xs-12">
+
+                        <h2>
+                            {{$department->name}}
+                        </h2>
+                        <ul class="list-unstyled m-t-md">
+                            <li>
+                                <span class="fa fa-user m-r-xs"></span>
+                                <label>Responsável:</label>
+                                {{$department->user->person->name}}
+                            </li>
+                        </ul>
+
+                      </div>
+
+                      <div class="col-xs-12">
+
+                        <div class="row">
+
+                          <div class="col-md-4 col-sm-6 col-xs-12 p-xxs">
+                              <a class="btn btn-white btn-block" href="{{ route('occupations.index', ['department' => $department->uuid]) }}"><i class="fa fa-tag"></i> ({{ $department->occupations->count() }}) Cargos</a>
+                          </div>
+
+                          <div class="col-md-4 col-sm-6 col-xs-12 p-xxs">
+                              <a class="btn btn-white btn-block" href="{{ route('department_edit', $department->uuid) }}"><i class="fa fa-pencil"></i> Editar</a>
+                          </div>
+
+                          <div class="col-md-4 col-sm-6 col-xs-12 p-xxs">
+                              <a class="btn btn-danger btn-block btn-outline" href="{{route('department', ['id' => $department->uuid])}}"><i class="fa fa-cogs"></i> Processos</a>
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                  </div>
+                  </div>
                 </div>
+
             @endforeach
         </div>
     </div>

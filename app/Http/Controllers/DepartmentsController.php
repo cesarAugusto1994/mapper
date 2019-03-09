@@ -7,6 +7,7 @@ use App\Models\Process;
 use App\User;
 use Illuminate\Http\Request;
 use Request as Req;
+use Auth;
 
 class DepartmentsController extends Controller
 {
@@ -27,8 +28,11 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
-        $departments = Department::all();
+        if(!Auth::user()->hasPermission('view.departamentos')) {
+            return abort(403, 'Unauthorized action.');
+        }
 
+        $departments = Department::all();
         return view('admin.departments.index')->with('departments', $departments);
     }
 
@@ -63,7 +67,7 @@ class DepartmentsController extends Controller
      */
     public function show($id)
     {
-        $department = Department::find($id);
+        $department = Department::uuid($id);
         $processes = Process::where('department_id', $id)->get();
 
         return view('admin.departments.details')
@@ -80,7 +84,7 @@ class DepartmentsController extends Controller
     public function edit($id)
     {
         return view('admin.departments.edit')
-            ->with('department', Department::find($id))
+            ->with('department', Department::uuid($id))
             ->with('users', User::all());
     }
 
@@ -93,14 +97,16 @@ class DepartmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $department = Department::find($id);
+        $data = $request->request->all();
 
-        $department->name = Req::input('name');
-        $department->user_id = Req::input('user_id');
+        $department = Department::uuid($id);
+        $department->update($data);
 
-        $department->save();
+        notify()->flash('Sucesso!', 'success', [
+          'text' => 'Departamento atualizado com sucesso.'
+        ]);
 
-        return redirect()->route('department', ['id' => $department->id]);;
+        return redirect()->route('departments');;
     }
 
     /**

@@ -21,6 +21,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'e91d0dc994644828154ae2387ede1ca8' => __DIR__ . '/..' . '/spatie/string/src/string_functions.php',
+        'ee1fbf6a277042bb7f2ccb06366b2716' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/CepHelper.php',
         'd92e6dafb93e67e5b59c39d9b9d00659' => __DIR__ . '/..' . '/codecourse/notify/src/Codecourse/Notify/functions.php',
         'e23faeee409e941dc9b4c80386209c39' => __DIR__ . '/..' . '/laracasts/flash/src/Laracasts/Flash/functions.php',
         '7dd996d98a91d095f100c75e0b9e2391' => __DIR__ . '/..' . '/spatie/async/src/helpers.php',
@@ -115,6 +116,8 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
+            'GoogleMaps\\' => 11,
+            'GeometryLibrary\\' => 16,
         ),
         'F' => 
         array (
@@ -138,6 +141,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
             'Cron\\' => 5,
             'Creativeorange\\Gravatar\\' => 24,
             'Carbon\\' => 7,
+            'Canducci\\Cep\\' => 13,
         ),
         'A' => 
         array (
@@ -321,6 +325,14 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
+        'GoogleMaps\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alexpechkarev/google-maps/src',
+        ),
+        'GeometryLibrary\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/alexpechkarev/geometry-library',
+        ),
         'Fideloper\\Proxy\\' => 
         array (
             0 => __DIR__ . '/..' . '/fideloper/proxy/src',
@@ -365,6 +377,10 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'Canducci\\Cep\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -372,6 +388,13 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
     );
 
     public static $prefixesPsr0 = array (
+        'U' => 
+        array (
+            'URLify' => 
+            array (
+                0 => __DIR__ . '/..' . '/jbroadway/urlify',
+            ),
+        ),
         'S' => 
         array (
             'SimpleSoftwareIO\\QrCode\\' => 
@@ -457,6 +480,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\LogsController' => __DIR__ . '/../..' . '/app/Http/Controllers/LogsController.php',
         'App\\Http\\Controllers\\MapperController' => __DIR__ . '/../..' . '/app/Http/Controllers/MapperController.php',
+        'App\\Http\\Controllers\\OccupationController' => __DIR__ . '/../..' . '/app/Http/Controllers/OccupationController.php',
         'App\\Http\\Controllers\\PermissionsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionsController.php',
         'App\\Http\\Controllers\\ProcessesController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProcessesController.php',
         'App\\Http\\Controllers\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/RolesController.php',
@@ -464,6 +488,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Http\\Controllers\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskController.php',
         'App\\Http\\Controllers\\TaskMessagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskMessagesController.php',
         'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
+        'App\\Http\\Controllers\\UtilController' => __DIR__ . '/../..' . '/app/Http/Controllers/UtilController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -473,7 +498,10 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Models\\Client' => __DIR__ . '/../..' . '/app/Models/Client.php',
         'App\\Models\\Client\\Address' => __DIR__ . '/../..' . '/app/Models/Client/Address.php',
         'App\\Models\\DeliveryOrder' => __DIR__ . '/../..' . '/app/Models/DeliveryOrder.php',
+        'App\\Models\\DeliveryOrder\\Documents' => __DIR__ . '/../..' . '/app/Models/DeliveryOrder/Documents.php',
+        'App\\Models\\DeliveryOrder\\Status' => __DIR__ . '/../..' . '/app/Models/DeliveryOrder/Status.php',
         'App\\Models\\Department' => __DIR__ . '/../..' . '/app/Models/Department.php',
+        'App\\Models\\Department\\Occupation' => __DIR__ . '/../..' . '/app/Models/Department/Occupation.php',
         'App\\Models\\Documents' => __DIR__ . '/../..' . '/app/Models/Documents.php',
         'App\\Models\\Documents\\Status' => __DIR__ . '/../..' . '/app/Models/Documents/Status.php',
         'App\\Models\\Frequency' => __DIR__ . '/../..' . '/app/Models/Frequency.php',
@@ -541,6 +569,20 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'BaconQrCode\\Renderer\\Text\\Html' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/BaconQrCode/Renderer/Text/Html.php',
         'BaconQrCode\\Renderer\\Text\\Plain' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/BaconQrCode/Renderer/Text/Plain.php',
         'BaconQrCode\\Writer' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/BaconQrCode/Writer.php',
+        'Canducci\\Cep\\Cep' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/Cep.php',
+        'Canducci\\Cep\\CepClient' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/CepClient.php',
+        'Canducci\\Cep\\CepInfo' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/CepInfo.php',
+        'Canducci\\Cep\\Contracts\\ICep' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/Contracts/ICep.php',
+        'Canducci\\Cep\\Contracts\\ICepClient' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/Contracts/ICepClient.php',
+        'Canducci\\Cep\\Contracts\\ICepInfo' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/Contracts/ICepInfo.php',
+        'Canducci\\Cep\\Contracts\\IEndereco' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/Contracts/IEndereco.php',
+        'Canducci\\Cep\\Contracts\\IEnderecoInfo' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/Contracts/IEnderecoInfo.php',
+        'Canducci\\Cep\\Endereco' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/Endereco.php',
+        'Canducci\\Cep\\EnderecoInfo' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/EnderecoInfo.php',
+        'Canducci\\Cep\\Facades\\Cep' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/Facades/Cep.php',
+        'Canducci\\Cep\\Facades\\Endereco' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/Facades/Endereco.php',
+        'Canducci\\Cep\\Providers\\CepServiceProvider' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/Providers/CepServiceProvider.php',
+        'Canducci\\Cep\\UF' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/UF.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
@@ -587,6 +629,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'DeepCopy\\TypeFilter\\Spl\\SplDoublyLinkedListFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/SplDoublyLinkedListFilter.php',
         'DeepCopy\\TypeFilter\\TypeFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/TypeFilter.php',
         'DeepCopy\\TypeMatcher\\TypeMatcher' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeMatcher/TypeMatcher.php',
+        'DeliveryOrderStatusesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DeliveryOrderStatusesTableSeeder.php',
         'DepartmentTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DepartmentTableSeeder.php',
         'DivisionByZeroError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/DivisionByZeroError.php',
         'Doctrine\\Common\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector/Inflector.php',
@@ -1111,6 +1154,15 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
         'FrequencyTableSeeder' => __DIR__ . '/../..' . '/database/seeds/FrequencyTableSeeder.php',
+        'GeometryLibrary\\MathUtil' => __DIR__ . '/..' . '/alexpechkarev/geometry-library/MathUtil.php',
+        'GeometryLibrary\\PolyUtil' => __DIR__ . '/..' . '/alexpechkarev/geometry-library/PolyUtil.php',
+        'GeometryLibrary\\SphericalUtil' => __DIR__ . '/..' . '/alexpechkarev/geometry-library/SphericalUtil.php',
+        'GoogleMaps\\Directions' => __DIR__ . '/..' . '/alexpechkarev/google-maps/src/Directions.php',
+        'GoogleMaps\\Facade\\GoogleMapsFacade' => __DIR__ . '/..' . '/alexpechkarev/google-maps/src/Facade/GoogleMapsFacade.php',
+        'GoogleMaps\\GoogleMaps' => __DIR__ . '/..' . '/alexpechkarev/google-maps/src/GoogleMaps.php',
+        'GoogleMaps\\Parameters' => __DIR__ . '/..' . '/alexpechkarev/google-maps/src/Parameters.php',
+        'GoogleMaps\\ServiceProvider\\GoogleMapsServiceProvider' => __DIR__ . '/..' . '/alexpechkarev/google-maps/src/ServiceProvider/GoogleMapsServiceProvider.php',
+        'GoogleMaps\\WebService' => __DIR__ . '/..' . '/alexpechkarev/google-maps/src/WebService.php',
         'GuzzleHttp\\Psr7\\AppendStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/AppendStream.php',
         'GuzzleHttp\\Psr7\\BufferStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/BufferStream.php',
         'GuzzleHttp\\Psr7\\CachingStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/CachingStream.php',
@@ -2330,6 +2382,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'Monolog\\Processor\\WebProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/WebProcessor.php',
         'Monolog\\Registry' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Registry.php',
         'Normalizer' => __DIR__ . '/..' . '/patchwork/utf8/src/Normalizer.php',
+        'OccupationTableSeeder' => __DIR__ . '/../..' . '/database/seeds/OccupationTableSeeder.php',
         'Opis\\Closure\\Analyzer' => __DIR__ . '/..' . '/opis/closure/src/Analyzer.php',
         'Opis\\Closure\\ClosureContext' => __DIR__ . '/..' . '/opis/closure/src/ClosureContext.php',
         'Opis\\Closure\\ClosureScope' => __DIR__ . '/..' . '/opis/closure/src/ClosureScope.php',
@@ -4268,6 +4321,8 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
+        'URLify' => __DIR__ . '/..' . '/jbroadway/urlify/URLify.php',
+        'URLifyTest' => __DIR__ . '/..' . '/jbroadway/urlify/tests/URLifyTest.php',
         'Underscore\\Dispatch' => __DIR__ . '/..' . '/anahkiasen/underscore-php/src/Dispatch.php',
         'Underscore\\DispatchTest' => __DIR__ . '/..' . '/anahkiasen/underscore-php/tests/DispatchTest.php',
         'Underscore\\Dummies\\DummyClass' => __DIR__ . '/..' . '/anahkiasen/underscore-php/tests/Dummies/DummyClass.php',
@@ -4297,7 +4352,6 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'Underscore\\UnderscoreTest' => __DIR__ . '/..' . '/anahkiasen/underscore-php/tests/UnderscoreTest.php',
         'Underscore\\UnderscoreTestCase' => __DIR__ . '/..' . '/anahkiasen/underscore-php/tests/UnderscoreTestCase.php',
         'UserTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UserTableSeeder.php',
-        'UsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersTableSeeder.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',

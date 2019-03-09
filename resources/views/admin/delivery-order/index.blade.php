@@ -36,31 +36,43 @@
                         <div class="project-list">
                             @if($orders->isNotEmpty())
                             <table class="table table-hover table-responsive">
+                                <thead>
+                                    <tr>
+                                      <th>ID</th>
+                                      <th>Cliente</th>
+                                      <th>Status</th>
+                                      <th>Adicionado por</th>
+                                      <th>Adicionado em</th>
+                                      <th>Tempo passado</th>
+                                      <th>Opções</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
                                 @foreach($orders as $order)
                                 <tr>
                                     <td class="project-title">
-                                        <a href="{{route('delivery-order.show', ['id' => $order->id])}}">{{ $order->description }}</a>
+                                        #{{ str_pad($order->id, 6, "0", STR_PAD_LEFT)  }}
                                     </td>
-                                    <td class="project-completion">
-                                        <span>Tempo Tarefas {{ App\Http\Controllers\HomeController::minutesToHour($map->tasks->sum('time')) }}</span>
+
+                                    <td class="project-title">
+                                        <a>{{ $order->client->name }}</a>
                                     </td>
-                                    <td class="project-completion">
-                                        <span>Tarefas: {{ $map->tasks->count() }}<a></span>
+
+                                    <td class="project-title">
+                                        {{ $order->status->name }}
                                     </td>
-                                    <td class="project-completion">
-                                        <span>Tempo Trabalhado: {{App\Helpers\Mapper::getDoneTimeByUser($map->user->id) }}<a></span>
+
+                                    <td class="project-title">
+                                        {{ $order->user->person->name }}
                                     </td>
-                                    <td class="project-completion">
-                                        <span>Tempo Ocioso: {{ App\Http\Controllers\TaskController::ociousTime($map->id) }}<a></span>
+
+                                    <td class="project-title">
+                                        {{ $order->created_at->format('d/m/Y H:i') }}
                                     </td>
-                                    <td class="project-people hidden-xs">
-                                        <a href="{{route('user', ['id' => $map->user->id])}}" title="{{ $map->user->name }}">
-                                        <img alt="image" class="img-circle" src="{{Gravatar::get($map->user->email)}}"></a>
+
+                                    <td class="project-title">
+                                        {{ $order->created_at->diffForHumans() }}
                                     </td>
-                                    <!--<td class="project-actions hidden-xs">
-                                        <a href="{{route('mapping_edit', ['id' => $map->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
-                                    </td>-->
                                 </tr>
                                 @endforeach
                                 </tbody>

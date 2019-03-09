@@ -13,7 +13,7 @@
                     <a href="{{ route('departments') }}">Departamentos</a>
                 </li>
                 <li class="active">
-                    <strong>Detalhes</strong>
+                    <strong>Processos</strong>
                 </li>
             </ol>
         </div>
@@ -22,14 +22,12 @@
         <div class="col-lg-12">
             <div class="wrapper wrapper-content animated fadeInUp">
 
-                @include('flash::message')
-
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a href="{{route('department_edit', ['id' => $department->id])}}" class="btn btn-white btn-xs pull-right">Editar Departamento</a>
+                                    <a href="{{route('department_edit', ['id' => $department->uuid])}}" class="btn btn-white btn-xs pull-right">Editar Departamento</a>
                                     <h2>{{$department->name}} </h2>
                                     <small><i class="fa fa-user"></i>    {{$department->user->person->name}}</small>
                                 </div>

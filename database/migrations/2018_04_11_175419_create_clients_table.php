@@ -25,14 +25,18 @@ class CreateClientsTable extends Migration
 
         Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('posta_area');
+            $table->string('description');
+            $table->string('zip');
             $table->string('street');
-            $table->string('number');
+            $table->string('number')->nullable();
+            $table->string('district')->nullable();
+            $table->string('complement')->nullable();
+            $table->string('reference')->nullable();
             $table->string('city');
             $table->string('state');
-            $table->string('building_type');
-            $table->string('long');
-            $table->string('lat');
+            $table->string('building_type')->nullable();
+            $table->string('long')->nullable();
+            $table->string('lat')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 
