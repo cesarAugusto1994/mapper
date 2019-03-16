@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{Documents,Client};
 use App\Models\Client\Address;
+use App\Models\Documents\Type;
 use Auth;
 
 class DocumentsController extends Controller
@@ -32,7 +33,8 @@ class DocumentsController extends Controller
     public function create()
     {
         $clients = Client::all();
-        return view('admin.documents.create',compact('clients'));
+        $types = Type::all();
+        return view('admin.documents.create',compact('clients', 'types'));
     }
 
     /**
@@ -53,9 +55,11 @@ class DocumentsController extends Controller
 
         $client = Client::uuid($data['client_id']);
         $address = Address::uuid($data['address_id']);
+        $type = Type::uuid($data['type_id']);
 
         $data['client_id'] = $client->id;
         $data['address_id'] = $address->id;
+        $data['type_id'] = $type->id;
 
         $document = Documents::create($data);
 
@@ -87,7 +91,8 @@ class DocumentsController extends Controller
     {
         $document = Documents::uuid($id);
         $clients = Client::all();
-        return view('admin.documents.edit',compact('clients', 'document'));
+        $types = Type::all();
+        return view('admin.documents.edit',compact('clients', 'document', 'types'));
     }
 
     /**
@@ -105,9 +110,11 @@ class DocumentsController extends Controller
 
         $client = Client::uuid($data['client_id']);
         $address = Address::uuid($data['address_id']);
+        $type = Type::uuid($data['type_id']);
 
         $data['client_id'] = $client->id;
         $data['address_id'] = $address->id;
+        $data['type_id'] = $type->id;
 
         $document->update($data);
 

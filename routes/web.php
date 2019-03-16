@@ -111,6 +111,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::resource('permissions', 'PermissionsController');
 
   Route::resource('occupations', 'OccupationController');
+  Route::resource('types', 'DocumentTypesController');
 
   Route::get('clients/addresses/search', 'ClientController@addresses')->name('client_addresses_search');
 

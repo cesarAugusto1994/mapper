@@ -23,12 +23,6 @@
         <div class="row">
             <div class="col-lg-12">
 
-              @foreach ($errors->all() as $error)
-
-                  <div class="alert alert-danger">{{ $error }}</div>
-
-              @endforeach
-
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Novo Documento</h5>
@@ -61,6 +55,17 @@
                                   </select>
                                       {!! $errors->first('address_id', '<p class="help-block">:message</p>') !!}
                                 </div>
+                            </div>
+
+                            <div class="form-group {!! $errors->has('type_id') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Tipo</label>
+                                <div class="col-sm-10">
+                                  <select class="selectpicker show-tick" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" name="type_id" required>
+                                        @foreach($types as $type)
+                                            <option value="{{$type->uuid}}">{{$type->name}}</option>
+                                        @endforeach
+                                    </select>
+                                      {!! $errors->first('type_id', '<p class="help-block">:message</p>') !!}
+                                  </div>
                             </div>
 
                             <button class="btn btn-primary">Salvar</button>

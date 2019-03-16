@@ -20,7 +20,7 @@
             @endforeach
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input type="email" name="email" class="form-control" placeholder="E-mail" required="" value="{{ old('email') }}">
+                    <input type="text" name="email" class="form-control" placeholder="E-mail ou Nickname" required="" value="{{ old('email') }}">
 
                         @if ($errors->has('email'))
                             <!--<span class="help-block">

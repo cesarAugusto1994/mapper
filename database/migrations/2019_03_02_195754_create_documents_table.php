@@ -16,6 +16,16 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->uuid('uuid')->unique();
+            $table->timestamps();
+        });
+
+        Schema::create('document_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->float('price', 12,2)->default(0.00);
+            $table->boolean('active')->default(true);
+            $table->uuid('uuid')->unique();
             $table->timestamps();
         });
 
@@ -36,7 +46,12 @@ class CreateDocumentsTable extends Migration
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('documents_statuses');
 
+            $table->integer('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('document_types');
+
+            $table->float('extra_value', 12,2)->default(0.00);
             $table->uuid('uuid')->unique();
+
             $table->timestamps();
         });
     }

@@ -49,6 +49,25 @@ class DeliveryOrderController extends Controller
 
         $data = $request->request->all();
 
+        if(count($data) == 1) {
+
+          $document = Documents::uuid(current($data['document']));
+          $hasDocument = DeliveryOrderDocuments::where('document_id', $document->id)->get();
+
+          if($hasDocument->isNotEmpty()) {
+
+            $string = 'O documento ' . $document->description . ' já está vinculado à Ordem de Entrega n. '. $hasDocument->first()->id ?? '';
+
+            notify()->flash('Falha ao adicionar documento!', 'error', [
+              'text' => $string,
+            ]);
+
+            return back();
+
+          }
+
+        }
+
         $occupation = Occupation::where('name', 'Entregador')->get();
 
         if($occupation->isEmpty()) {
@@ -106,6 +125,21 @@ class DeliveryOrderController extends Controller
         $documentsGroupedByClients = [];
 
         foreach ($documents as $key => $document) {
+
+            $hasDocument = DeliveryOrderDocuments::where('document_id', $document->id)->get();
+
+            if($hasDocument->isNotEmpty()) {
+
+              $string = 'O documento ' . $document->description . ' já está vinculado à Ordem de Entrega n. '. $hasDocument->first()->id ?? '';
+
+              notify()->flash('Falha ao adicionar documento!', 'error', [
+                'text' => $string,
+              ]);
+
+              return back();
+
+            }
+
             $documentsGroupedByClients[$document->client->id][] = $document;
         }
 
@@ -123,6 +157,8 @@ class DeliveryOrderController extends Controller
                   'delivery_order_id' => $deliveryOrder->id,
                   'user_id' => $request->user()->id
                 ]);
+                $document->status_id = 2;
+                $document->save();
             }
 
         }

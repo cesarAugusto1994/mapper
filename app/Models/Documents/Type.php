@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Emadadly\LaravelUuid\Uuids;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Status extends Model
+class Type extends Model
 {
     use Uuids;
     use LogsActivity;
-    
-    protected $table = 'documents_statuses';
-    protected $fillable = ['name'];
+
+    protected $table = 'document_types';
+
+    protected $fillable = ['name', 'price', 'active'];
+
 }

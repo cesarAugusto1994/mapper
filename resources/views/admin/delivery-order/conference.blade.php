@@ -78,7 +78,7 @@
                             <abbr title="E-mail">E-mail:</abbr>
                             <a href="mailto:{{ $document->client->email }}">{{ $document->client->email }}</a>
                           </address>
-
+                          
                           <address>
                             <strong>Entregador</strong><br>
                             <span id="entregador"><span class="text-navy">Selecione o Entregador</span></span>

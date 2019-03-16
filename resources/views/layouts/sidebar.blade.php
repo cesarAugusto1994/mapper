@@ -127,6 +127,12 @@
                                   <a href="{{route('permissions.index')}}" ><i class="fa fa-key"></i> <span class="nav-label">Permissões</span></a>
                               </li>
                               @endpermission
+
+                              <li>
+                                  <a href="{{route('types.index')}}" ><i class="fa fa-file-o"></i> <span class="nav-label">Tipos de Documentos</span></a>
+                              </li>
+
+
                             </ul>
                         </li>
 

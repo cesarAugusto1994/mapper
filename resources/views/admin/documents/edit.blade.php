@@ -66,6 +66,17 @@
                                 </div>
                             </div>
 
+                            <div class="form-group {!! $errors->has('type_id') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">Tipo</label>
+                                <div class="col-sm-10">
+                                  <select class="selectpicker show-tick" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" name="type_id" required>
+                                        @foreach($types as $type)
+                                            <option value="{{$type->uuid}}" {{ $document->type_id == $type->id ? 'selected' : '' }}>{{$type->name}}</option>
+                                        @endforeach
+                                    </select>
+                                      {!! $errors->first('type_id', '<p class="help-block">:message</p>') !!}
+                                  </div>
+                            </div>
+
                             <button class="btn btn-primary">Salvar</button>
                             <a class="btn btn-white" href="{{ route('documents.index') }}">Cancelar</a>
                         </form>
