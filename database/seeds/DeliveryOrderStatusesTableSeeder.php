@@ -12,7 +12,7 @@ class DeliveryOrderStatusesTableSeeder extends Seeder
      */
     public function run()
     {
-        $itens = ['Criado', 'Pendente', 'Em Transito', 'Entregue', 'Perca'];
+        $itens = ['Pendente', 'Em Transito', 'Entregue', 'Cancelada', 'Documento Perdido', 'Documento Danificado', 'Tentar denovo', 'Entrega Recusada'];
 
         foreach ($itens as $key => $item) {
             Status::create(['name' => $item]);

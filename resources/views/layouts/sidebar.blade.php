@@ -35,6 +35,50 @@
 
                     @endpermission
 
+                    @permission('view.gestao.de.treinamentos')
+
+                    <li class="">
+                        <a href="#" data-step="3" data-intro="Aqui você vai encontrar o seu painel de Gestão de Entregas">
+                          <i class="fa fa-truck"></i> <b class="nav-label">Gestão de Treinamentos </b><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" style="height: 0px;">
+
+                          @permission('view.cursos')
+
+                            <li>
+                                <a href="{{route('courses.index')}}" ><i class="fa fa-book"></i> <span class="nav-label">Cursos</span> </a>
+                            </li>
+
+                          @endpermission
+
+                          @permission('view.alunos')
+
+                            <li>
+                                <a href="{{route('students.index')}}" ><i class="fa fa-users"></i> <span class="nav-label">Alunos</span> </a>
+                            </li>
+
+                          @endpermission
+
+                          @permission('view.turmas')
+
+                            <li>
+                                <a href="{{route('teams.index')}}" ><i class="fa fa-users"></i> <span class="nav-label">Turmas</span> </a>
+                            </li>
+
+                          @endpermission
+
+                          @permission('view.agenda')
+
+                            <li>
+                                <a href="{{route('teams.index')}}" ><i class="fa fa-calendar"></i> <span class="nav-label">Agenda</span> </a>
+                            </li>
+
+                          @endpermission
+
+                        </ul>
+                    </li>
+
+                    @endpermission
+
                     @permission('view.gestao.de.entregas')
 
                     <li class="">

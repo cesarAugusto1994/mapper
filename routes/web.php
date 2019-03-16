@@ -113,6 +113,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::resource('occupations', 'OccupationController');
   Route::resource('types', 'DocumentTypesController');
 
+  Route::resource('courses', 'CoursesController');
+  Route::resource('students', 'StudentsController');
+  Route::resource('teams', 'TeamsController');
+
   Route::get('clients/addresses/search', 'ClientController@addresses')->name('client_addresses_search');
 
   Route::get('clients/{id}/addresses', 'AddressesController@show')->name('client_addresses');

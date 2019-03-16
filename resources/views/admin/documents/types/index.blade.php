@@ -33,8 +33,8 @@
 
             @forelse($types as $type)
 
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                  <div class="widget white-bg">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
+                  <div class="widget navy-bg">
 
                     <div class="row">
 
@@ -60,7 +60,7 @@
                         <div class="row">
 
                           <div class="col-sm-12 col-xs-12">
-                              <a class="btn btn-white btn-block" href="{{route('types.edit', ['id' => $type->uuid])}}"><i class="fa fa-pencil"></i> Editar</a>
+                              <a class="btn btn-primary btn-block" href="{{route('types.edit', ['id' => $type->uuid])}}"><i class="fa fa-pencil"></i> Editar</a>
                           </div>
 
                         </div>

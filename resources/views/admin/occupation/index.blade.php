@@ -64,7 +64,7 @@
                         <div class="row">
 
                           <div class="col-sm-6 col-xs-12">
-                              <a class="btn btn-white btn-block" href="{{route('occupations.edit', ['id' => $occupation->uuid])}}"><i class="fa fa-pencil"></i> Editar</a>
+                              <a class="btn btn-success btn-block" href="{{route('occupations.edit', ['id' => $occupation->uuid])}}"><i class="fa fa-pencil"></i> Editar</a>
                           </div>
 
                           <div class="col-sm-6 col-xs-12">
@@ -95,5 +95,6 @@
 
         </div>
     </div>
+
 
 @endsection

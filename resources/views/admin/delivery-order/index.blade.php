@@ -73,6 +73,16 @@
                                     <td class="project-title">
                                         {{ $order->created_at->diffForHumans() }}
                                     </td>
+
+                                    <td class="project-title">
+                                      @permission('edit.documentos')
+                                        <a href="{{route('documents.edit', ['id' => $order->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
+                                      @endpermission
+                                      @permission('delete.documentos')
+                                        <a data-route="{{route('documents.destroy', ['id' => $order->uuid])}}" class="btn btn-danger btn-outline btn-block btnRemoveItem"><i class="fa fa-close"></i> Cancelar</a>
+                                      @endpermission
+                                    </td>
+
                                 </tr>
                                 @endforeach
                                 </tbody>

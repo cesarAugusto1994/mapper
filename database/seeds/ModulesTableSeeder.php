@@ -21,14 +21,20 @@ class ModulesTableSeeder extends Seeder
           ],
           [
             'name' => 'Gestão de Entregas',
-            'slug' => str_slug('Gestão de Entregas'),
+            'slug' => str_slug('Gestao de Entregas'),
             'description' => 'Gestão de Entregas',
             'route' => '',
           ],
           [
             'name' => 'Gestão de Processos',
-            'slug' => str_slug('Gestão de Processos'),
+            'slug' => str_slug('Gestao de Processos'),
             'description' => 'Gestão de Processos',
+            'route' => '',
+          ],
+          [
+            'name' => 'Gestão de Treinamentos',
+            'slug' => str_slug('Gestao de Treinamentos'),
+            'description' => 'Gestão de Treinamentos',
             'route' => '',
           ],
           [
@@ -86,6 +92,32 @@ class ModulesTableSeeder extends Seeder
             'slug' => str_slug('Tarefas'),
             'description' => 'Tarefas',
             'route' => '/tasks',
+          ],
+
+          [
+            'name' => 'Cursos',
+            'slug' => str_slug('Cursos'),
+            'description' => 'Cursos',
+            'route' => '/courses',
+          ],
+          [
+            'name' => 'Alunos',
+            'slug' => str_slug('Alunos'),
+            'description' => 'Alunos',
+            'route' => '/students',
+          ],
+
+          [
+            'name' => 'Turmas',
+            'slug' => str_slug('Turmas'),
+            'description' => 'Turmas',
+            'route' => '/teams',
+          ],
+          [
+            'name' => 'Agenda',
+            'slug' => str_slug('Agenda'),
+            'description' => 'Agenda',
+            'route' => '/schedule',
           ],
 
           [

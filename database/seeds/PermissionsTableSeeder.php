@@ -36,7 +36,8 @@ class PermissionsTableSeeder extends Seeder
             'Painel Principal',
             'Gestão de Entregas',
             'Gestão de Processos',
-            'Administrativo'
+            'Administrativo',
+            'Gestão de Treinamentos'
           ])) {
             continue;
           }
@@ -55,7 +56,7 @@ class PermissionsTableSeeder extends Seeder
               Permission::create([
                   'name'        => 'Editar ' . $module->name,
                   'slug'        => $slugEdit,
-                  'description' => 'Pode Editar' . $module->name,
+                  'description' => 'Pode Editar ' . $module->name,
                   'model'       => '',
                   'module_id'   => $module->id,
               ]);

@@ -58,11 +58,11 @@
                         <div class="row">
 
                           <div class="col-md-4 col-sm-6 col-xs-12 p-xxs">
-                              <a class="btn btn-white btn-block" href="{{ route('occupations.index', ['department' => $department->uuid]) }}"><i class="fa fa-tag"></i> ({{ $department->occupations->count() }}) Cargos</a>
+                              <a class="btn btn-primary btn-block" href="{{ route('occupations.index', ['department' => $department->uuid]) }}"><i class="fa fa-tag"></i> ({{ $department->occupations->count() }}) Cargos</a>
                           </div>
 
                           <div class="col-md-4 col-sm-6 col-xs-12 p-xxs">
-                              <a class="btn btn-white btn-block" href="{{ route('department_edit', $department->uuid) }}"><i class="fa fa-pencil"></i> Editar</a>
+                              <a class="btn btn-success btn-block" href="{{ route('department_edit', $department->uuid) }}"><i class="fa fa-pencil"></i> Editar</a>
                           </div>
 
                           <div class="col-md-4 col-sm-6 col-xs-12 p-xxs">
