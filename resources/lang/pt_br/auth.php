@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Este e-mail não corresponde a nenhum usuário cadastrado, ou a senha está errada.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Essas credenciais não correspondem aos nossos registros.',
+    'throttle' => 'Muitas tentativas de login. Tente novamente em :seconds segundos.',
 
 ];

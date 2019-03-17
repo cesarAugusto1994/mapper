@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
     'jeremykenedy\\LaravelRoles\\' => array($vendorDir . '/jeremykenedy/laravel-roles/src'),
+    'geekcom\\ValidatorDocs\\' => array($vendorDir . '/geekcom/validator-docs/src/validator-docs'),
     'Yadahan\\AuthenticationLog\\' => array($vendorDir . '/yadahan/laravel-authentication-log/src'),
     'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
     'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),

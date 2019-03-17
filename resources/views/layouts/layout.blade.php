@@ -264,17 +264,11 @@
 
 								self.parents('tr').hide();
 
-								const toast = swal.mixin({
-									toast: true,
-									position: 'top-end',
-									showConfirmButton: false,
-									timer: 3000
-								});
-
-								toast({
-									type: 'success',
-									title: 'Ok!, o registro foi removido com sucesso.'
-								});
+								Swal.fire({
+								  type: 'success',
+								  title: 'Feito!',
+								  text: data.message,
+								})
 
 							} else {
 

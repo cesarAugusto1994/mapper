@@ -12,10 +12,10 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
@@ -36,6 +36,10 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'j' => 
         array (
             'jeremykenedy\\LaravelRoles\\' => 26,
+        ),
+        'g' => 
+        array (
+            'geekcom\\ValidatorDocs\\' => 22,
         ),
         'Y' => 
         array (
@@ -159,6 +163,10 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'jeremykenedy\\LaravelRoles\\' => 
         array (
             0 => __DIR__ . '/..' . '/jeremykenedy/laravel-roles/src',
+        ),
+        'geekcom\\ValidatorDocs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geekcom/validator-docs/src/validator-docs',
         ),
         'Yadahan\\AuthenticationLog\\' => 
         array (
@@ -474,6 +482,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Http\\Controllers\\BoardController' => __DIR__ . '/../..' . '/app/Http/Controllers/BoardController.php',
         'App\\Http\\Controllers\\ClientController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClientController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\CoursesController' => __DIR__ . '/../..' . '/app/Http/Controllers/CoursesController.php',
         'App\\Http\\Controllers\\DeliveryOrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/DeliveryOrderController.php',
         'App\\Http\\Controllers\\DepartmentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/DepartmentsController.php',
         'App\\Http\\Controllers\\DocumentTypesController' => __DIR__ . '/../..' . '/app/Http/Controllers/DocumentTypesController.php',
@@ -485,9 +494,11 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Http\\Controllers\\PermissionsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionsController.php',
         'App\\Http\\Controllers\\ProcessesController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProcessesController.php',
         'App\\Http\\Controllers\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/RolesController.php',
+        'App\\Http\\Controllers\\StudentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/StudentsController.php',
         'App\\Http\\Controllers\\SubProcessesController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubProcessesController.php',
         'App\\Http\\Controllers\\TaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskController.php',
         'App\\Http\\Controllers\\TaskMessagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/TaskMessagesController.php',
+        'App\\Http\\Controllers\\TeamsController' => __DIR__ . '/../..' . '/app/Http/Controllers/TeamsController.php',
         'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
         'App\\Http\\Controllers\\UtilController' => __DIR__ . '/../..' . '/app/Http/Controllers/UtilController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -4388,6 +4399,8 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'Yadahan\\AuthenticationLog\\Listeners\\LogSuccessfulLogin' => __DIR__ . '/..' . '/yadahan/laravel-authentication-log/src/Listeners/LogSuccessfulLogin.php',
         'Yadahan\\AuthenticationLog\\Listeners\\LogSuccessfulLogout' => __DIR__ . '/..' . '/yadahan/laravel-authentication-log/src/Listeners/LogSuccessfulLogout.php',
         'Yadahan\\AuthenticationLog\\Notifications\\NewDevice' => __DIR__ . '/..' . '/yadahan/laravel-authentication-log/src/Notifications/NewDevice.php',
+        'geekcom\\ValidatorDocs\\Validator' => __DIR__ . '/..' . '/geekcom/validator-docs/src/validator-docs/Validator.php',
+        'geekcom\\ValidatorDocs\\ValidatorProvider' => __DIR__ . '/..' . '/geekcom/validator-docs/src/validator-docs/ValidatorProvider.php',
         'jeremykenedy\\LaravelRoles\\Contracts\\HasRoleAndPermission' => __DIR__ . '/..' . '/jeremykenedy/laravel-roles/src/Contracts/HasRoleAndPermission.php',
         'jeremykenedy\\LaravelRoles\\Contracts\\PermissionHasRelations' => __DIR__ . '/..' . '/jeremykenedy/laravel-roles/src/Contracts/PermissionHasRelations.php',
         'jeremykenedy\\LaravelRoles\\Contracts\\RoleHasRelations' => __DIR__ . '/..' . '/jeremykenedy/laravel-roles/src/Contracts/RoleHasRelations.php',

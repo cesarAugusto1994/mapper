@@ -18,6 +18,10 @@ class CreateCoursesTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->integer('workload')->nullable();
+
+            $table->integer('created_by')->unsigned();
+            $table->foreign('created_by')->references('id')->on('users');
+
             $table->uuid('uuid')->unique();
             $table->timestamps();
         });

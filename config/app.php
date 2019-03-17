@@ -187,6 +187,7 @@ return [
         //Illuminate\Workbench\WorkbenchServiceProvider::class,
         Canducci\Cep\Providers\CepServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
+        geekcom\ValidatorDocs\ValidatorProvider::class
 
     ],
 

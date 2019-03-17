@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c201ee22ce79347cf0b1f53f4ba9d141",
+    "content-hash": "d5101c7fb5e6fd3fff5060e50eca9831",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -786,6 +786,47 @@
                 "trusted proxy"
             ],
             "time": "2017-06-15T17:19:42+00:00"
+        },
+        {
+            "name": "geekcom/validator-docs",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geekcom/validator-docs.git",
+                "reference": "871d58119b689b2d7c2694f53ef0bd1d7fb2a828"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geekcom/validator-docs/zipball/871d58119b689b2d7c2694f53ef0bd1d7fb2a828",
+                "reference": "871d58119b689b2d7c2694f53ef0bd1d7fb2a828",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*"
+            },
+            "require-dev": {
+                "laravel/framework": "5.*",
+                "laravel/laravel": "5.0.*",
+                "phpunit/phpunit": "^7.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "geekcom\\ValidatorDocs\\": "src/validator-docs"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Rodrigues Lima",
+                    "email": "danielrodrigues-ti@hotmail.com"
+                }
+            ],
+            "description": "Biblioteca para validação de Título de Eleitor, CPF, CNPJ e CNH",
+            "time": "2019-03-07T11:35:45+00:00"
         },
         {
             "name": "guzzlehttp/psr7",

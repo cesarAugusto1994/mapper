@@ -20,6 +20,7 @@ class CreateTeamsTable extends Migration
             $table->integer('teacher_id')->unsigned();
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->enum('status_class', ['RESERVADO', 'EM ANDAMENTO', 'FINALIZADA', 'CANCELADA'])->default('RESERVADO');
+            $table->integer('limit_students')->nullable();
             $table->datetime('start');
             $table->uuid('uuid')->unique();
             $table->timestamps();

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Training\Course;
+use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class CoursesController extends Controller
 {
@@ -13,7 +16,12 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        //
+        if(!Auth::user()->hasPermission('view.cursos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $courses = Course::paginate();
+        return view('admin.training.courses.index', compact('courses'));
     }
 
     /**
@@ -23,7 +31,11 @@ class CoursesController extends Controller
      */
     public function create()
     {
-        //
+        if(!Auth::user()->hasPermission('create.cursos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        return view('admin.training.courses.create');
     }
 
     /**
@@ -34,7 +46,27 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(!Auth::user()->hasPermission('create.cursos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $data = $request->request->all();
+
+        $data['created_by'] = Auth::user()->id;
+
+        $request->validate([
+          'title' => 'required|string|max:255|unique:courses',
+          'description' => 'required|string|max:255',
+          'workload' => 'required|integer|min:1',
+        ]);
+
+        Course::create($data);
+
+        notify()->flash('Curso Adicionado!', 'success', [
+          'text' => 'Novo curso adicionado com sucesso.'
+        ]);
+
+        return redirect()->route('courses.index');
     }
 
     /**
@@ -56,7 +88,12 @@ class CoursesController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!Auth::user()->hasPermission('edit.cursos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $course = Course::uuid($id);
+        return view('admin.training.courses.edit', compact('course'));
     }
 
     /**
@@ -68,7 +105,27 @@ class CoursesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(!Auth::user()->hasPermission('edit.cursos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $data = $request->request->all();
+
+        $curso = Course::uuid($id);
+
+        $request->validate([
+          'title' => 'required|string|max:255|unique:courses,title,'.$curso->id,
+          'description' => 'required|string|max:255',
+          'workload' => 'required|integer|min:1',
+        ]);
+
+        $curso->update($data);
+
+        notify()->flash('Curso Atualizado!', 'success', [
+          'text' => 'Curso atualizado com sucesso.'
+        ]);
+
+        return redirect()->route('courses.index');
     }
 
     /**
@@ -79,6 +136,21 @@ class CoursesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+          $cursos = Course::uuid($id);
+          $cursos->delete();
+
+          return response()->json([
+            'success' => true,
+            'message' => 'Curso removido com sucesso.'
+          ]);
+
+        } catch(\Exception $e) {
+          return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+          ]);
+        }
     }
 }
