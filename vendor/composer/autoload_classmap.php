@@ -141,6 +141,7 @@ return array(
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
     'Carbon\\Exceptions\\InvalidDateException' => $vendorDir . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
+    'ClientsTableSeeder' => $baseDir . '/database/seeds/ClientsTableSeeder.php',
     'Codecourse\\Notify\\Facades\\Notify' => $vendorDir . '/codecourse/notify/src/Codecourse/Notify/Facades/Notify.php',
     'Codecourse\\Notify\\Notifier' => $vendorDir . '/codecourse/notify/src/Codecourse/Notify/Notifier.php',
     'Codecourse\\Notify\\NotifyServiceProvider' => $vendorDir . '/codecourse/notify/src/Codecourse/Notify/NotifyServiceProvider.php',

@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DeliveryOrderStatusesTableSeeder::class);
 
         $this->call(MapperStatusTableSeeder::class);
+        $this->call(ClientsTableSeeder::class);
     }
 }

@@ -23,13 +23,26 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(!Auth::user()->hasPermission('view.clientes')) {
             return abort(403, 'Unauthorized action.');
         }
 
-        $clients = Client::paginate(10);
+        if($request->has('search')) {
+
+          $search = $request->get('search');
+
+          $clients = Client::where('name', 'like', "%$search%")
+          ->orWhere('phone', 'like', "%$search%")
+          ->orWhere('email', 'like', "%$search%");
+
+          $clients = $clients->paginate(15);
+
+        } else {
+          $clients = Client::paginate(15);
+        }
+
         return view('admin.clients.index', compact('clients'));
     }
 
@@ -70,8 +83,8 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-      $client = Client::uuid($id);
-      return view('admin.clients.details', compact('client'));
+        $client = Client::uuid($id);
+        return view('admin.clients.show', compact('client'));
     }
 
     public function addresses(Request $request)

@@ -41,47 +41,72 @@
                     </div>
                     <div class="ibox-content">
 
+                        <div class="row m-b-sm m-t-sm">
+                            <div class="col-md-12">
+                              <form method="get" action="?">
+                                <div class="input-group"><input type="text" name="search" placeholder="Informe o que deseja pesquisar" class="form-control-sm form-control">
+                                  <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-sm btn-primary"> Buscar</button>
+                                  </span>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+
                         <div class="project-list">
                             @if($clients->isNotEmpty())
                                 <table class="table table-hover">
+                                    <thead>
+
+                                      <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Telefone</th>
+                                        <th>Email</th>
+                                        <th>Adicionado em</th>
+                                        <th></th>
+                                      </tr>
+
+                                    </thead>
+
                                     <tbody>
                                         @foreach($clients as $client)
                                             <tr>
 
                                                 <td class="project-title">
-                                                    <p>ID:</p>
                                                     <a>{{$client->id}}</a>
                                                 </td>
 
                                                 <td class="project-title">
-                                                    <p>Nome:</p>
                                                     <a>{{$client->name}}</a>
                                                 </td>
 
                                                 <td class="project-title">
-                                                    <p>Telefone:</p>
                                                     <a>{{$client->phone}}</a>
                                                 </td>
 
                                                 <td class="project-title">
-                                                    <p>Email:</p>
                                                     <a>{{$client->email}}</a>
                                                 </td>
 
                                                 <td class="project-title">
-                                                    <p>Adicionado em:</p>
                                                     <a>{{$client->created_at->format('d/m/Y H:i')}}</a>
                                                 </td>
 
                                                 <td class="project-actions">
-                                                  @permission('edit.clientes')
-                                                    <a href="{{route('clients.edit', ['id' => $client->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
+
+                                                  @permission('view.clientes')
+                                                    <a href="{{route('clients.show', ['id' => $client->uuid])}}" class="btn btn-primary btn-outline"><i class="fa fa-info"></i> </a>
                                                   @endpermission
 
-                                                  <a href="{{route('client_addresses', $client->uuid)}}" class="btn btn-info btn-block"><i class="fa fa-map-marker"></i> Endereços</a>
+                                                  @permission('edit.clientes')
+                                                    <a href="{{route('clients.edit', ['id' => $client->uuid])}}" class="btn btn-white"><i class="fa fa-pencil"></i> </a>
+                                                  @endpermission
+
+                                                  <a href="{{route('client_addresses', $client->uuid)}}" class="btn btn-info btn-outline"><i class="fa fa-map-marker"></i> </a>
 
                                                   @permission('delete.clientes')
-                                                    <a data-route="{{route('clients.destroy', ['id' => $client->uuid])}}" class="btn btn-danger btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
+                                                    <a data-route="{{route('clients.destroy', ['id' => $client->uuid])}}" class="btn btn-danger btn-outline btnRemoveItem"><i class="fa fa-close"></i> </a>
                                                   @endpermission
                                                 </td>
 
@@ -141,74 +166,6 @@
 
 @push('scripts')
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.pt-BR.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.3/chosen.jquery.min.js"></script>
-
-  <script>
-
-      var periodo = $(".periodo");
-      var semana = $(".semana");
-      var horario = $(".horario");
-
-      periodo.hide();
-      semana.hide();
-      horario.hide();
-
-      $('.clockpicker').clockpicker();
-
-      $(".select-date").chosen();
-
-      $(document).ready(function() {
-          $(".btnCopiarProcesso").click(function() {
-              console.log($(this).data('id'));
-              $("#processId").val($(this).data('id'));
-          });
-
-          $('.input-daterange').datepicker({
-            format: "dd/mm/yyyy",
-            clearBtn: true,
-            todayHighlight: true,
-            autoclose: true,
-            language: "pt-BR"
-          });
-      });
-
-      var tempo = new Date();
-      var hora = tempo.getHours();
-      var minutos = tempo.getMinutes();
-
-      $("#frequencia").change(function() {
-
-          var self = $(this);
-          var frequencia = self.val();
-
-          if(self.val() === '2') {
-
-              horario.show();
-              $("#time").val(hora + ':' + minutos);
-
-          } else {
-              horario.hide();
-              $("#time").val("");
-          }
-
-          if(self.val() === '3') {
-              semana.show();
-              horario.show();
-              $("#time").val(hora + ':' + minutos);
-          } else {
-              semana.hide();
-          }
-
-          if(self.val() === '4') {
-              periodo.show();
-          } else {
-              periodo.hide();
-          }
-
-      });
-
-  </script>
 
 @endpush
