@@ -14,154 +14,166 @@ class ModulesTableSeeder extends Seeder
     {
         $itens = [
           [
+            'name' => 'Módulos',
+            'slug' => str_slug('Modulos'),
+            'description' => 'Módulos',
+            'parent' => null,
+          ],
+          [
             'name' => 'Painel Principal',
             'slug' => str_slug('Painel Principal'),
             'description' => 'Painel Principal',
-            'route' => '/',
+            'parent' => str_slug('Modulos'),
           ],
           [
             'name' => 'Gestão de Entregas',
             'slug' => str_slug('Gestao de Entregas'),
             'description' => 'Gestão de Entregas',
-            'route' => '',
+            'parent' => str_slug('Modulos'),
           ],
           [
             'name' => 'Gestão de Processos',
             'slug' => str_slug('Gestao de Processos'),
             'description' => 'Gestão de Processos',
-            'route' => '',
+            'parent' => str_slug('Modulos'),
           ],
           [
-            'name' => 'Gestão de Treinamentos',
+            'name' => 'Treinamentos',
             'slug' => str_slug('Gestao de Treinamentos'),
             'description' => 'Gestão de Treinamentos',
-            'route' => '',
+            'parent' => str_slug('Modulos'),
           ],
           [
             'name' => 'Administrativo',
             'slug' => str_slug('Administrativo'),
             'description' => 'Administrativo',
-            'route' => '',
+            'parent' => str_slug('Modulos'),
           ],
           [
             'name' => 'Clientes',
             'slug' => str_slug('Clientes'),
             'description' => 'Clientes',
-            'route' => '/clients',
+            'parent' => str_slug('Modulos'),
           ],
           [
             'name' => 'Cliente Endereços',
             'slug' => str_slug('Enderecos'),
             'description' => 'Cliente Enderecos',
-            'route' => '/address',
+            'parent' => str_slug('Clientes'),
           ],
 
           [
             'name' => 'Documentos',
             'slug' => str_slug('Documentos'),
             'description' => 'Documentos',
-            'route' => '/documents',
+            'parent' => str_slug('Gestao de Entregas'),
           ],
           [
             'name' => 'Ordem Entrega',
             'slug' => str_slug('Ordem Entrega'),
             'description' => 'Ordem Entrega',
-            'route' => '/delivery-order',
+            'parent' => str_slug('Gestao de Entregas'),
           ],
 
           [
             'name' => 'Board',
             'slug' => str_slug('Board'),
             'description' => 'Board',
-            'route' => '/boards',
+            'parent' => str_slug('Gestao de Processos'),
           ],
           [
             'name' => 'Mapeamentos',
             'slug' => str_slug('Mapeamentos'),
             'description' => 'Mapeamentos',
-            'route' => '/mappings',
+            'parent' => str_slug('Gestao de Processos'),
           ],
           [
             'name' => 'Processos',
             'slug' => str_slug('Processos'),
             'description' => 'Processos',
-            'route' => '/processes',
+            'parent' => str_slug('Gestao de Processos'),
           ],
           [
             'name' => 'Tarefas',
             'slug' => str_slug('Tarefas'),
             'description' => 'Tarefas',
-            'route' => '/tasks',
+            'parent' => str_slug('Gestao de Processos'),
           ],
 
           [
             'name' => 'Cursos',
             'slug' => str_slug('Cursos'),
             'description' => 'Cursos',
-            'route' => '/courses',
+            'parent' => str_slug('Gestao de Treinamentos'),
           ],
           [
             'name' => 'Alunos',
             'slug' => str_slug('Alunos'),
             'description' => 'Alunos',
-            'route' => '/students',
+            'parent' => str_slug('Gestao de Treinamentos'),
           ],
 
           [
             'name' => 'Turmas',
             'slug' => str_slug('Turmas'),
             'description' => 'Turmas',
-            'route' => '/teams',
+            'parent' => str_slug('Gestao de Treinamentos'),
           ],
           [
             'name' => 'Agenda',
             'slug' => str_slug('Agenda'),
             'description' => 'Agenda',
-            'route' => '/schedule',
+            'parent' => str_slug('Gestao de Treinamentos'),
           ],
 
           [
             'name' => 'Departamentos',
             'slug' => str_slug('Departamentos'),
             'description' => 'Departamentos',
-            'route' => '/departments',
+            'parent' => str_slug('Administrativo'),
           ],
           [
             'name' => 'Cargos',
             'slug' => str_slug('Cargos'),
             'description' => 'Cargos',
-            'route' => '/occupations',
+            'parent' => str_slug('Administrativo'),
           ],
           [
             'name' => 'Usuarios',
             'slug' => str_slug('Usuarios'),
             'description' => 'Usuarios',
-            'route' => '/users',
+            'parent' => str_slug('Administrativo'),
           ],
 
           [
             'name' => 'Privilégios',
             'slug' => str_slug('Privilegios'),
             'description' => 'Privilégios',
-            'route' => '/roles',
+            'parent' => str_slug('Administrativo'),
           ],
 
           [
             'name' => 'Permissões',
             'slug' => str_slug('Permissoes'),
             'description' => 'Permissões',
-            'route' => '/permissions',
+            'parent' => str_slug('Administrativo'),
           ],
 
           [
             'name' => 'Calendário',
             'slug' => str_slug('Calendario'),
             'description' => 'Calendário',
-            'route' => '/task/calendar/list',
+            'parent' => str_slug('Modulos'),
           ],
         ];
 
         foreach ($itens as $key => $value) {
+
+            if($value['parent']) {
+                $module = Module::where('slug', $value['parent'])->get()->first();
+                $value['parent'] = $module->id;
+            }
+
             Module::create($value);
         }
     }

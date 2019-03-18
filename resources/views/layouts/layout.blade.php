@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>Process Mapper | Admin</title>
+	<title>{{ config('app.name') }}</title>
 
 	<link href="{{ asset("admin/css/bootstrap.min.css ") }}" rel="stylesheet">
 	<link href="{{ asset("css/font-awesome.css ") }}" rel="stylesheet">
@@ -14,6 +14,8 @@
 	<link href="{{ asset("admin/css/animate.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/style.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/TimeCircles.css") }}" rel="stylesheet">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.css" rel="stylesheet"/>
+
 	<!--
 	<link href="{{ asset("css/sweetalert2.min.css") }}" rel="stylesheet">
 	-->
@@ -135,11 +137,11 @@
 					</div>
 			</div>
 
-
-
 			</div>
 
 	</div>
+
+	@include('admin.modals.schedule')
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -165,6 +167,17 @@
 	<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCdFj8jkxW4lzvZjL7R86Smrgy9lmO5wAE&libraries=places&dummy=.js"></script>
 
 	<!-- Latest compiled and minified JavaScript -->
+
+
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/pt-br.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/locale/pt-br.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
 
 <!--
@@ -232,6 +245,47 @@
 @endif
 
 	<script>
+
+	$(".inputCep").blur(function() {
+
+			let route = $(this).data('cep');
+			let value = $(this).val();
+
+				$.ajax({
+					type: 'GET',
+					async: true,
+					url: route+'?search='+value,
+					success: function(response) {
+
+							if(!response.success) {
+
+								Swal.fire({
+									type: 'error',
+									title: 'Oops...',
+									text: response.message,
+								})
+
+							}
+
+							let dataResponse = response.data['response'];
+							let dataResponseCoodenadas = response.data['coordenadas'];
+
+							$("#street").val(dataResponse.logradouro);
+							$("#district").val(dataResponse.bairro);
+							$("#city").val(dataResponse.localidade);
+							$("#state").val(dataResponse.uf);
+
+							$("#long").val(dataResponseCoodenadas.lng);
+							$("#lat").val(dataResponseCoodenadas.lat);
+					}
+				})
+
+			//}
+
+
+
+		});
+
 		$(".btnRemoveItem").click(function(e) {
 				var self = $(this);
 

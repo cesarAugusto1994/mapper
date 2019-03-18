@@ -37,7 +37,7 @@ class PermissionsTableSeeder extends Seeder
             'Gestão de Entregas',
             'Gestão de Processos',
             'Administrativo',
-            'Gestão de Treinamentos'
+            'Treinamentos'
           ])) {
             continue;
           }

@@ -192,52 +192,6 @@
         });
     });
 
-
-    $(".inputCep").blur(function() {
-
-      let route = $(this).data('cep');
-      let value = $(this).val();
-
-      console.log(value);
-
-      //if(value.lenght > 7) {
-
-        $.ajax({
-          type: 'GET',
-          async: true,
-          url: route+'?search='+value,
-          success: function(response) {
-
-              if(!response.success) {
-
-                Swal.fire({
-                  type: 'error',
-                  title: 'Oops...',
-                  text: response.message,
-                })
-
-              }
-
-              let dataResponse = response.data['response'];
-              let dataResponseCoodenadas = response.data['coordenadas'];
-
-              $("#street").val(dataResponse.logradouro);
-              $("#district").val(dataResponse.bairro);
-              $("#city").val(dataResponse.localidade);
-              $("#state").val(dataResponse.uf);
-
-              $("#long").val(dataResponseCoodenadas.lng);
-              $("#lat").val(dataResponseCoodenadas.lat);
-          }
-        })
-
-      //}
-
-
-
-    });
-
-
   </script>
 
 @endpush

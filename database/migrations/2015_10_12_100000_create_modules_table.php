@@ -18,7 +18,7 @@ class CreateModulesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('description');
-            $table->string('route')->nullable();
+            $table->string('parent')->nullable();
             $table->timestamps();
         });
     }

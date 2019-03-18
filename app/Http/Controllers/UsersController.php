@@ -59,16 +59,22 @@ class UsersController extends Controller
     {
         $permissions = Permission::all();
 
-        $permissionsGroupedByModule = [];
+        $modules = Module::all();
 
+        $permissionsGroupedByModule = [];
+/*
         foreach ($permissions as $key => $permission) {
             $module = Module::findOrFail($permission->module_id);
-            $permissionsGroupedByModule[$module->name][] = $permission;
+            if($module->children->isNotEmpty()) {
+                $permissionsGroupedByModule[$module->name][] = $module->children()->get();
+            }
         }
+*/
+        #dd($permissionsGroupedByModule);
 
         $user = User::uuid($id);
 
-        return view('admin.users.permissions', compact('permissionsGroupedByModule', 'user'));
+        return view('admin.users.permissions', compact('permissionsGroupedByModule', 'user', 'modules'));
     }
 
     public function grant($id, $permission)

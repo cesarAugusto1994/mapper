@@ -28,6 +28,10 @@ class OccupationTableSeeder extends Seeder
           [
             'name' => 'Cargo D',
             'department_id' => 3,
+          ],
+          [
+            'name' => 'Entregador',
+            'department_id' => 5,
           ]
         ];
 

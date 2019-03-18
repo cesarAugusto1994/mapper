@@ -31,59 +31,70 @@
 
                       <div class="panel-group" id="accordion">
 
-                        @foreach($permissionsGroupedByModule as $keyModuleName =>  $module)
+                        @foreach($modules as $key => $module)
 
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $loop->index }}" class="collapsed" aria-expanded="false">{{$keyModuleName}}</a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapse{{ $loop->index }}" class="panel-collapse {{ $loop->first ? 'in' : '' }} collapse" style="">
-                                        <div class="panel-body">
+                            @if($module->children->isNotEmpty())
 
-                                          @if($module)
-                                          <table class="table table-borderd">
-                                              <tbody>
-                                              @foreach($module as $permission)
+                              <div class="panel panel-default">
+                                  <div class="panel-heading">
+                                      <h5 class="panel-title">
+                                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $loop->index }}" class="collapsed" aria-expanded="false">{{$module->name}}</a>
+                                      </h5>
+                                  </div>
+                                  <div id="collapse{{ $loop->index }}" class="panel-collapse {{ $key==0 ? 'in' : '' }} collapse" style="">
+                                      <div class="panel-body">
 
-                                              @php
-                                                  $hasPermission = $user->hasPermission($permission->slug);
-                                              @endphp
+                                        @forelse($module->children as $item)
 
-                                              <tr>
-                                                  <td class="project-title">
-                                                      <p>Acesso:</p>
-                                                      <a href="#">{{$hasPermission ? 'SIM' : 'NÃO'}}</a>
-                                                  </td>
-                                                  <td class="project-title">
-                                                      <p>Nome:</p>
-                                                      <a href="#">{{$permission->name}}</a>
-                                                  </td>
-                                                  <td class="project-title">
-                                                      <p>Descrição:</p>
-                                                      <a href="#">{{$permission->description}}</a>
-                                                  </td>
-                                                  <td class="project-actions">
-                                                    @if($hasPermission)
-                                                      <a data-route="{{route('user_permissions_revoke', [$user->uuid, $permission->id])}}" class="btn btn-danger dim btnPermissionRevoke"><i class="fa fa-close"></i> </a>
-                                                    @else
-                                                      <a data-route="{{route('user_permissions_grant', [$user->uuid, $permission->id])}}" class="btn btn-primary dim btnPermissionGrant"><i class="fa fa-check"></i>  </a>
-                                                    @endif
-                                                  </td>
-                                              </tr>
-                                              @endforeach
-                                              </tbody>
-                                          </table>
-                                          @else
-                                              <div class="alert alert-warning">Nenhum sub-processo registrado até o momento.</div>
-                                          @endif
-
+                                        <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12">
+                                          <h2>
+                                              {{$item->name}}
+                                          </h2>
                                         </div>
-                                    </div>
-                                </div>
 
+                                        <table class="table table-borderd">
+                                            <tbody>
+                                            @foreach($item->permissions as $permission)
 
+                                            @php
+                                                $hasPermission = $user->hasPermission($permission->slug);
+                                            @endphp
+
+                                            <tr>
+                                                <td class="project-title">
+                                                    <p>Acesso:</p>
+                                                    <a href="#">{{$hasPermission ? 'SIM' : 'NÃO'}}</a>
+                                                </td>
+                                                <td class="project-title">
+                                                    <p>Nome:</p>
+                                                    <a href="#">{{$permission->name}}</a>
+                                                </td>
+                                                <td class="project-title">
+                                                    <p>Descrição:</p>
+                                                    <a href="#">{{$permission->description}}</a>
+                                                </td>
+                                                <td class="project-actions">
+
+                                                    <a data-route="{{route('user_permissions_revoke', [$user->uuid, $permission->id])}}"
+                                                      class="btn btn-danger dim btnPermissionRevoke {{ !$hasPermission ? 'hidden' : '' }}" id="btnPermissionRevoke"><i class="fa fa-close"></i> </a>
+
+                                                    <a data-route="{{route('user_permissions_grant', [$user->uuid, $permission->id])}}"
+                                                      class="btn btn-primary dim btnPermissionGrant {{ $hasPermission ? 'hidden' : '' }}" id="btnPermissionGrant"><i class="fa fa-check"></i>  </a>
+
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                        @empty
+                                            <div class="alert alert-warning">Nenhum sub-processo registrado até o momento.</div>
+                                        @endforelse
+
+                                      </div>
+                                  </div>
+                              </div>
+
+                            @endif
 
                         @endforeach
 
@@ -132,17 +143,21 @@
 
                   const toast = swal.mixin({
                     toast: true,
-                    position: 'top-end',
+                    position: 'top-center',
                     showConfirmButton: false,
                     timer: 3000
                   });
 
                   toast({
                     type: 'success',
-                    title: 'Ok!, o registro foi removido com sucesso.'
+                    title: 'Ok!, permissão concedida.'
                   });
 
-                  window.location.reload();
+                  self.addClass('hidden');
+
+                  self.parents('.project-actions')
+                  .find('.btnPermissionRevoke')
+                  .removeClass('hidden');
 
                 } else {
 
@@ -197,10 +212,14 @@
 
                   toast({
                     type: 'success',
-                    title: 'Ok!, o registro foi removido com sucesso.'
+                    title: 'Ok!, permissão revogada.'
                   });
 
-                  window.location.reload();
+                  self.addClass('hidden');
+
+                  self.parents('.project-actions')
+                  .find('.btnPermissionGrant')
+                  .removeClass('hidden');
 
                 } else {
 

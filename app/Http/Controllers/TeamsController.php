@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Training\Team;
+use Illuminate\Support\Facades\Validator;
 
 class TeamsController extends Controller
 {
@@ -13,7 +15,9 @@ class TeamsController extends Controller
      */
     public function index()
     {
-        //
+        $teams = Team::all();
+
+        return view('admin.training.teams.index', compact('teams'));
     }
 
     /**

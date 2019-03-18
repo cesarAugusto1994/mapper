@@ -10,4 +10,14 @@ class Module extends Model
     use LogsActivity;
 
     protected $fillable = ['name', 'slug', 'description', 'route'];
+
+    public function children()
+    {
+        return $this->hasMany('App\Models\Module', 'parent');
+    }
+
+    public function permissions()
+    {
+        return $this->hasMany('jeremykenedy\LaravelRoles\Models\Permission', 'module_id');
+    }
 }
