@@ -15,6 +15,7 @@ return array(
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'Underscore\\' => array($vendorDir . '/anahkiasen/underscore-php/src', $vendorDir . '/anahkiasen/underscore-php/tests'),
     'TijsVerkoyen\\CssToInlineStyles\\' => array($vendorDir . '/tijsverkoyen/css-to-inline-styles/src'),
+    'Themsaid\\MailPreview\\' => array($vendorDir . '/themsaid/laravel-mail-preview/src'),
     'Tests\\' => array($baseDir . '/tests'),
     'Symfony\\Polyfill\\Php70\\' => array($vendorDir . '/symfony/polyfill-php70'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),

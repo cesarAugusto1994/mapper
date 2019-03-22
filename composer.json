@@ -22,6 +22,7 @@
         "simplesoftwareio/simple-qrcode": "~2",
         "spatie/async": "^0.0.4",
         "spatie/laravel-activitylog": "^3.2",
+        "themsaid/laravel-mail-preview": "^2.0",
         "yadahan/laravel-authentication-log": "^1.1"
     },
     "require-dev": {

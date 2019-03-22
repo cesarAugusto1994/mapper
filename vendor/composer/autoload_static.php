@@ -61,6 +61,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'T' => 
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
+            'Themsaid\\MailPreview\\' => 21,
             'Tests\\' => 6,
         ),
         'S' => 
@@ -192,6 +193,10 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
             0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
+        ),
+        'Themsaid\\MailPreview\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/themsaid/laravel-mail-preview/src',
         ),
         'Tests\\' => 
         array (
@@ -488,6 +493,8 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Http\\Controllers\\DepartmentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/DepartmentsController.php',
         'App\\Http\\Controllers\\DocumentTypesController' => __DIR__ . '/../..' . '/app/Http/Controllers/DocumentTypesController.php',
         'App\\Http\\Controllers\\DocumentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/DocumentsController.php',
+        'App\\Http\\Controllers\\FleetCarController' => __DIR__ . '/../..' . '/app/Http/Controllers/FleetCarController.php',
+        'App\\Http\\Controllers\\FleetScheduleController' => __DIR__ . '/../..' . '/app/Http/Controllers/FleetScheduleController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\LogsController' => __DIR__ . '/../..' . '/app/Http/Controllers/LogsController.php',
         'App\\Http\\Controllers\\MapperController' => __DIR__ . '/../..' . '/app/Http/Controllers/MapperController.php',
@@ -519,7 +526,9 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Models\\Documents\\Status' => __DIR__ . '/../..' . '/app/Models/Documents/Status.php',
         'App\\Models\\Documents\\Type' => __DIR__ . '/../..' . '/app/Models/Documents/Type.php',
         'App\\Models\\Fleet\\Car' => __DIR__ . '/../..' . '/app/Models/Fleet/Car.php',
+        'App\\Models\\Fleet\\Car\\Status' => __DIR__ . '/../..' . '/app/Models/Fleet/Car/Status.php',
         'App\\Models\\Fleet\\Schedule' => __DIR__ . '/../..' . '/app/Models/Fleet/Schedule.php',
+        'App\\Models\\Fleet\\Schedule\\Status' => __DIR__ . '/../..' . '/app/Models/Fleet/Schedule/Status.php',
         'App\\Models\\Frequency' => __DIR__ . '/../..' . '/app/Models/Frequency.php',
         'App\\Models\\JobStatus' => __DIR__ . '/../..' . '/app/Models/JobStatus.php',
         'App\\Models\\Mapper' => __DIR__ . '/../..' . '/app/Models/Mapper.php',
@@ -2237,6 +2246,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'League\\Flysystem\\Util\\ContentListingFormatter' => __DIR__ . '/..' . '/league/flysystem/src/Util/ContentListingFormatter.php',
         'League\\Flysystem\\Util\\MimeType' => __DIR__ . '/..' . '/league/flysystem/src/Util/MimeType.php',
         'League\\Flysystem\\Util\\StreamHasher' => __DIR__ . '/..' . '/league/flysystem/src/Util/StreamHasher.php',
+        'MailPreviewTest' => __DIR__ . '/..' . '/themsaid/laravel-mail-preview/tests/MailPreviewTest.php',
         'MapperStatusTableSeeder' => __DIR__ . '/../..' . '/database/seeds/MapperStatusTableSeeder.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
@@ -4324,6 +4334,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'TaskMessageTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TaskMessageTableSeeder.php',
         'TaskStatusTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TaskStatusTableSeeder.php',
         'TaskTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TaskTableSeeder.php',
+        'TestCase' => __DIR__ . '/..' . '/themsaid/laravel-mail-preview/tests/TestCase.php',
         'Tests\\CreatesApplication' => __DIR__ . '/../..' . '/tests/CreatesApplication.php',
         'Tests\\Feature\\ExampleTest' => __DIR__ . '/../..' . '/tests/Feature/ExampleTest.php',
         'Tests\\TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
@@ -4337,6 +4348,11 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'TheSeer\\Tokenizer\\TokenCollectionException' => __DIR__ . '/..' . '/theseer/tokenizer/src/TokenCollectionException.php',
         'TheSeer\\Tokenizer\\Tokenizer' => __DIR__ . '/..' . '/theseer/tokenizer/src/Tokenizer.php',
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
+        'Themsaid\\MailPreview\\MailPreviewController' => __DIR__ . '/..' . '/themsaid/laravel-mail-preview/src/MailPreviewController.php',
+        'Themsaid\\MailPreview\\MailPreviewMiddleware' => __DIR__ . '/..' . '/themsaid/laravel-mail-preview/src/MailPreviewMiddleware.php',
+        'Themsaid\\MailPreview\\MailPreviewServiceProvider' => __DIR__ . '/..' . '/themsaid/laravel-mail-preview/src/MailPreviewServiceProvider.php',
+        'Themsaid\\MailPreview\\MailProvider' => __DIR__ . '/..' . '/themsaid/laravel-mail-preview/src/MailProvider.php',
+        'Themsaid\\MailPreview\\PreviewTransport' => __DIR__ . '/..' . '/themsaid/laravel-mail-preview/src/PreviewTransport.php',
         'TijsVerkoyen\\CssToInlineStyles\\CssToInlineStyles' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/CssToInlineStyles.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Processor.php',
