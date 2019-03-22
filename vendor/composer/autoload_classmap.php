@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Helpers\\Helper' => $baseDir . '/app/Helpers/Helper.php',
     'App\\Helpers\\Mapper' => $baseDir . '/app/Helpers/Mapper.php',
     'App\\Helpers\\TimesAgo' => $baseDir . '/app/Helpers/TimesAgo.php',
     'App\\Http\\Controllers\\AddressesController' => $baseDir . '/app/Http/Controllers/AddressesController.php',
@@ -53,6 +54,8 @@ return array(
     'App\\Models\\Documents' => $baseDir . '/app/Models/Documents.php',
     'App\\Models\\Documents\\Status' => $baseDir . '/app/Models/Documents/Status.php',
     'App\\Models\\Documents\\Type' => $baseDir . '/app/Models/Documents/Type.php',
+    'App\\Models\\Fleet\\Car' => $baseDir . '/app/Models/Fleet/Car.php',
+    'App\\Models\\Fleet\\Schedule' => $baseDir . '/app/Models/Fleet/Schedule.php',
     'App\\Models\\Frequency' => $baseDir . '/app/Models/Frequency.php',
     'App\\Models\\JobStatus' => $baseDir . '/app/Models/JobStatus.php',
     'App\\Models\\Mapper' => $baseDir . '/app/Models/Mapper.php',

@@ -241,6 +241,8 @@ class UsersController extends Controller
           'roles' => 'required',
         ]);
 
+        $permissions = Permission::pluck('id');
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
@@ -265,8 +267,18 @@ class UsersController extends Controller
         $user->password = bcrypt($data['password']);
         $user->person_id = $person->id;
         $user->avatar = $avatar;
+        $user->change_password = true;
         $user->save();
         $user->roles()->attach($roleUser);
+
+        if($roleUser->id == 1) {
+            $user->syncPermissions($permissions);
+        }
+
+        $user->save();
+
+        //$permissions = Permission::pluck('id');
+        //$user->syncPermissions($permissions);
 
         flash('Novo usuário adicionado com sucesso.')->success()->important();
 

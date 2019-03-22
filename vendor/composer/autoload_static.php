@@ -472,6 +472,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Helpers\\Helper' => __DIR__ . '/../..' . '/app/Helpers/Helper.php',
         'App\\Helpers\\Mapper' => __DIR__ . '/../..' . '/app/Helpers/Mapper.php',
         'App\\Helpers\\TimesAgo' => __DIR__ . '/../..' . '/app/Helpers/TimesAgo.php',
         'App\\Http\\Controllers\\AddressesController' => __DIR__ . '/../..' . '/app/Http/Controllers/AddressesController.php',
@@ -517,6 +518,8 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Models\\Documents' => __DIR__ . '/../..' . '/app/Models/Documents.php',
         'App\\Models\\Documents\\Status' => __DIR__ . '/../..' . '/app/Models/Documents/Status.php',
         'App\\Models\\Documents\\Type' => __DIR__ . '/../..' . '/app/Models/Documents/Type.php',
+        'App\\Models\\Fleet\\Car' => __DIR__ . '/../..' . '/app/Models/Fleet/Car.php',
+        'App\\Models\\Fleet\\Schedule' => __DIR__ . '/../..' . '/app/Models/Fleet/Schedule.php',
         'App\\Models\\Frequency' => __DIR__ . '/../..' . '/app/Models/Frequency.php',
         'App\\Models\\JobStatus' => __DIR__ . '/../..' . '/app/Models/JobStatus.php',
         'App\\Models\\Mapper' => __DIR__ . '/../..' . '/app/Models/Mapper.php',

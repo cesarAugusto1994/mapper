@@ -26,7 +26,7 @@ class RolesTableSeeder extends Seeder
                 'level'       => 5,
             ]);
 
-            //$adminRole->syncPermissions(Permission::all());
+            //$adminRole->syncPermissions(Permission::pluck('id'));
         }
 
         if (Role::where('name', '=', 'Gerente')->first() === null) {
