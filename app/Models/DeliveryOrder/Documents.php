@@ -22,7 +22,7 @@ class Documents extends Model
 
     public function document()
     {
-        return $this->belongsTo('App\Models\DeliveryOrder\Document');
+        return $this->belongsTo('App\Models\Documents');
     }
 
     public function deliveryOrder()

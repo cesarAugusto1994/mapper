@@ -19,7 +19,7 @@ class CreateTeamStudentsTable extends Migration
             $table->foreign('team_id')->references('id')->on('teams');
             $table->integer('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students');
-            $table->enum('status_student', ['RESERVADO', 'CONFIRMADO', 'CANCELADO', 'FALTA'])->default('RESERVADO');
+            $table->enum('status_student', ['PRE-AGENDADO', 'AGENDADO', 'CONFIRMADO', 'CANCELADO', 'FALTA'])->default('PRE-AGENDADO');
             $table->integer('approved')->default(false);
             $table->timestamps();
         });

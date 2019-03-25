@@ -26,12 +26,15 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.css">
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
 
 	@stack('stylesheets')
 
 </head>
 
-<body class="pace-done skin-4">
+<body class="pace-done skin-3">
 	<div id="wrapper">
 
 		@include('layouts.sidebar')
@@ -177,8 +180,19 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/locale/pt-br.js"></script>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
 
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+
+	<script>
+      $('.summernote').summernote({
+        placeholder: '',
+        height: 250
+      });
+    </script>
 
 <!--
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.js')}}"></script>
@@ -208,11 +222,23 @@
 
 		});
 
+		$('.inputDate').mask('00/00/0000');
 	  $('.inputCep').mask('00000-000');
 		$('.inputPhone').mask('(00)00000-0000');
 	  $('.inputCpf').mask('000.000.000-00', {reverse: true});
-
 		$('.inputMoney').mask('000.000.000.000.000,00', {reverse: true});
+
+		$('.inputDate').datepicker({
+	    format: "dd/mm/yyyy",
+	    todayBtn: "linked",
+	    clearBtn: true,
+	    language: "pt-BR",
+	    daysOfWeekDisabled: "0,6",
+	    calendarWeeks: true,
+	    autoclose: true,
+	    todayHighlight: true,
+	    toggleActive: true
+		});
 
 	</script>
 

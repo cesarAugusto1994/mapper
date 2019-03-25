@@ -29,9 +29,9 @@
                       </div>
                       <div class="ibox-content">
 
-                        <form method="post" class="form-horizontal" action="{{route('delivery-order.store')}}">
+                        <form method="post" class="form-horizontal" action="{{route('delivery-order.update', $delivery->uuid)}}">
                             {{csrf_field()}}
-
+                            {{method_field('PUT')}}
                             @foreach($documents as $document)
                               <input type="hidden" name="documents[]" value="{{ $document->uuid }}"/>
                             @endforeach
@@ -41,7 +41,7 @@
                                 <div class="col-sm-12">
                                 <select class="selectpicker show-tick select-entregador" data-search-user="{{ route('user_search') }}" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" name="delivered_by" required>
                                       @foreach($delivers as $deliver)
-                                          <option value="{{$deliver->uuid}}">{{$deliver->name}}</option>
+                                          <option value="{{$deliver->uuid}}" {{$delivery->delivered_by==$deliver->id ? 'selected' : ''}}>{{$deliver->name}}</option>
                                       @endforeach
                                   </select>
                                     {!! $errors->first('delivered_by', '<p class="help-block">:message</p>') !!}
@@ -51,7 +51,7 @@
                             <div class="form-group {!! $errors->has('delivery_date') ? 'has-error' : '' !!}">
                               <label class="col-sm-12">Entrega</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control inputDate" name="delivery_date"/>
+                                    <input type="text" class="form-control inputDate" name="delivery_date" value="{{ $delivery->delivery_date ? $delivery->delivery_date->format('d/m/Y') : '' }}"/>
                                     {!! $errors->first('delivery_date', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
@@ -59,13 +59,13 @@
                             <div class="form-group {!! $errors->has('annotations') ? 'has-error' : '' !!}">
                               <label class="col-sm-12">Anotações</label>
                                 <div class="col-sm-12">
-                                    <textarea class="form-control" name="annotations"></textarea>
+                                    <textarea class="form-control" name="annotations">{{ $delivery->annotations }}</textarea>
                                     {!! $errors->first('annotations', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
 
 
-                            <button class="btn btn-primary btn-block">Gerar</button>
+                            <button class="btn btn-primary btn-block">Salvar</button>
                         </form>
 
                       </div>
@@ -78,7 +78,9 @@
                 <div class="col-lg-9">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>{{ $document->description }}, Gerado em: {{ $document->created_at->format('d/m/Y H:i') }}, Por {{ $document->creator->person->name }}</h5>
+                            <h5>{{ $document->description }},
+                              Gerado em: {{ $document->created_at->format('d/m/Y H:i') }},
+                              Por {{ $document->creator->person->name ?? '' }}</h5>
                         </div>
                         <div class="ibox-content">
 

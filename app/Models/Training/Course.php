@@ -13,5 +13,5 @@ class Course extends Model
 
     protected $table = 'courses';
 
-    protected $fillable = ['title', 'description', 'workload', 'created_by'];
+    protected $fillable = ['title', 'description', 'workload', 'created_by', 'grade'];
 }

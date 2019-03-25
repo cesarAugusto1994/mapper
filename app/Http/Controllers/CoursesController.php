@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Training\Course;
 use Illuminate\Support\Facades\Validator;
+use App\Helpers\Helper;
 use Auth;
 
 class CoursesController extends Controller
@@ -61,6 +62,8 @@ class CoursesController extends Controller
         ]);
 
         Course::create($data);
+
+        Helper::drop('courses');
 
         notify()->flash('Curso Adicionado!', 'success', [
           'text' => 'Novo curso adicionado com sucesso.'
@@ -121,6 +124,8 @@ class CoursesController extends Controller
 
         $curso->update($data);
 
+        Helper::drop('courses');
+
         notify()->flash('Curso Atualizado!', 'success', [
           'text' => 'Curso atualizado com sucesso.'
         ]);
@@ -140,6 +145,8 @@ class CoursesController extends Controller
 
           $cursos = Course::uuid($id);
           $cursos->delete();
+
+          Helper::drop('courses');
 
           return response()->json([
             'success' => true,

@@ -60,7 +60,7 @@
 
                                                 <td class="project-title">
                                                     <p>Descrição:</p>
-                                                    <a>{{$course->description}}</a>
+                                                    <a>{{strip_tags($course->description)}}</a>
                                                 </td>
 
                                                 <td class="project-title">

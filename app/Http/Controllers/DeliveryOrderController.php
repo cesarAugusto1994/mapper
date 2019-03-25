@@ -124,6 +124,8 @@ class DeliveryOrderController extends Controller
 
         $documentsGroupedByClients = [];
 
+        $deliveryDate = $data['delivery_date'] ? \DateTime::createFromFormat('d/m/Y', $data['delivery_date']) : null;
+
         foreach ($documents as $key => $document) {
 
             $hasDocument = DeliveryOrderDocuments::where('document_id', $document->id)->get();
@@ -155,6 +157,8 @@ class DeliveryOrderController extends Controller
                 DeliveryOrderDocuments::create([
                   'document_id' => $document->id,
                   'delivery_order_id' => $deliveryOrder->id,
+                  'delivery_date' => $deliveryDate,
+                  'annotations' => $data['annotations'],
                   'user_id' => $request->user()->id
                 ]);
                 $document->status_id = 2;
@@ -187,9 +191,43 @@ class DeliveryOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $data = $request->request->all();
+
+        $occupation = Occupation::where('name', 'Entregador')->get();
+
+        if($occupation->isEmpty()) {
+          notify()->flash('Cargo de Entregador não existe.', 'warning', [
+            'text' => 'Para que a entrega possa ser realizada é necessário criar o cargo Entregador.'
+          ]);
+
+          return back();
+        }
+
+        $occupation = $occupation->first();
+
+        $delivers = People::where('occupation_id', $occupation->id)->get();
+
+        if($delivers->isEmpty()) {
+          notify()->flash('Nenhum usuário com o cargo de Entregador.', 'warning', [
+            'text' => 'Para que a entrega possa ser realizada é necessário ao menos um usuário com o cargo de Entregador.'
+          ]);
+
+          return back();
+        }
+
+        $delivery = DeliveryOrder::uuid($id);
+        $documents = $delivery->documents;
+        $resultado = [];
+
+        foreach ($delivery->documents as $key => $document) {
+            $resultado[] = $document->document;
+        }
+
+        $documents = $resultado;
+
+        return view('admin.delivery-order.edit', compact('documents', 'delivers', 'delivery'));
     }
 
     /**
@@ -201,7 +239,30 @@ class DeliveryOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->request->all();
+
+        $deliverUuid = $data['delivered_by'];
+
+        $deliver = People::uuid($deliverUuid);
+        $data['delivered_by'] = $deliver->id;
+
+        $documents = Documents::whereIn('uuid', $data['documents'])->get();
+
+        $deliveryOrder = DeliveryOrder::uuid($id);
+
+        $deliveryDate = $data['delivery_date'] ? \DateTime::createFromFormat('d/m/Y', $data['delivery_date']) : null;
+
+        $deliveryOrder->update([
+          'delivered_by' => $data['delivered_by'],
+          'delivery_date' => $deliveryDate,
+          'annotations' => $data['annotations']
+        ]);
+
+        notify()->flash('Sucesso!', 'success', [
+          'text' => 'Ordem de Entrega Atualizada com sucesso.'
+        ]);
+
+        return redirect()->route('delivery-order.index');
     }
 
     /**

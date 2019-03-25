@@ -47,20 +47,6 @@
                               </div>
                             </div>
 
-                            <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
-                                <label class="col-sm-2 control-label">Descrição</label>
-                                <div class="col-sm-10">
-                                  <textarea name="description" rows="4" class="form-control" required></textarea>
-
-                                  @if ($errors->has('description'))
-                                      <span class="help-block">
-                                          <strong>{{ $errors->first('description') }}</strong>
-                                      </span>
-                                  @endif
-
-                                </div>
-                            </div>
-
                             <div class="form-group {{ $errors->has('workload') ? ' has-error' : '' }}">
                                 <label class="col-sm-2 control-label">Carga Horária (horas)</label>
                                 <div class="col-sm-10">
@@ -72,6 +58,32 @@
                                       </span>
                                   @endif
 
+                                </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
+                                <label class="col-sm-2 control-label">Descrição</label>
+                                <div class="col-sm-10">
+                                  <textarea name="description" rows="4" class="form-control summernote"></textarea>
+
+                                  @if ($errors->has('description'))
+                                      <span class="help-block">
+                                          <strong>{{ $errors->first('description') }}</strong>
+                                      </span>
+                                  @endif
+
+                                </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->has('grade') ? ' has-error' : '' }}">
+                                <label class="col-sm-2 control-label">Grade Curricular</label>
+                                <div class="col-sm-10">
+                                  <textarea name="grade" rows="4" class="form-control summernote"></textarea>
+                                  @if ($errors->has('grade'))
+                                      <span class="help-block">
+                                          <strong>{{ $errors->first('grade') }}</strong>
+                                      </span>
+                                  @endif
                                 </div>
                             </div>
 

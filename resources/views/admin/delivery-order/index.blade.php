@@ -41,7 +41,7 @@
                                       <th>ID</th>
                                       <th>Cliente</th>
                                       <th>Status</th>
-                                      <th>Adicionado por</th>
+                                      <th>Entregador</th>
                                       <th>Adicionado em</th>
                                       <th>Tempo passado</th>
                                       <th>Opções</th>
@@ -76,10 +76,11 @@
 
                                     <td class="project-title">
                                       @permission('edit.documentos')
-                                        <a href="{{route('documents.edit', ['id' => $order->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
+                                        <a href="{{route('delivery-order.edit', ['id' => $order->uuid])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
+
                                       @endpermission
                                       @permission('delete.documentos')
-                                        <a data-route="{{route('documents.destroy', ['id' => $order->uuid])}}" class="btn btn-danger btn-outline btn-block btnRemoveItem"><i class="fa fa-close"></i> Cancelar</a>
+                                        <a data-route="{{route('documents.destroy', ['id' => $order->uuid])}}" class="btn btn-white btn-sm btnRemoveItem"><i class="fa fa-close"></i> Cancelar </a>
                                       @endpermission
                                     </td>
 

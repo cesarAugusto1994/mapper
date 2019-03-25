@@ -48,11 +48,12 @@
 
           <div class="col-lg-4">
 
-                    <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Listagem</h5>
-                    </div>
-                    <div class="ibox-content">
+              <div class="ibox">
+                
+                  <div class="ibox-title">
+                      <h5>Listagem</h5>
+                  </div>
+                  <div class="ibox-content">
 
                         <div class="project-list">
                             @if($teams->isNotEmpty())
@@ -110,7 +111,7 @@
 
                     </div>
 
-                </div>
+              </div>
 
         </div>
     </div>

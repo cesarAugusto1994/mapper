@@ -88,17 +88,17 @@
                                     <td class="project-actions">
                                       @permission('edit.documentos')
                                         @if($document->status_id == 1)
-                                            <a href="{{route('delivery_order_conference', ['document[]' => $document->uuid])}}" class="btn btn-info btn-block"><i class="fa fa-truck"></i> Gerar Ordem Entrega</a>
+                                            <a href="{{route('delivery_order_conference', ['document[]' => $document->uuid])}}" class="btn btn-info btn-sm"><i class="fa fa-truck"></i> Gerar Ordem Entrega</a>
                                         @else
-                                            <a href="{{route('documents.edit', ['id' => $document->uuid])}}" class="btn btn-info btn-outline btn-block"><i class="fa fa-map-marker"></i> Rastreio Documento</a>
+                                            <a href="{{route('documents.edit', ['id' => $document->uuid])}}" class="btn btn-info btn-outline btn-sm"><i class="fa fa-map-marker"></i> Rastreio Documento</a>
                                         @endif
                                       @endpermission
 
                                       @permission('edit.documentos')
-                                        <a href="{{route('documents.edit', ['id' => $document->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
+                                        <a href="{{route('documents.edit', ['id' => $document->uuid])}}" class="btn btn-white  btn-sm"><i class="fa fa-pencil"></i> Editar</a>
                                       @endpermission
                                       @permission('delete.documentos')
-                                        <a data-route="{{route('documents.destroy', ['id' => $document->uuid])}}" class="btn btn-danger btn-outline btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
+                                        <a data-route="{{route('documents.destroy', ['id' => $document->uuid])}}" class="btn btn-danger btn-outline  btn-sm btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
                                       @endpermission
                                     </td>
 

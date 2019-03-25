@@ -15,7 +15,7 @@
                   <div class="row">
                     <div class="col-md-6">
                         <div class="form-group ">
-                            <label>Inicio Consulta</label>
+                            <label>Inicio</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 <input type="text" id="consulta-inicio" name="inicio" required readonly class="form-control datetimepicker" data-date-format="dd/mm/yyyy hh:ii" value="">
@@ -25,7 +25,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group ">
-                            <label>Fim Consulta</label>
+                            <label>Fim</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                   <input type="text" id="consulta-fim" name="fim" required readonly class="form-control datetimepicker" data-date-format="dd/mm/yyyy hh:ii" value="">
@@ -35,36 +35,33 @@
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Estado da Consulta</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
-                                <select class="form-control" id="consulta-status" name="status">
-                                    <option value="1" selected>Confirmada</option>
-                                    <option value="0">Não Confiramada</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label> <input name="notificar" type="checkbox" checked> Notificar por E-mail </label>
-                      </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Paciente</label>
+                            <label>Curso</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-users"></i></span>
                                 <select class="form-control selectpicker pacienteConsulta" title="Selecione um paciente" required data-style="btn-white" data-live-search="true" show-tick show-menu-arrow data-width="100%" name="paciente" id="consulta-paciente">
                                   @foreach(App\Helpers\Helper::courses() as $course)
-                                      <option value="{{$course->id}}">{{$course->name}}</option>
+                                      <option value="{{$course->id}}">{{$course->title}}</option>
                                   @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
+
+                    <!--
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Aluno</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                <select class="form-control selectpicker pacienteConsulta" multiple title="Selecione um paciente" required data-style="btn-white" data-live-search="true" show-tick show-menu-arrow data-width="100%" name="paciente" id="consulta-paciente">
+                                  @foreach(App\Helpers\Helper::courses() as $course)
+                                      <option value="{{$course->id}}">{{$course->title}}</option>
+                                  @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="col-md-12">
                         <div class="form-group">
@@ -75,12 +72,14 @@
                         </div>
                     </div>
 
+                    -->
+
                   </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white pull-left" data-dismiss="modal">Fechar</button>
-                <button type="submit" id="btnConsulta" class="btn btn-danger">Marcar Consulta</button>
+                <button type="submit" id="btnConsulta" class="btn btn-danger">Agendar</button>
             </div>
             </form>
         </div>
