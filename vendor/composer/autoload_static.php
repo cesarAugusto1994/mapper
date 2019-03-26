@@ -133,6 +133,8 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         array (
             'Emadadly\\LaravelUuid\\' => 21,
             'Egulias\\EmailValidator\\' => 23,
+            'Edofre\\Fullcalendar\\' => 20,
+            'Edofre\\FullcalendarScheduler\\' => 29,
         ),
         'D' => 
         array (
@@ -362,6 +364,14 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
         ),
+        'Edofre\\Fullcalendar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/edofre/laravel-fullcalendar/src',
+        ),
+        'Edofre\\FullcalendarScheduler\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/edofre/laravel-fullcalendar-scheduler/src',
+        ),
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
@@ -431,6 +441,10 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
             'Mockery' => 
             array (
                 0 => __DIR__ . '/..' . '/mockery/mockery/library',
+            ),
+            'MaddHatter\\LaravelFullcalendar' => 
+            array (
+                0 => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src',
             ),
         ),
         'L' => 
@@ -680,6 +694,19 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'Dotenv\\Exception\\ValidationException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/ValidationException.php',
         'Dotenv\\Loader' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Loader.php',
         'Dotenv\\Validator' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Validator.php',
+        'Edofre\\FullcalendarScheduler\\CalendarEvent' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar-scheduler/src/CalendarEvent.php',
+        'Edofre\\FullcalendarScheduler\\CalendarResource' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar-scheduler/src/CalendarResource.php',
+        'Edofre\\FullcalendarScheduler\\Facades\\FullcalendarScheduler' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar-scheduler/src/Facades/FullcalendarScheduler.php',
+        'Edofre\\FullcalendarScheduler\\FullcalendarScheduler' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar-scheduler/src/FullcalendarScheduler.php',
+        'Edofre\\FullcalendarScheduler\\FullcalendarSchedulerServiceProvider' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar-scheduler/src/FullcalendarSchedulerServiceProvider.php',
+        'Edofre\\FullcalendarScheduler\\JsExpression' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar-scheduler/src/JsExpression.php',
+        'Edofre\\FullcalendarScheduler\\JsonEncoder' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar-scheduler/src/JsonEncoder.php',
+        'Edofre\\Fullcalendar\\Event' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar/src/Event.php',
+        'Edofre\\Fullcalendar\\Facades\\Fullcalendar' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar/src/Facades/Fullcalendar.php',
+        'Edofre\\Fullcalendar\\Fullcalendar' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar/src/Fullcalendar.php',
+        'Edofre\\Fullcalendar\\FullcalendarServiceProvider' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar/src/FullcalendarServiceProvider.php',
+        'Edofre\\Fullcalendar\\JsExpression' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar/src/JsExpression.php',
+        'Edofre\\Fullcalendar\\JsonEncoder' => __DIR__ . '/..' . '/edofre/laravel-fullcalendar/src/JsonEncoder.php',
         'Egulias\\EmailValidator\\EmailLexer' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/EmailLexer.php',
         'Egulias\\EmailValidator\\EmailParser' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/EmailParser.php',
         'Egulias\\EmailValidator\\EmailValidator' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/EmailValidator.php',
@@ -2246,6 +2273,13 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'League\\Flysystem\\Util\\ContentListingFormatter' => __DIR__ . '/..' . '/league/flysystem/src/Util/ContentListingFormatter.php',
         'League\\Flysystem\\Util\\MimeType' => __DIR__ . '/..' . '/league/flysystem/src/Util/MimeType.php',
         'League\\Flysystem\\Util\\StreamHasher' => __DIR__ . '/..' . '/league/flysystem/src/Util/StreamHasher.php',
+        'MaddHatter\\LaravelFullcalendar\\Calendar' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/Calendar.php',
+        'MaddHatter\\LaravelFullcalendar\\Event' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/Event.php',
+        'MaddHatter\\LaravelFullcalendar\\EventCollection' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/EventCollection.php',
+        'MaddHatter\\LaravelFullcalendar\\Facades\\Calendar' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/Facades/Calendar.php',
+        'MaddHatter\\LaravelFullcalendar\\IdentifiableEvent' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/IdentifiableEvent.php',
+        'MaddHatter\\LaravelFullcalendar\\ServiceProvider' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/ServiceProvider.php',
+        'MaddHatter\\LaravelFullcalendar\\SimpleEvent' => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src/MaddHatter/LaravelFullcalendar/SimpleEvent.php',
         'MailPreviewTest' => __DIR__ . '/..' . '/themsaid/laravel-mail-preview/tests/MailPreviewTest.php',
         'MapperStatusTableSeeder' => __DIR__ . '/../..' . '/database/seeds/MapperStatusTableSeeder.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',

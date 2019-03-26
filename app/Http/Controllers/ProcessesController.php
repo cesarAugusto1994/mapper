@@ -54,8 +54,9 @@ class ProcessesController extends Controller
           $frequencies = Frequency::all();
 
           $isAdmin = Auth::user()->isAdmin();
+          $departmentUser = Auth::user()->department_id;
 
-          return view('admin.processes.index', compact('departments', 'frequencies', 'isAdmin'));
+          return view('admin.processes.index', compact('departments', 'frequencies', 'isAdmin', 'departmentUser'));
 
     }
 

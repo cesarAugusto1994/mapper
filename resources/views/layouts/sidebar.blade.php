@@ -35,11 +35,23 @@
 
                     @endpermission
 
+                      <li>
+                          <a href="{{route('clients.index')}}" ><i class="fa fa-building"></i> <span class="nav-label">Comercial</span></a>
+                      </li>
+
+                      <li>
+                          <a href="{{route('clients.index')}}" ><i class="fa fa-money"></i> <span class="nav-label">Financeiro</span></a>
+                      </li>
+
+                      <li>
+                          <a href="{{route('clients.index')}}" ><i class="fa fa-car"></i> <span class="nav-label">Frota</span></a>
+                      </li>
+
                     @permission('view.treinamentos')
 
                     <li class="">
                         <a href="#" data-step="3" data-intro="Aqui você vai encontrar o seu painel de Gestão de Entregas">
-                          <i class="fa fa-truck"></i> <b class="nav-label">Treinamentos </b><span class="fa arrow"></span></a>
+                          <i class="fa fa-gear"></i> <b class="nav-label">Treinamentos </b><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse" style="height: 0px;">
 
                           @permission('view.cursos')

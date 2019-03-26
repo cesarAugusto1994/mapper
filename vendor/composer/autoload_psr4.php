@@ -57,6 +57,8 @@ return array(
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
     'Emadadly\\LaravelUuid\\' => array($vendorDir . '/emadadly/laravel-uuid/src'),
     'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/EmailValidator'),
+    'Edofre\\Fullcalendar\\' => array($vendorDir . '/edofre/laravel-fullcalendar/src'),
+    'Edofre\\FullcalendarScheduler\\' => array($vendorDir . '/edofre/laravel-fullcalendar-scheduler/src'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Common/Inflector'),

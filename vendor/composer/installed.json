@@ -635,6 +635,132 @@
         ]
     },
     {
+        "name": "edofre/laravel-fullcalendar",
+        "version": "V1.2.4",
+        "version_normalized": "1.2.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Edofre/laravel-fullcalendar.git",
+            "reference": "94354a90016d1e3d4dcd1d7a93588291255f84dd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Edofre/laravel-fullcalendar/zipball/94354a90016d1e3d4dcd1d7a93588291255f84dd",
+            "reference": "94354a90016d1e3d4dcd1d7a93588291255f84dd",
+            "shasum": ""
+        },
+        "require": {
+            "laravel/framework": "5.*",
+            "npm-asset/fullcalendar": "v3.8.0",
+            "php": ">=5.6.4"
+        },
+        "require-dev": {
+            "orchestra/testbench": "~3.2.0|~3.3.0",
+            "phpunit/phpunit": "^5.0"
+        },
+        "time": "2018-01-03T20:28:12+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Edofre\\Fullcalendar\\FullcalendarServiceProvider"
+                ],
+                "aliases": {
+                    "Fullcalendar": "Edofre\\Fullcalendar\\Facades\\Fullcalendar"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Edofre\\Fullcalendar\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Edo Freriks",
+                "email": "edofre@gmail.com"
+            }
+        ],
+        "description": "Laravel component for fullcalendar package",
+        "homepage": "https://github.com/edofre/laravel-fullcalendar",
+        "keywords": [
+            "calendar",
+            "event",
+            "fullcalendar",
+            "javascript",
+            "laravel"
+        ]
+    },
+    {
+        "name": "edofre/laravel-fullcalendar-scheduler",
+        "version": "V1.2.3",
+        "version_normalized": "1.2.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Edofre/laravel-fullcalendar-scheduler.git",
+            "reference": "9d6a191df4482ccb33d8e63dc18ed78723d4eb1f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Edofre/laravel-fullcalendar-scheduler/zipball/9d6a191df4482ccb33d8e63dc18ed78723d4eb1f",
+            "reference": "9d6a191df4482ccb33d8e63dc18ed78723d4eb1f",
+            "shasum": ""
+        },
+        "require": {
+            "laravel/framework": "5.*",
+            "npm-asset/fullcalendar": "v3.8.0",
+            "npm-asset/fullcalendar-scheduler": "1.9.1",
+            "php": ">=5.6.4"
+        },
+        "require-dev": {
+            "orchestra/testbench": "~3.2.0|~3.3.0",
+            "phpunit/phpunit": "^5.0"
+        },
+        "time": "2018-01-06T13:59:03+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Edofre\\FullcalendarScheduler\\FullcalendarSchedulerServiceProvider"
+                ],
+                "aliases": {
+                    "FullcalendarScheduler": "Edofre\\FullcalendarScheduler\\Facades\\FullcalendarScheduler"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Edofre\\FullcalendarScheduler\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Edo Freriks",
+                "email": "edofre@gmail.com"
+            }
+        ],
+        "description": "Laravel component for fullcalendar scheduler module",
+        "homepage": "https://github.com/edofre/laravel-fullcalendar-scheduler",
+        "keywords": [
+            "calendar",
+            "event",
+            "fullcalendar-scheduler",
+            "javascript",
+            "laravel",
+            "scheduler"
+        ]
+    },
+    {
         "name": "egulias/email-validator",
         "version": "2.1.3",
         "version_normalized": "2.1.3.0",
@@ -1836,6 +1962,55 @@
         ]
     },
     {
+        "name": "maddhatter/laravel-fullcalendar",
+        "version": "v1.3.0",
+        "version_normalized": "1.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/maddhatter/laravel-fullcalendar.git",
+            "reference": "6502ee3eee2d506d58fa37864af8f2003c9aaca1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/maddhatter/laravel-fullcalendar/zipball/6502ee3eee2d506d58fa37864af8f2003c9aaca1",
+            "reference": "6502ee3eee2d506d58fa37864af8f2003c9aaca1",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "~5.0",
+            "php": ">=5.4.0"
+        },
+        "time": "2017-09-18T17:54:18+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "MaddHatter\\LaravelFullcalendar\\ServiceProvider"
+                ],
+                "aliases": {
+                    "Calendar": "MaddHatter\\LaravelFullcalendar\\Facades\\Calendar"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "MaddHatter\\LaravelFullcalendar": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Shawn Tunney",
+                "email": "shawn.tunney@gmail.com"
+            }
+        ],
+        "description": "Laravel helper for FullCalendar.io"
+    },
+    {
         "name": "mockery/mockery",
         "version": "1.0",
         "version_normalized": "1.0.0.0",
@@ -2181,6 +2356,253 @@
         "keywords": [
             "parser",
             "php"
+        ]
+    },
+    {
+        "name": "npm-asset/fullcalendar",
+        "version": "3.8.0",
+        "version_normalized": "3.8.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/fullcalendar/-/fullcalendar-3.8.0.tgz",
+            "reference": null,
+            "shasum": "4c0fe494a62b0a8d640c6de8eb883b49a212b5dc"
+        },
+        "require": {
+            "npm-asset/jquery": ">=2,<4.0",
+            "npm-asset/moment": ">=2.9.0,<3.0.0"
+        },
+        "time": "2017-12-18T05:59:22+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://fullcalendar.io/wiki/Reporting-Bugs/"
+            },
+            "npm-asset-files": [
+                "dist/*.js",
+                "dist/*.css",
+                "dist/*.d.ts",
+                "dist/locale/*.js",
+                "README.*",
+                "LICENSE.*",
+                "CHANGELOG.*",
+                "CONTRIBUTING.*"
+            ],
+            "npm-asset-main": "dist/fullcalendar.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/fullcalendar/fullcalendar.git"
+            },
+            "npm-asset-scripts": {
+                "clean": "gulp clean",
+                "dist": "gulp dist",
+                "lint": "gulp lint",
+                "test": "gulp test:single"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Adam Shaw",
+                "email": "arshaw@arshaw.com",
+                "url": "http://arshaw.com/"
+            }
+        ],
+        "description": "Full-sized drag & drop event calendar",
+        "homepage": "https://fullcalendar.io/",
+        "keywords": [
+            "calendar",
+            "event",
+            "full-sized",
+            "jquery-plugin"
+        ]
+    },
+    {
+        "name": "npm-asset/fullcalendar-scheduler",
+        "version": "1.9.1",
+        "version_normalized": "1.9.1.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/fullcalendar-scheduler/-/fullcalendar-scheduler-1.9.1.tgz",
+            "reference": null,
+            "shasum": "a9f5d7af913e9fe4a16cbc4589964f40b76bf01f"
+        },
+        "require": {
+            "npm-asset/fullcalendar": "~3.8.0",
+            "npm-asset/jquery": ">=2,<4.0",
+            "npm-asset/moment": ">=2.9.0,<3.0.0"
+        },
+        "time": "2017-12-18T06:00:21+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/fullcalendar/fullcalendar-scheduler/issues"
+            },
+            "npm-asset-files": [
+                "dist/*.js",
+                "dist/*.css",
+                "dist/*.d.ts",
+                "README.*",
+                "LICENSE.*",
+                "CHANGELOG.*",
+                "CONTRIBUTING.*"
+            ],
+            "npm-asset-main": "dist/scheduler.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/fullcalendar/fullcalendar-scheduler.git"
+            },
+            "npm-asset-scripts": {
+                "clean": "gulp clean",
+                "dist": "gulp dist",
+                "lint": "gulp lint",
+                "test": "gulp test:single",
+                "test-side-effects": "./bin/test-side-effects.sh"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "SEE LICENSE IN LICENSE.md"
+        ],
+        "description": "A premium add-on to FullCalendar for displaying events and resources",
+        "homepage": "https://fullcalendar.io/scheduler/"
+    },
+    {
+        "name": "npm-asset/jquery",
+        "version": "3.3.1",
+        "version_normalized": "3.3.1.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/jquery/-/jquery-3.3.1.tgz",
+            "reference": null,
+            "shasum": "958ce29e81c9790f31be7792df5d4d95fc57fbca"
+        },
+        "time": "2018-01-20T17:27:11+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/jquery/jquery/issues"
+            },
+            "npm-asset-main": "dist/jquery.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/jquery/jquery.git"
+            },
+            "npm-asset-scripts": {
+                "build": "npm install && grunt",
+                "start": "grunt watch",
+                "test:browserless": "grunt && grunt test:slow",
+                "test:browser": "grunt && grunt karma:main",
+                "test": "grunt && grunt test:slow && grunt karma:main",
+                "jenkins": "npm run test:browserless",
+                "precommit": "grunt lint:newer qunit_fixture",
+                "commitmsg": "node node_modules/commitplease"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "JS Foundation and other contributors",
+                "url": "https://github.com/jquery/jquery/blob/3.3.1/AUTHORS.txt"
+            }
+        ],
+        "description": "JavaScript library for DOM operations",
+        "homepage": "https://jquery.com",
+        "keywords": [
+            "browser",
+            "javascript",
+            "jquery",
+            "library"
+        ]
+    },
+    {
+        "name": "npm-asset/moment",
+        "version": "2.24.0",
+        "version_normalized": "2.24.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/moment/-/moment-2.24.0.tgz",
+            "reference": null,
+            "shasum": "0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+        },
+        "time": "2019-01-21T21:10:34+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/moment/moment/issues"
+            },
+            "npm-asset-main": "./moment.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/moment/moment.git"
+            },
+            "npm-asset-scripts": {
+                "typescript-test": "tsc --project typing-tests",
+                "test": "grunt test",
+                "coverage": "nyc npm test && nyc report",
+                "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+            },
+            "npm-asset-engines": {
+                "node": "*"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Iskren Ivov Chernev",
+                "email": "iskren.chernev@gmail.com",
+                "url": "https://github.com/ichernev"
+            },
+            {
+                "name": "Tim Wood",
+                "email": "washwithcare@gmail.com",
+                "url": "http://timwoodcreates.com/"
+            },
+            {
+                "name": "Rocky Meza",
+                "url": "http://rockymeza.com"
+            },
+            {
+                "name": "Matt Johnson",
+                "email": "mj1856@hotmail.com",
+                "url": "http://codeofmatt.com"
+            },
+            {
+                "name": "Isaac Cambron",
+                "email": "isaac@isaaccambron.com",
+                "url": "http://isaaccambron.com"
+            },
+            {
+                "name": "Andre Polykanine",
+                "email": "andre@oire.org",
+                "url": "https://github.com/oire"
+            }
+        ],
+        "description": "Parse, validate, manipulate, and display dates",
+        "homepage": "http://momentjs.com",
+        "keywords": [
+            "date",
+            "ender",
+            "format",
+            "i18n",
+            "l10n",
+            "moment",
+            "parse",
+            "time",
+            "validate"
         ]
     },
     {
