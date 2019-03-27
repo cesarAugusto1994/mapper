@@ -13,6 +13,8 @@ class People extends Model
 
     protected $fillable = ['name', 'department_id', 'occupation_id', 'cpf'];
 
+    protected static $logAttributes = ['name', 'department_id', 'occupation_id', 'cpf'];
+
     public function department()
     {
         return $this->belongsTo('App\Models\Department');

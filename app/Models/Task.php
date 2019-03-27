@@ -3,10 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Emadadly\LaravelUuid\Uuids;
+use Spatie\Activitylog\Traits\LogsActivity;
 use App\User;
 
 class Task extends Model
 {
+    use Uuids;
+    use LogsActivity;
+
     const STATUS_PENDENTE = 1;
     const STATUS_EM_ANDAMENTO = 2;
     const STATUS_FINALIZADO = 3;
@@ -19,6 +24,15 @@ class Task extends Model
         'indicator', 'client_id', 'vendor_id',
         'severity', 'urgency', 'trend', 'owner_id',
         'status_id', 'created_by', 'active', 'is_model'
+    ];
+
+    protected static $logAttributes = [
+      'name', 'description', 'process_id',
+      'sub_process_id', 'user_id',
+      'frequency', 'time', 'method',
+      'indicator', 'client_id', 'vendor_id',
+      'severity', 'urgency', 'trend', 'owner_id',
+      'status_id', 'created_by', 'active', 'is_model'
     ];
 
     protected $dates = ['begin', 'end'];

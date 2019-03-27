@@ -40,6 +40,8 @@ class HomeController extends Controller
           return Redirect::route('login')->withErrors('Desculpe, mas o Usuário está desativado, entre em contato com o Administrador.');
         }
 
+        $activities = Auth::user()->activities;
+
         $this->createTasksFromProcesses();
 
         $tasks = Task::where('user_id', Auth::user()->id)->limit(12)->orderBy('id', 'DESC')->get();
@@ -104,7 +106,7 @@ class HomeController extends Controller
 
         $percentMount = self::getPercetageDoneTasks($concludedInThisMount, $concludedInThisMountWithDelay);
 
-        return view('home')
+        return view('home', compact('activities'))
         ->with('processes', Process::all())
         ->with('users', User::all())
         ->with('departments', Department::all())

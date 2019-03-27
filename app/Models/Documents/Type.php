@@ -15,4 +15,6 @@ class Type extends Model
 
     protected $fillable = ['name', 'price', 'active'];
 
+    protected static $logAttributes = ['name', 'price', 'active'];
+
 }

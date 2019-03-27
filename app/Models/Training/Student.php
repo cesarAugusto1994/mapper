@@ -13,6 +13,8 @@ class Student extends Model
 
     protected $fillable = ['name', 'email', 'phone', 'cpf', 'biometric', 'company_id', 'created_by'];
 
+    protected static $logAttributes = ['name', 'email', 'phone', 'cpf', 'biometric', 'company_id', 'created_by'];
+
     protected $table = 'students';
 
     public function company()

@@ -14,6 +14,8 @@ class Department extends Model
 
     protected $fillable = ['name', 'user_id'];
 
+    protected static $logAttributes = ['name', 'user_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

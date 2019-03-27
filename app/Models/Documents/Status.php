@@ -10,7 +10,9 @@ class Status extends Model
 {
     use Uuids;
     use LogsActivity;
-    
+
     protected $table = 'documents_statuses';
     protected $fillable = ['name'];
+
+    protected static $logAttributes = ['name'];
 }

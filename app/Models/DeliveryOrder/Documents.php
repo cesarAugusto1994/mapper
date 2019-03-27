@@ -15,6 +15,8 @@ class Documents extends Model
 
     protected $fillable = ['document_id', 'delivery_order_id', 'user_id'];
 
+    protected static $logAttributes = ['document_id', 'delivery_order_id', 'user_id'];
+
     public function user()
     {
         return $this->belongsTo('App\User');

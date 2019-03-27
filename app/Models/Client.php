@@ -24,4 +24,15 @@ class Client extends Model
     {
         return $this->hasMany('App\Models\Client\Address', 'client_id');
     }
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        if($eventName == 'updated') {
+            return "Cliente atualizado";
+        } elseif ($eventName == 'deleted') {
+            return "Cliente Removido";
+        }
+
+        return "Cliente Adicionado";
+    }
 }

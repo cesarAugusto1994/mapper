@@ -44,6 +44,13 @@ class User extends Authenticatable
 
     protected $dates = ['begin', 'end'];
 
+    protected static $logAttributes = ['name', 'email', 'password', 'login_soc', 'password_soc', 'id_soc'];
+
+    public function activities()
+    {
+        return $this->hasMany('App\Models\Activity', 'causer_id');
+    }
+
     public function person()
     {
         return $this->belongsTo('App\Models\People', 'person_id');

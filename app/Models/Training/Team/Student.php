@@ -14,4 +14,6 @@ class Student extends Model
     protected $table = 'team_students';
 
     protected $fillable = ['team_id', 'student_id', 'status_student', 'approved'];
+
+    protected static $logAttributes = ['team_id', 'student_id', 'status_student', 'approved'];
 }

@@ -14,4 +14,6 @@ class Lessons extends Model
     protected $table = 'team_lessons';
 
     protected $fillable = ['team_id', 'start', 'end', 'biometric', 'lat', 'long'];
+
+    protected static $logAttributes = ['team_id', 'start', 'end', 'biometric', 'lat', 'long'];
 }

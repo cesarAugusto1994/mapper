@@ -34,7 +34,7 @@
 
 </head>
 
-<body class="pace-done skin-3">
+<body class="pace-done ">
 	<div id="wrapper">
 
 		@include('layouts.sidebar')

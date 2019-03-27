@@ -82,18 +82,18 @@
                 @endif
                 <div class="ibox-content inspinia-timeline">
 
-                    @forelse($logs as $log)
+                    @forelse($activities as $activity)
                     <div class="timeline-item">
                         <div class="row">
                             <div class="col-xs-3 date">
                                 <i class="fa fa-comments"></i>
-                                {{ $log->created_at->format('H:i') }}
+                                {{ $activity->created_at->format('H:i') }}
                                 <br>
-                                <small class="text-navy">{{ App\Helpers\TimesAgo::render($log->created_at) }}</small>
+                                <small class="text-navy">{{ \App\Helpers\TimesAgo::render($activity->created_at) }}</small>
                             </div>
                             <div class="col-xs-7 content no-top-border">
-                                <p class="m-b-xs"><strong>{{$log->user->name == Auth::user()->name ? 'Você' : $log->user->name}}</strong></p>
-                                <p>{{ $log->message }}</p>
+                                <p>{{ $activity->description }}:
+                                   {{ html_entity_decode(\App\Helpers\Helper::getTagHmtlForModel($activity->subject_type, $activity->subject_id)) }}</p>
                             </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
         <div class="col-lg-8">
           <div class="ibox">
               <div class="ibox-title">
-                  <h5>Suas Tarefas</h5>
+                  <h5>Mural de Recados</h5>
                   @if(Auth::user()->isAdmin())
                       <div class="ibox-tools">
                           <a data-toggle="modal" data-target="#newTask" class="btn btn-white btn-xs">Nova Tarefa</a>

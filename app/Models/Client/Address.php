@@ -15,6 +15,8 @@ class Address extends Model
 
     protected $fillable = ['description', 'complement', 'reference', 'zip', 'street', 'number', 'district', 'state', 'city', 'long', 'lat', 'user_id', 'client_id', 'is_default'];
 
+    protected static $logAttributes = ['description', 'complement', 'reference', 'zip', 'street', 'number', 'district', 'state', 'city', 'long', 'lat', 'user_id', 'client_id', 'is_default'];
+
     public function client()
     {
         return $this->belongsTo('App\Models\Client');

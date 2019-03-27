@@ -9,6 +9,8 @@ class Module extends Model
 {
     use LogsActivity;
 
+    protected static $logAttributes = ['name', 'slug', 'description', 'route'];
+
     protected $fillable = ['name', 'slug', 'description', 'route'];
 
     public function children()

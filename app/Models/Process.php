@@ -3,12 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Emadadly\LaravelUuid\Uuids;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Process extends Model
 {
+    use Uuids;
+    use LogsActivity;
+
     protected $fillable = ['name', 'department_id', 'frequency_id'];
 
     protected $dates = ['range_start', 'range_end'];
+
+    protected static $logAttributes = ['name', 'department_id', 'frequency_id'];
 
     public function department()
     {

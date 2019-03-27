@@ -54,4 +54,36 @@ class Helper
         self::set($key, $courses);
         return self::get($key);
     }
+
+    public static function getRouteForModel($model, $subject)
+    {
+        $item = $model::findOrFail($subject);
+
+        $route = null;
+        $html = null;
+
+        if($model == 'App\Models\Training\Course') {
+          $route = route('courses.edit', $item->uuid);
+          $html = "<a href='.$route.'>".$item->title."</a>";
+        }
+
+        if($model == 'App\Models\Client') {
+          $route = route('clients.edit', $item->uuid);
+          $html = '<a href='.$route.'>'.$item->name.'</a>';
+        }
+
+        #dd($item);
+
+        return [
+          'route' => $route,
+          'html' => $html
+        ];
+    }
+
+    public static function getTagHmtlForModel($model, $subject)
+    {
+        $itens = self::getRouteForModel($model, $subject);
+
+        echo $itens['html'];
+    }
 }

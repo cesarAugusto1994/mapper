@@ -12,7 +12,10 @@ class Occupation extends Model
     use LogsActivity;
 
     protected $table = 'occupation';
+    
     protected $fillable = ['name', 'department_id', 'active'];
+
+    protected static $logAttributes = ['name', 'department_id', 'active'];
 
     public function department()
     {

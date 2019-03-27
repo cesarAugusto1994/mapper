@@ -14,4 +14,6 @@ class Teacher extends Model
     protected $table = 'teachers';
 
     protected $fillable = ['name', 'email', 'phone', 'cpf'];
+
+    protected static $logAttributes = ['name', 'email', 'phone', 'cpf'];
 }
