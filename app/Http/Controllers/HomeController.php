@@ -12,6 +12,9 @@ use Auth;
 use Redis;
 use Redirect;
 
+use Joli\JoliNotif\Notification;
+use Joli\JoliNotif\NotifierFactory;
+
 class HomeController extends Controller
 {
     /**
@@ -105,6 +108,19 @@ class HomeController extends Controller
         });
 
         $percentMount = self::getPercetageDoneTasks($concludedInThisMount, $concludedInThisMountWithDelay);
+
+        $notifier = NotifierFactory::create();
+
+        $notification =
+            (new Notification())
+            ->setBody('The notification body')
+            ->setTitle('The notification title')
+            ->addOption('subtitle', 'This is a subtitle') // Only works on macOS (AppleScriptNotifier)
+            ->addOption('sound', 'Frog') // Only works on macOS (AppleScriptNotifier)
+            ->addOption('url', 'https://google.com') // Only works on macOS (TerminalNotifierNotifier)
+        ;
+
+        $notifier->send($notification);
 
         return view('home', compact('activities'))
         ->with('processes', Process::all())

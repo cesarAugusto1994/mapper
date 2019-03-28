@@ -21,4 +21,15 @@ class Address extends Model
     {
         return $this->belongsTo('App\Models\Client');
     }
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        if($eventName == 'updated') {
+            return "Endereço atualizado";
+        } elseif ($eventName == 'deleted') {
+            return "Endereço Removido";
+        }
+
+        return "Endereço Adicionado";
+    }
 }

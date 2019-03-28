@@ -97,6 +97,8 @@ class PackageManifest
             $this->build();
         }
 
+        $this->files->get($this->manifestPath);
+
         return $this->manifest = file_exists($this->manifestPath) ?
             $this->files->getRequire($this->manifestPath) : [];
     }
@@ -119,7 +121,7 @@ class PackageManifest
         $this->write(collect($packages)->mapWithKeys(function ($package) {
             return [$this->format($package['name']) => $package['extra']['laravel'] ?? []];
         })->each(function ($configuration) use (&$ignore) {
-            $ignore += $configuration['dont-discover'] ?? [];
+            $ignore = array_merge($ignore, $configuration['dont-discover'] ?? []);
         })->reject(function ($configuration, $package) use ($ignore, $ignoreAll) {
             return $ignoreAll || in_array($package, $ignore);
         })->filter()->all());
@@ -157,6 +159,7 @@ class PackageManifest
      *
      * @param  array  $manifest
      * @return void
+     *
      * @throws \Exception
      */
     protected function write(array $manifest)
@@ -165,7 +168,7 @@ class PackageManifest
             throw new Exception('The '.dirname($this->manifestPath).' directory must be present and writable.');
         }
 
-        $this->files->put(
+        $this->files->replace(
             $this->manifestPath, '<?php return '.var_export($manifest, true).';'
         );
     }

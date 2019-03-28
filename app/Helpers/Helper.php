@@ -68,11 +68,14 @@ class Helper
         }
 
         if($model == 'App\Models\Client') {
-          $route = route('clients.edit', $item->uuid);
+          $route = route('clients.show', $item->uuid);
           $html = '<a href='.$route.'>'.$item->name.'</a>';
         }
 
-        #dd($item);
+        if($model == 'App\Models\Client\Address') {
+          $route = route('client_addresses', $item->client->uuid);
+          $html = '<a href='.$route.'>'.$item->description.': '.$item->street.', '.$item->number.', '.$item->district.', '.$item->city.', '.$item->zip.'</a>';
+        }
 
         return [
           'route' => $route,

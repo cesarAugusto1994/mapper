@@ -34,6 +34,8 @@ class CreateProcessesTable extends Migration
 
             $table->boolean('is_model')->default(false);
 
+            $table->uuid('uuid')->unique();
+
             $table->timestamps();
         });
     }

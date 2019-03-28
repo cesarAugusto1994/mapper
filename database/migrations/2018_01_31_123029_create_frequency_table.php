@@ -16,6 +16,7 @@ class CreateFrequencyTable extends Migration
         Schema::create('frequency', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->uuid('uuid')->unique();
             $table->timestamps();
         });
 
