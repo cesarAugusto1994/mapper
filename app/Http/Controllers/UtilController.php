@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Department;
 
 class UtilController extends Controller
 {
@@ -76,5 +77,40 @@ class UtilController extends Controller
           'data' => ['response' => $cepResult, 'coordenadas' => $coordenadas]
         ]);
 
+    }
+
+    public function usersByDepartment(Request $request)
+    {
+        if(!$request->has('id')) {
+          return response()->json([
+            'success' => false,
+            'message' => 'Departamento não informado',
+            'data' => []
+          ]);
+        }
+
+        if($request->filled('id')) {
+          $departments = Department::whereIn('id', [$request->get('id')])->get();
+        } else {
+          $departments = Department::all();
+        }
+
+        $result = [];
+
+        foreach ($departments as $key => $department) {
+          $result = $department->people->map(function($person) {
+            return [
+              'id' => $person->id,
+              'name' => $person->name,
+              'email' => $person->user->email,
+            ];
+          });
+        }
+
+        return response()->json([
+          'success' => true,
+          'message' => 'Usuários encontrados',
+          'data' => $result
+        ]);
     }
 }

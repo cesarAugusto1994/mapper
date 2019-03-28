@@ -119,6 +119,34 @@
 
                     @endpermission
 
+                    @permission('view.mural.de.recados')
+
+                    <li class="">
+                        <a href="#" data-step="3" data-intro="Aqui você vai encontrar o seu painel de Gestão de Entregas">
+                          <i class="fa fa-bullhorn"></i> <b class="nav-label">Mural de Recados </b><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" style="height: 0px;">
+
+                          @permission('view.mural')
+
+                            <li>
+                                <a href="{{route('message-board.index')}}" ><i class="fa fa-file-o"></i> <span class="nav-label">Mural</span> </a>
+                            </li>
+
+                          @endpermission
+
+                          @permission('view.tipos.de.recados')
+
+                            <li>
+                                <a href="{{route('message-types.index')}}" ><i class="fa fa-archive"></i> <span class="nav-label">Tipos</span> </a>
+                            </li>
+
+                          @endpermission
+
+                        </ul>
+                    </li>
+
+                    @endpermission
+
                     @permission('view.gestao.de.processos')
 
                     <li class="">

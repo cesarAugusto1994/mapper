@@ -21,6 +21,11 @@ class Department extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function people()
+    {
+        return $this->hasMany('App\Models\People');
+    }
+
     public function processes()
     {
         return $this->hasMany(Process::class);

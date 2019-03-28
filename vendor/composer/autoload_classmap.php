@@ -66,6 +66,7 @@ return array(
     'App\\Models\\Mapper' => $baseDir . '/app/Models/Mapper.php',
     'App\\Models\\MapperStatus' => $baseDir . '/app/Models/MapperStatus.php',
     'App\\Models\\MapperTasks' => $baseDir . '/app/Models/MapperTasks.php',
+    'App\\Models\\MeassageBoard' => $baseDir . '/app/Models/MeassageBoard.php',
     'App\\Models\\Module' => $baseDir . '/app/Models/Module.php',
     'App\\Models\\People' => $baseDir . '/app/Models/People.php',
     'App\\Models\\Process' => $baseDir . '/app/Models/Process.php',

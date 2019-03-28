@@ -57,6 +57,7 @@ class CreateCarsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('fleet_car_log');
         Schema::dropIfExists('fleet_cars');
         Schema::dropIfExists('fleet_car_statues');
     }

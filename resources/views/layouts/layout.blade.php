@@ -15,6 +15,7 @@
 	<link href="{{ asset("admin/css/style.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/TimeCircles.css") }}" rel="stylesheet">
 	<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.css" rel="stylesheet"/>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
 	<!--
 	<link href="{{ asset("css/sweetalert2.min.css") }}" rel="stylesheet">
@@ -35,6 +36,7 @@
 </head>
 
 <body class="pace-done ">
+
 	<div id="wrapper">
 
 		@include('layouts.sidebar')
@@ -140,11 +142,24 @@
 					</div>
 			</div>
 
+			<div class="footer">
+					<div class="">
+							Logado como <strong>{{ Auth::user()->person->name }}</strong>.
+					</div>
+					<div>
+							<strong>Direirots Reservados</strong> Provider Saúde e Segurança do Trabalho © {{ now()->format('Y') }}
+					</div>
 			</div>
+
+
+			</div>
+
 
 	</div>
 
 	@include('admin.modals.schedule')
+
+
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -169,12 +184,6 @@
 
 	<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCdFj8jkxW4lzvZjL7R86Smrgy9lmO5wAE&libraries=places&dummy=.js"></script>
 
-	<!-- Latest compiled and minified JavaScript -->
-
-
-
-
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/pt-br.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
@@ -183,16 +192,17 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
-
-
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/i18n/pt-BR.js"></script>
 
 	<script>
       $('.summernote').summernote({
         placeholder: '',
         height: 250
       });
-    </script>
+  </script>
 
 <!--
 	<script src="{{asset('admin/js/plugins/flot/jquery.flot.js')}}"></script>
@@ -214,6 +224,10 @@
 
 		$(document).ready(function() {
 
+			$('.select2').select2({
+				width: '100%'
+			});
+
 			var url = window.location;
 
 			$('ul#side-menu a').filter(function() {
@@ -227,6 +241,38 @@
 		$('.inputPhone').mask('(00)00000-0000');
 	  $('.inputCpf').mask('000.000.000-00', {reverse: true});
 		$('.inputMoney').mask('000.000.000.000.000,00', {reverse: true});
+
+	  $("#select-department").change(function() {
+
+			var self = $(this);
+			var selectedDepartment = $("#select-department").select2("val");
+
+      selectedDepartment = 'id='+ selectedDepartment;
+
+			$("#select-user").html("");
+
+			$.ajax({
+					type: 'GET',
+					url: $("#select-department").data('route'),
+					dataType: 'html',
+					data: selectedDepartment,
+					}).done( function( data ) {
+
+									console.log(data);
+
+									data = JSON.parse(data);
+
+								 	data = $.map(data.data, function(item) {
+
+											return { id: item.id, text: item.name };
+									});
+									$('#select-user').select2({
+											data: data,
+									});
+
+									$('#select-user').trigger('change');
+					});
+	  });
 
 		$('.inputDate').datepicker({
 	    format: "dd/mm/yyyy",

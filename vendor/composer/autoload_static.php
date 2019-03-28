@@ -595,6 +595,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Models\\Mapper' => __DIR__ . '/../..' . '/app/Models/Mapper.php',
         'App\\Models\\MapperStatus' => __DIR__ . '/../..' . '/app/Models/MapperStatus.php',
         'App\\Models\\MapperTasks' => __DIR__ . '/../..' . '/app/Models/MapperTasks.php',
+        'App\\Models\\MeassageBoard' => __DIR__ . '/../..' . '/app/Models/MeassageBoard.php',
         'App\\Models\\Module' => __DIR__ . '/../..' . '/app/Models/Module.php',
         'App\\Models\\People' => __DIR__ . '/../..' . '/app/Models/People.php',
         'App\\Models\\Process' => __DIR__ . '/../..' . '/app/Models/Process.php',

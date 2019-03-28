@@ -4,8 +4,8 @@
 
     <div class="row widget border-bottom white-bg dashboard-header">
 
-        <div class="col-md-3">
-            <h2>Bem Vindo(a) {{ Auth()->User()->name  }}</h2>
+        <div class="col-md-12">
+            <h2>Bem Vindo(a) {{ Auth::user()->person->name  }}</h2>
             @if( count($tasks) > 0 )
             <small>Parabéns, Voce Realizou {{ count($tasks) }} Tarefas. </small>
 
@@ -14,50 +14,75 @@
             @endif
         </div>
 
-        <div class="col-md-9">
+    </div>
 
-          <div class="row">
-                    <div class="col-lg-3">
-                        <div class="ibox">
-                            <div class="ibox-content">
-                                <h5>Tarefas Realizadas Hoje</h5>
-                                <h1 class="no-margins">{{ $concluded->count() }}</h1>
-                                <div class="stat-percent font-bold text-navy">0% </div>
-                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concluded->sum('time')) }}</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="ibox">
-                            <div class="ibox-content">
-                                <h5>Tarefas Realizadas nesta Semana</h5>
-                                <h1 class="no-margins">{{ $concludedInThisWeek->count() }}</h1>
-                                <div class="stat-percent font-bold text-navy">0% </div>
-                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisWeek->sum('time')) }}</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="ibox">
-                            <div class="ibox-content">
-                                <h5>Tarefas Realizadas neste mês</h5>
-                                <h1 class="no-margins">{{ $concludedInThisMount->count() }}</h1>
-                                <div class="stat-percent font-bold text-navy">0% </div>
-                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisMount->sum('time')) }}</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="ibox danger">
-                            <div class="ibox-content">
-                                <h5>Atrasos</h5>
-                                <h1 class="no-margins">{{ $concludedInThisMountWithDelay->count() }} / {{ $concludedInThisMount->count() }}</h1>
-                                <div class="stat-percent font-bold text-danger">{{ $percentMount }}% </div>
-                                <small>Tempo: {{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisMountWithDelay->sum('spent_time') - $concludedInThisMountWithDelay->sum('time')) }}</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="row">
+
+        <div class="col-lg-3">
+
+          <div class="widget style1 navy-bg">
+              <div class="row">
+                  <div class="col-md-4">
+                      <i class="fa fa-thumbs-up fa-5x"></i>
+                  </div>
+                  <div class="col-md-8 text-right">
+                      <span> Tarefas Realizadas Hoje <small class="stat-percent font-bold">0% </small></span>
+
+                      <h2 class="font-bold">{{ App\Http\Controllers\HomeController::minutesToHour($concluded->sum('time')) }}</h2>
+                  </div>
+              </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+          <div class="widget style1 lazur-bg">
+              <div class="row">
+                  <div class="col-md-4">
+                      <i class="fa fa-trophy fa-5x"></i>
+                  </div>
+                  <div class="col-md-8 text-right">
+                      <span> Tarefas Realizadas nesta Semana {{ $concludedInThisWeek->count() }} <small class="stat-percent font-bold"> 0%</small></span>
+
+                      <h2 class="font-bold">{{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisWeek->sum('time')) }}</h2>
+                  </div>
+              </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+          <div class="widget style1 navy-bg">
+              <div class="row">
+                  <div class="col-md-4">
+                      <i class="fa fa-calendar fa-5x"></i>
+                  </div>
+                  <div class="col-md-8 text-right">
+                      <span> Tarefas Realizadas neste mês {{ $concludedInThisMount->count() }} <small class="stat-percent font-bold"> 0%</small></span>
+
+                      <h2 class="font-bold">{{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisMount->sum('time')) }}</h2>
+                  </div>
+              </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+          <div class="widget style1 red-bg">
+              <div class="row">
+                  <div class="col-md-4">
+                      <i class="fa fa-bell fa-5x"></i>
+                  </div>
+                  <div class="col-md-8 text-right">
+                      <span> Atrasos {{ $concludedInThisMountWithDelay->count() }} / {{ $concludedInThisMount->count() }} <small class="stat-percent font-bold">{{ $percentMount }}%</small></span>
+
+                      <h2 class="font-bold">{{ App\Http\Controllers\HomeController::minutesToHour($concludedInThisMountWithDelay->sum('spent_time') - $concludedInThisMountWithDelay->sum('time')) }}</h2>
+                  </div>
+              </div>
+          </div>
 
         </div>
 
@@ -108,232 +133,103 @@
 
         <div class="col-lg-8">
           <div class="ibox">
-              <div class="ibox-title">
-                  <h5>Mural de Recados</h5>
-                  @if(Auth::user()->isAdmin())
-                      <div class="ibox-tools">
-                          <a data-toggle="modal" data-target="#newTask" class="btn btn-white btn-xs">Nova Tarefa</a>
-                      </div>
-                  @endif
-              </div>
-              <div class="ibox-content">
-                  <div class="project-list">
-                    @if($tasks->isNotEmpty())
-                      <table class="table table-hover table-responsive">
-                        <tbody>
-                        @forelse ($tasks as $task)
-
-                        @if($task->is_model)
-                          @continue
-                        @endif
-
-                        @if($task->status_id == 3 || $task->status_id == 4)
-                          @continue
-                        @endif
-
-                            <tr>
-                                <td class="project-title">
-                                    <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
-                                    <br/>
-                                    <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
-                                    <div class="visible-xs">
-
-                                        <small>GUT: <b>{{$task->severity * $task->urgency * $task->trend}}</b></small>
-                                        <br/>
-                                        <small>Tempo Aprox.: <b>{{App\Http\Controllers\HomeController::minutesToHour($task->time)}}</b></small>
-                                        @if($task->status_id == 3)
-                                            <br/>
-                                            <small>Tempo Gasto: <b>{{App\Http\Controllers\HomeController::minutesToHour($task->spent_time - $task->time)}}</b></small>
-                                        @endif
-
-                                        @if($task->status_id == 2)
-                                            <br/>
-                                            <small>Iniciada em: <b>{{$task->begin ? $task->begin->format('d/m/Y H:i') : ''}}</b></small>
-                                        @endif
-                                    </div>
-                                </td>
-                                <td class="project-completion hidden-xs">
-                                    <small>GUT:  <b>
-                                      <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->severity); !!}">{{$task->severity}}</span>
-                                      <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->urgency); !!}">{{$task->urgency}}</span>
-                                      <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->trend); !!}">{{$task->trend}}</span>
-                                    </b></small>
-                                </td>
-                                <td class="project-completion">
-                                    <small>Situação  <b>{{$task->status->name}}</b></small>
-                                    <div class="progress progress-mini">
-                                        <div style="width:
-                                        @if ($task->status_id == 1) 0%
-                                        @elseif ($task->status_id == 2) 40%
-                                        @elseif ($task->status_id == 3 || $task->status_id == 4) 100%
-                                        @endif;" class="progress-bar
-                                        @if ($task->status_id == 2) progress-bar-warning
-                                        @elseif ($task->status_id == 4) progress-bar-danger
-                                        @endif;"></div>
-                                    </div>
-                                </td>
-                                <td class="project-actions hidden-xs">
-                                    <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
-                                </td>
-                            </tr>
-                            @empty
-                              <div class="alert alert-warning">
-                                  Nenhuma tarefa até o momento.
-                              </div>
-                        @endforelse
-                        </tbody>
-                    </table>
-                    @else
-
-                    <div class="alert alert-warning">
-                        Nenhuma tarefa até o momento.
+            <div class="ibox-title">
+                <h5>Mural de Recados</h5>
+                @if(Auth::user()->isAdmin())
+                    <div class="ibox-tools">
+                        <a data-toggle="modal" data-target="#newTask" class="btn btn-white btn-xs">Nova Tarefa</a>
                     </div>
+                @endif
+            </div>
+            <div class="ibox-content">
+              <div class="feed-activity-list">
+                  <div class="feed-element">
+                      <a class="float-left" href="profile.html">
+                          <img alt="image" class="rounded-circle" src="img/profile.jpg">
+                      </a>
+                      <div class="media-body ">
+                          <small class="float-right">5m ago</small>
+                          <strong>Monica Smith</strong> posted a new blog. <br>
+                          <small class="text-muted">Today 5:60 pm - 12.06.2014</small>
 
-                    @endif
+                      </div>
+                  </div>
+                  <div class="feed-element">
+                      <a class="float-left" href="profile.html">
+                          <img alt="image" class="rounded-circle" src="img/a2.jpg">
+                      </a>
+                      <div class="media-body ">
+                          <small class="float-right">2h ago</small>
+                          <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                          <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
+                      </div>
+                  </div>
+                  <div class="feed-element">
+                      <a class="float-left" href="profile.html">
+                          <img alt="image" class="rounded-circle" src="img/a3.jpg">
+                      </a>
+                      <div class="media-body ">
+                          <small class="float-right">2h ago</small>
+                          <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
+                          <small class="text-muted">2 days ago at 8:30am</small>
+                      </div>
+                  </div>
+                  <div class="feed-element">
+                      <a class="float-left" href="profile.html">
+                          <img alt="image" class="rounded-circle" src="img/a4.jpg">
+                      </a>
+                      <div class="media-body ">
+                          <small class="float-right text-navy">5h ago</small>
+                          <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                          <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                          <div class="actions">
+                              <a href="" class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                              <a href="" class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="feed-element">
+                      <a class="float-left" href="profile.html">
+                          <img alt="image" class="rounded-circle" src="img/a5.jpg">
+                      </a>
+                      <div class="media-body ">
+                          <small class="float-right">2h ago</small>
+                          <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                          <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
+                          <div class="well">
+                              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                              Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                          </div>
+                          <div class="float-right">
+                              <a href="" class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="feed-element">
+                      <a class="float-left" href="profile.html">
+                          <img alt="image" class="rounded-circle" src="img/profile.jpg">
+                      </a>
+                      <div class="media-body ">
+                          <small class="float-right">23h ago</small>
+                          <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                          <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                      </div>
+                  </div>
+                  <div class="feed-element">
+                      <a class="float-left" href="profile.html">
+                          <img alt="image" class="rounded-circle" src="img/a7.jpg">
+                      </a>
+                      <div class="media-body ">
+                          <small class="float-right">46h ago</small>
+                          <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                          <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                      </div>
                   </div>
               </div>
+            </div>
           </div>
+        </div>
 
-          <div class="modal inmodal fade" id="newTask" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-              <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                          <h4 class="modal-title">Nova Tarefa</h4>
-                      </div>
-                      <form method="post" class="form-horizontal" action="{{route('task_store')}}">
-                      <div class="modal-body">
-                            {{csrf_field()}}
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Descrição</label>
-                                <div class="col-sm-10">
-                                    <input type="text" required name="description" autofocus
-                                           placeholder="Informe a descrição da Tarefa" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Processo</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control m-b" name="process_id">
-                                        @foreach($processes as $process)
-                                            <option value="{{$process->id}}">{{$process->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Responsável</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control m-b" name="user_id" required>
-                                        <option>Selecione um Responsável</option>
-                                        @foreach($users as $user)
-                                            <option value="{{$user->id}}" {{ $user->id == Auth::user()->id ? 'selected' : '' }}>{{$user->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Frequencia</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control m-b" name="frequency">
-
-                                        <option value="">Nenhuma</option>
-
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Tempo</label>
-                                <div class="col-sm-10">
-                                    <input type="time" required name="time"
-                                           placeholder="Uma nova Tarefa" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Metodo</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control m-b" name="method">
-                                        <option value="manual">Manual</option>
-                                        <option value="sistema">Sistema</option>
-                                        <option value="internet">Internet</option>
-                                        <option value="outros">Outros</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">indicador</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="indicator" placeholder="Sem Indicador" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group"><label class="col-sm-2 control-label">Cliente</label>
-                                <div class="col-sm-10"><select class="form-control m-b" name="client_id">
-                                        @foreach($departments as $department)
-                                            <option value="{{$department->id}}">{{$department->name}}</option>
-                                        @endforeach
-                                    </select></div>
-                            </div>
-
-                            <div class="form-group"><label class="col-sm-2 control-label">Fornecedor</label>
-                                <div class="col-sm-10"><select class="form-control m-b" name="vendor_id">
-                                        @foreach($departments as $department)
-                                            <option value="{{$department->id}}">{{$department->name}}</option>
-                                        @endforeach
-                                    </select></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Gravidade</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control m-b" name="severity">
-                                        <option value="1">1 (baixissima)</option>
-                                        <option value="2">2 (baixa)</option>
-                                        <option value="3">3 (moderada)</option>
-                                        <option value="4">4 (alta)</option>
-                                        <option value="5">5 (altissima)</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Urgencia</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control m-b" name="urgency">
-                                        <option value="1">1 (baixissima)</option>
-                                        <option value="2">2 (baixa)</option>
-                                        <option value="3">3 (moderada)</option>
-                                        <option value="4">4 (alta)</option>
-                                        <option value="5">5 (altissima)</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Tendencia</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control m-b" name="trend">
-                                        <option value="1">1 (baixissima)</option>
-                                        <option value="2">2 (baixa)</option>
-                                        <option value="3">3 (moderada)</option>
-                                        <option value="4">4 (alta)</option>
-                                        <option value="5">5 (altissima)</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                      </div>
-
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
-                          <button type="submit" class="btn btn-primary">Criar Tarefa</button>
-                      </div>
-                      </form>
-                  </div>
-              </div>
-          </div>
+    </div>
 
 @endsection

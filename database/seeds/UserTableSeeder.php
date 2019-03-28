@@ -16,14 +16,14 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $adminRole = Role::whereName('Administrador')->first();
-        $userRole = Role::whereName('Usuario')->first();
+        $adminRole = Role::whereName('Admin')->first();
+        $userRole = Role::whereName('User')->first();
         $permissions = Permission::pluck('id');
 
         $faker = Faker\Factory::create();
 
         // Seed test admin
-        $seededAdminEmail = 'admin@admin.com';
+        $seededAdminEmail = 'cesar.sousa@provider-es.com.br';
         $user = User::where('email', '=', $seededAdminEmail)->first();
         if ($user === null) {
 
@@ -33,14 +33,14 @@ class UserTableSeeder extends Seeder
             $avatar = \Avatar::create($name)->toBase64();
 
             $person = People::create([
-              'name' => $name,
+              'name' => 'Cesar Sousa',
               'department_id'=> 1,
               'occupation_id'=> 1,
               'cpf' => '12345678987'
             ]);
 
             $user = User::create([
-              'nick'                           => str_slug($name),
+              'nick'                           => 'cesar.sousa',
               'email'                          => $seededAdminEmail,
               'password'                       => Hash::make('123123'),
               'avatar' => $avatar,
@@ -64,7 +64,7 @@ class UserTableSeeder extends Seeder
         }
 
         // Seed test user
-        $user = User::where('email', '=', 'user@user.com')->first();
+        $user = User::where('email', '=', 'vinycius.alves@provider-es.com.br')->first();
         if ($user === null) {
 
             $name = $faker->name;
@@ -72,15 +72,15 @@ class UserTableSeeder extends Seeder
             $avatar = \Avatar::create($name)->toBase64();
 
             $person = People::create([
-              'name' => $name,
+              'name' => 'Vinycius Alves',
               'department_id'=> 1,
               'occupation_id'=> 1,
               'cpf' => '12345678987'
             ]);
 
             $user = User::create([
-              'nick'                           => str_slug($name),
-              'email'                          => 'user@user.com',
+              'nick'                           => 'vinycius.alves',
+              'email'                          => 'vinycius.alves@provider-es.com.br',
               'password'                       => Hash::make('123123'),
               'avatar' => $avatar,
               'do_task' => true,

@@ -107,6 +107,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::resource('documents', 'DocumentsController');
   Route::resource('delivery-order', 'DeliveryOrderController');
 
+  Route::resource('message-board', 'MessageBoardController');
+  Route::resource('message-types', 'MessageTypesController');
+
   Route::resource('roles', 'RolesController');
   Route::resource('permissions', 'PermissionsController');
 
@@ -131,6 +134,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::get('/department/occupations/search', 'OccupationController@search')->name('occupation_search');
 
   Route::get('cep', 'UtilController@cep')->name('cep');
+  Route::get('departments/search/users', 'UtilController@usersByDepartment')->name('departments_users_search');
 
   Route::get('users/search', 'UsersController@search')->name('user_search');
 

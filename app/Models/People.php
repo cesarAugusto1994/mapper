@@ -20,6 +20,11 @@ class People extends Model
         return $this->belongsTo('App\Models\Department');
     }
 
+    public function user()
+    {
+        return $this->hasOne('App\User', 'person_id');
+    }
+
     public function occupation()
     {
         return $this->belongsTo('App\Models\Department\Occupation');

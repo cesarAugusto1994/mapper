@@ -44,6 +44,12 @@ class ModulesTableSeeder extends Seeder
             'parent' => str_slug('Modulos'),
           ],
           [
+            'name' => 'Mural de Recados',
+            'slug' => str_slug('Mural de Recados'),
+            'description' => 'Mural de Recados',
+            'parent' => str_slug('Modulos'),
+          ],
+          [
             'name' => 'Administrativo',
             'slug' => str_slug('Administrativo'),
             'description' => 'Administrativo',
@@ -124,6 +130,21 @@ class ModulesTableSeeder extends Seeder
             'slug' => str_slug('Agenda'),
             'description' => 'Agenda',
             'parent' => str_slug('Gestao de Treinamentos'),
+          ],
+
+
+          [
+            'name' => 'Mural',
+            'slug' => str_slug('Mural'),
+            'description' => 'Mural',
+            'parent' => str_slug('Mural de Recados'),
+          ],
+
+          [
+            'name' => 'Tipos de Recados',
+            'slug' => str_slug('Tipos de Recados'),
+            'description' => 'Tipos de Recados',
+            'parent' => str_slug('Mural de Recados'),
           ],
 
           [
