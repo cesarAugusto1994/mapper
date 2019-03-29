@@ -70,7 +70,9 @@
 
               <div class="mail-body">
 
-                  <form method="get">
+                  <form method="post" action="{{ route('message-board.store') }}">
+                      {{ csrf_field() }}
+
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Departamento:</label>
                           <div class="col-sm-10">
 
@@ -109,9 +111,9 @@
                             </div>
                         <div class="clearfix"></div>
                             <div class="mail-body text-right tooltip-demo">
-                                <a href="mailbox.html" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Send"><i class="fa fa-reply"></i> Send</a>
-                                <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Discard email"><i class="fa fa-times"></i> Discard</a>
-                                <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to draft folder"><i class="fa fa-pencil"></i> Draft</a>
+                                <button type="submit" class="btn btn-sm btn-primary">Enviar</button>
+                                <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Discard email"><i class="fa fa-times"></i> Descartar</a>
+                                <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to draft folder"><i class="fa fa-pencil"></i> Rascunho</a>
                             </div>
                         <div class="clearfix"></div>
                       </div>

@@ -89,8 +89,13 @@ class UtilController extends Controller
           ]);
         }
 
-        if($request->filled('id')) {
-          $departments = Department::whereIn('id', [$request->get('id')])->get();
+        if($request->get('id')) {
+
+          $ids = explode(',', $request->get('id'));
+
+          dd($ids);
+
+          $departments = Department::whereIn('id', $ids)->get();
         } else {
           $departments = Department::all();
         }
@@ -98,13 +103,15 @@ class UtilController extends Controller
         $result = [];
 
         foreach ($departments as $key => $department) {
-          $result = $department->people->map(function($person) {
-            return [
-              'id' => $person->id,
-              'name' => $person->name,
-              'email' => $person->user->email,
-            ];
-          });
+
+          foreach ($department->people as $key => $person) {
+              $result[] = [
+                'id' => $person->id,
+                'name' => $person->name,
+                'email' => $person->user->email,
+              ];
+          }
+          
         }
 
         return response()->json([
