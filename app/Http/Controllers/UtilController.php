@@ -93,14 +93,18 @@ class UtilController extends Controller
 
           $ids = explode(',', $request->get('id'));
 
-          dd($ids);
-
           $departments = Department::whereIn('id', $ids)->get();
         } else {
           $departments = Department::all();
         }
 
         $result = [];
+
+        $result[] = [
+          'id' => 0,
+          'name' => 'Todos Usuários',
+          'email' => 'Todos Usuários',
+        ];
 
         foreach ($departments as $key => $department) {
 
@@ -111,7 +115,7 @@ class UtilController extends Controller
                 'email' => $person->user->email,
               ];
           }
-          
+
         }
 
         return response()->json([

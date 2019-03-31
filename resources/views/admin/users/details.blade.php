@@ -16,6 +16,9 @@
                 <li class="active">
                     <strong>Perfil</strong>
                 </li>
+                <li class="active">
+                    <strong>{{ $user->person->name }}</strong>
+                </li>
             </ol>
         </div>
         <div class="col-lg-2">
@@ -25,23 +28,54 @@
     <div class="wrapper wrapper-content">
 
         <div class="row animated fadeInRight">
-            <div class="col-lg-3 col-md-4 col-sm-4">
 
-                <div class="ibox float-e-margins">
+            <div class="col-md-4">
+                <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>Opções  </h5>
-                        @if(!$user->active)
-                        <span class="pull-right label label-danger">Inativo</span>
-                        @endif
+                        <h5>Perfil</h5>
                     </div>
                     <div>
-
+                        <div class="ibox-content no-padding border-left-right">
+                            <img alt="image" class="img-fluid" src="{{$user->avatar}}">
+                        </div>
                         <div class="ibox-content profile-content">
-                            <h4><strong>{{$user->name}}</strong></h4>
-                                @if($user->department)<p><i class="fa fa-map-marker"></i> {{$user->department->name ?? ''}} </p>@endif
-                                <button class="btn btn-info btn-block" data-toggle="modal" data-target="#editar">Editar</button>
-                                <button class="btn btn-white btn-block" data-toggle="modal" data-target="#editar-configuracoes">Cofigurações</button>
-                                <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#editar-senha">Alterar Senha</button>
+                            <h4><strong>{{ $user->person->name }}</strong></h4>
+                            <p>{{$user->email}}</p>
+                            <h5>
+                                Departamento/Cargo:
+                            </h5>
+                            <p>
+                              {{$user->person->department->name}} /
+                              {{$user->person->occupation->name}}
+                            </p>
+                            <h5>
+                                Previlégio:
+                            </h5>
+                            <p>
+                              {{$user->roles->first()->name}}
+                            </p>
+                            <h5>
+                                Logado em:
+                            </h5>
+                            <p>
+                              {{ $user->lastLoginAt() ? $user->lastLoginAt()->format('d/m/Y H:i') : '' }}
+                            </p>
+
+                            <div class="user-button">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <button class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#editar"><i class="fa fa-edit"></i> Editar</button>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-white btn-block" data-toggle="modal" data-target="#editar-configuracoes"><i class="fa fa-cogs"></i> Cofigurações</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#editar-senha"><i class="fa fa-key"></i> Alterar Senha</button>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -51,39 +85,32 @@
                     <div class="ibox-title">
                         <h5>Atividades</h5>
                     </div>
-                    <div class="ibox-content">
-
-                      <div>
-                          <div class="feed-activity-list">
-
-                              @forelse($logs as $log)
-                                  <div class="feed-element">
-                                      <a href="{{ route('user', ['id' => $log->user->id]) }}" class="pull-left">
-                                          <img alt="image" class="img-circle" src="{{Gravatar::get($log->user->email)}}">
-                                      </a>
-                                      <div class="media-body ">
-                                          <small class="pull-right"></small>
-                                          <strong>{{$log->user->name == Auth::user()->name ? 'Você' : $log->user->name}}</strong> {{ $log->message }} <br>
-                                          <small class="text-muted">{{ $log->created_at->format('H:i - d.m.Y') }}</small>
-
-                                      </div>
-                                  </div>
-
-                              @empty
-                                  <div class="alert alert-warning">
-                                      Você não possui nenhum registro até o momento.
-                                  </div>
-                              @endforelse
-
-                      </div>
-
+                    <div class="ibox-content inspinia-timeline">
+                        @forelse($activities as $activity)
+                        <div class="timeline-item">
+                            <div class="row">
+                                <div class="col-xs-3 date">
+                                    <i class="fa fa-comments"></i>
+                                    {{ $activity->created_at->format('H:i') }}
+                                    <br>
+                                    <small class="text-navy">{{ \App\Helpers\TimesAgo::render($activity->created_at) }}</small>
+                                </div>
+                                <div class="col-xs-7 content no-top-border">
+                                    <p>{{ $activity->description }}:
+                                       {{ html_entity_decode(\App\Helpers\Helper::getTagHmtlForModel($activity->subject_type, $activity->subject_id)) }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        @empty
+                            <div class="alert alert-warning">
+                                Voce não possui nenhum log até o momento>.
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
 
-          </div>
-
-            <div class="col-lg-5">
+            <div class="col-lg-4">
               <div class="ibox float-e-margins">
                   <div class="ibox-title">
                       <h5>Tarefas</h5>
@@ -246,9 +273,8 @@
                           <div class="form-group col-sm-12 {!! $errors->has('roles') ? 'has-error' : '' !!}"><label>Acesso</label>
 
                                 <select id="role" name="roles" required="required" class="form-control">
-                                    <option value="Usuario">Usuario</option>
-                                    <option value="Gerente">Gerente</option>
-                                    <option value="Administrador">Administrador</option>
+                                    <option value="User">Usuario</option>
+                                    <option value="Admin">Administrador</option>
                                 </select>
                                 {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
 

@@ -11,9 +11,14 @@ class MeassageBoard extends Model
     use Uuids;
     use LogsActivity;
 
-    protected $fillable = ['created_by', 'type_id', 'content', 'like'];
+    protected $fillable = ['subject','created_by', 'type_id', 'content', 'like'];
 
-    protected static $logAttributes = ['created_by', 'type_id', 'content', 'like'];
+    protected static $logAttributes = ['subject','created_by', 'type_id', 'content', 'like'];
 
     protected $table = 'meassage_boards';
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'created_by');
+    }
 }

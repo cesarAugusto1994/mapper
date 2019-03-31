@@ -84,6 +84,11 @@
                                                 </td>
 
                                                 <td class="project-actions">
+
+                                                  @permission('create.cursos')
+                                                    <a href="{{route('students.show', ['id' => $student->uuid])}}" class="btn btn-info btn-block"><i class="fa fa-list"></i> Visualizar</a>
+                                                  @endpermission
+
                                                   @permission('edit.cursos')
                                                     <a href="{{route('students.edit', ['id' => $student->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
                                                   @endpermission

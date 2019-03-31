@@ -80,7 +80,13 @@ class StudentsController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!Auth::user()->hasPermission('create.alunos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $student = Student::uuid($id);
+
+        return view('admin.training.students.show', compact('student'));
     }
 
     /**

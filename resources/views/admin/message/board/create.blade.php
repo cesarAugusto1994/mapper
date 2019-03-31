@@ -29,11 +29,11 @@
                       <div class="file-manager">
                           <h5>Folders</h5>
                           <ul class="folder-list m-b-md" style="padding: 0">
-                              <li><a href="mailbox.html"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning float-right">16</span> </a></li>
-                              <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
-                              <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
-                              <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger float-right">2</span></a></li>
-                              <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Trash</a></li>
+                              <li><a href="#"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning float-right">16</span> </a></li>
+                              <li><a href="#"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
+                              <li><a href="#"> <i class="fa fa-certificate"></i> Important</a></li>
+                              <li><a href="#"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger float-right">2</span></a></li>
+                              <li><a href="#"> <i class="fa fa-trash-o"></i> Trash</a></li>
                           </ul>
                           <h5>Categories</h5>
                           <ul class="category-list" style="padding: 0">
@@ -75,45 +75,56 @@
 
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Departamento:</label>
                           <div class="col-sm-10">
-
-                            <select class="form-control select2" id="select-department" data-route="{{ route('departments_users_search') }}" name="to[]" multiple="multiple" required>
-                              <option value="">Toda Empresa</option>
+                            <select class="form-control select2" id="select-department" data-route="{{ route('departments_users_search') }}" name="departments[]" multiple="multiple" required>
+                              <option value="0">Todos Departamentos</option>
                               @foreach($departments as $department)
                                   <option value="{{ $department->id }}">{{ $department->name }}</option>
                               @endforeach
                             </select>
-
                           </div>
                       </div>
 
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Para:</label>
                           <div class="col-sm-10">
-
                             <select class="form-control select2" id="select-user" name="to[]" multiple="multiple">
-                              <option value="">Todas</option>
+                              <option value="0">Todos Usuários</option>
                             </select>
+                          </div>
+                      </div>
 
+                      <div class="form-group row"><label class="col-sm-2 col-form-label">Tipo:</label>
+                          <div class="col-sm-10">
+                            <select class="form-control select2" name="type_id" required>
+                              @foreach($types as $type)
+                                  <option value="{{ $type->id }}">{{ $type->name }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                      </div>
+
+                      <div class="form-group row"><label class="col-sm-2 col-form-label">Categorias:</label>
+                          <div class="col-sm-10">
+                            <select class="form-control select2" name="categories[]" multiple="multiple" required>
+                              @foreach($categories as $category)
+                                  <option value="{{ $category->id }}">{{ $category->name }}</option>
+                              @endforeach
+                            </select>
                           </div>
                       </div>
 
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Assunto:</label>
-                          <div class="col-sm-10"><input required type="text" class="form-control" value=""></div>
+                          <div class="col-sm-10"><input required name="subject" type="text" class="form-control" value=""></div>
                       </div>
 
                       <div class="hr-line-dashed"></div>
 
                       <div class="mail-text h-200">
-                            <div class="summernote" style="display: none;">
-                                <h3>Hello Jonathan! </h3>
-                                dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-                                typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-                            </div>
-                        <div class="clearfix"></div>
+                            <textarea class="form-control summernote" name="content"></textarea>
+                              <div class="clearfix"></div>
                             <div class="mail-body text-right tooltip-demo">
                                 <button type="submit" class="btn btn-sm btn-primary">Enviar</button>
-                                <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Discard email"><i class="fa fa-times"></i> Descartar</a>
-                                <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to draft folder"><i class="fa fa-pencil"></i> Rascunho</a>
+                                <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Discard email"><i class="fa fa-times"></i> Descartar</a>
+                                <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to draft folder"><i class="fa fa-pencil"></i> Rascunho</a>
                             </div>
                         <div class="clearfix"></div>
                       </div>

@@ -10,7 +10,7 @@
                     <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li>
-                    <a href="{{ route('students.index') }}">Alunos</a>
+                    <a href="{{ route('courses.index') }}">Cursos</a>
                 </li>
                 <li class="active">
                     <strong>Editar Curso</strong>

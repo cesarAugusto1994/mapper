@@ -39,8 +39,6 @@ class UsersController extends Controller
             return abort(403, 'Unauthorized action.');
         }
 
-        $users = User::all();
-
         if(Auth::user()->isAdmin()) {
             $users =  User::all();
         } else {
@@ -305,7 +303,9 @@ class UsersController extends Controller
         $departamentoAtual = $user->person->department;
         $occupations = Occupation::where('department_id', $departamentoAtual->id)->get();
 
-        return view('admin.users.details', compact('occupations', 'departments'))
+        $activities = $user->activities;
+
+        return view('admin.users.details', compact('occupations', 'departments', 'activities'))
         ->with('user', $user)
         ->with('tasks', $tasks)
         ->with('logs', TaskLogs::where('user_id', $user->id)->limit(6)->orderBy('id', 'DESC')->get())

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\MessageBoard\Type;
 
 class MessageTypesController extends Controller
 {
@@ -13,7 +14,8 @@ class MessageTypesController extends Controller
      */
     public function index()
     {
-        //
+        $types = Type::all();
+        return view('admin.message.types.index', compact('types'));
     }
 
     /**
@@ -23,7 +25,7 @@ class MessageTypesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.message.types.create');
     }
 
     /**
@@ -34,7 +36,15 @@ class MessageTypesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->request->all();
+
+        Type::create($data);
+
+        notify()->flash('Tipo Adicionado!', 'success', [
+          'text' => 'Novo Tipo de Recado adicionado com sucesso.'
+        ]);
+
+        return redirect()->route('message-types.index');
     }
 
     /**
@@ -56,7 +66,8 @@ class MessageTypesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $type = Type::uuid($id);
+        return view('admin.message.types.edit', compact('type'));
     }
 
     /**
@@ -68,7 +79,16 @@ class MessageTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->request->all();
+
+        $type = Type::uuid($id);
+        $type->update($data);
+
+        notify()->flash('Tipo Atualizado!', 'success', [
+          'text' => 'Tipo de Recado atualizado com sucesso.'
+        ]);
+
+        return redirect()->route('message-types.index');
     }
 
     /**
@@ -79,6 +99,21 @@ class MessageTypesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+          $type = Type::uuid($id);
+          $type->delete();
+
+          return response()->json([
+            'success' => true,
+            'message' => 'Tipo de Recado removido com sucesso.'
+          ]);
+
+        } catch(\Exception $e) {
+          return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+          ]);
+        }
     }
 }

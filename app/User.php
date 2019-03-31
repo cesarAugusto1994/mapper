@@ -105,6 +105,17 @@ class User extends Authenticatable
     */
     public function isAdmin()
     {
-        return $this->hasRole('Administrador');
+        return $this->hasRole('Admin');
+    }
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        if($eventName == 'updated') {
+            return "Usuário atualizado";
+        } elseif ($eventName == 'deleted') {
+            return "Usuário Removido";
+        }
+
+        return "Usuário Adicionado";
     }
 }
