@@ -29,32 +29,18 @@
                       <div class="file-manager">
                           <h5>Folders</h5>
                           <ul class="folder-list m-b-md" style="padding: 0">
-                              <li><a href="#"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning float-right">16</span> </a></li>
-                              <li><a href="#"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
-                              <li><a href="#"> <i class="fa fa-certificate"></i> Important</a></li>
-                              <li><a href="#"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger float-right">2</span></a></li>
-                              <li><a href="#"> <i class="fa fa-trash-o"></i> Trash</a></li>
+                            <li><a href="#"> <i class="fa fa-inbox "></i> Entrada <span class="label label-warning float-right">16</span> </a></li>
+                            <li><a href="#"> <i class="fa fa-envelope-o"></i> Enviados</a></li>
+                            <li><a href="#"> <i class="fa fa-certificate"></i> Importantes</a></li>
+                            <li><a href="#"> <i class="fa fa-trash-o"></i> Lixeira</a></li>
                           </ul>
                           <h5>Categories</h5>
                           <ul class="category-list" style="padding: 0">
-                              <li><a href="#"> <i class="fa fa-circle text-navy"></i> Work </a></li>
-                              <li><a href="#"> <i class="fa fa-circle text-danger"></i> Documents</a></li>
-                              <li><a href="#"> <i class="fa fa-circle text-primary"></i> Social</a></li>
-                              <li><a href="#"> <i class="fa fa-circle text-info"></i> Advertising</a></li>
-                              <li><a href="#"> <i class="fa fa-circle text-warning"></i> Clients</a></li>
+                            @foreach($categories as $category)
+                                <li><a href="?category={{$category->name}}"> <i class="fa fa-circle text-{{ array_random(['navy','danger','primary','info','warning']) }}"></i> {{ $category->name }} </a></li>
+                            @endforeach
                           </ul>
 
-                          <h5 class="tag-title">Labels</h5>
-                          <ul class="tag-list" style="padding: 0">
-                              <li><a href=""><i class="fa fa-tag"></i> Family</a></li>
-                              <li><a href=""><i class="fa fa-tag"></i> Work</a></li>
-                              <li><a href=""><i class="fa fa-tag"></i> Home</a></li>
-                              <li><a href=""><i class="fa fa-tag"></i> Children</a></li>
-                              <li><a href=""><i class="fa fa-tag"></i> Holidays</a></li>
-                              <li><a href=""><i class="fa fa-tag"></i> Music</a></li>
-                              <li><a href=""><i class="fa fa-tag"></i> Photography</a></li>
-                              <li><a href=""><i class="fa fa-tag"></i> Film</a></li>
-                          </ul>
                           <div class="clearfix"></div>
                       </div>
                   </div>
@@ -70,7 +56,7 @@
 
               <div class="mail-body">
 
-                  <form method="post" action="{{ route('message-board.store') }}">
+                  <form method="post" action="{{ route('message-board.store') }}" enctype="multipart/form-data">
                       {{ csrf_field() }}
 
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Departamento:</label>
@@ -114,6 +100,15 @@
 
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Assunto:</label>
                           <div class="col-sm-10"><input required name="subject" type="text" class="form-control" value=""></div>
+                      </div>
+
+                      <div class="form-group row"><label class="col-sm-2 col-form-label">Anexos:</label>
+                          <div class="col-sm-10"><input name="files[]" type="file" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+text/plain, application/pdf, image/*" class="form-control" multiple/></div>
+                      </div>
+
+                      <div class="form-group row"><label class="col-sm-2 col-form-label">Importante:</label>
+                          <div class="col-sm-10"><input name="important" type="checkbox" class="" value=""></div>
                       </div>
 
                       <div class="hr-line-dashed"></div>

@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use App\Models\Task;
 use App\Models\TaskLogs;
 use App\Models\Department;
+use App\Models\MessageBoard;
 use Spatie\Permission\Traits\HasRoles;
 use Yadahan\AuthenticationLog\AuthenticationLogable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
@@ -69,6 +70,11 @@ class User extends Authenticatable
     public function logs()
     {
         return $this->hasMany(TaskLogs::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasManyThrough('App\Models\MessageBoard\User', 'App\Models\MessageBoard');
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MeassageBoard;
 use App\Models\{Department,People};
-use App\Models\MessageBoard\{Category,Type, User};
+use App\Models\MessageBoard\{Category,Type, User, Attachment};
 use App\Models\Category as MessageBoardCategory;
 
 class MessageBoardController extends Controller
@@ -15,10 +15,14 @@ class MessageBoardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $messages = MeassageBoard::all();
-        return view('admin.message.board.index', compact('messages'));
+        $categories = MessageBoardCategory::all();
+        $messages = $request->user()->messages;
+
+        dd($messages);
+
+        return view('admin.message.board.index', compact('messages', 'categories'));
     }
 
     /**
@@ -43,7 +47,6 @@ class MessageBoardController extends Controller
     public function store(Request $request)
     {
         $data = $request->request->all();
-        //dd($data);
 
         $user = $request->user();
 
@@ -52,7 +55,27 @@ class MessageBoardController extends Controller
             'subject' => $data['subject'],
             'created_by' => $user->id,
             'content' => $data['content'],
+            'important' => $request->has('important'),
         ]);
+
+        if ($request->hasFile('files')) {
+
+            foreach ($request->file('files') as $key => $file) {
+
+                $filename = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $path = $file->store('messageboard');
+
+                Attachment::create([
+                  'board_id' => $messageBoard->id,
+                  'link' => $path,
+                  'filename' => $filename,
+                  'extension' => $extension,
+                ]);
+            }
+
+
+        }
 
         foreach ($data['categories'] as $key => $item) {
             Category::create([
@@ -61,18 +84,26 @@ class MessageBoardController extends Controller
             ]);
         }
 
-        if(in_array(0, $data['departments']) && in_array(0, $data['to'])) {
+        $departments = $data['departments'];
+        $users = $data['to'];
+
+        if(in_array(0, $departments) && in_array(0, $users)) {
+
             $users = \App\User::all();
-        } elseif (in_array(0, $data['departments'])) {
-            $users = \App\User::whereHas('person', function($query) use ($data) {
-                $query->whereIn('department_id', $data['departments']);
-            })->get();
-        } elseif (in_array(0, $data['to'])) {
-            $users = \App\User::whereHas('person', function($query) use ($data) {
-                $query->whereIn('department_id', $data['departments']);
-            })->get();
+
+        } elseif (in_array(0, $departments) && !in_array(0, $users)) {
+
+            $users = \App\User::whereIn('id', $users)->get();
+
+        } elseif (!in_array(0, $departments)) {
+
+            $people = People::whereIn('department_id', $departments)->pluck('id');
+            $users = \App\User::whereIn('id', $people)->get();
+
         } else {
-            $users = \App\User::whereIn('id', $data['to'])->get();
+
+            $users = \App\User::whereIn('id', $users)->get();
+
         }
 
         foreach ($users as $key => $user) {
@@ -97,7 +128,9 @@ class MessageBoardController extends Controller
      */
     public function show($id)
     {
-        //
+        $messageBoard = MeassageBoard::uuid($id);
+        $categories = MessageBoardCategory::all();
+        return view('admin.message.board.show', compact('messageBoard', 'categories'));
     }
 
     /**

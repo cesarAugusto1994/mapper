@@ -36,6 +36,7 @@ class CreateMeassageBoardsTable extends Migration
             $table->string('subject')->nullable();
             $table->text('content')->nullable();
             $table->integer('like')->default(0);
+            $table->boolean('important')->default(false);
             $table->uuid('uuid')->unique();
             $table->timestamps();
             $table->softDeletes();
@@ -56,6 +57,8 @@ class CreateMeassageBoardsTable extends Migration
 
         Schema::create('meassage_board_attachments', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('filename')->nullable();
+            $table->string('extension')->nullable();
             $table->integer('board_id')->unsigned();
             $table->foreign('board_id')->references('id')->on('meassage_boards');
             $table->string('link');

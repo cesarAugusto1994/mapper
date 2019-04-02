@@ -143,6 +143,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::post('user/{id}/permissions/{permission}/revoke', 'UsersController@revoke')->name('user_permissions_revoke');
   Route::post('user/{id}/permissions/{permission}/grant', 'UsersController@grant')->name('user_permissions_grant');
 
+  Route::get('/image/external', 'UtilController@image')->name('image');
+
 });
 
   Route::get('delivery-order/{id}/start-delivery', 'DeliveryOrderController@start')->name('start_delivery');

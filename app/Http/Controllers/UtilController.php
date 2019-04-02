@@ -124,4 +124,19 @@ class UtilController extends Controller
           'data' => $result
         ]);
     }
+
+    public function image(Request $request)
+    {
+        $link = $request->get('link');
+
+        $file = \Storage::exists($link) ? \Storage::get($link) : false;
+
+        if(!$file) {
+          $file = null;
+        }
+
+        $mimetype = \Storage::disk('local')->mimeType($link);
+
+        return response($file, 200)->header('Content-Type', $mimetype);
+    }
 }

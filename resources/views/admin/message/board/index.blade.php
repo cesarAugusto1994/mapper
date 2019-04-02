@@ -33,32 +33,18 @@
                             <div class="space-25"></div>
                             <h5>Folders</h5>
                             <ul class="folder-list m-b-md" style="padding: 0">
-                                <li><a href="#"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning float-right">16</span> </a></li>
-                                <li><a href="#"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
-                                <li><a href="#"> <i class="fa fa-certificate"></i> Important</a></li>
-                                <li><a href="#"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger float-right">2</span></a></li>
-                                <li><a href="#"> <i class="fa fa-trash-o"></i> Trash</a></li>
+                                <li><a href="#"> <i class="fa fa-inbox "></i> Entrada <span class="label label-warning float-right">16</span> </a></li>
+                                <li><a href="#"> <i class="fa fa-envelope-o"></i> Enviados</a></li>
+                                <li><a href="#"> <i class="fa fa-certificate"></i> Importantes</a></li>
+                                <li><a href="#"> <i class="fa fa-trash-o"></i> Lixeira</a></li>
                             </ul>
                             <h5>Categories</h5>
                             <ul class="category-list" style="padding: 0">
-                                <li><a href="#"> <i class="fa fa-circle text-navy"></i> Work </a></li>
-                                <li><a href="#"> <i class="fa fa-circle text-danger"></i> Documents</a></li>
-                                <li><a href="#"> <i class="fa fa-circle text-primary"></i> Social</a></li>
-                                <li><a href="#"> <i class="fa fa-circle text-info"></i> Advertising</a></li>
-                                <li><a href="#"> <i class="fa fa-circle text-warning"></i> Clients</a></li>
+                              @foreach($categories as $category)
+                                  <li><a href="?category={{$category->name}}"> <i class="fa fa-circle text-{{ array_random(['navy','danger','primary','info','warning']) }}"></i> {{ $category->name }} </a></li>
+                              @endforeach
                             </ul>
 
-                            <h5 class="tag-title">Labels</h5>
-                            <ul class="tag-list" style="padding: 0">
-                                <li><a href=""><i class="fa fa-tag"></i> Family</a></li>
-                                <li><a href=""><i class="fa fa-tag"></i> Work</a></li>
-                                <li><a href=""><i class="fa fa-tag"></i> Home</a></li>
-                                <li><a href=""><i class="fa fa-tag"></i> Children</a></li>
-                                <li><a href=""><i class="fa fa-tag"></i> Holidays</a></li>
-                                <li><a href=""><i class="fa fa-tag"></i> Music</a></li>
-                                <li><a href=""><i class="fa fa-tag"></i> Photography</a></li>
-                                <li><a href=""><i class="fa fa-tag"></i> Film</a></li>
-                            </ul>
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -90,179 +76,17 @@
                 <tbody>
 
                 @foreach($messages as $message)
-                <tr class="unread">
+                <tr class="{{ $message->status == 'PENDENTE' ? 'unread' : 'read' }}">
                     <td class="check-mail">
                         <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
                     </td>
-                    <td class="mail-ontact"><a href="#">{{ $message->user->person->name }}</a></td>
-                    <td class="mail-subject"><a href="#">{{ $message->subject }}</a></td>
+                    <td class="mail-ontact"><a href="{{ route('message-board.show', $message->uuid) }}">{{ $message->user->person->name }}</a></td>
+                    <td class="mail-subject"><a href="{{ route('message-board.show', $message->uuid) }}">{{ $message->subject }}</a></td>
                     <td class=""><i class="fa fa-paperclip"></i></td>
                     <td class="text-right mail-date">{{ $message->created_at->format('d/m/Y H:i') }}</td>
                 </tr>
                 @endforeach
 
-                <tr class="unread">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green checked" style="position: relative;"><input type="checkbox" class="i-checks" checked="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Jack Nowak</a></td>
-                    <td class="mail-subject"><a href="#">Aldus PageMaker including versions of Lorem Ipsum.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">8.22 PM</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Facebook</a> <span class="label label-warning float-right">Clients</span> </td>
-                    <td class="mail-subject"><a href="#">Many desktop publishing packages and web page editors.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">Jan 16</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Mailchip</a></td>
-                    <td class="mail-subject"><a href="#">There are many variations of passages of Lorem Ipsum.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">Mar 22</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Alex T.</a> <span class="label label-danger float-right">Documents</span></td>
-                    <td class="mail-subject"><a href="#">Lorem ipsum dolor noretek imit set.</a></td>
-                    <td class=""><i class="fa fa-paperclip"></i></td>
-                    <td class="text-right mail-date">December 22</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Monica Ryther</a></td>
-                    <td class="mail-subject"><a href="#">The standard chunk of Lorem Ipsum used.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">Jun 12</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Sandra Derick</a></td>
-                    <td class="mail-subject"><a href="#">Contrary to popular belief.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">May 28</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Patrick Pertners</a> <span class="label label-info float-right">Adv</span></td>
-                    <td class="mail-subject"><a href="#">If you are going to use a passage of Lorem </a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">May 28</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Michael Fox</a></td>
-                    <td class="mail-subject"><a href="#">Humour, or non-characteristic words etc.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">Dec 9</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Damien Ritz</a></td>
-                    <td class="mail-subject"><a href="#">Oor Lorem Ipsum is that it has a more-or-less normal.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">Jun 11</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Anna Smith</a></td>
-                    <td class="mail-subject"><a href="#">Lorem ipsum dolor noretek imit set.</a></td>
-                    <td class=""><i class="fa fa-paperclip"></i></td>
-                    <td class="text-right mail-date">6.10 AM</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Jack Nowak</a></td>
-                    <td class="mail-subject"><a href="#">Aldus PageMaker including versions of Lorem Ipsum.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">8.22 PM</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Mailchip</a></td>
-                    <td class="mail-subject"><a href="#">There are many variations of passages of Lorem Ipsum.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">Mar 22</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Alex T.</a> <span class="label label-warning float-right">Clients</span></td>
-                    <td class="mail-subject"><a href="#">Lorem ipsum dolor noretek imit set.</a></td>
-                    <td class=""><i class="fa fa-paperclip"></i></td>
-                    <td class="text-right mail-date">December 22</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Monica Ryther</a></td>
-                    <td class="mail-subject"><a href="#">The standard chunk of Lorem Ipsum used.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">Jun 12</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Sandra Derick</a></td>
-                    <td class="mail-subject"><a href="#">Contrary to popular belief.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">May 28</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Patrick Pertners</a> </td>
-                    <td class="mail-subject"><a href="#">If you are going to use a passage of Lorem </a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">May 28</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Michael Fox</a></td>
-                    <td class="mail-subject"><a href="#">Humour, or non-characteristic words etc.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">Dec 9</td>
-                </tr>
-                <tr class="read">
-                    <td class="check-mail">
-                        <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                    </td>
-                    <td class="mail-ontact"><a href="#">Damien Ritz</a></td>
-                    <td class="mail-subject"><a href="#">Oor Lorem Ipsum is that it has a more-or-less normal.</a></td>
-                    <td class=""></td>
-                    <td class="text-right mail-date">Jun 11</td>
-                </tr>
                 </tbody>
                 </table>
 
