@@ -143,6 +143,7 @@
             </div>
             <div class="ibox-content">
               <div class="feed-activity-list">
+                @foreach($messages as $message)
                   <div class="feed-element">
                       <a class="float-left" href="profile.html">
                           <img alt="image" class="rounded-circle" src="img/profile.jpg">
@@ -154,6 +155,8 @@
 
                       </div>
                   </div>
+                @endforeach
+                  <!--
                   <div class="feed-element">
                       <a class="float-left" href="profile.html">
                           <img alt="image" class="rounded-circle" src="img/a2.jpg">
@@ -225,6 +228,7 @@
                           <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
                       </div>
                   </div>
+                  -->
               </div>
             </div>
           </div>

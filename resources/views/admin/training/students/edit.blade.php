@@ -13,7 +13,7 @@
                     <a href="{{ route('students.index') }}">Alunos</a>
                 </li>
                 <li class="active">
-                    <strong>Editar Curso</strong>
+                    <strong>Editar Aluno</strong>
                 </li>
             </ol>
         </div>
@@ -25,7 +25,7 @@
 
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Editar Alunos</h5>
+                        <h5>Editar Aluno</h5>
                     </div>
                     <div class="ibox-content">
 

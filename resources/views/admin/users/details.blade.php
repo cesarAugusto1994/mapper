@@ -189,6 +189,16 @@
                         <div class="form-group"><label>Seu Nome</label> <input type="text" name="name" placeholder="Informe seu Nome" value="{{$user->person->name}}" class="form-control" required></div>
                         <div class="form-group"><label>E-mail</label> <input type="email" readonly name="email" placeholder="Informe seu E-mail" value="{{$user->email}}" class="form-control"></div>
                         <div class="form-group"><label>CPF</label> <input type="text" name="cpf" placeholder="Informe seu CPF" value="{{$user->person->cpf}}" class="form-control inputCpf" required></div>
+                        @php
+
+                          $day = null;
+
+                          if($user->person->birthday) {
+                            $day = $user->person->birthday->format('d/m/Y');
+                          }
+
+                        @endphp
+                        <div class="form-group"><label>Nascimento</label> <input type="text" name="birthday" placeholder="Data de Nascimento" value="{{$day}}" class="form-control inputDate" required></div>
                         <div class="form-group"><label>Departamento</label>
                             <select class="selectpicker show-tick select-occupations" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" data-search-occupations="{{ route('occupation_search') }}" name="department_id" required>
 

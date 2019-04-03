@@ -33,7 +33,7 @@
                             <div class="space-25"></div>
                             <h5>Folders</h5>
                             <ul class="folder-list m-b-md" style="padding: 0">
-                                <li><a href="#"> <i class="fa fa-inbox "></i> Entrada <span class="label label-warning float-right">16</span> </a></li>
+                                <li><a href="{{route('message-board.index')}}"> <i class="fa fa-inbox "></i> Entrada @if($messagesWaiting->count())<span class="label label-warning float-right">{{ $messagesWaiting->count() }}</span>@endif </a></li>
                                 <li><a href="#"> <i class="fa fa-envelope-o"></i> Enviados</a></li>
                                 <li><a href="#"> <i class="fa fa-certificate"></i> Importantes</a></li>
                                 <li><a href="#"> <i class="fa fa-trash-o"></i> Lixeira</a></li>
@@ -80,9 +80,13 @@
                     <td class="check-mail">
                         <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
                     </td>
-                    <td class="mail-ontact"><a href="{{ route('message-board.show', $message->uuid) }}">{{ $message->user->person->name }}</a></td>
+                    <td class="mail-ontact"><a href="{{ route('message-board.show', $message->uuid) }}">{{ $message->user->person->name ?? '' }}</a></td>
                     <td class="mail-subject"><a href="{{ route('message-board.show', $message->uuid) }}">{{ $message->subject }}</a></td>
-                    <td class=""><i class="fa fa-paperclip"></i></td>
+                    <td class="">
+                      @if($message->attachments)
+                        <i class="fa fa-paperclip"></i>
+                      @endif
+                    </td>
                     <td class="text-right mail-date">{{ $message->created_at->format('d/m/Y H:i') }}</td>
                 </tr>
                 @endforeach

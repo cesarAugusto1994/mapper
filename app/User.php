@@ -74,7 +74,7 @@ class User extends Authenticatable
 
     public function messages()
     {
-        return $this->hasManyThrough('App\Models\MessageBoard\User', 'App\Models\MessageBoard');
+        return $this->hasMany('App\Models\MessageBoard\User');
     }
 
     /**

@@ -44,6 +44,13 @@
                                 </div>
                             </div>
 
+                            <div class="form-group {!! $errors->has('document') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">CPF/CNPJ</label>
+                                <div class="col-sm-10">
+                                    <input type="text" placeholder="Informe o CPF ou CNPJ" id="cpf" name="document" value="{{ $client->document }}" class="form-control"/>
+                                    {!! $errors->first('document', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+
                             <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
                                 <label class="col-sm-2 control-label">Email</label>
                                 <div class="col-sm-10">

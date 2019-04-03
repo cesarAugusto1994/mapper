@@ -104,7 +104,7 @@
                           </div>
 
                           <div class="col-sm-3">
-                              {!! QrCode::size(120)->generate(route('start_delivery', $document->uuid)); !!}
+                              {!! QrCode::size(150)->generate(route('start_delivery', $document->uuid)); !!}
                           </div>
 
                           </div>

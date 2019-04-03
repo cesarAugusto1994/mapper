@@ -244,6 +244,7 @@
 	  $('.inputCep').mask('00000-000');
 		$('.inputPhone').mask('(00)00000-0000');
 	  $('.inputCpf').mask('000.000.000-00', {reverse: true});
+  	$('.inputCnpj').mask('00.000.000/0000-00', {reverse: true});
 		$('.inputMoney').mask('000.000.000.000.000,00', {reverse: true});
 
 	  $("#select-department").change(function() {
@@ -289,6 +290,24 @@
 	    todayHighlight: true,
 	    toggleActive: true
 		});
+
+	</script>
+
+	<script>
+
+		// Mascara de CPF e CNPJ
+		var CpfCnpjMaskBehavior = function (val) {
+					return val.replace(/\D/g, '').length <= 11 ? '000.000.000-009' : '00.000.000/0000-00';
+				},
+				cpfCnpjpOptions = {
+					onKeyPress: function(val, e, field, options) {
+						field.mask(CpfCnpjMaskBehavior.apply({}, arguments), options);
+					}
+				};
+
+		$(function() {
+			$(':input[name=document]').mask(CpfCnpjMaskBehavior, cpfCnpjpOptions);
+		})
 
 	</script>
 

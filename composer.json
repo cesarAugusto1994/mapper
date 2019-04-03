@@ -7,6 +7,7 @@
     "require": {
         "php": ">=7.0.0",
         "alexpechkarev/google-maps": "1.0.9",
+        "barryvdh/laravel-dompdf": "^0.8.4",
         "canducci/cep": "2.0.*",
         "codecourse/notify": "^1.1",
         "creativeorange/gravatar": "~1.0",

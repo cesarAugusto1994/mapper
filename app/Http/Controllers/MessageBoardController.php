@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MeassageBoard;
+use App\Models\MessageBoard;
 use App\Models\{Department,People};
 use App\Models\MessageBoard\{Category,Type, User, Attachment};
 use App\Models\Category as MessageBoardCategory;
@@ -18,11 +18,16 @@ class MessageBoardController extends Controller
     public function index(Request $request)
     {
         $categories = MessageBoardCategory::all();
-        $messages = $request->user()->messages;
 
-        dd($messages);
+        $messages = MessageBoard::whereHas('messages', function($query) use($request) {
+          $query->where('user_id', $request->user()->id);
+        })->orderByDesc('id')->get();
 
-        return view('admin.message.board.index', compact('messages', 'categories'));
+        $messagesWaiting = $messages->filter(function($message) {
+            return $message->user->status == 'ENVIADO';
+        });
+
+        return view('admin.message.board.index', compact('messages', 'categories', 'messagesWaiting'));
     }
 
     /**
@@ -50,12 +55,13 @@ class MessageBoardController extends Controller
 
         $user = $request->user();
 
-        $messageBoard = MeassageBoard::create([
+        $messageBoard = MessageBoard::create([
             'type_id' => $data['type_id'],
             'subject' => $data['subject'],
             'created_by' => $user->id,
             'content' => $data['content'],
             'important' => $request->has('important'),
+            'status' => 'ENVIADO'
         ]);
 
         if ($request->hasFile('files')) {
@@ -128,7 +134,13 @@ class MessageBoardController extends Controller
      */
     public function show($id)
     {
-        $messageBoard = MeassageBoard::uuid($id);
+        $messageBoard = MessageBoard::uuid($id);
+
+        if($messageBoard->status == 'PENDENTE' || $messageBoard->status == 'ENVIADO') {
+            $messageBoard->status = 'VISUALIZADO';
+            $messageBoard->save();
+        }
+
         $categories = MessageBoardCategory::all();
         return view('admin.message.board.show', compact('messageBoard', 'categories'));
     }

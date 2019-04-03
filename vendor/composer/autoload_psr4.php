@@ -62,6 +62,7 @@ return array(
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GoogleMaps\\' => array($vendorDir . '/alexpechkarev/google-maps/src'),
     'GeometryLibrary\\' => array($vendorDir . '/alexpechkarev/geometry-library'),
+    'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
     'Fideloper\\Proxy\\' => array($vendorDir . '/fideloper/proxy/src'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
     'Emadadly\\LaravelUuid\\' => array($vendorDir . '/emadadly/laravel-uuid/src'),
@@ -69,6 +70,7 @@ return array(
     'Edofre\\Fullcalendar\\' => array($vendorDir . '/edofre/laravel-fullcalendar/src'),
     'Edofre\\FullcalendarScheduler\\' => array($vendorDir . '/edofre/laravel-fullcalendar-scheduler/src'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
+    'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Common/Inflector'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
@@ -76,5 +78,6 @@ return array(
     'Creativeorange\\Gravatar\\' => array($vendorDir . '/creativeorange/gravatar/src'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'Canducci\\Cep\\' => array($vendorDir . '/canducci/cep/src/Canducci/Cep'),
+    'Barryvdh\\DomPDF\\' => array($vendorDir . '/barryvdh/laravel-dompdf/src'),
     'App\\' => array($baseDir . '/app'),
 );

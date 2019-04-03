@@ -2,28 +2,26 @@
 
 @section('content')
 
-    <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
-            <h2>Ordem Entrega</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="{{ route('home') }}">Painel Principal</a>
-                </li>
-                <li class="active">
-                    <strong>Ordem Entrega</strong>
-                </li>
-            </ol>
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Ordem Entrega</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="{{ route('home') }}">Painel Principal</a>
+                    </li>
+                    <li class="active">
+                        <strong>Ordem Entrega</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+                <a href="{{route('delivery-order.create')}}" class="btn btn-primary btn-block dim m-t-lg">Nova Ordem de Entrega</a>
+            </div>
         </div>
-        <div class="col-lg-2">
-            <a href="{{route('delivery-order.create')}}" class="btn btn-primary btn-block dim m-t-lg">Nova Ordem de Entrega</a>
-        </div>
-    </div>
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInUp">
-
-                @include('flash::message')
 
                 <div class="ibox">
                     <div class="ibox-title">
@@ -32,6 +30,10 @@
                         </div>
                     </div>
                     <div class="ibox-content">
+
+                        <a href="{{route('print_tags')}}" class="btn btn-primary"><i class="fa fa-print"></i> Imprimir Etiquetas</a>
+
+                        <div class="m-t-lg"></div>
 
                         <div class="project-list">
                             @if($orders->isNotEmpty())

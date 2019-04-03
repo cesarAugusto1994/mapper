@@ -8,6 +8,7 @@ use App\Models\{Documents,Client, People};
 use App\Models\Department\Occupation;
 use App\Models\DeliveryOrder\Documents as DeliveryOrderDocuments;
 use Auth;
+use PDF;
 
 class DeliveryOrderController extends Controller
 {
@@ -24,6 +25,24 @@ class DeliveryOrderController extends Controller
 
         $orders = DeliveryOrder::all();
         return view('admin.delivery-order.index', compact('orders'));
+    }
+
+    public function printTags(Request $request)
+    {
+        $deliveries = DeliveryOrder::where('status_id', 1)->get();
+
+        //dd($deliveries);
+
+        $user = $request->user();
+
+        $titulo = "etiquetas-".str_random();
+
+        $file = \Storage::disk('local')->path($user->avatar);
+
+        return view('pdf.tags', compact('deliveries', 'file'));
+
+        $pdf = PDF::loadView('pdf.tags', compact('deliveries', 'file'));
+        return $pdf->stream($titulo. ".pdf");
     }
 
     /**

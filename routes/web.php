@@ -144,6 +144,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::post('user/{id}/permissions/{permission}/grant', 'UsersController@grant')->name('user_permissions_grant');
 
   Route::get('/image/external', 'UtilController@image')->name('image');
+  Route::get('/print/tags', 'DeliveryOrderController@printTags')->name('print_tags');
+
 
 });
 

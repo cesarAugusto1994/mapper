@@ -187,7 +187,8 @@ return [
         //Illuminate\Workbench\WorkbenchServiceProvider::class,
         Canducci\Cep\Providers\CepServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
-        geekcom\ValidatorDocs\ValidatorProvider::class
+        geekcom\ValidatorDocs\ValidatorProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -246,7 +247,7 @@ return [
         'Cep'        => Canducci\Cep\Facades\Cep::class,
         'Endereco'   => Canducci\Cep\Facades\Endereco::class,
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

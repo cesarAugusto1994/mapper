@@ -85,8 +85,9 @@ class StudentsController extends Controller
         }
 
         $student = Student::uuid($id);
+        $companies = Client::all();
 
-        return view('admin.training.students.show', compact('student'));
+        return view('admin.training.students.show', compact('student', 'companies'));
     }
 
     /**

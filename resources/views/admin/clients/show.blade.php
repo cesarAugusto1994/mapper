@@ -9,8 +9,13 @@
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
+
+                <li>
+                    <a href="{{ route('clients.index') }}">Clientes</a>
+                </li>
+
                 <li class="active">
-                    <strong>Cliente: {{ $client->name }}</strong>
+                    <strong>{{ $client->name }}</strong>
                 </li>
             </ol>
         </div>
@@ -28,7 +33,9 @@
                                        style="margin-left: 4px;"
                                        class="btn btn-info pull-right">Editar</a>
                                     <h2>{{ $client->name}} </h2>
-                                    <small>{{ $client->email }}</small>
+                                    <p>CPF/CNPJ: {{ $client->document }}</p>
+                                    <p>Email: {{ $client->email }}</p>
+                                    <p>Telefone: {{ $client->phone }}</p>
                                 </div>
                             </div>
                         </div>

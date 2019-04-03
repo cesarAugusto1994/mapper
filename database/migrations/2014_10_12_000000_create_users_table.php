@@ -37,6 +37,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('phone', 15)->nullable();
             $table->string('cpf', 15);
+            $table->date('birthday')->nullable();
             $table->integer('department_id')->unsigned();
             $table->foreign('department_id')->references('id')->on('departments');
             $table->integer('occupation_id')->unsigned();

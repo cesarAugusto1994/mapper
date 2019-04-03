@@ -33,7 +33,7 @@
                             <div class="space-25"></div>
                             <h5>Folders</h5>
                             <ul class="folder-list m-b-md" style="padding: 0">
-                              <li><a href="#"> <i class="fa fa-inbox "></i> Entrada <span class="label label-warning float-right">16</span> </a></li>
+                              <li><a href="{{route('message-board.index')}}"> <i class="fa fa-inbox "></i> Entrada <span class="label label-warning float-right">16</span> </a></li>
                               <li><a href="#"> <i class="fa fa-envelope-o"></i> Enviados</a></li>
                               <li><a href="#"> <i class="fa fa-certificate"></i> Importantes</a></li>
                               <li><a href="#"> <i class="fa fa-trash-o"></i> Lixeira</a></li>
@@ -86,7 +86,7 @@
                                         <span class="corner"></span>
 
                                         <div class="icon">
-                                          @if(in_array($file->extension, ['jpeg']))
+                                          @if(in_array($file->extension, ['jpeg','jpg']))
                                               <img alt="image" class="img-fluid" src="{{ route('image', ['link'=>$file->link]) }}">
                                           @else
                                               <i class="fa fa-file"></i>

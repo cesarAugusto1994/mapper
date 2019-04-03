@@ -250,8 +250,14 @@ class UsersController extends Controller
         $department = Department::uuid($data['department_id']);
         $occupation = Occupation::uuid($data['occupation_id']);
 
+        if($request->has('birthday')) {
+            $birthday = $data['birthday'];
+            $birthday = \DateTime::createFromFormat('d/m/Y', $birthday);
+        }
+
         $person = People::create([
           'name' => $data['name'],
+          'birthday' => $birthday,
           'department_id' => $department->id,
           'occupation_id' => $occupation->id,
           'cpf' => $data['cpf']
@@ -303,7 +309,7 @@ class UsersController extends Controller
         $departamentoAtual = $user->person->department;
         $occupations = Occupation::where('department_id', $departamentoAtual->id)->get();
 
-        $activities = $user->activities;
+        $activities = $user->activities->sortByDesc('id');
 
         return view('admin.users.details', compact('occupations', 'departments', 'activities'))
         ->with('user', $user)
@@ -348,6 +354,12 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
 
         $person = $user->person;
+
+        if($request->has('birthday')) {
+            $birthday = $data['birthday'];
+            $person->birthday = \DateTime::createFromFormat('d/m/Y', $birthday);
+        }
+
         $person->name = $data['name'];
         $person->cpf = $data['cpf'];
 

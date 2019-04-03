@@ -14,6 +14,7 @@ use Redirect;
 
 use Joli\JoliNotif\Notification;
 use Joli\JoliNotif\NotifierFactory;
+use App\Models\MessageBoard;
 
 class HomeController extends Controller
 {
@@ -32,7 +33,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(!Auth::user()->hasPermission('view.painel.principal')) {
             return abort(403, 'Unauthorized action.');
@@ -43,7 +44,7 @@ class HomeController extends Controller
           return Redirect::route('login')->withErrors('Desculpe, mas o Usuário está desativado, entre em contato com o Administrador.');
         }
 
-        $activities = Auth::user()->activities;
+        $activities = Auth::user()->activities->sortByDesc('id');
 
         $this->createTasksFromProcesses();
 
@@ -109,20 +110,15 @@ class HomeController extends Controller
 
         $percentMount = self::getPercetageDoneTasks($concludedInThisMount, $concludedInThisMountWithDelay);
 
-        $notifier = NotifierFactory::create();
+        $messages = MessageBoard::whereHas('messages', function($query) use($request) {
+          $query->where('user_id', $request->user()->id);
+        })->orderByDesc('id')->get();
 
-        $notification =
-            (new Notification())
-            ->setBody('The notification body')
-            ->setTitle('The notification title')
-            ->addOption('subtitle', 'This is a subtitle') // Only works on macOS (AppleScriptNotifier)
-            ->addOption('sound', 'Frog') // Only works on macOS (AppleScriptNotifier)
-            ->addOption('url', 'https://google.com') // Only works on macOS (TerminalNotifierNotifier)
-        ;
+        $messagesWaiting = $messages->filter(function($message) {
+            return $message->user->status == 'ENVIADO';
+        });
 
-        $notifier->send($notification);
-
-        return view('home', compact('activities'))
+        return view('home', compact('activities', 'messages'))
         ->with('processes', Process::all())
         ->with('users', User::all())
         ->with('departments', Department::all())

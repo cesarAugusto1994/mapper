@@ -144,6 +144,13 @@
                             <input type="text" name="name" autofocus required class="form-control">
                         </div>
 
+                        <div class="form-group {!! $errors->has('document') ? 'has-error' : '' !!}"><label class="col-sm-2 control-label">CPF/CNPJ</label>
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="Informe o CPF ou CNPJ" id="cpf" name="document" class="form-control"/>
+                                {!! $errors->first('document', '<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
+
                         <div class="form-group"><label class="control-label">Telefone</label>
                             <input type="text" name="phone" required class="form-control inputPhone">
                         </div>
