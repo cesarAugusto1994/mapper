@@ -60,6 +60,7 @@ class DocumentsController extends Controller
         $data['client_id'] = $client->id;
         $data['address_id'] = $address->id;
         $data['type_id'] = $type->id;
+        $data['price'] = $type->price;
 
         $document = Documents::create($data);
 

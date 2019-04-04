@@ -42,6 +42,8 @@
 
                 <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
+                <a href="{{ url('password/reset') }}" class="btn btn-link block full-width m-b">Esqueceu sua senha?</a>
+
                 <p class="text-muted text-center">Provider &copy;, Direitos Reservados 2018.  <a class="text-navy"><small>Desenvolvido por César Augusto</small></a></p>
             </form>
         </div>

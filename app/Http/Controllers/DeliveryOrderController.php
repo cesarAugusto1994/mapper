@@ -27,11 +27,9 @@ class DeliveryOrderController extends Controller
         return view('admin.delivery-order.index', compact('orders'));
     }
 
-    public function printTags(Request $request)
+    public function printTags($id, Request $request)
     {
-        $deliveries = DeliveryOrder::where('status_id', 1)->get();
-
-        //dd($deliveries);
+        $delivery = DeliveryOrder::uuid($id);
 
         $user = $request->user();
 
@@ -39,9 +37,9 @@ class DeliveryOrderController extends Controller
 
         $file = \Storage::disk('local')->path($user->avatar);
 
-        return view('pdf.tags', compact('deliveries', 'file'));
+        return view('pdf.tags', compact('delivery', 'file'));
 
-        $pdf = PDF::loadView('pdf.tags', compact('deliveries', 'file'));
+        $pdf = PDF::loadView('pdf.tags', compact('delivery', 'file'));
         return $pdf->stream($titulo. ".pdf");
     }
 

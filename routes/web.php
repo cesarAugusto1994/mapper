@@ -107,6 +107,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::resource('documents', 'DocumentsController');
   Route::resource('delivery-order', 'DeliveryOrderController');
 
+  Route::get('delivery-order/{id}/print/tags', 'DeliveryOrderController@printTags')->name('print_tags');
+
   Route::resource('message-board', 'MessageBoardController');
   Route::resource('message-types', 'MessageTypesController');
 
@@ -144,7 +146,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::post('user/{id}/permissions/{permission}/grant', 'UsersController@grant')->name('user_permissions_grant');
 
   Route::get('/image/external', 'UtilController@image')->name('image');
-  Route::get('/print/tags', 'DeliveryOrderController@printTags')->name('print_tags');
+
 
 
 });

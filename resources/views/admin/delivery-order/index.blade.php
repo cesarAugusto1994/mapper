@@ -31,10 +31,6 @@
                     </div>
                     <div class="ibox-content">
 
-                        <a href="{{route('print_tags')}}" class="btn btn-primary"><i class="fa fa-print"></i> Imprimir Etiquetas</a>
-
-                        <div class="m-t-lg"></div>
-
                         <div class="project-list">
                             @if($orders->isNotEmpty())
                             <table class="table table-hover table-responsive">
@@ -77,10 +73,15 @@
                                     </td>
 
                                     <td class="project-title">
+
+                                      @permission('edit.documentos')
+                                        <a href="{{route('print_tags', ['id' => $order->uuid])}}" class="btn btn-white btn-sm"><i class="fa fa-print"></i> Imprimir Etiqueta </a>
+                                      @endpermission
+
                                       @permission('edit.documentos')
                                         <a href="{{route('delivery-order.edit', ['id' => $order->uuid])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Editar </a>
-
                                       @endpermission
+
                                       @permission('delete.documentos')
                                         <a data-route="{{route('documents.destroy', ['id' => $order->uuid])}}" class="btn btn-white btn-sm btnRemoveItem"><i class="fa fa-close"></i> Cancelar </a>
                                       @endpermission

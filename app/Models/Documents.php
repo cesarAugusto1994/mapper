@@ -11,9 +11,9 @@ class Documents extends Model
     use Uuids;
     use LogsActivity;
 
-    protected $fillable = ['description', 'client_id', 'type_id', 'created_by', 'status_id', 'address_id'];
+    protected $fillable = ['description', 'client_id', 'type_id', 'created_by', 'status_id', 'address_id', 'price'];
 
-    protected static $logAttributes = ['description', 'client_id', 'type_id', 'created_by', 'address_id'];
+    protected static $logAttributes = ['description', 'client_id', 'type_id', 'created_by', 'address_id', 'price'];
 
     public function client()
     {
@@ -33,5 +33,10 @@ class Documents extends Model
     public function address()
     {
         return $this->belongsTo('App\Models\Client\Address', 'address_id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo('App\Models\Documents\Type', 'type_id');
     }
 }

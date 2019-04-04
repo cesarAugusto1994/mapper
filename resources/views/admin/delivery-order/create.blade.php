@@ -23,15 +23,9 @@
         <div class="row">
             <div class="col-lg-12">
 
-              @foreach ($errors->all() as $error)
-
-                  <div class="alert alert-danger">{{ $error }}</div>
-
-              @endforeach
-
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Ordem de Entrega</h5>
+                        <h5>Nova Ordem de Entrega</h5>
                     </div>
                     <div class="ibox-content">
                         <form method="post" class="form-horizontal" action="{{route('delivery-order.store')}}">

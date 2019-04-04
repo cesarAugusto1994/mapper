@@ -5,7 +5,7 @@
 	<meta http-equiv="Content-Language" content="pt-br">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Process Mapper | Admin</title>
+	<title>{{ config('app.name') }} @section('title')</title>
 
 	<link href="{{ asset("admin/css/bootstrap.min.css ") }}" rel="stylesheet">
 	<link href="{{ asset("css/font-awesome.css ") }}" rel="stylesheet">

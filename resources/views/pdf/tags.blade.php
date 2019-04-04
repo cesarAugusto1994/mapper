@@ -38,22 +38,20 @@
 </head>
 
 <body class="pace-done">
-<htmlpageheader name="page-header" style="top:0;margin-top:0;padding-top:-440">
 <div style="width:100%;max-height:100px;min-height:100px;padding:0.6em 0.6em;top:0;margin-top:0">
   <!--public_path('/admin/img/RedukLogo/LogoNegativoPdf.png-->
 <img class="img" style="max-height:100px;padding:1.6em 1.6em" src="{{ 'http://www.provider-es.com.br/logo_marca.png' }}" alt="" />
 </div>
-</htmlpageheader>
-
   <div class="wrapper wrapper-content">
       <div class="ibox-content">
           <div class="row">
 
-            @foreach($deliveries as $delivery)
+              <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                  <h4>Ordem de Entrega: #{{ str_pad($delivery->id, 6, "0", STR_PAD_LEFT)  }}</h4>
+              </div>
 
-              <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="panel panel-default">
-                  <div class="panel-heading">{{ $delivery->client->name }}</div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="">
                   <div class="panel-body">
 
                     @foreach($delivery->documents as $document)
@@ -61,30 +59,34 @@
                         $document = $document->document;
                     @endphp
 
+
+
                     <div class="row">
 
-                      <div class="col-md-2" style="width:25%">
+                      <div class="col-md-12 pull-right">
 
                         @php
-                            $route = route('start_delivery', $document->uuid);
+                            $route = route('start_delivery', $delivery->uuid);
                         @endphp
 
                           {!! QrCode::size(145)->generate($route); !!}
 
                       </div>
 
-                      <div class="col-md-10" style="width:75%">
+                      <div class="col-md-12">
+
+                          <h3>{{ $delivery->client->name }}</h3>
 
                           <address>
-                              {{ $document->address->street }},
-                              {{ $document->address->number }},<br>
-                              {{ $document->address->district }},
-                              {{ $document->address->city }}
-                              {{ $document->address->zip }}<br>
-                              Referencia: {{ $document->address->reference }}<br>
-                              Complemento: {{ $document->address->complement }}<br>
-                              Email: {{ $document->client->email }}<br>
-                              <abbr title="Phone">T:</abbr>{{ $document->client->phone }}
+                              <b>Endereço:</b> {{ $document->address->street }}, {{ $document->address->number }},<br>
+                              <b>Bairro:</b> {{ $document->address->district }},<br>
+                              <b>Complemento:</b> {{ $document->address->complement }}<br>
+                              <b>Cidade:</b> {{ $document->address->city }}<br>
+                              <b>CEP:</b> {{ $document->address->zip }}<br>
+                              <b>Referencia:</b> {{ $document->address->reference }}<br>
+                              <br>
+                              <b>Email:</b> {{ $document->client->email }}<br>
+                              <b>Telefone:</b> {{ $document->client->phone }}
                           </address>
 
                           <address>
@@ -98,56 +100,81 @@
 
                     @endforeach
 
+                    <div class="bg-white" style="border-bottom:2px dashed grey;padding:2em 2em;margin-bottom:5em"></div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                        <h4>Informações</h4>
+                    </div>
+
+                    <table class="table table-bordered">
+
+                      <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Entrega</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+
+                        @foreach($delivery->documents as $document)
+                        @php
+                            $document = $document->document;
+                        @endphp
+                          <tr>
+                              <td>{{ $document->description }}</td>
+                              <td>{{ $document->type->name }}</td>
+                          </tr>
+                        @endforeach
+
+                        <tr>
+                            <td colspan="2" class="text-center"><b>DECLARO PARA DEVIDOS FINS QUE RECEBI OS ASO`S E/OU DOCUMENTOS DESCRITOS ACIMA, DEVIDAMENTE ASSINADOS,
+                            DATADOS E CARIMBADOS.</b></td>
+                        </tr>
+
+                        <tr>
+                            <td>Data/Hora: __/__/____ __:__</td>
+                            <td>Assinatura: ___________________________________________</td>
+                        </tr>
+
+                      </tbody>
+
+                    </table>
+
+
+
                   </div>
                 </div>
               </div>
 
-            @endforeach
+
+              <div class="panel-body">
+
+              <div class="col-lg-4 col-md-4 col-sm-12">
+                <p>Ordem Entrega: #{{ str_pad($delivery->id, 6, "0", STR_PAD_LEFT)  }}</p>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12">
+                <p>Etiqueta gerada por: {{ \Auth::user()->id }} - {{ \Auth::user()->person->name }}</p>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12">
+                <p>www.provider-es.com.br</p>
+              </div>
+
+              </div>
+
+          </div>
+
+          <div class="row">
+
 
 
           </div>
+
       </div>
   </div>
 
-  <htmlpagefooter name="page-footer">
-
-  <div style="width:100%;display:inline-block;position:static;">
-
-    <div class="row" style="border-top:2px solid red;padding:2em 2em;width:100%;display:inline-block;">
-
-      <div class="col-lg-3">
-
-        <h4>Etiquetas</h4>
-        <h4>####</h4>
-
-      </div>
-
-        <div class="col-lg-3" style="width:25%">
-
-          <b>Relatório gerado por:</b>
 
 
-        </div>
-        <div class="col-lg-3" style="width:25%">
-
-          <b></b>
-
-        </div>
-        <div class="col-lg-3" style="width:25%">
-
-          <b></b>
-
-        </div>
-        <div class="col-lg-3" style="width:25%">
-
-          <b>www.provider-es.com.br</b>
-
-        </div>
-    </div>
-
-  </div>
-
-  </htmlpagefooter>
 
 </body>
 

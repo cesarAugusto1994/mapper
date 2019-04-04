@@ -49,6 +49,22 @@ class CreateClientsTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('employees', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('cpf');
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('biometric')->nullable();
+            $table->integer('created_by')->unsigned();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('clients');
+            $table->boolean('active')->default(true);
+            $table->uuid('uuid')->unique();
+            $table->timestamps();
+        });
+
     }
 
     /**
