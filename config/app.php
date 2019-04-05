@@ -189,6 +189,7 @@ return [
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
         geekcom\ValidatorDocs\ValidatorProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        A2design\Form\FormServiceProvider::class,
 
     ],
 
@@ -248,6 +249,7 @@ return [
         'Endereco'   => Canducci\Cep\Facades\Endereco::class,
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Form' => A2design\Form\FormFacade::class,
     ],
 
 ];

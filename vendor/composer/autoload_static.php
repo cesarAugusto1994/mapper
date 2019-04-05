@@ -21,6 +21,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '298946589c8e980580c22399a4f81c53' => __DIR__ . '/..' . '/okipa/laravel-html-helper/app/Helpers/HtmlHelper.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'e91d0dc994644828154ae2387ede1ca8' => __DIR__ . '/..' . '/spatie/string/src/string_functions.php',
         'ee1fbf6a277042bb7f2ccb06366b2716' => __DIR__ . '/..' . '/canducci/cep/src/Canducci/Cep/CepHelper.php',
@@ -109,6 +110,8 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'O' => 
         array (
             'Opis\\Closure\\' => 13,
+            'Okipa\\LaravelTable\\' => 19,
+            'Okipa\\LaravelHtmlHelper\\' => 24,
         ),
         'N' => 
         array (
@@ -176,6 +179,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'A' => 
         array (
             'App\\' => 4,
+            'A2design\\Form\\' => 14,
         ),
     );
 
@@ -355,6 +359,14 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         array (
             0 => __DIR__ . '/..' . '/opis/closure/src',
         ),
+        'Okipa\\LaravelTable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/okipa/laravel-table/src',
+        ),
+        'Okipa\\LaravelHtmlHelper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/okipa/laravel-html-helper/src',
+        ),
         'NunoMaduro\\LaravelDesktopNotifier\\' => 
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/laravel-desktop-notifier/src',
@@ -479,6 +491,10 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
+        'A2design\\Form\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/a2design-inc/laravel-form-builder/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -561,6 +577,9 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
     );
 
     public static $classMap = array (
+        'A2design\\Form\\FormBuilder' => __DIR__ . '/..' . '/a2design-inc/laravel-form-builder/src/FormBuilder.php',
+        'A2design\\Form\\FormFacade' => __DIR__ . '/..' . '/a2design-inc/laravel-form-builder/src/FormFacade.php',
+        'A2design\\Form\\FormServiceProvider' => __DIR__ . '/..' . '/a2design-inc/laravel-form-builder/src/FormServiceProvider.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Helpers\\Helper' => __DIR__ . '/../..' . '/app/Helpers/Helper.php',
@@ -579,6 +598,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Http\\Controllers\\DepartmentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/DepartmentsController.php',
         'App\\Http\\Controllers\\DocumentTypesController' => __DIR__ . '/../..' . '/app/Http/Controllers/DocumentTypesController.php',
         'App\\Http\\Controllers\\DocumentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/DocumentsController.php',
+        'App\\Http\\Controllers\\EmployeesController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmployeesController.php',
         'App\\Http\\Controllers\\FleetCarController' => __DIR__ . '/../..' . '/app/Http/Controllers/FleetCarController.php',
         'App\\Http\\Controllers\\FleetScheduleController' => __DIR__ . '/../..' . '/app/Http/Controllers/FleetScheduleController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
@@ -607,6 +627,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\Client' => __DIR__ . '/../..' . '/app/Models/Client.php',
         'App\\Models\\Client\\Address' => __DIR__ . '/../..' . '/app/Models/Client/Address.php',
+        'App\\Models\\Client\\Employee' => __DIR__ . '/../..' . '/app/Models/Client/Employee.php',
         'App\\Models\\DeliveryOrder' => __DIR__ . '/../..' . '/app/Models/DeliveryOrder.php',
         'App\\Models\\DeliveryOrder\\Documents' => __DIR__ . '/../..' . '/app/Models/DeliveryOrder/Documents.php',
         'App\\Models\\DeliveryOrder\\Status' => __DIR__ . '/../..' . '/app/Models/DeliveryOrder/Status.php',
@@ -615,6 +636,7 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'App\\Models\\Documents' => __DIR__ . '/../..' . '/app/Models/Documents.php',
         'App\\Models\\Documents\\Status' => __DIR__ . '/../..' . '/app/Models/Documents/Status.php',
         'App\\Models\\Documents\\Type' => __DIR__ . '/../..' . '/app/Models/Documents/Type.php',
+        'App\\Models\\Documents\\Type\\Log' => __DIR__ . '/../..' . '/app/Models/Documents/Type/Log.php',
         'App\\Models\\Fleet\\Car' => __DIR__ . '/../..' . '/app/Models/Fleet/Car.php',
         'App\\Models\\Fleet\\Car\\Status' => __DIR__ . '/../..' . '/app/Models/Fleet/Car/Status.php',
         'App\\Models\\Fleet\\Schedule' => __DIR__ . '/../..' . '/app/Models/Fleet/Schedule.php',
@@ -2779,6 +2801,18 @@ class ComposerStaticInit9c612c45dd0965419017052a811ebce9
         'NunoMaduro\\LaravelDesktopNotifier\\Notification' => __DIR__ . '/..' . '/nunomaduro/laravel-desktop-notifier/src/Notification.php',
         'NunoMaduro\\LaravelDesktopNotifier\\Notifier' => __DIR__ . '/..' . '/nunomaduro/laravel-desktop-notifier/src/Notifier.php',
         'OccupationTableSeeder' => __DIR__ . '/../..' . '/database/seeds/OccupationTableSeeder.php',
+        'Okipa\\LaravelHtmlHelper\\HtmlAttributes' => __DIR__ . '/..' . '/okipa/laravel-html-helper/src/HtmlAttributes.php',
+        'Okipa\\LaravelHtmlHelper\\HtmlClassTag' => __DIR__ . '/..' . '/okipa/laravel-html-helper/src/HtmlClassTag.php',
+        'Okipa\\LaravelHtmlHelper\\HtmlHelper' => __DIR__ . '/..' . '/okipa/laravel-html-helper/src/HtmlHelper.php',
+        'Okipa\\LaravelHtmlHelper\\HtmlHelperServiceProvider' => __DIR__ . '/..' . '/okipa/laravel-html-helper/src/HtmlHelperServiceProvider.php',
+        'Okipa\\LaravelTable\\Column' => __DIR__ . '/..' . '/okipa/laravel-table/src/Column.php',
+        'Okipa\\LaravelTable\\LaravelTableServiceProvider' => __DIR__ . '/..' . '/okipa/laravel-table/src/LaravelTableServiceProvider.php',
+        'Okipa\\LaravelTable\\Result' => __DIR__ . '/..' . '/okipa/laravel-table/src/Result.php',
+        'Okipa\\LaravelTable\\Table' => __DIR__ . '/..' . '/okipa/laravel-table/src/Table.php',
+        'Okipa\\LaravelTable\\Traits\\ClassesCustomizations' => __DIR__ . '/..' . '/okipa/laravel-table/src/Traits/ClassesCustomizations.php',
+        'Okipa\\LaravelTable\\Traits\\ColumnsValidationChecks' => __DIR__ . '/..' . '/okipa/laravel-table/src/Traits/ColumnsValidationChecks.php',
+        'Okipa\\LaravelTable\\Traits\\RoutesValidationChecks' => __DIR__ . '/..' . '/okipa/laravel-table/src/Traits/RoutesValidationChecks.php',
+        'Okipa\\LaravelTable\\Traits\\TemplatesCustomizations' => __DIR__ . '/..' . '/okipa/laravel-table/src/Traits/TemplatesCustomizations.php',
         'Opis\\Closure\\Analyzer' => __DIR__ . '/..' . '/opis/closure/src/Analyzer.php',
         'Opis\\Closure\\ClosureContext' => __DIR__ . '/..' . '/opis/closure/src/ClosureContext.php',
         'Opis\\Closure\\ClosureScope' => __DIR__ . '/..' . '/opis/closure/src/ClosureScope.php',

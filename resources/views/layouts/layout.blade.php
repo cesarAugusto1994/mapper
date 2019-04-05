@@ -27,6 +27,12 @@
 
 	@stack('stylesheets')
 
+	<style>
+		.input-group {
+			display: inline-flex;
+		}
+	</style>
+
 </head>
 
 <body class="pace-done ">

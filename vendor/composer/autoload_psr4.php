@@ -49,6 +49,8 @@ return array(
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Patchwork\\' => array($vendorDir . '/patchwork/utf8/src/Patchwork'),
     'Opis\\Closure\\' => array($vendorDir . '/opis/closure/src'),
+    'Okipa\\LaravelTable\\' => array($vendorDir . '/okipa/laravel-table/src'),
+    'Okipa\\LaravelHtmlHelper\\' => array($vendorDir . '/okipa/laravel-html-helper/src'),
     'NunoMaduro\\LaravelDesktopNotifier\\' => array($vendorDir . '/nunomaduro/laravel-desktop-notifier/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
@@ -80,4 +82,5 @@ return array(
     'Canducci\\Cep\\' => array($vendorDir . '/canducci/cep/src/Canducci/Cep'),
     'Barryvdh\\DomPDF\\' => array($vendorDir . '/barryvdh/laravel-dompdf/src'),
     'App\\' => array($baseDir . '/app'),
+    'A2design\\Form\\' => array($vendorDir . '/a2design-inc/laravel-form-builder/src'),
 );

@@ -1,0 +1,28 @@
+{
+    "name": "a2design-inc/laravel-form-builder",
+    "description": "Form Builder for the Laravel Framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Loburets Dimitry",
+            "homepage": "https://github.com/loburets",
+            "role": "Author"
+        },
+        {
+            "name": "A2 Design",
+            "homepage": "https://github.com/a2design-inc",
+            "role": "Author"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "A2design\\Form\\": "src/"
+        }
+    }
+}

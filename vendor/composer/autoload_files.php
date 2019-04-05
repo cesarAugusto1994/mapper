@@ -20,6 +20,7 @@ return array(
     'a0edc8309cc5e1d60e3047b5df6b7052' => $vendorDir . '/guzzlehttp/psr7/src/functions_include.php',
     '65fec9ebcfbb3cbb4fd0d519687aea01' => $vendorDir . '/danielstjules/stringy/src/Create.php',
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+    '298946589c8e980580c22399a4f81c53' => $vendorDir . '/okipa/laravel-html-helper/app/Helpers/HtmlHelper.php',
     '801c31d8ed748cfa537fa45402288c95' => $vendorDir . '/psy/psysh/src/functions.php',
     'e91d0dc994644828154ae2387ede1ca8' => $vendorDir . '/spatie/string/src/string_functions.php',
     'ee1fbf6a277042bb7f2ccb06366b2716' => $vendorDir . '/canducci/cep/src/Canducci/Cep/CepHelper.php',

@@ -73,6 +73,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::post('client/{id}/update', 'ClientController@update')->name('client_update');
 */
   Route::resource('clients', 'ClientController');
+  Route::resource('employees', 'EmployeesController');
 
   Route::get('subprocesses', 'SubProcessesController@index')->name('subprocesses');
   Route::get('subprocess/{id}', 'SubProcessesController@show')->name('subprocess');

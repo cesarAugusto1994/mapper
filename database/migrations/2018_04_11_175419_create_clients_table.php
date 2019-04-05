@@ -40,10 +40,8 @@ class CreateClientsTable extends Migration
             $table->string('lat')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients');
-
             $table->boolean('is_default')->default(false);
             $table->uuid('uuid')->unique();
             $table->timestamps();
