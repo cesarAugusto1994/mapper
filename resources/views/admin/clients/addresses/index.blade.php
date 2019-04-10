@@ -23,9 +23,8 @@
 
         <div class="col-lg-2">
             @permission('create.clientes')
-                <a href="#" data-toggle="modal" data-target="#add-client-address-modal" class="btn btn-primary btn-block dim m-t-lg">Novo Endereço</a>
+                <a href="{{route('client_addresses_create', $client->uuid)}}" class="btn btn-primary btn-block dim m-t-lg">Novo Endereço</a>
             @endpermission
-
         </div>
 
     </div>

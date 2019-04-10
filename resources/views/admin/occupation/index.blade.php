@@ -68,7 +68,7 @@
                           </div>
 
                           <div class="col-sm-6 col-xs-12">
-                              <a class="btn btn-danger btn-block btn-outline" href="{{route('occupations.destroy', ['id' => $occupation->uuid])}}"><i class="fa fa-close"></i> Remover</a>
+                              <a class="btn btn-danger btn-block btn-outline btnRemoveItem" data-route="{{route('occupations.destroy', ['id' => $occupation->uuid])}}"><i class="fa fa-close"></i> Remover</a>
                           </div>
 
                         </div>

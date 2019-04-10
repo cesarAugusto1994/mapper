@@ -35,7 +35,7 @@
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">Resposável</label>
                                 <div class="col-sm-10">
-                                  <select class="form-control m-b" name="user_id">
+                                  <select class="form-control m-b select2" name="user_id">
                                       @foreach($users as $user)
                                           <option value="{{$user->id}}">{{$user->person->name}}</option>
                                       @endforeach

@@ -12,9 +12,13 @@
 	<link href="{{ asset("css/font-awesome.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/plugins/toastr/toastr.min.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/animate.css ") }}" rel="stylesheet">
+
+	<link href="{{ asset("admin/css/style2.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/style.css ") }}" rel="stylesheet">
+
 	<link href="{{ asset("admin/css/TimeCircles.css") }}" rel="stylesheet">
 	<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.css" rel="stylesheet"/>
+
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
 	<!-- Latest compiled and minified CSS -->
@@ -24,6 +28,8 @@
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css" rel="stylesheet">
 
 	@stack('stylesheets')
 
@@ -35,7 +41,7 @@
 
 </head>
 
-<body class="pace-done ">
+<body class="pace-done">
 
 	<div id="wrapper">
 
@@ -222,6 +228,8 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
+
 	<script>
 
 		$(document).ready(function() {
@@ -235,6 +243,13 @@
 			$('ul#side-menu a').filter(function() {
 			 return this.href == url;
 		 }).parent().addClass('active').attr('href', '#');
+
+
+		  var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+			elems.forEach(function(html) {
+			  var switchery = new Switchery(html);
+			});
 
 		});
 
@@ -339,10 +354,16 @@
 
 	<script>
 
+	$('.page-loading').removeClass('sk-loading');
+
 	$(".inputCep").blur(function() {
 
 			let route = $(this).data('cep');
 			let value = $(this).val();
+
+			$('.ibox-loading').children('.ibox-content').toggleClass('sk-loading');
+
+			if(value) {
 
 				$.ajax({
 					type: 'GET',
@@ -370,12 +391,12 @@
 
 							$("#long").val(dataResponseCoodenadas.lng);
 							$("#lat").val(dataResponseCoodenadas.lat);
+
+							$('.ibox-loading').children('.ibox-content').removeClass('sk-loading');
 					}
 				})
 
-			//}
-
-
+			}
 
 		});
 
@@ -480,6 +501,8 @@
 
 
 			});
+
+
 
 	</script>
 

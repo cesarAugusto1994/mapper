@@ -22,7 +22,7 @@
 
         <div class="col-lg-2">
             @permission('create.clientes')
-                <a href="#" data-toggle="modal" data-target="#adicionar-cliente-modal" class="btn btn-primary btn-block dim m-t-lg">Novo Cliente</a>
+                <a href="{{route('clients.create')}}" class="btn btn-primary btn-block dim m-t-lg">Novo Cliente</a>
             @endpermission
 
         </div>
@@ -35,25 +35,38 @@
 
                 <div class="col-lg-12">
 
+                  <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Listagem</h5>
+                    </div>
+                    <div class="ibox-content">
+
+                      <form method="get" action="?">
+                        <div class="row">
+                            <div class="col-md-5"><input name="search" type="text" placeholder="ID, Nome, Documento, Email, ou Telefone" class="form-control"></div>
+                            <div class="col-md-2">
+                              <select class="form-control select2" placeholder="Situação" name="status">
+                                  <option value="">Situação</option>
+                                  <option value="0">Inativo</option>
+                                  <option value="1">Ativo</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4"><input name="address" type="text" placeholder="CEP, Endereço" class="form-control"></div>
+                            <div class="col-md-1"><button type="submit" class="btn btn-primary btn-block"> Buscar</button></div>
+
+                        </div>
+                      </form>
+
+                    </div>
+                  </div>
+
                     <div class="ibox">
                     <div class="ibox-title">
                         <h5>Listagem</h5>
                     </div>
                     <div class="ibox-content">
 
-                        <div class="row m-b-sm m-t-sm">
-                            <div class="col-md-12">
-                              <form method="get" action="?">
-                                <div class="input-group"><input type="text" name="search" placeholder="Informe o que deseja pesquisar" class="form-control-sm form-control">
-                                  <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-sm btn-primary"> Buscar</button>
-                                  </span>
-                                </div>
-                              </form>
-                            </div>
-                        </div>
-
-                        <div class="project-list">
+                        <div class="project-list table-responsive">
                             @if($clients->isNotEmpty())
                                 <table class="table table-hover">
                                     <thead>
@@ -61,9 +74,10 @@
                                       <tr>
                                         <th>ID</th>
                                         <th>Nome</th>
+                                        <th>Documento</th>
                                         <th>Telefone</th>
                                         <th>Email</th>
-                                        <th>Adicionado em</th>
+                                        <th>Status</th>
                                         <th></th>
                                       </tr>
 
@@ -82,6 +96,10 @@
                                                 </td>
 
                                                 <td class="project-title">
+                                                    <a>{{$client->document}}</a>
+                                                </td>
+
+                                                <td class="project-title">
                                                     <a>{{$client->phone}}</a>
                                                 </td>
 
@@ -90,7 +108,11 @@
                                                 </td>
 
                                                 <td class="project-title">
-                                                    <a>{{$client->created_at->format('d/m/Y H:i')}}</a>
+                                                  @if($client->active)
+                                                    <span class="badge badge-primary">Ativo</span>
+                                                  @else
+                                                    <span class="badge badge-danger">Inativo</span>
+                                                  @endif
                                                 </td>
 
                                                 <td class="project-actions">
@@ -118,7 +140,7 @@
                                 {{ $clients->links() }}
 
                             @else
-                                <div class="alert alert-warning text-center">Nenhum cliente registrado até o momento.</div>
+                                <div class="alert alert-info text-center">Nenhum cliente registrado até o momento.</div>
                             @endif
                         </div>
 

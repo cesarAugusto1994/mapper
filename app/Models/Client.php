@@ -11,9 +11,9 @@ class Client extends Model
     use Uuids;
     use LogsActivity;
 
-    protected $fillable = ['name', 'email', 'phone', 'document'];
+    protected $fillable = ['name', 'email', 'phone', 'document', 'active'];
 
-    protected static $logAttributes = ['name', 'email', 'phone', 'document'];
+    protected static $logAttributes = ['name', 'email', 'phone', 'document', 'active'];
 
     public function documents()
     {
@@ -23,6 +23,11 @@ class Client extends Model
     public function addresses()
     {
         return $this->hasMany('App\Models\Client\Address', 'client_id');
+    }
+
+    public function employees()
+    {
+        return $this->hasMany('App\Models\Client\Employee', 'company_id');
     }
 
     public function getDescriptionForEvent(string $eventName): string

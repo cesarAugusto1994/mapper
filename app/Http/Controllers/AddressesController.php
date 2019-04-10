@@ -24,9 +24,14 @@ class AddressesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        if(!Auth::user()->hasPermission('create.cliente.enderecos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $client = Client::uuid($id);
+        return view('admin.clients.addresses.create', compact('client'));
     }
 
     /**
@@ -40,9 +45,9 @@ class AddressesController extends Controller
         $data = $request->request->all();
         $user = $request->user();
 
-        $client = Client::findOrFail($data['client_id']);
+        $client = Client::uuid($data['client_id']);
+        $data['client_id'] = $client->id;
         $data['user_id'] = $user->id;
-
         $data['is_default'] = $request->has('is_default');
 
         Address::create($data);
@@ -51,7 +56,7 @@ class AddressesController extends Controller
           'text' => 'O Endereço do Cliente foi adicionado com sucesso.'
         ]);
 
-        return redirect()->route('client_addresses', $client->uuid);
+        return redirect()->route('clients.show', $client->uuid);
     }
 
     /**
@@ -104,7 +109,7 @@ class AddressesController extends Controller
           'text' => 'O Endereço do Cliente foi atualizado com sucesso.'
         ]);
 
-        return redirect()->route('client_addresses', $id);
+        return redirect()->route('clients.show', $id);
 
     }
 

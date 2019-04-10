@@ -250,6 +250,8 @@ class UsersController extends Controller
         $department = Department::uuid($data['department_id']);
         $occupation = Occupation::uuid($data['occupation_id']);
 
+        $birthday = null;
+
         if($request->has('birthday')) {
             $birthday = $data['birthday'];
             $birthday = \DateTime::createFromFormat('d/m/Y', $birthday);

@@ -126,6 +126,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::get('clients/addresses/search', 'ClientController@addresses')->name('client_addresses_search');
 
   Route::get('clients/{id}/addresses', 'AddressesController@show')->name('client_addresses');
+  Route::get('clients/{id}/addresses/create', 'AddressesController@create')->name('client_addresses_create');
   Route::post('clients/{id}/addresses', 'AddressesController@store')->name('client_addresses_store');
   Route::delete('clients/{id}/addresses/destroy', 'AddressesController@destroy')->name('client_address_destroy');
 

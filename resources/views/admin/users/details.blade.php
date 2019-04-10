@@ -35,8 +35,8 @@
                         <h5>Perfil</h5>
                     </div>
                     <div>
-                        <div class="ibox-content no-padding border-left-right">
-                            <img alt="image" class="img-fluid" src="{{$user->avatar}}">
+                        <div class="ibox-content no-padding border-left-right text-center">
+                            <img alt="image" class="img-rounded  m-t-lg" src="{{$user->avatar}}" style="max-width:128px;">
                         </div>
                         <div class="ibox-content profile-content">
                             <h4><strong>{{ $user->person->name }}</strong></h4>

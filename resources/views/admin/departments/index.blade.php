@@ -34,7 +34,7 @@
             @foreach($departments as $department)
 
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                  <div class="widget white-bg">
+                  <div class="widget style1 white-bg">
 
                     <div class="row">
 

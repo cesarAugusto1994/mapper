@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use Illuminate\Support\Facades\Validator;
 use Auth;
 
 class ClientController extends Controller
@@ -29,19 +30,52 @@ class ClientController extends Controller
             return abort(403, 'Unauthorized action.');
         }
 
-        if($request->has('search')) {
+        $clients = [];
+
+        $clients = Client::where('active', 1);
+
+        if($request->filled('search')) {
 
           $search = $request->get('search');
 
-          $clients = Client::where('name', 'like', "%$search%")
+          $clients->where('id', $search)
+          ->orWhere('name', 'like', "%$search%")
           ->orWhere('phone', 'like', "%$search%")
+          ->orWhere('document', 'like', "%$search%")
           ->orWhere('email', 'like', "%$search%");
 
-          $clients = $clients->paginate(15);
-
-        } else {
-          $clients = Client::paginate(15);
         }
+
+        if($request->filled('status')) {
+          $clients->where('active', $request->get('status'));
+        }
+
+        if($request->filled('address')) {
+
+            $address = $request->get('address');
+
+            $clients->whereHas('addresses', function($query) use($address) {
+                $query->where('zip', 'like', "%$address%")
+                ->orWhere('description', 'like', "%$address%")
+                ->orWhere('street', 'like', "%$address%")
+                ->orWhere('number', 'like', "%$address%")
+                ->orWhere('district', 'like', "%$address%")
+                ->orWhere('city', 'like', "%$address%")
+                ->orWhere('state', 'like', "%$address%")
+                ->orWhere('complement', 'like', "%$address%")
+                ->orWhere('reference', 'like', "%$address%")
+                ->orWhere('long', 'like', "%$address%")
+                ->orWhere('lat', 'like', "%$address%");
+            });
+        }
+
+        $clients = $clients->paginate(15);
+
+        foreach ($request->all() as $key => $value) {
+            $clients->appends($key, $value);
+        }
+
+
 
         return view('admin.clients.index', compact('clients'));
     }
@@ -65,6 +99,27 @@ class ClientController extends Controller
     public function store(Request $request)
     {
       $data = $request->request->all();
+
+      $documentType = "";
+
+      if(strlen($data['document']) == 18) {
+          $documentType = "cnpj";
+      } elseif (strlen($data['document']) < 18) {
+          $documentType = "cpf";
+      }
+
+      $validator = Validator::make($request->all(), [
+          'name' => 'required|string|max:255',
+          'email' => 'required|string|email|max:255|unique:clients',
+          'phone' => 'required|string|max:20',
+          'document' => 'required|unique:clients|'.$documentType,
+      ]);
+
+      if ($validator->fails()) {
+          return back()->withErrors($validator)->withInput();
+      }
+
+      $data['active'] = $request->has('active');
 
       Client::create($data);
 
@@ -140,14 +195,36 @@ class ClientController extends Controller
     {
         $data = $request->request->all();
 
+        $documentType = "";
+
+        if(strlen($data['document']) == 18) {
+            $documentType = "cnpj";
+        } elseif (strlen($data['document']) < 18) {
+            $documentType = "cpf";
+        }
+
         $client = Client::uuid($id);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:clients,email,'.$client->id,
+            'phone' => 'required|string|max:20',
+            'document' => 'required|unique:clients,document,'.$client->id.'|'.$documentType,
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $data['active'] = $request->has('active');
+
         $client->update($data);
 
         notify()->flash('Sucesso!', 'success', [
           'text' => 'As Informações do cliente foram alteradas com sucesso.'
         ]);
 
-        return redirect()->route('clients.index');
+        return redirect()->route('clients.show', $id);
     }
 
     /**

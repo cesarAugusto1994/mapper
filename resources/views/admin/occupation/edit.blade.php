@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Departamento</label>
                                 <div class="col-sm-10">
-                                  <select class="form-control m-b" name="department_id" required>
+                                  <select class="form-control select2" name="department_id" required>
                                       @foreach($departments as $department)
                                           <option value="{{$department->uuid}}" {{ $department->id == $occupation->department_id ? 'selected' : '' }}>{{$department->name}}</option>
                                       @endforeach
