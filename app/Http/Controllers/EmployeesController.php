@@ -7,6 +7,7 @@ use Okipa\LaravelTable\Table;
 use App\Models\Client;
 use App\Models\Client\Employee;
 use Auth;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeesController extends Controller
 {
@@ -33,19 +34,16 @@ class EmployeesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         if(!Auth::user()->hasPermission('create.alunos')) {
             return abort(403, 'Unauthorized action.');
         }
 
         $companies = Client::all();
+        $company = Client::uuid($id);
 
-        //$companies= $companies->pluck('id','name');
-
-
-
-        return view('admin.clients.employees.create', compact('companies'));
+        return view('admin.clients.employees.create', compact('company', 'companies'));
     }
 
     /**
@@ -56,7 +54,36 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(!Auth::user()->hasPermission('create.alunos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $data = $request->request->all();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:employees',
+            'phone' => 'string|max:20',
+            'company_id' => 'required',
+            'cpf' => 'required|cpf|unique:employees',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $company = Client::uuid($data['company_id']);
+        $data['company_id'] = $company->id;
+        $data['created_by'] = $request->user()->id;
+        $data['active'] = $request->has('active');
+
+        Employee::create($data);
+
+        notify()->flash('Sucesso!', 'success', [
+          'text' => 'Novo Funcionário adicionado ao Cliente com sucesso.'
+        ]);
+
+        return redirect()->route('clients.show', $company->uuid);
     }
 
     /**
@@ -76,9 +103,17 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $employee)
     {
-        //
+        if(!Auth::user()->hasPermission('edit.alunos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $companies = Client::all();
+        $company = Client::uuid($id);
+        $employee = Employee::uuid($employee);
+
+        return view('admin.clients.employees.edit', compact('company', 'companies', 'employee'));
     }
 
     /**
@@ -88,9 +123,39 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $employee)
     {
-        //
+        if(!Auth::user()->hasPermission('edit.alunos')) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+        $data = $request->request->all();
+
+        $employee = Employee::uuid($employee);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:employees,email,'.$employee->id,
+            'phone' => 'string|max:20',
+            'company_id' => 'required',
+            'cpf' => 'required|cpf|unique:employees,cpf,'.$employee->id,
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        //dd($data);
+
+        $company = Client::uuid($data['company_id']);
+        $data['company_id'] = $company->id;
+        $data['active'] = $request->has('active');
+
+        notify()->flash('Sucesso!', 'success', [
+          'text' => 'Funcionário atualizado com sucesso.'
+        ]);
+
+        return redirect()->route('clients.show', $company->uuid);
     }
 
     /**

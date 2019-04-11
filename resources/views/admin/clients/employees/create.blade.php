@@ -4,16 +4,16 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-12">
-            <h2>Alunos</h2>
+            <h2>{{ $company->name }}</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
                 <li>
-                    <a href="{{ route('students.index') }}">Alunos</a>
+                    <a href="{{ route('clients.show', $company->uuid) }}">{{ $company->name }}</a>
                 </li>
                 <li class="active">
-                    <strong>Novo Aluno</strong>
+                    <strong>Novo Funcionário</strong>
                 </li>
             </ol>
         </div>
@@ -25,26 +25,11 @@
 
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Novo Aluno</h5>
+                        <h5>Novo Funcionário</h5>
                     </div>
                     <div class="ibox-content">
 
-                        {!! Form::create('EmployeesController@store') !!}
-                            {!! Form::input('name', 'Name', ['required' => true]) !!}
-                            {!! Form::input('cpf', 'CPF', ['class' => 'inputCpf', 'required' => true]) !!}
-                            {!! Form::select('company_id', 'Empresa', [
-                            'class' => 'selectpicker show-tick',
-                            'required' => true,
-                            'options' => $companies->pluck('name', 'id')]) !!}
-                            {!! Form::input('email', 'Email') !!}
-                            {!! Form::input('phone', 'Telefone', ['class' => 'inputPhone']) !!}
-                            {!! Form::buttonGroup() !!}
-                                {!! Form::submit('Salvar', ['class' => 'btn-primary']) !!}
-                                {!! Form::buttonLink('Cancel', '/') !!}
-                            {!! Form::buttonGroupEnd() !!}
-                        {!! Form::end() !!}
-
-                        <form method="post" class="form-horizontal" action="{{route('students.store')}}">
+                        <form method="post" class="form-horizontal" action="{{route('client_employee_store', $company->uuid)}}">
 
                             {{csrf_field()}}
 
@@ -80,8 +65,8 @@
                                 <label class="col-sm-2 control-label">Empresa</label>
                                 <div class="col-sm-10">
                                   <select class="selectpicker show-tick" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" name="company_id" required>
-                                        @foreach($companies as $company)
-                                            <option value="{{$company->id}}" {{ old('company_id') == $company->id ? 'selected' : '' }}>{{$company->name}}</option>
+                                        @foreach($companies as $companyItem)
+                                            <option value="{{$company->uuid}}" {{ $company->uuid == $companyItem->uuid || old('company_id') == $companyItem->uuid ? 'selected' : '' }}>{{$companyItem->name}}</option>
                                         @endforeach
                                   </select>
                                   {!! $errors->first('company_id', '<p class="help-block">:message</p>') !!}
@@ -116,10 +101,18 @@
                               </div>
                             </div>
 
+                            <div class="form-group {!! $errors->has('active') ? 'has-error' : '' !!}">
+                                <label class="col-sm-2 control-label">Ativo</label>
+                                <div class="col-sm-10">
+                                  <input type="checkbox" name="active" class="js-switch" value="1" checked/>
+                                    {!! $errors->first('active', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+
 
 
                             <button class="btn btn-primary">Salvar</button>
-                            <a class="btn btn-white" href="{{ route('students.index') }}">Cancelar</a>
+                            <a class="btn btn-white" href="{{ route('clients.show', $company->uuid) }}">Cancelar</a>
                         </form>
 
                     </div>

@@ -37,7 +37,8 @@
 
                   <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Listagem</h5>
+                        <h5>Opções</h5>
+
                     </div>
                     <div class="ibox-content">
 
@@ -45,8 +46,7 @@
                         <div class="row">
                             <div class="col-md-5"><input name="search" type="text" placeholder="ID, Nome, Documento, Email, ou Telefone" class="form-control"></div>
                             <div class="col-md-2">
-                              <select class="form-control select2" placeholder="Situação" name="status">
-                                  <option value="">Situação</option>
+                              <select class="form-control selectpicker show-tick" data-live-search="true" title="Situação" data-style="btn-white" data-width="100%" placeholder="Situação" name="status">
                                   <option value="0">Inativo</option>
                                   <option value="1">Ativo</option>
                               </select>
@@ -62,7 +62,7 @@
 
                     <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Listagem</h5>
+                        <h5>Listagem (<small class="text-navy">Registros retornados: {{ $quantity }}</small>)</h5>
                     </div>
                     <div class="ibox-content">
 

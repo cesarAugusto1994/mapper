@@ -69,6 +69,8 @@ class ClientController extends Controller
             });
         }
 
+        $quantity = $clients->count();
+
         $clients = $clients->paginate(15);
 
         foreach ($request->all() as $key => $value) {
@@ -77,7 +79,7 @@ class ClientController extends Controller
 
 
 
-        return view('admin.clients.index', compact('clients'));
+        return view('admin.clients.index', compact('clients', 'quantity'));
     }
 
     /**

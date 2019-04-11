@@ -26,7 +26,7 @@
             @endpermission
 
             @permission('create.clientes')
-                <a href="{{route('client_addresses_create', $client->uuid)}}" class="btn btn-success btn-block dim m-t-lg"><i class="fa fa-user"></i> Novo Funcionário</a>
+                <a href="{{route('client_employee_create', $client->uuid)}}" class="btn btn-success btn-block dim m-t-lg"><i class="fa fa-user"></i> Novo Funcionário</a>
             @endpermission
 
         </div>
@@ -76,42 +76,42 @@
                                 <div class="project-list">
                                   @if($client->employees->isNotEmpty())
                                       <table class="table table-hover">
+                                          <thead>
+                                              <tr>
+                                                <th>ID</th>
+                                                <th>Nome</th>
+                                                <th>Email</th>
+                                                <th>CPF</th>
+                                                <th>Opções</th>
+                                              </tr>
+                                          </thead>
                                           <tbody>
                                               @foreach($client->employees as $employee)
                                                   <tr>
 
                                                       <td class="project-title">
-                                                          <p>ID:</p>
-                                                          <a>{{$address->id}}</a>
+                                                          <a>{{$employee->id}}</a>
                                                       </td>
 
                                                       <td class="project-title">
-                                                          <p>Descrição:</p>
-                                                          <a>{{$address->description}}</a>
+                                                          <a>{{$employee->name}}</a>
                                                       </td>
 
                                                       <td class="project-title">
-                                                          <p>Logradouro:</p>
-                                                          <a>{{$address->street}}, {{$address->number}} - {{$address->district}}</a>
+                                                          <a>{{$employee->email}}</a>
                                                       </td>
 
                                                       <td class="project-title">
-                                                          <p>Cidade:</p>
-                                                          <a>{{$address->city}} - {{$address->zip}}</a>
-                                                      </td>
-
-                                                      <td class="project-title">
-                                                          <p>Principal:</p>
-                                                          <a>{{$address->is_default ? 'SIM' : 'NÃO' }}</a>
+                                                          <a>{{$employee->cpf}}</a>
                                                       </td>
 
                                                       <td class="project-actions">
                                                         @permission('edit.clientes')
-                                                          <a href="{{route('client_addresses_edit', [$client->uuid, $address->uuid])}}" class="btn btn-white btn-sm btn-block"><i class="fa fa-pencil"></i> Editar</a>
+                                                          <a href="{{route('client_employee_edit', [$client->uuid, $employee->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
                                                         @endpermission
 
                                                         @permission('delete.clientes')
-                                                          <a data-route="{{route('client_address_destroy', ['id' => $address->uuid])}}" class="btn btn-danger btn-sm btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
+                                                          <a data-route="{{route('client_employee_destroy', ['id' => $employee->uuid])}}" class="btn btn-danger btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
                                                         @endpermission
                                                       </td>
 
@@ -170,11 +170,11 @@
 
                                                       <td class="project-actions">
                                                         @permission('edit.clientes')
-                                                          <a href="{{route('client_addresses_edit', [$client->uuid, $address->uuid])}}" class="btn btn-white btn-sm btn-block"><i class="fa fa-pencil"></i> Editar</a>
+                                                          <a href="{{route('client_addresses_edit', [$client->uuid, $address->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
                                                         @endpermission
 
                                                         @permission('delete.clientes')
-                                                          <a data-route="{{route('client_address_destroy', ['id' => $address->uuid])}}" class="btn btn-danger btn-sm btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
+                                                          <a data-route="{{route('client_address_destroy', ['id' => $address->uuid])}}" class="btn btn-danger btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
                                                         @endpermission
                                                       </td>
 

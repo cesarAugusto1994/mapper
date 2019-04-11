@@ -124,14 +124,19 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::resource('teams', 'TeamsController');
 
   Route::get('clients/addresses/search', 'ClientController@addresses')->name('client_addresses_search');
-
   Route::get('clients/{id}/addresses', 'AddressesController@show')->name('client_addresses');
   Route::get('clients/{id}/addresses/create', 'AddressesController@create')->name('client_addresses_create');
   Route::post('clients/{id}/addresses', 'AddressesController@store')->name('client_addresses_store');
   Route::delete('clients/{id}/addresses/destroy', 'AddressesController@destroy')->name('client_address_destroy');
-
   Route::get('clients/{id}/addresses/{address}/edit', 'AddressesController@edit')->name('client_addresses_edit');
   Route::put('clients/{id}/addresses/{address}/update', 'AddressesController@update')->name('client_addresses_update');
+
+  Route::get('clients/{id}/employees', 'EmployeesController@show')->name('client_employees');
+  Route::get('clients/{id}/employees/create', 'EmployeesController@create')->name('client_employee_create');
+  Route::post('clients/{id}/employees', 'EmployeesController@store')->name('client_employee_store');
+  Route::delete('clients/{id}/employees/destroy', 'EmployeesController@destroy')->name('client_employee_destroy');
+  Route::get('clients/{id}/employees/{employee}/edit', 'EmployeesController@edit')->name('client_employee_edit');
+  Route::put('clients/{id}/employees/{employee}/update', 'EmployeesController@update')->name('client_employee_update');
 
   Route::get('delivery-order/conference/documents', 'DeliveryOrderController@conference')->name('delivery_order_conference');
 
