@@ -31,4 +31,15 @@ class MessageBoard extends Model
     {
         return $this->hasMany('App\Models\MessageBoard\User', 'board_id');
     }
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        if($eventName == 'updated') {
+            return "Recado atualizado";
+        } elseif ($eventName == 'deleted') {
+            return "Recado removido";
+        }
+
+        return "Recado adicionado";
+    }
 }

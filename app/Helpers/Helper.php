@@ -82,6 +82,11 @@ class Helper
           $html = '<a href='.$route.'>'.$item->description.': '.$item->street.', '.$item->number.', '.$item->district.', '.$item->city.', '.$item->zip.'</a>';
         }
 
+        if($model == 'App\Models\MessageBoard') {
+          $route = route('message-board.show', $item->uuid);
+          $html = '<a href='.$route.'>'.$item->subject.'</a>';
+        }
+
         return [
           'route' => $route,
           'html' => $html
