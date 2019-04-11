@@ -44,7 +44,7 @@ class HomeController extends Controller
           return Redirect::route('login')->withErrors('Desculpe, mas o Usuário está desativado, entre em contato com o Administrador.');
         }
 
-        $activities = Auth::user()->activities->sortByDesc('id');
+        $activities = Auth::user()->activities->sortByDesc('id')->take(4);
 
         $this->createTasksFromProcesses();
 

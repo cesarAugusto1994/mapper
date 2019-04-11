@@ -33,24 +33,63 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(!Auth::user()->hasPermission('view.usuarios')) {
             return abort(403, 'Unauthorized action.');
         }
 
-        if(Auth::user()->isAdmin()) {
-            $users =  User::all();
-        } else {
-            $users =  User::where('id', Auth::user()->id)->get();
+        if(!Auth::user()->isAdmin()) {
+            return redirect()->route('users.show', ['id' => $request->get('id')]);
         }
+
+        $people = People::where('id', '>', 0);
+
+        if($request->filled('active')) {
+          $active = $request->get('active');
+          $people->where('active', $active);
+        }
+
+        if($request->filled('department')) {
+          $department = $request->get('department');
+          $department = Department::uuid($department);
+          $people->where('department_id', $department->id);
+        }
+
+        if($request->filled('occupation')) {
+          $occupation = $request->get('occupation');
+          $occupation = Occupation::uuid($occupation);
+          $people->where('occupation_id', $occupation->id);
+        }
+
+        if($request->filled('search')) {
+
+          $search = $request->get('search');
+
+          $people->where('name', 'like', "%$search%")
+          ->orWhere('id', 'like', "%$search%")
+          ->orWhere('phone', 'like', "%$search%")
+          ->orWhere('cpf', 'like', "%$search%");
+
+          $people->whereHas('user', function($query) use ($search) {
+            $query->where('email', 'like', "%$search%")
+            ->where('nick', 'like', "%$search%");
+          });
+
+        }
+
+
+
+        //dd($people->get());
+
+        $people = $people->paginate();
 
         $roles = Role::all();
 
         $departments = Department::all();
         $occupations = Occupation::where('department_id', $departments->first()->id)->get();
 
-        return view('admin.users.index', compact('roles', 'users', 'departments', 'occupations'));
+        return view('admin.users.index', compact('roles', 'people', 'departments', 'occupations'));
     }
 
     public function permissions($id)
@@ -219,7 +258,11 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create')->with('departments', Department::all());
+        $roles = Role::all();
+        $departments = Department::all();
+        $occupations = Occupation::where('department_id', $departments->first()->id)->get();
+
+        return view('admin.users.create', compact('roles', 'departments', 'occupations'));
     }
 
     /**
@@ -230,10 +273,10 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $data = Req::all();
+        $data = $request->request->all();;
 
         $validator = \Illuminate\Support\Facades\Validator::make($data, [
-          /*'name' => 'required|max:255|unique:users',*/
+          'name' => 'required|string|max:255',
           'email' => 'required|email|max:255|unique:users',
           'password' => 'required|min:6',
           'roles' => 'required',
@@ -311,9 +354,11 @@ class UsersController extends Controller
         $departamentoAtual = $user->person->department;
         $occupations = Occupation::where('department_id', $departamentoAtual->id)->get();
 
-        $activities = $user->activities->sortByDesc('id');
+        $activities = $user->activities->sortByDesc('id')->take(6);
 
-        return view('admin.users.details', compact('occupations', 'departments', 'activities'))
+        $roles = Role::all();
+
+        return view('admin.users.details', compact('occupations', 'departments', 'activities', 'roles'))
         ->with('user', $user)
         ->with('tasks', $tasks)
         ->with('logs', TaskLogs::where('user_id', $user->id)->limit(6)->orderBy('id', 'DESC')->get())
@@ -374,6 +419,13 @@ class UsersController extends Controller
         $person->save();
 
         $user->email = $data['email'];
+
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $path = $request->avatar->store('avatar');
+            $user->avatar = $path;
+            $user->avatar_type = 'upload';
+        }
+
         $user->save();
 
         return redirect()->route('user', ['id' => $user->uuid]);
@@ -396,20 +448,31 @@ class UsersController extends Controller
         $user = User::uuid($id);
 
         $roleUser = Role::where("name", $data['roles'])->first();
-/*
+          /*
         $user->start_day = $data['begin'];
         $user->lunch = $data['lunch'];
         $user->lunch_return = $data['lunch_return'];
         $user->end_day = $data['end'];
 
         $user->weekly_workload = $data['weekly_workload'];
-*/
+          */
         $user->login_soc = $data['login_soc'];
         $user->password_soc = $data['password_soc'];
         $user->id_soc = $data['id_soc'];
 
         $user->do_task = $data['do_task'];
-        $user->active = $data['active'];
+
+        if($user->id != $request->user()->id) {
+
+          $user->active = $data['active'];
+          $user->person->active = $data['active'];
+          $user->person->save();
+
+          notify()->flash('Sucesso!', 'info', [
+            'text' => 'As configurações do usuário foram alteradas com sucesso, porém não é possivel inativar o usuário na sessão atual'
+          ]);
+
+        }
 
         if (!empty($password)) {
             $user->password = bcrypt($password);

@@ -4596,9 +4596,12 @@ body.rtls.top-navigation .footer.fixed {
 .skin-1 .spin-icon {
   background: #0e9aef !important;
 }
+
 .skin-1 .nav-header {
   background: #0e9aef;
-  background: url('patterns/header-profile-skin-1.png');
+  /*background: url('patterns/header-profile-skin-1.png');*/
+  /*background: white;*/
+  background: url('patterns/header-profile-skin-2.png');
 }
 .skin-1.mini-navbar .nav-second-level {
   background: #3e495f;

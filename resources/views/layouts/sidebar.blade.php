@@ -3,7 +3,7 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element"> <span>
-                            <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="{{Auth::user()->avatar}}" />
+                            <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="{{ route('image', ['link' => \Auth::user()->avatar, 'avatar' => true])}}" />
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth()->user()->person->name }}</strong>
@@ -35,23 +35,11 @@
 
                     @endpermission
 
-                      <li>
-                          <a href="{{route('clients.index')}}" ><i class="fa fa-building"></i> <span class="nav-label">Comercial</span></a>
-                      </li>
-
-                      <li>
-                          <a href="{{route('clients.index')}}" ><i class="fa fa-money"></i> <span class="nav-label">Financeiro</span></a>
-                      </li>
-
-                      <li>
-                          <a href="{{route('clients.index')}}" ><i class="fa fa-car"></i> <span class="nav-label">Frota</span></a>
-                      </li>
-
                     @permission('view.treinamentos')
 
                     <li class="">
                         <a href="#" data-step="3" data-intro="Aqui você vai encontrar o seu painel de Gestão de Entregas">
-                          <i class="fa fa-gear"></i> <b class="nav-label">Treinamentos </b><span class="fa arrow"></span></a>
+                          <i class="fas fa-spin fa-cog"></i> <b class="nav-label">Treinamentos </b><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse" style="height: 0px;">
 
                           @permission('view.cursos')
@@ -238,12 +226,7 @@
                       </li>
 
                       <li>
-                          <a href="http://webmail.provider-es.com.br/?zinitmode=http" target="_blank" ><i class="fa fa-envelope-o"></i> <span class="nav-label">Webmail</span></a>
-                      </li>
-
-
-                      <li>
-                        <a href="{{route('task_calendar')}}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendário</span></a>
+                          <a href="http://webmail.provider-es.com.br/?zinitmode=http" target="_blank" ><i class="fas fa-envelope"></i> <span class="nav-label">Webmail</span></a>
                       </li>
 
                 </ul>

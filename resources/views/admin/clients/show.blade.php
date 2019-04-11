@@ -22,11 +22,11 @@
 
         <div class="col-lg-2">
             @permission('create.clientes')
-                <a href="{{route('client_addresses_create', $client->uuid)}}" class="btn btn-primary btn-block dim m-t-lg"><i class="fa fa-map-marker"></i> Novo Endereço</a>
+                <a href="{{route('client_addresses_create', $client->uuid)}}" class="btn btn-primary btn-block dim m-t-lg"><i class="fas fa-map-marked-alt"></i> Novo Endereço</a>
             @endpermission
 
             @permission('create.clientes')
-                <a href="{{route('client_employee_create', $client->uuid)}}" class="btn btn-success btn-block dim m-t-lg"><i class="fa fa-user"></i> Novo Funcionário</a>
+                <a href="{{route('client_employee_create', $client->uuid)}}" class="btn btn-success btn-block dim m-t-lg"><i class="fas fa-user-plus"></i> Novo Funcionário</a>
             @endpermission
 
         </div>
@@ -37,19 +37,19 @@
             <div class="wrapper wrapper-content animated fadeInUp">
 
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row widget style1 navy-bg">
-                            <div class="col-lg-12">
 
+                    <div class="col-lg-12">
+                        <div class="row widget style1">
+                            <div class="col-lg-12">
                                 <div class="m-b-md">
                                     <a href="{{route('clients.edit', ['id' => $client->uuid])}}"
                                        style="margin-left: 4px;"
-                                       class="btn btn-primary pull-right"><i class="fa fa-pencil"></i> Editar</a>
+                                       class="btn btn-primary btn-outline pull-right"><i class="far fa-edit"></i> Editar</a>
                                     <h2>{{ $client->name}} </h2>
                                     <p>
 
                                       @if($client->active)
-                                          <i class="fa fa-circle text-lazur"></i> Ativo
+                                          <i class="fa fa-circle text-navy"></i> Ativo
                                       @else
                                           <i class="fa fa-circle text-danger"></i> Inativo
                                       @endif
@@ -62,9 +62,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
                     <div class="col-lg-6">
 
                         <div class="ibox">
@@ -107,11 +105,11 @@
 
                                                       <td class="project-actions">
                                                         @permission('edit.clientes')
-                                                          <a href="{{route('client_employee_edit', [$client->uuid, $employee->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
+                                                          <a href="{{route('client_employee_edit', [$client->uuid, $employee->uuid])}}" class="btn btn-white btn-block"><i class="far fa-edit"></i>  Editar</a>
                                                         @endpermission
 
                                                         @permission('delete.clientes')
-                                                          <a data-route="{{route('client_employee_destroy', ['id' => $employee->uuid])}}" class="btn btn-danger btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
+                                                          <a data-route="{{route('client_employee_destroy', ['id' => $employee->uuid])}}" class="btn btn-danger btn-outline btn-block btnRemoveItem"><i class="fas fa-trash-alt"></i> Remover</a>
                                                         @endpermission
                                                       </td>
 
@@ -170,11 +168,11 @@
 
                                                       <td class="project-actions">
                                                         @permission('edit.clientes')
-                                                          <a href="{{route('client_addresses_edit', [$client->uuid, $address->uuid])}}" class="btn btn-white btn-block"><i class="fa fa-pencil"></i> Editar</a>
+                                                          <a href="{{route('client_addresses_edit', [$client->uuid, $address->uuid])}}" class="btn btn-white btn-block"><i class="far fa-edit"></i>  Editar</a>
                                                         @endpermission
 
                                                         @permission('delete.clientes')
-                                                          <a data-route="{{route('client_address_destroy', ['id' => $address->uuid])}}" class="btn btn-danger btn-block btnRemoveItem"><i class="fa fa-close"></i> Remover</a>
+                                                          <a data-route="{{route('client_address_destroy', ['id' => $address->uuid])}}" class="btn btn-danger btn-outline btn-block btnRemoveItem"><i class="fas fa-trash-alt"></i> Remover</a>
                                                         @endpermission
                                                       </td>
 

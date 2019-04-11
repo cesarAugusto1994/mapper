@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Department;
+use App\User;
 
 class UtilController extends Controller
 {
@@ -128,6 +129,29 @@ class UtilController extends Controller
     public function image(Request $request)
     {
         $link = $request->get('link');
+
+        $user = $request->user();
+
+        if($request->has('avatar')) {
+
+          if($request->has('user')) {
+              $user = User::uuid($request->get('user'));
+
+          }
+
+          if($user->avatar_type == 'words') {
+
+              $image = $user->avatar;  // your base64 encoded
+
+              $image = str_replace('data:image/png;base64,', '', $image);
+              //$image = str_replace(' ', '+', $image);
+              //$imageName = str_random(10).'.'.'png';
+              //$file = \File::put(storage_path(). '/' . $imageName, base64_decode($image));
+
+              return base64_decode($image);
+          }
+
+        }
 
         $file = \Storage::exists($link) ? \Storage::get($link) : false;
 

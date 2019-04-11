@@ -13,11 +13,14 @@
                 <li>
                     <a href="{{ route('home') }}">Painel Principal</a>
                 </li>
-                <li class="active">
-                    <strong>Perfil</strong>
+                <li>
+                    <a href="{{ route('users') }}">Usuários</a>
                 </li>
                 <li class="active">
                     <strong>{{ $user->person->name }}</strong>
+                </li>
+                <li class="active">
+                    <strong>Perfil</strong>
                 </li>
             </ol>
         </div>
@@ -30,55 +33,34 @@
         <div class="row animated fadeInRight">
 
             <div class="col-md-4">
-                <div class="ibox ">
-                    <div class="ibox-title">
-                        <h5>Perfil</h5>
+              <div class="m-b-sm">
+                <div class="ibox-content text-center">
+                    <h1>{{ $user->person->name }}</h1>
+                    <div class="m-b-sm">
+                        <img alt="" class="img-circle rounded-circle" src="{{ route('image', ['user' => $user->uuid, 'link' => $user->avatar, 'avatar' => true])}}" style="max-width:128px;max-height:128px">
                     </div>
-                    <div>
-                        <div class="ibox-content no-padding border-left-right text-center">
-                            <img alt="image" class="img-rounded  m-t-lg" src="{{$user->avatar}}" style="max-width:128px;">
-                        </div>
-                        <div class="ibox-content profile-content">
-                            <h4><strong>{{ $user->person->name }}</strong></h4>
-                            <p>{{$user->email}}</p>
-                            <h5>
-                                Departamento/Cargo:
-                            </h5>
-                            <p>
-                              {{$user->person->department->name}} /
-                              {{$user->person->occupation->name}}
-                            </p>
-                            <h5>
-                                Previlégio:
-                            </h5>
-                            <p>
-                              {{$user->roles->first()->name}}
-                            </p>
-                            <h5>
-                                Logado em:
-                            </h5>
-                            <p>
-                              {{ $user->lastLoginAt() ? $user->lastLoginAt()->format('d/m/Y H:i') : '' }}
-                            </p>
 
-                            <div class="user-button">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <button class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#editar"><i class="fa fa-edit"></i> Editar</button>
+                    @if($user->active)
+                        <i class="fa fa-circle text-navy"></i> Ativo
+                    @else
+                        <i class="fa fa-circle text-danger"></i> Inativo
+                    @endif
 
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button class="btn btn-white btn-block" data-toggle="modal" data-target="#editar-configuracoes"><i class="fa fa-cogs"></i> Cofigurações</button>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#editar-senha"><i class="fa fa-key"></i> Alterar Senha</button>
+                    <p class="font-bold">{{$user->email}}</p>
+                    <p class=""><b>Cargo:</b> {{$user->person->department->name}} / {{$user->person->occupation->name}}</p>
+                    <p class=""><b>Previlégio:</b> {{$user->roles->first()->name}}</p>
+                    <p class=""><b>Ultimo login:</b> {{ $user->lastLoginAt() ? $user->lastLoginAt()->format('d/m/Y H:i') : '' }}</p>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="text-center">
+
+                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editar"><i class="fa fa-edit"></i> </button>
+                        <button class="btn btn-white btn-sm" data-toggle="modal" data-target="#editar-configuracoes"><i class="fa fa-cogs"></i> </button>
+                        <a href="{{route('user_permissions', ['id' => $user->uuid])}}" class="btn btn-white btn-sm"><i class="fa fa-key"></i> Permissões</a>
+                        <button class="btn btn-white btn-sm" data-toggle="modal" data-target="#editar-senha"><i class="fa fa-key"></i> Alterar Senha</button>
+
                     </div>
                 </div>
+              </div>
             </div>
             <div class="col-lg-4 col-md-8 col-sm-8">
                 <div class="ibox float-e-margins">
@@ -113,62 +95,10 @@
             <div class="col-lg-4">
               <div class="ibox float-e-margins">
                   <div class="ibox-title">
-                      <h5>Tarefas</h5>
-                      <div class="ibox-tools">
-                          <a href="{{route('task_create')}}" class="btn btn-white btn-xs">Criar Tarefa</a>
-                      </div>
+                      <h5>Informações</h5>
                   </div>
                   <div class="ibox-content">
-                      <div class="project-list">
-                        @if($tasks->isNotEmpty())
-                        <table class="table table-hover">
-                            <tbody>
-                            @foreach ($tasks as $task)
 
-                            @if($task->is_model)
-                              @continue
-                            @endif
-
-                                <tr>
-                                    <td class="project-title">
-                                        <a href="{{route('task', ['id' => $task->id])}}">{{$task->description}}</a>
-                                        <br/>
-                                        <small>Criada em {{$task->created_at->format('d/m/Y H:i')}}</small>
-                                    </td>
-                                    <td class="project-completion hidden-xs">
-                                        <small>GUT:  <b>
-                                          <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->severity); !!}">{{$task->severity}}</span>
-                                          <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->urgency); !!}">{{$task->urgency}}</span>
-                                          <span class="label label-{!! App\Http\Controllers\TaskController::getColorFromValue($task->trend); !!}">{{$task->trend}}</span>
-                                        </b></small>
-                                    </td>
-                                    <td class="project-completion">
-                                        <small>Situação  <b>{{$task->status->name}}</b></small>
-                                        <div class="progress progress-mini">
-                                            <div style="width:
-                                            @if ($task->status_id == 1) 0%
-                                            @elseif ($task->status_id == 2) 50%
-                                            @elseif ($task->status_id == 3 || $task->status_id == 4) 100%
-                                            @endif;" class="progress-bar
-                                            @if ($task->status_id == 2) progress-bar-warning
-                                            @elseif ($task->status_id == 4) progress-bar-danger
-                                            @endif;"></div>
-                                        </div>
-                                    </td>
-                                    <td class="project-actions">
-                                        <a href="{{route('task', ['id' => $task->id])}}" class="btn btn-white btn-sm"> Visualizar </a>
-                                    </td>
-                                </tr>
-
-                            @endforeach
-                            </tbody>
-                        </table>
-                        @else
-                            <div class="alert alert-warning">
-                                Nenhuma tarefa delegada à você até o momento.
-                            </div>
-                        @endif
-                      </div>
                   </div>
               </div>
 
@@ -183,10 +113,11 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Editar Informações</h4>
                 </div>
-                <form action="{{route('user_update', ['id' => $user->id])}}" method="post">
+                <form enctype="multipart/form-data" action="{{route('user_update', ['id' => $user->id])}}" method="post">
                     {{csrf_field()}}
                     <div class="modal-body">
                         <div class="form-group"><label>Seu Nome</label> <input type="text" name="name" placeholder="Informe seu Nome" value="{{$user->person->name}}" class="form-control" required></div>
+                        <div class="form-group"><label>Avatar</label> <input type="file" name="avatar" class="form-control" accept="image/*"/></div>
                         <div class="form-group"><label>E-mail</label> <input type="email" readonly name="email" placeholder="Informe seu E-mail" value="{{$user->email}}" class="form-control"></div>
                         <div class="form-group"><label>CPF</label> <input type="text" name="cpf" placeholder="Informe seu CPF" value="{{$user->person->cpf}}" class="form-control inputCpf" required></div>
                         @php
@@ -282,9 +213,10 @@
 
                           <div class="form-group col-sm-12 {!! $errors->has('roles') ? 'has-error' : '' !!}"><label>Acesso</label>
 
-                                <select id="role" name="roles" required="required" class="form-control">
-                                    <option value="User">Usuario</option>
-                                    <option value="Admin">Administrador</option>
+                                <select id="role" name="roles" required="required" class="selectpicker show-tick" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%">
+                                  @foreach($roles as $role)
+                                    <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
+                                  @endforeach
                                 </select>
                                 {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
 

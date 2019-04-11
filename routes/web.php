@@ -102,6 +102,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
   Route::get('mapping/{id}/task/{task}/remove', 'MapperController@removeTaskStore')->name('mapper_remove_task');
   Route::post('mapping/{id}/start', 'MapperController@start')->name('mapping_start');
 
+  Route::resource('users', 'UsersController');
+
   Route::get('users', 'UsersController@index')->name('users');
   Route::get('profile', 'UsersController@show')->name('user');
 

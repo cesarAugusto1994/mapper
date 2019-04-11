@@ -64,6 +64,7 @@ class CreateUsersTable extends Migration
             $table->string('nick');
             $table->string('email')->unique();
             $table->string('password');
+            $table->enum('avatar_type', ['words', 'upload'])->default('words');
             $table->text('avatar')->nullable();
 
             $table->boolean('do_task')->default(true);

@@ -9,7 +9,7 @@
 	<title>{{ config('app.name') }} @section('title')</title>
 
 	<link href="{{ asset("admin/css/bootstrap.min.css ") }}" rel="stylesheet">
-	<link href="{{ asset("css/font-awesome.css ") }}" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" rel="stylesheet">
 	<link href="{{ asset("admin/css/plugins/toastr/toastr.min.css ") }}" rel="stylesheet">
 	<link href="{{ asset("admin/css/animate.css ") }}" rel="stylesheet">
 

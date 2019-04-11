@@ -22,7 +22,7 @@
 
         <div class="col-lg-2">
             @permission('create.clientes')
-                <a href="{{route('clients.create')}}" class="btn btn-primary btn-block dim m-t-lg">Novo Cliente</a>
+                <a href="{{route('clients.create')}}" class="btn btn-primary btn-block dim m-t-lg"><i class="fas fa-user-plus"></i> Novo Cliente</a>
             @endpermission
 
         </div>
@@ -35,30 +35,29 @@
 
                 <div class="col-lg-12">
 
-                  <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Opções</h5>
+                    <div class="ibox">
+                      <div class="ibox-title">
+                          <h5>Pesquisa</h5>
+                      </div>
+                      <div class="ibox-content">
 
+                        <form method="get" action="?">
+                          <div class="row">
+                              <div class="col-md-5"><input name="search" type="text" placeholder="ID, Nome, Documento, Email, ou Telefone" class="form-control"></div>
+                              <div class="col-md-2">
+                                <select class="form-control selectpicker show-tick" data-live-search="true" title="Situação" data-style="btn-white" data-width="100%" placeholder="Situação" name="status">
+                                    <option value="false">Inativo</option>
+                                    <option value="true">Ativo</option>
+                                </select>
+                              </div>
+                              <div class="col-md-3"><input name="address" type="text" placeholder="CEP, Endereço" class="form-control"></div>
+                              <div class="col-md-2"><button type="submit" class="btn btn-primary btn-block"><i class="fas fa-search"></i>  Buscar</button></div>
+
+                          </div>
+                        </form>
+
+                      </div>
                     </div>
-                    <div class="ibox-content">
-
-                      <form method="get" action="?">
-                        <div class="row">
-                            <div class="col-md-5"><input name="search" type="text" placeholder="ID, Nome, Documento, Email, ou Telefone" class="form-control"></div>
-                            <div class="col-md-2">
-                              <select class="form-control selectpicker show-tick" data-live-search="true" title="Situação" data-style="btn-white" data-width="100%" placeholder="Situação" name="status">
-                                  <option value="0">Inativo</option>
-                                  <option value="1">Ativo</option>
-                              </select>
-                            </div>
-                            <div class="col-md-4"><input name="address" type="text" placeholder="CEP, Endereço" class="form-control"></div>
-                            <div class="col-md-1"><button type="submit" class="btn btn-primary btn-block"> Buscar</button></div>
-
-                        </div>
-                      </form>
-
-                    </div>
-                  </div>
 
                     <div class="ibox">
                     <div class="ibox-title">
@@ -88,23 +87,23 @@
                                             <tr>
 
                                                 <td class="project-title">
-                                                    <a>{{$client->id}}</a>
+                                                    <a href="{{route('clients.show', ['id' => $client->uuid])}}">{{$client->id}}</a>
                                                 </td>
 
                                                 <td class="project-title">
-                                                    <a>{{$client->name}}</a>
+                                                    <a href="{{route('clients.show', ['id' => $client->uuid])}}">{{$client->name}}</a>
                                                 </td>
 
                                                 <td class="project-title">
-                                                    <a>{{$client->document}}</a>
+                                                    <a href="{{route('clients.show', ['id' => $client->uuid])}}">{{$client->document}}</a>
                                                 </td>
 
                                                 <td class="project-title">
-                                                    <a>{{$client->phone}}</a>
+                                                    <a href="{{route('clients.show', ['id' => $client->uuid])}}">{{$client->phone}}</a>
                                                 </td>
 
                                                 <td class="project-title">
-                                                    <a>{{$client->email}}</a>
+                                                    <a href="{{route('clients.show', ['id' => $client->uuid])}}">{{$client->email}}</a>
                                                 </td>
 
                                                 <td class="project-title">
@@ -118,17 +117,17 @@
                                                 <td class="project-actions">
 
                                                   @permission('view.clientes')
-                                                    <a href="{{route('clients.show', ['id' => $client->uuid])}}" class="btn btn-primary btn-outline"><i class="fa fa-info"></i> </a>
+                                                    <a href="{{route('clients.show', ['id' => $client->uuid])}}" class="btn btn-white"><i class="fa fa-info"></i> </a>
                                                   @endpermission
 
                                                   @permission('edit.clientes')
-                                                    <a href="{{route('clients.edit', ['id' => $client->uuid])}}" class="btn btn-white"><i class="fa fa-pencil"></i> </a>
+                                                    <a href="{{route('clients.edit', ['id' => $client->uuid])}}" class="btn btn-white"><i class="far fa-edit"></i> </a>
                                                   @endpermission
 
-                                                  <a href="{{route('client_addresses', $client->uuid)}}" class="btn btn-info btn-outline"><i class="fa fa-map-marker"></i> </a>
+                                                  <a href="{{route('client_addresses', $client->uuid)}}" class="btn btn-white"><i class="fas fa-map-marked-alt"></i> </a>
 
                                                   @permission('delete.clientes')
-                                                    <a data-route="{{route('clients.destroy', ['id' => $client->uuid])}}" class="btn btn-danger btn-outline btnRemoveItem"><i class="fa fa-close"></i> </a>
+                                                    <a data-route="{{route('clients.destroy', ['id' => $client->uuid])}}" class="btn btn-danger btn-outline btnRemoveItem"><i class="fas fa-user-times"></i> </a>
                                                   @endpermission
                                                 </td>
 
@@ -140,7 +139,16 @@
                                 {{ $clients->links() }}
 
                             @else
-                                <div class="alert alert-info text-center">Nenhum cliente registrado até o momento.</div>
+
+                                <div class="widget white-bg no-padding">
+                                    <div class="p-m text-center">
+                                        <h1 class="m-md"><i class="far fa-folder-open fa-4x"></i></h1>
+                                        <h3 class="font-bold no-margins">
+                                            Nenhum registro encontrado, para o parametros informados.
+                                        </h3>
+                                    </div>
+                                </div>
+
                             @endif
                         </div>
 

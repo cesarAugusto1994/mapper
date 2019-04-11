@@ -10,12 +10,12 @@
             <small>Parabéns, Voce Realizou {{ count($tasks) }} Tarefas. </small>
 
             @else
-              <p>Você não possui tarefas no momento.</p>
+
             @endif
         </div>
 
     </div>
-
+    <!--
     <div class="row">
 
         <div class="col-lg-3">
@@ -87,13 +87,14 @@
         </div>
 
     </div>
+  -->
 
     <div class="row">
 
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Recente</h5>
+                    <h5>Suas Atividades Recentes</h5>
                 </div>
                 @if($peddingTasks->isNotEmpty())
                 <div class="ibox-content ibox-heading">
@@ -122,11 +123,14 @@
                             </div>
                         </div>
                     </div>
+
                     @empty
                         <div class="alert alert-warning">
                             Voce não possui nenhum log até o momento>.
                         </div>
                     @endforelse
+
+                    <a class="btn btn-link">mais...</a>
                 </div>
             </div>
         </div>
@@ -135,27 +139,34 @@
           <div class="ibox">
             <div class="ibox-title">
                 <h5>Mural de Recados</h5>
-                @if(Auth::user()->isAdmin())
-                    <div class="ibox-tools">
-                        <a data-toggle="modal" data-target="#newTask" class="btn btn-white btn-xs">Nova Tarefa</a>
-                    </div>
-                @endif
             </div>
             <div class="ibox-content">
               <div class="feed-activity-list">
-                @foreach($messages as $message)
+                @forelse($messages as $message)
                   <div class="feed-element">
-                      <a class="float-left" href="profile.html">
-                          <img alt="image" class="rounded-circle" src="img/profile.jpg">
-                      </a>
-                      <div class="media-body ">
-                          <small class="float-right">5m ago</small>
-                          <strong>Monica Smith</strong> posted a new blog. <br>
-                          <small class="text-muted">Today 5:60 pm - 12.06.2014</small>
 
+                      <div class="media-body">
+                          <a class="" href="{{route('user')}}">
+                              <img alt="" class="img-circle rounded-circle" src="{{ route('image', ['user' => $message->user->uuid, 'link' => $message->user->avatar, 'avatar' => true])}}">
+                          </a>
+                          <small class="float-right">{{ $message->created_at->diffforHumans() }}</small><br>
+                          <strong>{{ $message->user->person->name }}</strong> adicionou um novo recado sobre: <a class="" href="{{ route('message-board.show', $message->uuid) }}">{{ $message->subject }}</a><br>
+                          <small class="text-muted">{{ $message->created_at->format('H:i:s d/m/Y') }}</small>
                       </div>
                   </div>
-                @endforeach
+
+                @empty
+
+                  <div class="widget white-bg no-padding">
+                      <div class="p-m text-center">
+                          <h1 class="m-md"><i class="far fa-envelope-open fa-4x"></i></h1>
+                          <h3 class="font-bold no-margins">
+                              Nenhum recado recebido até o momento.
+                          </h3>
+                      </div>
+                  </div>
+
+                @endforelse
                   <!--
                   <div class="feed-element">
                       <a class="float-left" href="profile.html">

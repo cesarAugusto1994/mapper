@@ -90,6 +90,10 @@ class Helper
 
     public static function getTagHmtlForModel($model, $subject)
     {
+        if(!$subject) {
+          return null;
+        }
+
         $itens = self::getRouteForModel($model, $subject);
 
         echo $itens['html'];

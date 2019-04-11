@@ -76,10 +76,10 @@
                                                 <td class="project-actions">
 
                                                     <a data-route="{{route('user_permissions_revoke', [$user->uuid, $permission->id])}}"
-                                                      class="btn btn-danger dim btnPermissionRevoke {{ !$hasPermission ? 'hidden' : '' }}" id="btnPermissionRevoke"><i class="fa fa-close"></i> </a>
+                                                      class="btn btn-danger dim btnPermissionRevoke {{ !$hasPermission ? 'hidden' : '' }}" id="btnPermissionRevoke"><i class="fas fa-ban"></i> </a>
 
                                                     <a data-route="{{route('user_permissions_grant', [$user->uuid, $permission->id])}}"
-                                                      class="btn btn-primary dim btnPermissionGrant {{ $hasPermission ? 'hidden' : '' }}" id="btnPermissionGrant"><i class="fa fa-check"></i>  </a>
+                                                      class="btn btn-primary dim btnPermissionGrant {{ $hasPermission ? 'hidden' : '' }}" id="btnPermissionGrant"><i class="fas fa-check"></i>  </a>
 
                                                 </td>
                                             </tr>
