@@ -46,17 +46,20 @@
                         <i class="fa fa-circle text-danger"></i> Inativo
                     @endif
 
+                    <br/><br/>
+
                     <p class="font-bold">{{$user->email}}</p>
+                    <p class=""><b>Nascimento:</b> {{$user->person->birthday->format('d/m/Y')}} ({{ \App\Helpers\Helper::idade($user->person) }})</p>
                     <p class=""><b>Cargo:</b> {{$user->person->department->name}} / {{$user->person->occupation->name}}</p>
                     <p class=""><b>Previlégio:</b> {{$user->roles->first()->name}}</p>
                     <p class=""><b>Ultimo login:</b> {{ $user->lastLoginAt() ? $user->lastLoginAt()->format('d/m/Y H:i') : '' }}</p>
 
                     <div class="text-center">
 
-                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editar"><i class="fa fa-edit"></i> </button>
-                        <button class="btn btn-white btn-sm" data-toggle="modal" data-target="#editar-configuracoes"><i class="fa fa-cogs"></i> </button>
-                        <a href="{{route('user_permissions', ['id' => $user->uuid])}}" class="btn btn-white btn-sm"><i class="fa fa-key"></i> Permissões</a>
-                        <button class="btn btn-white btn-sm" data-toggle="modal" data-target="#editar-senha"><i class="fa fa-key"></i> Alterar Senha</button>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#editar"><i class="fa fa-edit"></i> </button>
+                        <button class="btn btn-white" data-toggle="modal" data-target="#editar-configuracoes"><i class="fa fa-cogs"></i> </button>
+                        <a href="{{route('user_permissions', ['id' => $user->uuid])}}" class="btn btn-white"><i class="fa fa-key"></i> Permissões</a>
+                        <button class="btn btn-white" data-toggle="modal" data-target="#editar-senha"><i class="fa fa-key"></i> Alterar Senha</button>
 
                     </div>
                 </div>

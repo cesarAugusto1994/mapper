@@ -35,6 +35,7 @@ class UserTableSeeder extends Seeder
               'name' => 'Cesar Sousa',
               'department_id'=> 1,
               'occupation_id'=> 1,
+              'birthday' => $faker->dateTimeThisCentury->format('Y-m-d'),
               'cpf' => '12345678987'
             ]);
 
@@ -244,6 +245,8 @@ class UserTableSeeder extends Seeder
 
                 foreach ($users as $key => $userEmail) {
 
+                  $faker = Faker\Factory::create();
+
                   $userMail = User::where('email', '=', trim($userEmail))->first();
                   if ($userMail === null) {
 
@@ -257,6 +260,7 @@ class UserTableSeeder extends Seeder
 
                       $person = People::create([
                         'name' => $name,
+                        'birthday' => $faker->dateTimeThisCentury,
                         'department_id'=> 1,
                         'occupation_id'=> 1,
                         'cpf' => $faker->postcode

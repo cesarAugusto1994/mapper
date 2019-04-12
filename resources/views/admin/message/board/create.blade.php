@@ -61,7 +61,7 @@
 
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Departamento:</label>
                           <div class="col-sm-10">
-                            <select class="form-control select2" id="select-department" data-route="{{ route('departments_users_search') }}" name="departments[]" multiple="multiple" required>
+                            <select class="selectpicker show-tick with-ajax" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" id="select-department" data-route="{{ route('departments_users_search') }}" name="departments[]" multiple="multiple" required>
                               <option value="0">Todos Departamentos</option>
                               @foreach($departments as $department)
                                   <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -70,9 +70,10 @@
                           </div>
                       </div>
 
-                      <div class="form-group row"><label class="col-sm-2 col-form-label">Para:</label>
+                      <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Para:</label>
                           <div class="col-sm-10">
-                            <select class="form-control select2" id="select-user" name="to[]" multiple="multiple">
+                            <select class="selectpicker show-tick" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" id="select-user" name="to[]" multiple="multiple">
                               <option value="0">Todos Usuários</option>
                             </select>
                           </div>
@@ -80,7 +81,7 @@
 
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Tipo:</label>
                           <div class="col-sm-10">
-                            <select class="form-control select2" name="type_id" required>
+                            <select class="selectpicker show-tick" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" name="type_id" required>
                               @foreach($types as $type)
                                   <option value="{{ $type->id }}">{{ $type->name }}</option>
                               @endforeach
@@ -90,7 +91,7 @@
 
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Categorias:</label>
                           <div class="col-sm-10">
-                            <select class="form-control select2" name="categories[]" multiple="multiple" required>
+                            <select class="selectpicker show-tick" data-live-search="true" title="Selecione" data-style="btn-white" data-width="100%" name="categories[]" multiple="multiple" required>
                               @foreach($categories as $category)
                                   <option value="{{ $category->id }}">{{ $category->name }}</option>
                               @endforeach
@@ -103,12 +104,17 @@
                       </div>
 
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Anexos:</label>
-                          <div class="col-sm-10"><input name="files[]" type="file" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-text/plain, application/pdf, image/*" class="form-control" multiple/></div>
+
+                          <div class="col-sm-10"><input name="files[]" type="file"
+                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*"
+                            class="filestyle" multiple/>
+                          </div>
+
                       </div>
 
+
                       <div class="form-group row"><label class="col-sm-2 col-form-label">Importante:</label>
-                          <div class="col-sm-10"><input name="important" type="checkbox" class="" value=""></div>
+                          <div class="col-sm-10"><input name="important" type="checkbox" class="js-switch" value=""></div>
                       </div>
 
                       <div class="hr-line-dashed"></div>
@@ -117,9 +123,8 @@ text/plain, application/pdf, image/*" class="form-control" multiple/></div>
                             <textarea class="form-control summernote" name="content"></textarea>
                               <div class="clearfix"></div>
                             <div class="mail-body text-right tooltip-demo">
-                                <button type="submit" class="btn btn-sm btn-primary">Enviar</button>
-                                <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Discard email"><i class="fa fa-times"></i> Descartar</a>
-                                <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to draft folder"><i class="fa fa-pencil"></i> Rascunho</a>
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                <a href="{{ route('message-board.index') }}" class="btn btn-white" data-toggle="tooltip" data-placement="top" title="" data-original-title="Discard email"><i class="fa fa-times"></i> Descartar</a>
                             </div>
                         <div class="clearfix"></div>
                       </div>

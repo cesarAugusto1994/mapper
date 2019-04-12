@@ -3,7 +3,7 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element"> <span>
-                            <img alt="image" style="max-width:64px;max-height:64px" class="img-circle" src="{{ route('image', ['link' => \Auth::user()->avatar, 'avatar' => true])}}" />
+                            <img alt="" style="max-width:64px;max-height:64px" class="img-circle" src="{{ route('image', ['link' => \Auth::user()->avatar, 'avatar' => true])}}" />
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth()->user()->person->name }}</strong>

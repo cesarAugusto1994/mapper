@@ -78,7 +78,10 @@
                           <i class="fa fa-circle text-danger"></i> Inativo
                       @endif
 
+                      <br/><br/>
+
                       <p class="font-bold">{{$person->user->email}}</p>
+                      <p class=""><b>Nascimento:</b> {{$person->birthday->format('d/m/Y')}} ({{ \App\Helpers\Helper::idade($person) }})</p>
                       <p class=""><b>Cargo:</b> {{$person->department->name}} / {{$person->occupation->name}}</p>
                       <p class=""><b>Previlégio:</b> {{$person->user->roles->first()->name}}</p>
                       <p class=""><b>Ultimo login:</b> {{ $person->user->lastLoginAt() ? $person->user->lastLoginAt()->format('d/m/Y H:i') : '' }}</p>

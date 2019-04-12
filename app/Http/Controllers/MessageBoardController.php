@@ -91,24 +91,29 @@ class MessageBoardController extends Controller
         }
 
         $departments = $data['departments'];
-        $users = $data['to'];
+        $usersList = $data['to'];
 
-        if(in_array(0, $departments) && in_array(0, $users)) {
+        if(in_array(0, $departments) && in_array(0, $usersList)) {
 
             $users = \App\User::all();
 
-        } elseif (in_array(0, $departments) && !in_array(0, $users)) {
+        } elseif (in_array(0, $departments) && !in_array(0, $usersList)) {
 
-            $users = \App\User::whereIn('id', $users)->get();
+            $users = \App\User::whereIn('id', $usersList)->get();
 
-        } elseif (!in_array(0, $departments)) {
+        } elseif (!in_array(0, $departments) && !in_array(0, $usersList)) {
+
+            $people = People::whereIn('department_id', $departments)->pluck('id');
+            $users = \App\User::whereIn('id', $usersList)->get();
+
+        } elseif (!in_array(0, $departments) && in_array(0, $usersList)) {
 
             $people = People::whereIn('department_id', $departments)->pluck('id');
             $users = \App\User::whereIn('id', $people)->get();
 
         } else {
 
-            $users = \App\User::whereIn('id', $users)->get();
+            $users = \App\User::whereIn('id', $usersList)->get();
 
         }
 

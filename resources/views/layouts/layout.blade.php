@@ -230,6 +230,8 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/1.2.3/bootstrap-filestyle.min.js"></script>
+
 	<script>
 
 		$(document).ready(function() {
@@ -251,6 +253,8 @@
 			  var switchery = new Switchery(html);
 			});
 
+			//$(".filestyle").filestyle({buttonText: "Find file"});
+
 		});
 
 		$('.inputDate').mask('00/00/0000');
@@ -260,37 +264,38 @@
   	$('.inputCnpj').mask('00.000.000/0000-00', {reverse: true});
 		$('.inputMoney').mask('000.000.000.000.000,00', {reverse: true});
 
-	  $("#select-department").change(function() {
+		$('#select-department').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
 
-			var self = $(this);
-			var selectedDepartment = $("#select-department").select2("val");
+						var self = $(this);
+						var selectedDepartment = $("#select-department").val();
 
-      selectedDepartment = 'id='+ selectedDepartment;
+						selectedDepartment = 'id='+ selectedDepartment;
 
-			$("#select-user").html("");
+						$("#select-user").html("");
 
-			$.ajax({
-					type: 'GET',
-					url: $("#select-department").data('route'),
-					dataType: 'html',
-					data: selectedDepartment,
-					}).done( function( data ) {
+						$.ajax({
+								type: 'GET',
+								url: $("#select-department").data('route'),
+								dataType: 'html',
+								data: selectedDepartment,
+								}).done( function( data ) {
+										data = JSON.parse(data);
 
-									console.log(data);
+										data = $.map(data.data, function(item) {
+											if(item) {
+												return { item };
+											}
 
-									data = JSON.parse(data);
+										});
 
-								 	data = $.map(data.data, function(item) {
+										console.log(data);
 
-											return { id: item.id, text: item.name };
-									});
-									$('#select-user').select2({
-											data: data,
-									});
+										$('#select-user').selectpicker('val', data);
+										$('#select-user').selectpicker('refresh');
+								});
+		});
 
-									$('#select-user').trigger('change');
-					});
-	  });
+
 
 		$('.inputDate').datepicker({
 	    format: "dd/mm/yyyy",
@@ -353,6 +358,8 @@
 @endif
 
 	<script>
+
+	$(".filestyle").filestyle({buttonText: "Escolher Arquivos", buttonName: "btn btn-primary", input: false, 'placeholder': 'My file text'});
 
 	$('.page-loading').removeClass('sk-loading');
 
@@ -501,8 +508,6 @@
 
 
 			});
-
-
 
 	</script>
 

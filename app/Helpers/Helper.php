@@ -5,6 +5,7 @@ namespace App\Helpers;
 use Auth;
 use Session;
 use App\Models\Training\{Course};
+use App\Models\People;
 
 /**
  *
@@ -103,4 +104,13 @@ class Helper
 
         echo $itens['html'];
     }
+
+    public static function idade(People $person)
+    {
+        $date = $person->birthday;
+        $interval = $date->diff(now());
+
+        return $interval->format( '%y Anos' );
+    }
+
 }
